@@ -1,0 +1,32 @@
+//
+// Created by Julian on 18.09.18.
+//
+
+#include <ros_bridge_client/msgs/{ros_msg_type}/{header_name}.h>
+#include <ros_bridge_client/utils/response_converter.h>
+
+using namespace ros_bridge_client::msgs::{ros_msg_type};
+
+{class_name}::{class_name}()
+    : MessageBase("{ros_msg_type}/{ros_msg_name}"), d("")
+{{}}
+
+{class_name}::{class_name}(std::string d)
+    : MessageBase("{ros_msg_type}/{ros_msg_name}"), d("")
+{{}}
+
+{class_name}::{class_name}(const web::json::value &response)
+    : MessageBase("{ros_msg_type}/{ros_msg_name}")
+{{
+  d = utils::ResponseConverter::responseTo{class_name}(response, false);
+}}
+
+std::ostream& operator <<(std::ostream &os, const {class_name} &p)
+{{
+  return os;
+}}
+
+std::ostream& operator<<(std::ostream &os, std::shared_ptr<{class_name}> p)
+{{
+  return os << *p.get();
+}}

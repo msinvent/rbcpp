@@ -1,0 +1,125 @@
+//
+// Created by Julian on 20.10.18.
+//
+
+#include <ros_bridge_client/utils/json_creator.h>
+
+using namespace ros_bridge_client::utils;
+using namespace ros_bridge_client::msgs;
+using namespace web;
+
+JsonCreator::JsonCreator()
+  : json_()
+{
+  json_[U("op")] = json::value::string("publish");
+  json_[U("topic")] = json::value::string("/rosbridge/message");
+}
+
+web::json::value &JsonCreator::completeJson(const MessageBase &msg, const web::json::value &sub_json)
+{
+  json_[U("type")] = json::value::string(msg.rosMsgType());
+  json_[U("msg")]  = sub_json;
+  return json_;
+}
+
+const json::value &JsonCreator::json() const
+{
+  return json_;
+}
+
+web::json::value &JsonCreator::toJson(const geometry_msgs::Quaternion &quaternion, bool sub_json)
+{
+  static web::json::value json_quaternion;
+  json_quaternion[U("x")] = quaternion.x;
+  json_quaternion[U("y")] = quaternion.y;
+  json_quaternion[U("z")] = quaternion.z;
+  json_quaternion[U("w")] = quaternion.w;
+
+  return not sub_json ? completeJson(quaternion, json_quaternion) : json_quaternion;
+}
+
+web::json::value &JsonCreator::toJson(const std_msgs::Header &header, bool sub_json)
+{
+  static web::json::value header_json;
+  header_json[U("seq")] = json::value(header.seq);
+
+  json::value json_stamp;
+  json_stamp[U("sec")] = json::value(header.stamp.sec);
+  json_stamp[U("nsec")] = json::value(header.stamp.nsec);
+
+  header_json[U("stamp")] = json_stamp;
+  header_json[U("frame_id")] = json::value::string(header.frame_id);
+
+  return not sub_json ? completeJson(header, header_json) : header_json;
+}
+
+web::json::value &JsonCreator::toJson(const geometry_msgs::PointStamped &point_stamped, bool sub_json)
+{
+  static json::value point_stamped_json;
+
+  point_stamped_json[U("header")] = toJson(point_stamped.header, true);
+  point_stamped_json[U("point")] = toJson(point_stamped.point, true);
+
+  return not sub_json ? completeJson(point_stamped, point_stamped_json) : point_stamped_json;
+}
+
+web::json::value &JsonCreator::toJson(const geometry_msgs::Vector3Stamped &vector3_stamped, bool sub_json)
+{
+  static json::value vector3_stamped_json;
+
+  vector3_stamped_json[U("header")] = toJson(vector3_stamped.header, true);
+  vector3_stamped_json[U("vector")] = toJson(vector3_stamped.vector, true);
+
+  return not sub_json ? completeJson(vector3_stamped, vector3_stamped_json) : vector3_stamped_json;
+}
+
+web::json::value &JsonCreator::toJson(const geometry_msgs::QuaternionStamped &quaternion_stamped, bool sub_json)
+{
+  static json::value quaternion_stamped_json;
+
+  quaternion_stamped_json[U("header")] = toJson(quaternion_stamped.header, true);
+  quaternion_stamped_json[U("quaternion")] = toJson(quaternion_stamped.quaternion, true);
+
+  return not sub_json ? completeJson(quaternion_stamped, quaternion_stamped_json) : quaternion_stamped_json;
+}
+
+web::json::value &JsonCreator::toJson(const geometry_msgs::Pose &pose, bool sub_json)
+{
+  static json::value pose_json;
+
+  pose_json[U("position")] = toJson(pose.point, true);
+  pose_json[U("orientation")] = toJson(pose.quaternion, true);
+
+  return not sub_json ? completeJson(pose, pose_json) : pose_json;
+}
+
+web::json::value &JsonCreator::toJson(const geometry_msgs::PoseStamped &pose_stamped, bool sub_json)
+{
+  static json::value pose_stamped_json;
+
+  pose_stamped_json[U("header")] = toJson(pose_stamped.header, true);
+  pose_stamped_json[U("pose")] = toJson(pose_stamped.pose, true);
+
+  return not sub_json ? completeJson(pose_stamped, pose_stamped_json) : pose_stamped_json;
+}
+
+web::json::value &JsonCreator::toJson(const geometry_msgs::Accel &accel, bool sub_json)
+{
+  static json::value accel_json;
+  
+  accel_json[U("linear")] = toJson(accel.linear, true);
+  accel_json[U("angular")] = toJson(accel.angular, true);
+
+  return not sub_json ? completeJson(accel, accel_json) : accel_json;
+
+}
+
+web::json::value &JsonCreator::toJson(const geometry_msgs::AccelStamped &accel_stamped, bool sub_json)
+{
+  static json::value accel_stamped_json;
+
+  accel_stamped_json[U("header")] = toJson(accel_stamped.header, true);
+  accel_stamped_json[U("accel")] = toJson(accel_stamped.accel, true);
+
+  return not sub_json ? completeJson(accel_stamped, accel_stamped_json) : accel_stamped_json;
+}

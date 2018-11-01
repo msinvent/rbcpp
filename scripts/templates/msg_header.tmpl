@@ -1,0 +1,35 @@
+//
+// Created by Julian on 18.09.18.
+//
+
+#ifndef ROSBRIDGECLIENT_{guard}_HPP
+#define ROSBRIDGECLIENT_{guard}_HPP
+
+#include <cpprest/json.h>
+#include <ros_bridge_client/msgs/message_base.h>
+#include <memory>
+#include <iostream>
+
+namespace ros_bridge_client
+{{
+namespace msgs
+{{
+namespace {ros_msg_type}
+{{
+
+struct {class_name} : public MessageBase
+{{
+  {class_name}();
+  {class_name}(std::string d);
+  explicit {class_name}(const web::json::value &response);
+  ~{class_name}() override = default;
+}};
+
+}} // namespace {ros_msg_type}
+}} // namespace msgs
+}} // namespace ros_bridge_client
+
+std::ostream& operator<<(std::ostream &os, const ros_bridge_client::msgs::{ros_msg_type}::{class_name} &p);
+std::ostream& operator<<(std::ostream &os, std::shared_ptr<ros_bridge_client::msgs::{ros_msg_type}::{class_name}> p);
+
+#endif //ROSBRIDGECLIENT_{guard}_HPP

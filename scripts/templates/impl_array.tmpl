@@ -1,0 +1,33 @@
+//
+// Created by Julian
+//
+
+#include <ros_bridge_client/msgs/{ros_msg_type}/{header_name}.h>
+#include <ros_bridge_client/msgs/{ros_msg_type}/{array_ros_type_lower}_message.h>
+
+using namespace ros_bridge_client::msgs::{ros_msg_type};
+using namespace web;
+
+{class_name}::{class_name}()
+  : RBCArrayMessage("{array_descriptor}"),
+    array_descriptor("{array_descriptor}"),
+    ros_msg_type("{ros_msg_type}/{ros_msg_name}")
+{{
+  json[U("type")] = json::value::string(ros_msg_type);
+  json[U("msg")] = createJsonMsg();
+}}
+
+json::value {class_name}::createJsonMsg() const
+{{
+  json::value {ros_msg_type}_json;
+  return {ros_msg_type}_json;
+}}
+
+void {class_name}::add(const ros_bridge_client::ros_types::{array_ros_type} &{array_ros_type_lower})
+{{
+  using namespace ros_bridge_client::msgs::geometry_msgs;
+  {array_ros_type}Message {array_ros_type_lower}_message({array_ros_type_lower});
+
+  auto &current_cells = json.at(U("msg")).at(U(array_descriptor)).as_array();
+  current_cells[next_index()] = {array_ros_type_lower}_message.getJsonAt("msg");
+}}

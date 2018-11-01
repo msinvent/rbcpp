@@ -1,0 +1,29 @@
+//
+// Created by Julian
+//
+
+#ifndef ROSBRIDGECLIENT_{guard}_HPP
+#define ROSBRIDGECLIENT_{guard}_HPP
+
+#include <ros_bridge_client/msgs/rbc_message.h>
+#include <ros_bridge_client/msgs/{ros_msg_type}/{base_class_header_name}.h>
+
+namespace ros_bridge_client::msgs::{ros_msg_type}
+{{
+
+class {class_name} : public {base_class}
+{{
+public:
+  {class_name}() = delete;
+  {class_name}(std::string frame_id = "world");
+  ~{class_name}() final = default;
+
+private:
+  const std::string ros_msg_type;
+  const std::string frame_id;
+  web::json::value createJsonMsg() const final;
+}};
+}} // namespace ros_bridge_client::msgs::{ros_msg_type}
+
+
+#endif //ROSBRIDGECLIENT_{guard}_HPP

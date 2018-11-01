@@ -1,0 +1,29 @@
+//
+// Created by Julian
+//
+
+#include <ros_bridge_client/msgs/{ros_msg_type}/{header_name}.h>
+#include <ros_bridge_client/msgs/std_msgs/header_message.h>
+
+using namespace ros_bridge_client::msgs::{ros_msg_type};
+using namespace web;
+
+{class_name}::{class_name}(std::string frame_id)
+  : ros_msg_type("{ros_msg_type}/{ros_msg_name}"),
+    frame_id(frame_id)
+{{
+  json[U("type")] = json::value::string(ros_msg_type);
+  json[U("msg")] = createJsonMsg();
+}}
+
+json::value {class_name}::createJsonMsg() const
+{{
+  json::value {header_name}_json;
+
+  using namespace ros_bridge_client::msgs::std_msgs;
+  HeaderMessage header_message(frame_id);
+  {header_name}_json[U("header")] = header_message.getJsonAt("msg");
+  {header_name}_json[U("TODO")] = RBCMessage::getJsonAt("msg");
+
+  return {header_name}_json;
+}}

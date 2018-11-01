@@ -1,0 +1,30 @@
+//
+// Created by Julian
+//
+
+#ifndef ROSBRIDGECLIENT_{guard}_HPP
+#define ROSBRIDGECLIENT_{guard}_HPP
+
+#include <ros_bridge_client/msgs/rbc_array_message.h>
+#include <ros_bridge_client/ros_types/ros_types.h>
+
+namespace ros_bridge_client::msgs::{ros_msg_type}
+{{
+
+class {class_name} : public RBCArrayMessage
+{{
+public:
+  {class_name}();
+  ~{class_name}() {inher} = default;
+
+  void add(const ros_bridge_client::ros_types::{array_ros_type} &{array_ros_type});
+
+private:
+  const std::string ros_msg_type;
+  const std::string array_descriptor;
+  web::json::value createJsonMsg() const {inher};
+}};
+}} // namespace ros_bridge_client::msgs::{ros_msg_type}
+
+
+#endif //ROSBRIDGECLIENT_{guard}_HPP

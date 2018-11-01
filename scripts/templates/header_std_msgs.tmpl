@@ -1,0 +1,23 @@
+//
+// Created by Julian on 14.10.18.
+//
+
+#ifndef ROSBRIDGECLIENT_{guard}_H
+#define ROSBRIDGECLIENT_{guard}_H
+
+#include <ros_bridge_client/msgs/std_msgs/std_message.h>
+#include <tiff.h>
+
+namespace ros_bridge_client::msgs::std_msgs
+{{
+
+class {class_name} : public StdMessage<{type}>
+{{
+public:
+  {class_name}() = delete;
+  explicit {class_name}({type} data);
+  ~{class_name}() final = default;
+}};
+}} // namespace
+
+#endif //ROSBRIDGECLIENT_UINT32_MESSAGE_H

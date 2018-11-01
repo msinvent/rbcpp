@@ -1,0 +1,25 @@
+//
+// Created by Julian on 14.10.18.
+//
+
+#ifndef ROSBRIDGECLIENT_{guard}_H
+#define ROSBRIDGECLIENT_{guard}_H
+
+#include <ros_bridge_client/subscriber/private/rbc_subscriber.h>
+#include <ros_bridge_client/msgs/{ros_msg_type}/{ros_msg_name_lower}_message.h>
+
+namespace ros_bridge_client::subscriber
+{{
+
+class {class_name} : public RBCSubscriber<{type}>
+{{
+public:
+  {class_name}() = delete;
+  {class_name}(ROSBridgeClient &wsc, std::string topic, size_t buffer_size = 100);
+  ~{class_name}() final = default;
+
+  void addMessage(const web::json::value &json_msg) final;
+}};
+}} // namespace ros_bridge_client::subscriber
+
+#endif //ROSBRIDGECLIENT_{guard}_H

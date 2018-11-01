@@ -1,0 +1,8 @@
+generate/*_message.*
+generate/*_subscribers.h
+generate/*_subscribers.cxx
+cmake-build-debug
+build
+.idea
+doc/
+.DS_Store

@@ -15,7 +15,3 @@ const std::string &MessageBase::rosMsgType() const
 {
   return ros_msg_type;
 }
-
-MessageBase::MessageBase()
-  : ros_msg_type("std_msgs/String")
-{}

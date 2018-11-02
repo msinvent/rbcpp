@@ -48,6 +48,7 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/point32.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/vector3.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/inertia.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/quaternion.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/point_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/accel_stamped.cxx"

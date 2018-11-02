@@ -12,6 +12,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/pose.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
+#include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
@@ -37,7 +38,7 @@ public:
 
   const web::json::value &json() const;
 
-  template <typename T>
+  template<typename T>
   web::json::value &toJson(const msgs::XYZMessage<T> &xyz, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::PointStamped &point_stamped, bool sub_json = false);
@@ -45,6 +46,8 @@ public:
   web::json::value &toJson(const msgs::geometry_msgs::Pose &pose, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::Accel &accel, bool sub_json = false);
+
+  web::json::value &toJson(const msgs::geometry_msgs::Inertia &inertia, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::AccelStamped &accel_stamped, bool sub_json = false);
 
@@ -61,7 +64,7 @@ public:
   web::json::value &completeJson(const msgs::MessageBase &msg, const web::json::value &sub_json);
 };
 
-template <typename T>
+template<typename T>
 web::json::value &JsonCreator::toJson(const msgs::XYZMessage<T> &xyz, bool sub_json)
 {
   static web::json::value json_xyz;

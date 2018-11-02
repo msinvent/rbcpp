@@ -11,18 +11,18 @@ using namespace ros_bridge_client::msgs;
 PointTuple ResponseConverter::responseToPoint(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  const auto &x = msg.at(U("x")).as_double();
-  const auto &y = msg.at(U("y")).as_double();
-  const auto &z = msg.at(U("z")).as_double();
+  const double &x = msg.at(U("x")).as_double();
+  const double &y = msg.at(U("y")).as_double();
+  const double &z = msg.at(U("z")).as_double();
   return std::forward_as_tuple(x, y, z);
 }
 
 Point32Tuple ResponseConverter::responseToPoint32(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  const auto &x = static_cast<float>(msg.at(U("x")).as_double());
-  const auto &y = static_cast<float>(msg.at(U("y")).as_double());
-  const auto &z = static_cast<float>(msg.at(U("z")).as_double());
+  const double &x = static_cast<float>(msg.at(U("x")).as_double());
+  const double &y = static_cast<float>(msg.at(U("y")).as_double());
+  const double &z = static_cast<float>(msg.at(U("z")).as_double());
   return std::forward_as_tuple(x, y, z);
 }
 
@@ -30,10 +30,10 @@ Point32Tuple ResponseConverter::responseToPoint32(const web::json::value &respon
 HeaderTuple ResponseConverter::responseToHeader(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  const auto &seq = msg.at(U("seq")).as_double();
-  const auto &stamp_sec = msg.at(U("stamp")).at(U("secs")).as_double();
-  const auto &stamp_nsec = msg.at(U("stamp")).at(U("nsecs")).as_double();
-  const auto &frame = msg.at(U("frame_id")).as_string();
+  const double &seq = msg.at(U("seq")).as_double();
+  const double &stamp_sec = msg.at(U("stamp")).at(U("secs")).as_double();
+  const double &stamp_nsec = msg.at(U("stamp")).at(U("nsecs")).as_double();
+  const std::string &frame = msg.at(U("frame_id")).as_string();
   return std::forward_as_tuple(seq, stamp_sec, stamp_nsec, frame);
 }
 
@@ -45,9 +45,24 @@ PointTuple ResponseConverter::responseToVector3(const web::json::value &response
 QuaternionTuple ResponseConverter::responseToQuaternion(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  const auto &x = msg.at(U("x")).as_double();
-  const auto &y = msg.at(U("y")).as_double();
-  const auto &z = msg.at(U("z")).as_double();
-  const auto &w = msg.at(U("w")).as_double();
+  const double &x = msg.at(U("x")).as_double();
+  const double &y = msg.at(U("y")).as_double();
+  const double &z = msg.at(U("z")).as_double();
+  const double &w = msg.at(U("w")).as_double();
   return std::forward_as_tuple(x, y, z, w);
+}
+
+InertiaTuple ResponseConverter::responseToInertia(const web::json::value &response, bool is_sub_json)
+{
+  const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
+
+  const double &m = msg.at(U("m")).as_double();
+  const double &ixx = msg.at(U("ixx")).as_double();
+  const double &ixy = msg.at(U("ixy")).as_double();
+  const double &ixz = msg.at(U("ixz")).as_double();
+  const double &iyy = msg.at(U("iyy")).as_double();
+  const double &iyz = msg.at(U("iyz")).as_double();
+  const double &izz = msg.at(U("izz")).as_double();
+
+  return std::forward_as_tuple(m, ixx, ixy, ixz, iyy, iyz, izz);
 }

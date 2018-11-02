@@ -19,6 +19,7 @@ namespace utils
 {
 
 using PointTuple = std::tuple<double, double, double>;
+using InertiaTuple = std::tuple<double, double, double, double, double, double, double>;
 using PoseTuple = std::tuple<msgs::geometry_msgs::Point, msgs::geometry_msgs::Quaternion>;
 using Point32Tuple = std::tuple<float, float, float>;
 using QuaternionTuple = std::tuple<double, double, double, double>;
@@ -27,6 +28,8 @@ using HeaderTuple = std::tuple<double, double, double, std::string>;
 struct ResponseConverter
 {
   static PointTuple responseToPoint(const web::json::value &response, bool is_sub_json = false);
+
+  static InertiaTuple responseToInertia(const web::json::value &response, bool is_sub_json = false);
 
   static Point32Tuple responseToPoint32(const web::json::value &response, bool is_sub_json = false);
 

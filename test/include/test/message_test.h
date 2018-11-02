@@ -711,6 +711,7 @@ struct AccelStampedTest : public Test
     return messageToString<geometry_msgs::AccelStamped>(msg);
   }
 };
+
 //
 //struct TwistTest : public Test
 //{
@@ -921,25 +922,26 @@ struct AccelStampedTest : public Test
 //  }
 //};
 //
-//struct InertiaTest : public Test
-//{
-//  InertiaTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("InertiaTest")[0]),
-//        test2(dataframe.data.at("InertiaTest")[1])
-//  {}
-//
-//  ~InertiaTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string
-//  getMessage(double m, Vector3 &com, double ixx, double ixy, double ixz, double iyy, double iyz, double izz) const
-//  {
-//    geometry_msgs::InertiaTest msg(m, com, ixx, ixy, ixz, iyy, iyz, izz);
-//    return messageToString(msg);
-//  }
-//};
+struct InertiaTest : public Test
+{
+  InertiaTest(const DataFrame &dataframe)
+    : test1(dataframe.data.at("InertiaTest")[0]),
+      test2(dataframe.data.at("InertiaTest")[1])
+  {}
+
+  ~InertiaTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string
+  getMessage(double m, geometry_msgs::Vector3 &com, double ixx, double ixy, double ixz, double iyy, double iyz,
+             double izz) const
+  {
+    geometry_msgs::Inertia msg(m, com, ixx, ixy, ixz, iyy, iyz, izz);
+    return messageToString<geometry_msgs::Inertia>(msg);
+  }
+};
 //
 //struct InertiaStampedTest : public Test
 //{

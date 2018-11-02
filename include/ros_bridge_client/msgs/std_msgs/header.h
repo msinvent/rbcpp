@@ -30,6 +30,9 @@ struct Header : public MessageBase
   double seq;
   struct Stamp
   {
+    inline Stamp() : sec(0), nsec(0) {}
+    inline Stamp(double sec, double nsec) : sec(sec), nsec(nsec) {}
+    ~Stamp() = default;
     double sec;
     double nsec;
   } stamp;

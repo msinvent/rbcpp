@@ -23,6 +23,7 @@ test::PoseTest              pose_test(dataframe);
 test::AccelTest             accel_test(dataframe);
 test::Point32Test           point32_test(dataframe);
 test::Vector3Test           vector3_test(dataframe);
+test::InertiaTest           inertia_test(dataframe);
 //test::Point32Message            point32_messages(dataframe);
 test::PoseStampedTest       pose_stamped_test(dataframe);
 test::PointStampedTest      point_stamped_test(dataframe);
@@ -547,23 +548,23 @@ TEST_CASE("Accel Stamped test", "[accel_stamped_test]")
 //  }
 //}
 //
-//TEST_CASE("Inertia Messages test", "[inertia_messages]")
-//{
-//  {
-//    Vector3 vec;
-//    vec.x = 0.10;
-//    vec.y = 0.20;
-//    vec.z = 0.30;
-//    REQUIRE(inertia_messages.getMessage(.4, vec, .1, .2, .3, .4, .5, .6) == inertia_messages.test1);
-//  }
-//  {
-//    Vector3 vec;
-//    vec.x = 0.1;
-//    vec.y = 0.5;
-//    vec.z = 0.3;
-//    REQUIRE(inertia_messages.getMessage(.4, vec, .6, .5, .4, 3., .2, .1) == inertia_messages.test2);
-//  }
-//}
+TEST_CASE("Inertia test", "[inertia_test]")
+{
+  {
+    geometry_msgs::Vector3 vec;
+    vec.x = 0.10;
+    vec.y = 0.20;
+    vec.z = 0.30;
+    REQUIRE(inertia_test.getMessage(.4, vec, .1, .2, .3, .4, .5, .6) == inertia_test.test1);
+  }
+  {
+    geometry_msgs::Vector3 vec;
+    vec.x = 0.1;
+    vec.y = 0.5;
+    vec.z = 0.3;
+    REQUIRE(inertia_test.getMessage(.4, vec, .6, .5, .4, 3., .2, .1) == inertia_test.test2);
+  }
+}
 //
 //TEST_CASE("Inertia Stamped Messages test", "[inertia_stamped_messages]")
 //{

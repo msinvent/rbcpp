@@ -29,6 +29,8 @@ struct PoseStamped : public MessageBase
   
   explicit PoseStamped(const web::json::value &response);
   
+  ~PoseStamped() override = default;
+  
   std_msgs::Header header;
   Pose pose;
 };

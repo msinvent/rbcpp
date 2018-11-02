@@ -31,6 +31,8 @@ struct AccelStamped : public MessageBase
 
   explicit AccelStamped(const web::json::value &response);
 
+  ~AccelStamped() override = default;
+  
   std_msgs::Header header;
   Accel accel;
 };

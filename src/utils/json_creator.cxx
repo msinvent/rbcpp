@@ -15,7 +15,7 @@ JsonCreator::JsonCreator()
   json_[U("topic")] = json::value::string("/rosbridge/message");
 }
 
-web::json::value &JsonCreator::completeJson(const MessageBase &msg, const web::json::value &sub_json)
+json::value &JsonCreator::completeJson(const MessageBase &msg, const web::json::value &sub_json)
 {
   json_[U("type")] = json::value::string(msg.rosMsgType());
   json_[U("msg")]  = sub_json;
@@ -30,10 +30,10 @@ const json::value &JsonCreator::json() const
 web::json::value &JsonCreator::toJson(const geometry_msgs::Quaternion &quaternion, bool sub_json)
 {
   static web::json::value json_quaternion;
-  json_quaternion[U("x")] = quaternion.x;
-  json_quaternion[U("y")] = quaternion.y;
-  json_quaternion[U("z")] = quaternion.z;
-  json_quaternion[U("w")] = quaternion.w;
+  json_quaternion[U("x")] = json::value(quaternion.x);
+  json_quaternion[U("y")] = json::value(quaternion.y);
+  json_quaternion[U("z")] = json::value(quaternion.z);
+  json_quaternion[U("w")] = json::value(quaternion.w);
 
   return not sub_json ? completeJson(quaternion, json_quaternion) : json_quaternion;
 }
@@ -122,4 +122,21 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::AccelStamped &accel_s
   accel_stamped_json[U("accel")] = toJson(accel_stamped.accel, true);
 
   return not sub_json ? completeJson(accel_stamped, accel_stamped_json) : accel_stamped_json;
+}
+
+web::json::value &JsonCreator::toJson(const geometry_msgs::Inertia &inertia, bool sub_json)
+{
+  static json::value inertia_json;
+
+  inertia_json[U("m")]   = json::value(inertia.m);
+  inertia_json[U("ixx")] = json::value(inertia.ixx);
+  inertia_json[U("ixy")] = json::value(inertia.ixy);
+  inertia_json[U("ixz")] = json::value(inertia.ixz);
+  inertia_json[U("iyy")] = json::value(inertia.iyy);
+  inertia_json[U("iyz")] = json::value(inertia.iyz);
+  inertia_json[U("izz")] = json::value(inertia.izz);
+
+  inertia_json[U("com")] = toJson(inertia.com, true);
+
+  return not sub_json ? completeJson(inertia, inertia_json) : inertia_json;
 }

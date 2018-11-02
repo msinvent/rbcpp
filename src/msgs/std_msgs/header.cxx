@@ -9,25 +9,24 @@ using namespace ros_bridge_client::msgs::std_msgs;
 using namespace web;
 
 Header::Header()
-  : MessageBase("std_msgs/Header")
-{
-  frame_id = "world";
-  seq = 0;
-  stamp.sec = 0;
-  stamp.nsec = 0;
-}
+  : MessageBase("std_msgs/Header"),
+    seq(0),
+    stamp(0, 0),
+    frame_id("world")
+{}
 
 Header::Header(std::string frame_id)
   : MessageBase("std_msgs/Header"),
+    seq(0),
+    stamp(0, 0),
     frame_id(frame_id)
-{
-  seq = 0;
-  stamp.sec = 0;
-  stamp.nsec = 0;
-}
+{}
 
 Header::Header(const web::json::value &response)
-  : MessageBase("std_msgs/Header")
+  : MessageBase("std_msgs/Header"),
+    seq(0),
+    stamp(0, 0),
+    frame_id("world")
 {
   std::tie(seq, stamp.sec, stamp.nsec, frame_id) = utils::ResponseConverter::responseToHeader(response, false);
 }

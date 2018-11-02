@@ -32,6 +32,7 @@ Inertia::Inertia(const web::json::value &response)
     iyy(0), iyz(0), izz(0),
     com(0, 0, 0)
 {
-  std::tie(m, ixx, ixy, ixz, iyy, iyz, izz) = utils::ResponseConverter::responseToInertia(response);
-  std::tie(com.x, com.y, com.z) = utils::ResponseConverter::responseToVector3(response.at(U("com")), true);
+  const auto &msg = response.at(U("msg"));
+  std::tie(m, ixx, ixy, ixz, iyy, iyz, izz) = utils::ResponseConverter::responseToInertia(msg, true);
+  std::tie(com.x, com.y, com.z) = utils::ResponseConverter::responseToVector3(msg.at(U("com")), true);
 }

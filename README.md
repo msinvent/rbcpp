@@ -23,7 +23,7 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | accel with covariance | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | accel with covariance stamped  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | inertia  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
-|                 | inertia stamped  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | inertia stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | polygon | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | polygon stamped  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | transform  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |

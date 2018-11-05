@@ -24,6 +24,8 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | accel with covariance stamped  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | inertia  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | inertia stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | wrench  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | wrench stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | polygon | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | polygon stamped  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | transform  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
@@ -32,8 +34,6 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | twist stamped  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | twist with covariance  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | twist with covariance stamped  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | wrench  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | wrench stamped  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |**std_msgs**     | String  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | Header  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | Byte   | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |

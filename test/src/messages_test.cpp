@@ -25,6 +25,7 @@ test::Point32Test           point32_test(dataframe);
 test::Vector3Test           vector3_test(dataframe);
 test::WrenchTest            wrench_test(dataframe);
 test::InertiaTest           inertia_test(dataframe);
+test::TransformTest         transform_test(dataframe);
 //test::Point32Message            point32_messages(dataframe);
 test::PoseStampedTest       pose_stamped_test(dataframe);
 test::PointStampedTest      point_stamped_test(dataframe);
@@ -45,7 +46,7 @@ test::HeaderTest            header_test(dataframe);
 //test::TwistStampedMessage       twist_stamped_messages(dataframe);
 //test::GridCellsMessage          grid_cell_messages(dataframe);
 //test::PoseArrayMessage          pose_array_messages(dataframe);
-//test::TransformMessage          transform_messages(dataframe);
+//test::TransformMessage          transform_test(dataframe);
 //test::TransformStampedMessage   transform_stamped_messages(dataframe);
 //test::WrenchMessage             wrench_test(dataframe);
 //test::WrenchStampedMessage      wrench_stamped_test(dataframe);
@@ -405,33 +406,37 @@ TEST_CASE("Accel Stamped test", "[accel_stamped_test]")
 //  REQUIRE(grid_cell_messages.getMessage(.1, .2, "a_frame") == grid_cell_messages.test2);
 //}
 //
-//TEST_CASE("Transform Messages test", "[transform_messages]")
-//{
-//  {
-//    Vector3 translation;
-//    translation.x = 0.10;
-//    translation.y = 0.20;
-//    translation.z = 0.30;
-//    Quaternion rotation;
-//    rotation.x = 0.1;
-//    rotation.y = 0.2;
-//    rotation.z = 0.3;
-//    rotation.w = 1.0;
-//    REQUIRE(transform_messages.getMessage(translation, rotation) == transform_messages.test1);
-//  }
-//  {
-//    Vector3 translation;
-//    translation.x = 0.1;
-//    translation.y = 0.5;
-//    translation.z = 0.3;
-//    Quaternion rotation;
-//    rotation.x = 0.1;
-//    rotation.y = 0.2;
-//    rotation.z = 0.3;
-//    rotation.w = 1.0;
-//    REQUIRE(transform_messages.getMessage(translation, rotation) == transform_messages.test2);
-//  }
-//}
+TEST_CASE("Transform test", "[transform_test]")
+{
+  {
+    geometry_msgs::Vector3 translation;
+    translation.x = 0.10;
+    translation.y = 0.20;
+    translation.z = 0.30;
+    geometry_msgs::Quaternion rotation;
+    rotation.x = 0.1;
+    rotation.y = 0.2;
+    rotation.z = 0.3;
+    rotation.w = 1.0;
+    REQUIRE(transform_test.getMessage(translation, rotation) == transform_test.test1);
+
+    REQUIRE(transform_test.getMessage(0.10, 0.20, 0.30, 0.1, 0.2, 0.3, 1.0) == transform_test.test1);
+  }
+  {
+    geometry_msgs::Vector3 translation;
+    translation.x = 0.1;
+    translation.y = 0.5;
+    translation.z = 0.3;
+    geometry_msgs::Quaternion rotation;
+    rotation.x = 0.1;
+    rotation.y = 0.2;
+    rotation.z = 0.3;
+    rotation.w = 1.0;
+    REQUIRE(transform_test.getMessage(translation, rotation) == transform_test.test2);
+
+    REQUIRE(transform_test.getMessage(0.1, 0.5, 0.3, 0.1, 0.2, 0.3, 1.0) == transform_test.test2);
+  }
+}
 //
 //TEST_CASE("Transform Stamped Messages test", "[transform_stamped_messages]")
 //{

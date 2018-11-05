@@ -50,6 +50,7 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/wrench.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/vector3.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/inertia.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/transform.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/quaternion.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/point_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/accel_stamped.cxx"

@@ -11,6 +11,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
+#include <ros_bridge_client/msgs/geometry_msgs/transform.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
@@ -30,7 +31,7 @@ using namespace ros_bridge_client::msgs;
 
 
 std::atomic<size_t> messages_received;
-size_t num_publishers = 16;
+size_t num_publishers = 17;
 
 void hcallback(const std::shared_ptr<std_msgs::Header> msg)
 {
@@ -67,6 +68,18 @@ void acallback(const std::shared_ptr<geometry_msgs::Accel> msg)
   assert((msg->angular.x == .3));
   assert((msg->angular.y == .2));
   assert((msg->angular.z == .1));
+}
+
+void tcallback(const std::shared_ptr<geometry_msgs::Transform> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Transform]\n";
+  assert((msg->translation.x == .1));
+  assert((msg->translation.y == .2));
+  assert((msg->translation.z == .3));
+  assert((msg->rotation.x == .4));
+  assert((msg->rotation.y == .3));
+  assert((msg->rotation.z == .2));
+  assert((msg->rotation.w == .1));
 }
 
 void p32callback(const std::shared_ptr<geometry_msgs::Point32> msg)
@@ -205,7 +218,7 @@ int main()
 {
   size_t messages = 0;
 
-  std::chrono::milliseconds pause(500);
+  std::chrono::milliseconds pause(100);
   auto rbc = ROSBridgeClient::init("ws://127.0.0.1:9090");
 
   auto header_pub = rbc->addPublisher<std_msgs::Header>("/rosbridge/header/");
@@ -215,6 +228,7 @@ int main()
   auto pose_pub = rbc->addPublisher<geometry_msgs::Pose>("/rosbridge/pose/");
   auto point32_pub = rbc->addPublisher<geometry_msgs::Point32>("/rosbridge/point32/");
   auto inertia_pub = rbc->addPublisher<geometry_msgs::Inertia>("/rosbridge/inertia/");
+  auto transform_pub = rbc->addPublisher<geometry_msgs::Transform>("/rosbridge/transform/");
   auto inertia_stamped_pub = rbc->addPublisher<geometry_msgs::InertiaStamped>("/rosbridge/inertia_stamped/");
   auto point_stamped_pub = rbc->addPublisher<geometry_msgs::PointStamped>("/rosbridge/point_stamped/");
   auto accel_stamped_pub = rbc->addPublisher<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/");
@@ -233,6 +247,7 @@ int main()
   auto pose_sub = rbc->addSubscriber<geometry_msgs::Pose>("/rosbridge/pose/", 100, pocallback);
   auto point32_sub = rbc->addSubscriber<geometry_msgs::Point32>("/rosbridge/point32/", 100, p32callback);
   auto inertia_sub = rbc->addSubscriber<geometry_msgs::Inertia>("/rosbridge/inertia/", 100, icallback);
+  auto transform_sub = rbc->addSubscriber<geometry_msgs::Transform>("/rosbridge/transform/", 100, tcallback);
   auto inertia_stamped_sub = rbc->addSubscriber<geometry_msgs::InertiaStamped>("/rosbridge/inertia_stamped/", 100, iscallback);
   auto point_stamped_sub = rbc->addSubscriber<geometry_msgs::PointStamped>("/rosbridge/point_stamped/", 100, pscallback);
   auto accel_stamped_sub = rbc->addSubscriber<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/", 100, ascallback);
@@ -284,6 +299,9 @@ int main()
 
     geometry_msgs::QuaternionStamped qs(0.1, 0.2, 0.3, 0.4, "a frame");
     quaternion_stamped_pub->publish(qs);
+
+    geometry_msgs::Transform t(0.1, 0.2, 0.3, 0.4, 0.3, 0.2, 0.1);
+    transform_pub->publish(t);
 
     geometry_msgs::AccelStamped as(0.1, 0.2, 0.3, 0.3, 0.2, 0.1, "a frame");
     accel_stamped_pub->publish(as);

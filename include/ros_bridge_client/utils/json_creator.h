@@ -14,6 +14,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
+#include <ros_bridge_client/msgs/geometry_msgs/transform.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
@@ -70,6 +71,8 @@ public:
   web::json::value &toJson(const msgs::geometry_msgs::QuaternionStamped &quaternion_stamped, bool sub_json = false);
 
   web::json::value &toJson(const msgs::std_msgs::Header &header, bool sub_json = false);
+
+  web::json::value &toJson(const msgs::geometry_msgs::Transform &transform, bool sub_json = false);
 
   web::json::value &completeJson(const msgs::MessageBase &msg, const web::json::value &sub_json);
 };

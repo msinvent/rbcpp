@@ -170,3 +170,13 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::WrenchStamped &wrench
 
   return not sub_json ? completeJson(wrench_stamped, wrench_stamped_json) : wrench_stamped_json;
 }
+
+web::json::value &JsonCreator::toJson(const geometry_msgs::Transform &transform, bool sub_json)
+{
+  static json::value transform_stamped_json;
+
+  transform_stamped_json[U("translation")] = toJson(transform.translation, true);
+  transform_stamped_json[U("rotation")]    = toJson(transform.rotation, true);
+
+  return not sub_json ? completeJson(transform, transform_stamped_json) : transform_stamped_json;
+}

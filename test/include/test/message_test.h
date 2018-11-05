@@ -38,6 +38,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
+#include <ros_bridge_client/msgs/geometry_msgs/transform.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
@@ -68,53 +69,53 @@ using namespace ros_bridge_client::msgs;
 namespace test
 {
 
-struct DataFrame
-{
-  DataFrame() = delete;
+    struct DataFrame
+    {
+        DataFrame() = delete;
 
-  DataFrame(const test::CSVReader &reader)
-    : reader(reader),
-      data(reader.getData())
-  {}
+        DataFrame(const test::CSVReader &reader)
+            : reader(reader),
+              data(reader.getData())
+        {}
 
-  ~DataFrame() = default;
+        ~DataFrame() = default;
 
-  const test::CSVReader &reader;
-  const std::unordered_map<std::string, std::vector<std::string>> &data;
-};
+        const test::CSVReader &reader;
+        const std::unordered_map<std::string, std::vector<std::string>> &data;
+    };
 
-struct Test
-{
-  Test() = default;
+    struct Test
+    {
+        Test() = default;
 
-  virtual ~Test() = default;
+        virtual ~Test() = default;
 
-  template<typename T>
-  inline std::string messageToString(const T &t) const
-  {
-    Message<T> msg(t);
-    return msg.toString();
-  }
-};
+        template<typename T>
+        inline std::string messageToString(const T &t) const
+        {
+          Message<T> msg(t);
+          return msg.toString();
+        }
+    };
 
-struct HeaderTest : public Test
-{
-  explicit HeaderTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("HeaderTest")[0]),
-      test2(dataframe.data.at("HeaderTest")[1])
-  {}
+    struct HeaderTest : public Test
+    {
+        explicit HeaderTest(const DataFrame &dataframe)
+            : test1(dataframe.data.at("HeaderTest")[0]),
+              test2(dataframe.data.at("HeaderTest")[1])
+        {}
 
-  ~HeaderTest() final = default;
+        ~HeaderTest() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string getMessage(std::string frame_id = "world") const
-  {
-    std_msgs::Header msg(frame_id);
-    return messageToString<std_msgs::Header>(msg);
-  }
-};
+        inline std::string getMessage(std::string frame_id = "world") const
+        {
+          std_msgs::Header msg(frame_id);
+          return messageToString<std_msgs::Header>(msg);
+        }
+    };
 
 //
 //struct StringTest : public Test
@@ -314,189 +315,190 @@ struct HeaderTest : public Test
 //};
 //
 //
-struct Point32Test : public Test
-{
-  explicit Point32Test(const DataFrame &dataframe)
-    : test1(dataframe.data.at("Point32Test")[0]),
-      test2(dataframe.data.at("Point32Test")[1])
-  {}
+    struct Point32Test : public Test
+    {
+        explicit Point32Test(const DataFrame &dataframe)
+            : test1(dataframe.data.at("Point32Test")[0]),
+              test2(dataframe.data.at("Point32Test")[1])
+        {}
 
-  ~Point32Test() final = default;
+        ~Point32Test() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string getMessage(float x, float y, float z) const
-  {
-    geometry_msgs::Point32 msg(x, y, z);
-    return messageToString(msg);
-  }
-};
+        inline std::string getMessage(float x, float y, float z) const
+        {
+          geometry_msgs::Point32 msg(x, y, z);
+          return messageToString(msg);
+        }
+    };
 
-struct PointTest : public Test
-{
-  explicit PointTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("PointTest")[0]),
-      test2(dataframe.data.at("PointTest")[1])
-  {}
+    struct PointTest : public Test
+    {
+        explicit PointTest(const DataFrame &dataframe)
+            : test1(dataframe.data.at("PointTest")[0]),
+              test2(dataframe.data.at("PointTest")[1])
+        {}
 
-  ~PointTest() final = default;
+        ~PointTest() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string getMessage(double x, double y, double z) const
-  {
-    geometry_msgs::Point msg(x, y, z);
-    return messageToString<geometry_msgs::Point>(msg);
-  }
-};
+        inline std::string getMessage(double x, double y, double z) const
+        {
+          geometry_msgs::Point msg(x, y, z);
+          return messageToString<geometry_msgs::Point>(msg);
+        }
+    };
 
-struct PointStampedTest : public Test
-{
-  explicit PointStampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("PointStampedTest")[0]),
-      test2(dataframe.data.at("PointStampedTest")[1])
-  {}
+    struct PointStampedTest : public Test
+    {
+        explicit PointStampedTest(const DataFrame &dataframe)
+            : test1(dataframe.data.at("PointStampedTest")[0]),
+              test2(dataframe.data.at("PointStampedTest")[1])
+        {}
 
-  ~PointStampedTest() final = default;
+        ~PointStampedTest() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string getMessage(double x, double y, double z, std::string frame_id = "world") const
-  {
-    geometry_msgs::PointStamped msg(x, y, z, frame_id);
-    return messageToString<geometry_msgs::PointStamped>(msg);
-  }
-};
+        inline std::string getMessage(double x, double y, double z, std::string frame_id = "world") const
+        {
+          geometry_msgs::PointStamped msg(x, y, z, frame_id);
+          return messageToString<geometry_msgs::PointStamped>(msg);
+        }
+    };
 
-struct Vector3Test : public Test
-{
-  explicit Vector3Test(const DataFrame &dataframe)
-    : test1(dataframe.data.at("Vector3Test")[0]),
-      test2(dataframe.data.at("Vector3Test")[1])
-  {}
+    struct Vector3Test : public Test
+    {
+        explicit Vector3Test(const DataFrame &dataframe)
+            : test1(dataframe.data.at("Vector3Test")[0]),
+              test2(dataframe.data.at("Vector3Test")[1])
+        {}
 
-  ~Vector3Test() final = default;
+        ~Vector3Test() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string getMessage(double x, double y, double z) const
-  {
-    geometry_msgs::Vector3 msg(x, y, z);
-    return messageToString<geometry_msgs::Vector3>(msg);
-  }
-};
+        inline std::string getMessage(double x, double y, double z) const
+        {
+          geometry_msgs::Vector3 msg(x, y, z);
+          return messageToString<geometry_msgs::Vector3>(msg);
+        }
+    };
 
-struct Vector3StampedTest : public Test
-{
-  explicit Vector3StampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("Vector3StampedTest")[0]),
-      test2(dataframe.data.at("Vector3StampedTest")[1])
-  {}
+    struct Vector3StampedTest : public Test
+    {
+        explicit Vector3StampedTest(const DataFrame &dataframe)
+            : test1(dataframe.data.at("Vector3StampedTest")[0]),
+              test2(dataframe.data.at("Vector3StampedTest")[1])
+        {}
 
-  ~Vector3StampedTest() final = default;
+        ~Vector3StampedTest() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string getMessage(double x, double y, double z, std::string frame_id = "world") const
-  {
-    geometry_msgs::Vector3Stamped msg(x, y, z, frame_id);
-    return messageToString<geometry_msgs::Vector3Stamped>(msg);
-  }
-};
+        inline std::string getMessage(double x, double y, double z, std::string frame_id = "world") const
+        {
+          geometry_msgs::Vector3Stamped msg(x, y, z, frame_id);
+          return messageToString<geometry_msgs::Vector3Stamped>(msg);
+        }
+    };
 
-struct PoseTest : public Test
-{
-  explicit PoseTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("PoseTest")[0]),
-      test2(dataframe.data.at("PoseTest")[1])
-  {}
+    struct PoseTest : public Test
+    {
+        explicit PoseTest(const DataFrame &dataframe)
+            : test1(dataframe.data.at("PoseTest")[0]),
+              test2(dataframe.data.at("PoseTest")[1])
+        {}
 
-  ~PoseTest() final = default;
+        ~PoseTest() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string getMessage(double x, double y, double z, double xx, double yy, double zz, double ww) const
-  {
-    geometry_msgs::Pose msg(x, y, z, xx, yy, zz, ww);
-    return messageToString<geometry_msgs::Pose>(msg);
-  }
+        inline std::string getMessage(double x, double y, double z, double xx, double yy, double zz, double ww) const
+        {
+          geometry_msgs::Pose msg(x, y, z, xx, yy, zz, ww);
+          return messageToString<geometry_msgs::Pose>(msg);
+        }
 
-  inline std::string getMessage(const geometry_msgs::Point &point, const geometry_msgs::Quaternion &quaternion) const
-  {
-    geometry_msgs::Pose msg(point, quaternion);
-    return messageToString<geometry_msgs::Pose>(msg);
-  }
-};
+        inline std::string
+        getMessage(const geometry_msgs::Point &point, const geometry_msgs::Quaternion &quaternion) const
+        {
+          geometry_msgs::Pose msg(point, quaternion);
+          return messageToString<geometry_msgs::Pose>(msg);
+        }
+    };
 
-struct PoseStampedTest : public Test
-{
-  explicit PoseStampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("PoseStampedTest")[0]),
-      test2(dataframe.data.at("PoseStampedTest")[1])
-  {}
+    struct PoseStampedTest : public Test
+    {
+        explicit PoseStampedTest(const DataFrame &dataframe)
+            : test1(dataframe.data.at("PoseStampedTest")[0]),
+              test2(dataframe.data.at("PoseStampedTest")[1])
+        {}
 
-  ~PoseStampedTest() final = default;
+        ~PoseStampedTest() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string getMessage(double x, double y, double z, double xx, double yy, double zz, double ww,
-                                std::string frame_id = "world") const
-  {
-    geometry_msgs::PoseStamped msg(x, y, z, xx, yy, zz, ww, frame_id);
-    return messageToString<geometry_msgs::PoseStamped>(msg);
-  }
+        inline std::string getMessage(double x, double y, double z, double xx, double yy, double zz, double ww,
+                                      std::string frame_id = "world") const
+        {
+          geometry_msgs::PoseStamped msg(x, y, z, xx, yy, zz, ww, frame_id);
+          return messageToString<geometry_msgs::PoseStamped>(msg);
+        }
 
-  inline std::string getMessage(const geometry_msgs::Pose &pose, std::string frame_id = "world") const
-  {
-    geometry_msgs::PoseStamped msg(pose, frame_id);
-    return messageToString<geometry_msgs::PoseStamped>(msg);
-  }
-};
+        inline std::string getMessage(const geometry_msgs::Pose &pose, std::string frame_id = "world") const
+        {
+          geometry_msgs::PoseStamped msg(pose, frame_id);
+          return messageToString<geometry_msgs::PoseStamped>(msg);
+        }
+    };
 
-struct QuaternionTest : public Test
-{
-  explicit QuaternionTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("QuaternionTest")[0]),
-      test2(dataframe.data.at("QuaternionTest")[1])
-  {}
+    struct QuaternionTest : public Test
+    {
+        explicit QuaternionTest(const DataFrame &dataframe)
+            : test1(dataframe.data.at("QuaternionTest")[0]),
+              test2(dataframe.data.at("QuaternionTest")[1])
+        {}
 
-  ~QuaternionTest() final = default;
+        ~QuaternionTest() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string getMessage(double x, double y, double z, double w) const
-  {
-    geometry_msgs::Quaternion msg(x, y, z, w);
-    return messageToString<geometry_msgs::Quaternion>(msg);
-  }
-};
+        inline std::string getMessage(double x, double y, double z, double w) const
+        {
+          geometry_msgs::Quaternion msg(x, y, z, w);
+          return messageToString<geometry_msgs::Quaternion>(msg);
+        }
+    };
 
-struct QuaternionStampedTest : public Test
-{
-  explicit QuaternionStampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("QuaternionStampedTest")[0]),
-      test2(dataframe.data.at("QuaternionStampedTest")[1])
-  {}
+    struct QuaternionStampedTest : public Test
+    {
+        explicit QuaternionStampedTest(const DataFrame &dataframe)
+            : test1(dataframe.data.at("QuaternionStampedTest")[0]),
+              test2(dataframe.data.at("QuaternionStampedTest")[1])
+        {}
 
-  ~QuaternionStampedTest() final = default;
+        ~QuaternionStampedTest() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string getMessage(double x, double y, double z, double w, std::string frame_id = "world") const
-  {
-    geometry_msgs::QuaternionStamped msg(x, y, z, w, frame_id);
-    return messageToString<geometry_msgs::QuaternionStamped>(msg);
-  }
-};
+        inline std::string getMessage(double x, double y, double z, double w, std::string frame_id = "world") const
+        {
+          geometry_msgs::QuaternionStamped msg(x, y, z, w, frame_id);
+          return messageToString<geometry_msgs::QuaternionStamped>(msg);
+        }
+    };
 
 //
 //struct Vector3Test : public Test
@@ -656,64 +658,66 @@ struct QuaternionStampedTest : public Test
 //  }
 //};
 //
-struct AccelTest : public Test
-{
-  explicit AccelTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("AccelTest")[0]),
-      test2(dataframe.data.at("AccelTest")[1])
-  {}
+    struct AccelTest : public Test
+    {
+        explicit AccelTest(const DataFrame &dataframe)
+            : test1(dataframe.data.at("AccelTest")[0]),
+              test2(dataframe.data.at("AccelTest")[1])
+        {}
 
-  ~AccelTest() final = default;
+        ~AccelTest() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string getMessage(double lx, double ly, double lz, double ax, double ay, double az) const
-  {
-    geometry_msgs::Accel msg(lx, ly, lz, ax, ay, az);
-    return messageToString<geometry_msgs::Accel>(msg);
-  }
+        inline std::string getMessage(double lx, double ly, double lz, double ax, double ay, double az) const
+        {
+          geometry_msgs::Accel msg(lx, ly, lz, ax, ay, az);
+          return messageToString<geometry_msgs::Accel>(msg);
+        }
 
-  inline std::string getMessage(const geometry_msgs::Vector3 &linear, const geometry_msgs::Vector3 &angular) const
-  {
-    geometry_msgs::Accel msg(linear, angular);
-    return messageToString<geometry_msgs::Accel>(msg);
-  }
-};
+        inline std::string
+        getMessage(const geometry_msgs::Vector3 &linear, const geometry_msgs::Vector3 &angular) const
+        {
+          geometry_msgs::Accel msg(linear, angular);
+          return messageToString<geometry_msgs::Accel>(msg);
+        }
+    };
 //};
 
-struct AccelStampedTest : public Test
-{
-  AccelStampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("AccelStampedTest")[0]),
-      test2(dataframe.data.at("AccelStampedTest")[1])
-  {}
+    struct AccelStampedTest : public Test
+    {
+        AccelStampedTest(const DataFrame &dataframe)
+            : test1(dataframe.data.at("AccelStampedTest")[0]),
+              test2(dataframe.data.at("AccelStampedTest")[1])
+        {}
 
-  ~AccelStampedTest() final = default;
+        ~AccelStampedTest() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string
-  getMessage(double lx, double ly, double lz, double ax, double ay, double az, std::string frame_id = "world") const
-  {
-    geometry_msgs::AccelStamped msg(lx, ly, lz, ax, ay, az, frame_id);
-    return messageToString<geometry_msgs::AccelStamped>(msg);
-  }
+        inline std::string
+        getMessage(double lx, double ly, double lz, double ax, double ay, double az,
+                   std::string frame_id = "world") const
+        {
+          geometry_msgs::AccelStamped msg(lx, ly, lz, ax, ay, az, frame_id);
+          return messageToString<geometry_msgs::AccelStamped>(msg);
+        }
 
-  inline std::string getMessage(const geometry_msgs::Vector3 &linear, const geometry_msgs::Vector3 &angular,
-                                std::string frame_id = "world") const
-  {
-    geometry_msgs::AccelStamped msg(linear, angular, frame_id);
-    return messageToString<geometry_msgs::AccelStamped>(msg);
-  }
+        inline std::string getMessage(const geometry_msgs::Vector3 &linear, const geometry_msgs::Vector3 &angular,
+                                      std::string frame_id = "world") const
+        {
+          geometry_msgs::AccelStamped msg(linear, angular, frame_id);
+          return messageToString<geometry_msgs::AccelStamped>(msg);
+        }
 
-  inline std::string getMessage(const geometry_msgs::Accel &accel, std::string frame_id = "world") const
-  {
-    geometry_msgs::AccelStamped msg(accel, frame_id);
-    return messageToString<geometry_msgs::AccelStamped>(msg);
-  }
-};
+        inline std::string getMessage(const geometry_msgs::Accel &accel, std::string frame_id = "world")
+        {
+          geometry_msgs::AccelStamped msg(accel, frame_id);
+          return messageToString<geometry_msgs::AccelStamped>(msg);
+        }
+    };
 
 //
 //struct TwistTest : public Test
@@ -791,25 +795,33 @@ struct AccelStampedTest : public Test
 //    return messageToString(msg);
 //  }
 //};
-//
-//struct TransformTest : public Test
-//{
-//  TransformTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("TransformTest")[0]),
-//        test2(dataframe.data.at("TransformTest")[1])
-//  {}
-//
-//  ~TransformTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(const Vector3 &translation, const Quaternion &rotation) const
-//  {
-//    geometry_msgs::TransformTest msg(translation, rotation);
-//    return messageToString(msg);
-//  }
-//};
+
+    struct TransformTest : public Test
+    {
+        TransformTest(const DataFrame &dataframe)
+            : test1(dataframe.data.at("TransformTest")[0]),
+              test2(dataframe.data.at("TransformTest")[1])
+        {}
+
+        ~TransformTest() final = default;
+
+        const std::string test1;
+        const std::string test2;
+
+        inline std::string getMessage(double a, double b, double c, double d, double e, double f, double g) const
+        {
+          geometry_msgs::Transform msg(a, b, c, d, e, f, g);
+          return messageToString<geometry_msgs::Transform>(msg);
+        }
+
+        inline std::string
+        getMessage(const geometry_msgs::Vector3 &translation, const geometry_msgs::Quaternion &rotation) const
+        {
+          geometry_msgs::Transform msg(translation, rotation);
+          return messageToString<geometry_msgs::Transform>(msg);
+        }
+    };
+
 //
 //struct TransformStampedTest : public Test
 //{
@@ -831,58 +843,59 @@ struct AccelStampedTest : public Test
 //  }
 //};
 //
-struct WrenchTest : public Test
-{
-  WrenchTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("WrenchTest")[0]),
-      test2(dataframe.data.at("WrenchTest")[1])
-  {}
+    struct WrenchTest : public Test
+    {
+        WrenchTest(const DataFrame &dataframe)
+            : test1(dataframe.data.at("WrenchTest")[0]),
+              test2(dataframe.data.at("WrenchTest")[1])
+        {}
 
-  ~WrenchTest() final = default;
+        ~WrenchTest() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string getMessage(double x1, double y1, double z1, double x2, double y2, double z2) const
-  {
-    geometry_msgs::Wrench msg(x1, y1, z1, x2, y2, z2);
-    return messageToString<geometry_msgs::Wrench>(msg);
-  }
+        inline std::string getMessage(double x1, double y1, double z1, double x2, double y2, double z2) const
+        {
+          geometry_msgs::Wrench msg(x1, y1, z1, x2, y2, z2);
+          return messageToString<geometry_msgs::Wrench>(msg);
+        }
 
-  inline std::string getMessage(const geometry_msgs::Vector3 &force, const geometry_msgs::Vector3 &torque) const
-  {
-    geometry_msgs::Wrench msg(force, torque);
-    return messageToString<geometry_msgs::Wrench>(msg);
-  }
-};
+        inline std::string getMessage(const geometry_msgs::Vector3 &force, const geometry_msgs::Vector3 &torque) const
+        {
+          geometry_msgs::Wrench msg(force, torque);
+          return messageToString<geometry_msgs::Wrench>(msg);
+        }
+    };
 
 //
-struct WrenchStampedTest : public Test
-{
-  WrenchStampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("WrenchStampedTest")[0]),
-      test2(dataframe.data.at("WrenchStampedTest")[1])
-  {}
+    struct WrenchStampedTest : public Test
+    {
+        WrenchStampedTest(const DataFrame &dataframe)
+            : test1(dataframe.data.at("WrenchStampedTest")[0]),
+              test2(dataframe.data.at("WrenchStampedTest")[1])
+        {}
 
-  ~WrenchStampedTest() final = default;
+        ~WrenchStampedTest() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string
-  getMessage(double x1, double y1, double z1, double x2, double y2, double z2, std::string frame_id = "world") const
-  {
-    geometry_msgs::WrenchStamped msg(x1, y1, z1, x2, y2, z2, frame_id);
-    return messageToString<geometry_msgs::WrenchStamped>(msg);
-  }
+        inline std::string
+        getMessage(double x1, double y1, double z1, double x2, double y2, double z2,
+                   std::string frame_id = "world") const
+        {
+          geometry_msgs::WrenchStamped msg(x1, y1, z1, x2, y2, z2, frame_id);
+          return messageToString<geometry_msgs::WrenchStamped>(msg);
+        }
 
-  inline std::string getMessage(const geometry_msgs::Vector3 &force, const geometry_msgs::Vector3 &torque,
-                                std::string frame_id = "world") const
-  {
-    geometry_msgs::WrenchStamped msg(force, torque, frame_id);
-    return messageToString<geometry_msgs::WrenchStamped>(msg);
-  }
-};
+        inline std::string getMessage(const geometry_msgs::Vector3 &force, const geometry_msgs::Vector3 &torque,
+                                      std::string frame_id = "world") const
+        {
+          geometry_msgs::WrenchStamped msg(force, torque, frame_id);
+          return messageToString<geometry_msgs::WrenchStamped>(msg);
+        }
+    };
 
 //
 //struct PolygonTest : public Test
@@ -941,59 +954,59 @@ struct WrenchStampedTest : public Test
 //  }
 //};
 //
-struct InertiaTest : public Test
-{
-  InertiaTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("InertiaTest")[0]),
-      test2(dataframe.data.at("InertiaTest")[1])
-  {}
+    struct InertiaTest : public Test
+    {
+        InertiaTest(const DataFrame &dataframe)
+            : test1(dataframe.data.at("InertiaTest")[0]),
+              test2(dataframe.data.at("InertiaTest")[1])
+        {}
 
-  ~InertiaTest() final = default;
+        ~InertiaTest() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string getMessage(const geometry_msgs::Inertia &inertia) const
-  {
-    geometry_msgs::Inertia msg(inertia);
-    return messageToString<geometry_msgs::Inertia>(msg);
-  }
+        inline std::string getMessage(const geometry_msgs::Inertia &inertia) const
+        {
+          geometry_msgs::Inertia msg(inertia);
+          return messageToString<geometry_msgs::Inertia>(msg);
+        }
 
-  inline std::string
-  getMessage(double m, geometry_msgs::Vector3 &com, double ixx, double ixy, double ixz, double iyy, double iyz,
-             double izz) const
-  {
-    geometry_msgs::Inertia msg(m, com, ixx, ixy, ixz, iyy, iyz, izz);
-    return messageToString<geometry_msgs::Inertia>(msg);
-  }
-};
+        inline std::string
+        getMessage(double m, geometry_msgs::Vector3 &com, double ixx, double ixy, double ixz, double iyy, double iyz,
+                   double izz) const
+        {
+          geometry_msgs::Inertia msg(m, com, ixx, ixy, ixz, iyy, iyz, izz);
+          return messageToString<geometry_msgs::Inertia>(msg);
+        }
+    };
 
-struct InertiaStampedTest : public Test
-{
-  InertiaStampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("InertiaStampedTest")[0]),
-      test2(dataframe.data.at("InertiaStampedTest")[1])
-  {}
+    struct InertiaStampedTest : public Test
+    {
+        InertiaStampedTest(const DataFrame &dataframe)
+            : test1(dataframe.data.at("InertiaStampedTest")[0]),
+              test2(dataframe.data.at("InertiaStampedTest")[1])
+        {}
 
-  ~InertiaStampedTest() final = default;
+        ~InertiaStampedTest() final = default;
 
-  const std::string test1;
-  const std::string test2;
+        const std::string test1;
+        const std::string test2;
 
-  inline std::string getMessage(const geometry_msgs::Inertia &inertia, std::string frame_id = "world") const
-  {
-    geometry_msgs::InertiaStamped msg(inertia, frame_id);
-    return messageToString(msg);
-  }
+        inline std::string getMessage(const geometry_msgs::Inertia &inertia, std::string frame_id = "world") const
+        {
+          geometry_msgs::InertiaStamped msg(inertia, frame_id);
+          return messageToString(msg);
+        }
 
-  inline std::string
-  getMessage(double m, geometry_msgs::Vector3 &com, double ixx, double ixy, double ixz, double iyy, double iyz,
-             double izz, std::string frame_id = "world") const
-  {
-    geometry_msgs::InertiaStamped msg(m, com, ixx, ixy, ixz, iyy, iyz, izz, frame_id);
-    return messageToString(msg);
-  }
-};
+        inline std::string
+        getMessage(double m, geometry_msgs::Vector3 &com, double ixx, double ixy, double ixz, double iyy, double iyz,
+                   double izz, std::string frame_id = "world") const
+        {
+          geometry_msgs::InertiaStamped msg(m, com, ixx, ixy, ixz, iyy, iyz, izz, frame_id);
+          return messageToString(msg);
+        }
+    };
 //
 //struct Pose2DTest : public Test
 //{

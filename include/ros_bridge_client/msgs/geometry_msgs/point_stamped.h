@@ -37,6 +37,7 @@ public:
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::PointStamped &p);
 
-std::ostream &operator<<(std::ostream &os, std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::PointStamped> p);
+std::ostream &
+operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::PointStamped> &p);
 
 #endif //ROSBRIDGECLIENT_POINTSTAMPEDMESSAGE_HPP

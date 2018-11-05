@@ -50,3 +50,18 @@ InertiaStamped::InertiaStamped(const web::json::value &response)
   std::tie(inertia.com.x, inertia.com.y, inertia.com.z) =
     utils::ResponseConverter::responseToVector3(inertia_msg.at(U("com")), true);
 }
+
+std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::InertiaStamped &is)
+{
+  os << "\nInertiaStamped";
+  os << is.header;
+  os << is.inertia;
+  os << "\n";
+  return os;
+}
+
+std::ostream &
+operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::InertiaStamped> &is)
+{
+  return os << is.get();
+}

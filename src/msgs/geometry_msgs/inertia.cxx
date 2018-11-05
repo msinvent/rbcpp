@@ -44,3 +44,23 @@ Inertia::Inertia(const web::json::value &response)
   std::tie(m, ixx, ixy, ixz, iyy, iyz, izz) = utils::ResponseConverter::responseToInertia(msg, true);
   std::tie(com.x, com.y, com.z) = utils::ResponseConverter::responseToVector3(msg.at(U("com")), true);
 }
+
+std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Inertia &i)
+{
+  os << "\nInertia:";
+  os << "\n\tixx: " << i.ixx;
+  os << "\n\tixy: " << i.ixy;
+  os << "\n\tixz: " << i.ixz;
+  os << "\n\tiyy: " << i.iyy;
+  os << "\n\tiyz: " << i.iyz;
+  os << "\n\tizz: " << i.izz;
+  os << "\n\tm: " << i.m;
+  os << i.com;
+  return os;
+}
+
+std::ostream &
+operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::Inertia> &i)
+{
+  return os << i.get();
+}

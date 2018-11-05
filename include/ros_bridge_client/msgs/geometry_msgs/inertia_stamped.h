@@ -39,4 +39,9 @@ struct InertiaStamped : public MessageBase
 } // namespace msgs
 } // namespace ros_bridge_client
 
+std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::InertiaStamped &is);
+
+std::ostream &
+operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::InertiaStamped> &is);
+
 #endif //ROSBRIDGECLIENT_INERTIA_STAMPED_H

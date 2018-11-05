@@ -41,7 +41,7 @@ std::ostream &operator<<(std::ostream &os, const PointStamped &p)
   return os;
 }
 
-std::ostream &operator<<(std::ostream &os, std::shared_ptr<PointStamped> p)
+std::ostream &operator<<(std::ostream &os, const std::shared_ptr<PointStamped> &p)
 {
   return os << *p.get();
 }

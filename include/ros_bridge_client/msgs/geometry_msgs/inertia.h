@@ -19,6 +19,8 @@ struct Inertia : public MessageBase
 {
   Inertia();
 
+  Inertia(const Inertia &inertia);
+  
   Inertia(double m, const Vector3 &com, double ixx, double ixy, double ixz,
           double iyy,
           double iyz, double izz);

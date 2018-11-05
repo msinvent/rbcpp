@@ -28,6 +28,7 @@ test::InertiaTest           inertia_test(dataframe);
 test::PoseStampedTest       pose_stamped_test(dataframe);
 test::PointStampedTest      point_stamped_test(dataframe);
 test::AccelStampedTest      accel_stamped_test(dataframe);
+test::InertiaStampedTest    inertia_stamped_test(dataframe);
 test::QuaternionTest        quaternion_test(dataframe);
 test::QuaternionStampedTest quaternion_stamped_test(dataframe);
 //test::Vector3Message            vector3_messages(dataframe);
@@ -556,6 +557,19 @@ TEST_CASE("Inertia test", "[inertia_test]")
     vec.y = 0.20;
     vec.z = 0.30;
     REQUIRE(inertia_test.getMessage(.4, vec, .1, .2, .3, .4, .5, .6) == inertia_test.test1);
+
+    geometry_msgs::Inertia inertia;
+    inertia.m = .4;
+    inertia.ixx = .1;
+    inertia.ixy = .2;
+    inertia.ixz = .3;
+    inertia.iyy = .4;
+    inertia.iyz = .5;
+    inertia.izz = .6;
+    inertia.com.x = vec.x;
+    inertia.com.y = vec.y;
+    inertia.com.z = vec.z;
+    REQUIRE(inertia_test.getMessage(inertia) == inertia_test.test1);
   }
   {
     geometry_msgs::Vector3 vec;
@@ -563,23 +577,63 @@ TEST_CASE("Inertia test", "[inertia_test]")
     vec.y = 0.5;
     vec.z = 0.3;
     REQUIRE(inertia_test.getMessage(.4, vec, .6, .5, .4, 3., .2, .1) == inertia_test.test2);
+
+    geometry_msgs::Inertia inertia;
+    inertia.m = .4;
+    inertia.ixx = .6;
+    inertia.ixy = .5;
+    inertia.ixz = .4;
+    inertia.iyy = 3.;
+    inertia.iyz = .2;
+    inertia.izz = .1;
+    inertia.com.x = vec.x;
+    inertia.com.y = vec.y;
+    inertia.com.z = vec.z;
+    REQUIRE(inertia_test.getMessage(inertia) == inertia_test.test2);
   }
 }
-//
-//TEST_CASE("Inertia Stamped Messages test", "[inertia_stamped_messages]")
-//{
-//  {
-//    Vector3 vec;
-//    vec.x = 0.10;
-//    vec.y = 0.20;
-//    vec.z = 0.30;
-//    REQUIRE(inertia_stamped_messages.getMessage(.4, vec, .1, .2, .3, .4, .5, .6) == inertia_stamped_messages.test1);
-//  }
-//  {
-//    Vector3 vec;
-//    vec.x = 0.1;
-//    vec.y = 0.5;
-//    vec.z = 0.3;
-//    REQUIRE(inertia_stamped_messages.getMessage(.4, vec, .6, .5, .4, 3., .2, .1, "a_frame") == inertia_stamped_messages.test2);
-//  }
+
+TEST_CASE("Inertia Stamped test", "[inertia_stamped_test]")
+{
+  {
+    geometry_msgs::Vector3 vec;
+    vec.x = 0.10;
+    vec.y = 0.20;
+    vec.z = 0.30;
+    REQUIRE(inertia_stamped_test.getMessage(.4, vec, .1, .2, .3, .4, .5, .6) == inertia_stamped_test.test1);
+
+    geometry_msgs::Inertia inertia;
+    inertia.m = .4;
+    inertia.ixx = .1;
+    inertia.ixy = .2;
+    inertia.ixz = .3;
+    inertia.iyy = .4;
+    inertia.iyz = .5;
+    inertia.izz = .6;
+    inertia.com.x = vec.x;
+    inertia.com.y = vec.y;
+    inertia.com.z = vec.z;
+    REQUIRE(inertia_stamped_test.getMessage(inertia) == inertia_stamped_test.test1);
+  }
+  {
+    geometry_msgs::Vector3 vec;
+    vec.x = 0.1;
+    vec.y = 0.5;
+    vec.z = 0.3;
+    REQUIRE(inertia_stamped_test.getMessage(.4, vec, .6, .5, .4, 3., .2, .1, "a_frame") == inertia_stamped_test.test2);
+
+    geometry_msgs::Inertia inertia;
+    inertia.m = .4;
+    inertia.ixx = .6;
+    inertia.ixy = .5;
+    inertia.ixz = .4;
+    inertia.iyy = 3.;
+    inertia.iyz = .2;
+    inertia.izz = .1;
+    inertia.com.x = vec.x;
+    inertia.com.y = vec.y;
+    inertia.com.z = vec.z;
+    REQUIRE(inertia_stamped_test.getMessage(inertia, "a_frame") == inertia_stamped_test.test2);
+  }
+}
 }

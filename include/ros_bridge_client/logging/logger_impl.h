@@ -34,7 +34,7 @@ void Logger::log()
 }
 
 template<typename T, typename... Targs>
-void Logger::log(T value, Targs... Fargs) // recursive variadic function
+void Logger::log(T value, Targs... Fargs) // recursive variadic function. TODO C++17 makes this easier, port in future?
 {
   stream << value;
   log(Fargs...);

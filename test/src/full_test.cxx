@@ -17,6 +17,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <cassert>
@@ -27,7 +28,7 @@ using namespace ros_bridge_client::msgs;
 
 
 std::atomic<size_t> messages_received;
-size_t num_publishers = 13;
+size_t num_publishers = 14;
 
 void hcallback(const std::shared_ptr<std_msgs::Header> msg)
 {
@@ -159,6 +160,22 @@ void icallback(const std::shared_ptr<geometry_msgs::Inertia> msg)
   assert((msg->com.z == .3));
 }
 
+void iscallback(const std::shared_ptr<geometry_msgs::InertiaStamped> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[InertiaStamped]\n";
+  assert((msg->header.frame_id == "a frame"));
+  assert((msg->inertia.m == .1));
+  assert((msg->inertia.ixx == .2));
+  assert((msg->inertia.ixy == .3));
+  assert((msg->inertia.ixz == .4));
+  assert((msg->inertia.iyy == .5));
+  assert((msg->inertia.iyz == .6));
+  assert((msg->inertia.izz == .7));
+  assert((msg->inertia.com.x == .1));
+  assert((msg->inertia.com.y == .2));
+  assert((msg->inertia.com.z == .3));
+}
+
 int main()
 {
   size_t messages = 0;
@@ -172,6 +189,7 @@ int main()
   auto pose_pub = rbc->addPublisher<geometry_msgs::Pose>("/rosbridge/pose/");
   auto point32_pub = rbc->addPublisher<geometry_msgs::Point32>("/rosbridge/point32/");
   auto inertia_pub = rbc->addPublisher<geometry_msgs::Inertia>("/rosbridge/inertia/");
+  auto inertia_stamped_pub = rbc->addPublisher<geometry_msgs::InertiaStamped>("/rosbridge/inertia_stamped/");
   auto point_stamped_pub = rbc->addPublisher<geometry_msgs::PointStamped>("/rosbridge/point_stamped/");
   auto accel_stamped_pub = rbc->addPublisher<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/");
   auto pose_stamped_pub = rbc->addPublisher<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/");
@@ -187,6 +205,7 @@ int main()
   auto pose_sub = rbc->addSubscriber<geometry_msgs::Pose>("/rosbridge/pose/", 100, pocallback);
   auto point32_sub = rbc->addSubscriber<geometry_msgs::Point32>("/rosbridge/point32/", 100, p32callback);
   auto inertia_sub = rbc->addSubscriber<geometry_msgs::Inertia>("/rosbridge/inertia/", 100, icallback);
+  auto inertia_stamped_sub = rbc->addSubscriber<geometry_msgs::InertiaStamped>("/rosbridge/inertia_stamped/", 100, iscallback);
   auto point_stamped_sub = rbc->addSubscriber<geometry_msgs::PointStamped>("/rosbridge/point_stamped/", 100, pscallback);
   auto accel_stamped_sub = rbc->addSubscriber<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/", 100, ascallback);
   auto pose_stamped_sub = rbc->addSubscriber<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/", 100, poscallback);
@@ -236,6 +255,9 @@ int main()
     
     geometry_msgs::Inertia i(0.1, geometry_msgs::Vector3(.1, .2, .3), 0.2, 0.3, 0.4, 0.5, 0.6, 0.7);
     inertia_pub->publish(i);
+
+    geometry_msgs::InertiaStamped is(0.1, geometry_msgs::Vector3(.1, .2, .3), 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, "a frame");
+    inertia_stamped_pub->publish(is);
     
     std::this_thread::sleep_for(pause);
   }

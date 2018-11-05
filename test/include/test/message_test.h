@@ -40,6 +40,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
 //#include <ros_bridge_client/msgs/geometry_msgs/transform_message.h>
@@ -934,6 +935,12 @@ struct InertiaTest : public Test
   const std::string test1;
   const std::string test2;
 
+  inline std::string getMessage(const geometry_msgs::Inertia &inertia) const
+  {
+    geometry_msgs::Inertia msg(inertia);
+    return messageToString<geometry_msgs::Inertia>(msg);
+  }
+
   inline std::string
   getMessage(double m, geometry_msgs::Vector3 &com, double ixx, double ixy, double ixz, double iyy, double iyz,
              double izz) const
@@ -942,27 +949,33 @@ struct InertiaTest : public Test
     return messageToString<geometry_msgs::Inertia>(msg);
   }
 };
-//
-//struct InertiaStampedTest : public Test
-//{
-//  InertiaStampedTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("InertiaStampedTest")[0]),
-//        test2(dataframe.data.at("InertiaStampedTest")[1])
-//  {}
-//
-//  ~InertiaStampedTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string
-//  getMessage(double m, Vector3 &com, double ixx, double ixy, double ixz, double iyy, double iyz, double izz,
-//             std::string frame_id = "world") const
-//  {
-//    geometry_msgs::InertiaStampedTest msg(m, com, ixx, ixy, ixz, iyy, iyz, izz, frame_id);
-//    return messageToString(msg);
-//  }
-//};
+
+struct InertiaStampedTest : public Test
+{
+  InertiaStampedTest(const DataFrame &dataframe)
+    : test1(dataframe.data.at("InertiaStampedTest")[0]),
+      test2(dataframe.data.at("InertiaStampedTest")[1])
+  {}
+
+  ~InertiaStampedTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(const geometry_msgs::Inertia &inertia, std::string frame_id = "world") const
+  {
+    geometry_msgs::InertiaStamped msg(inertia, frame_id);
+    return messageToString(msg);
+  }
+
+  inline std::string
+  getMessage(double m, geometry_msgs::Vector3 &com, double ixx, double ixy, double ixz, double iyy, double iyz,
+             double izz, std::string frame_id = "world") const
+  {
+    geometry_msgs::InertiaStamped msg(m, com, ixx, ixy, ixz, iyy, iyz, izz, frame_id);
+    return messageToString(msg);
+  }
+};
 //
 //struct Pose2DTest : public Test
 //{

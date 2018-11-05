@@ -140,3 +140,13 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::Inertia &inertia, boo
 
   return not sub_json ? completeJson(inertia, inertia_json) : inertia_json;
 }
+
+web::json::value &JsonCreator::toJson(const msgs::geometry_msgs::InertiaStamped &inertia_stamped, bool sub_json)
+{
+  static json::value inertia_stamped_json;
+
+  inertia_stamped_json[U("header")]  = toJson(inertia_stamped.header, true);
+  inertia_stamped_json[U("inertia")] = toJson(inertia_stamped.inertia, true);
+
+  return not sub_json ? completeJson(inertia_stamped, inertia_stamped_json) : inertia_stamped_json;
+}

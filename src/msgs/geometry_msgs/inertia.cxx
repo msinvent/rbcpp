@@ -25,6 +25,14 @@ Inertia::Inertia(double m, const Vector3 &com, double ixx, double ixy, double ix
     com(com)
 {}
 
+Inertia::Inertia(const Inertia &inertia)
+  : MessageBase("geometry_msgs/Inertia"),
+    m(inertia.m),
+    ixx(inertia.ixx), ixy(inertia.ixy), ixz(inertia.ixz),
+    iyy(inertia.iyy), iyz(inertia.iyz), izz(inertia.izz),
+    com(inertia.com)
+{}
+
 Inertia::Inertia(const web::json::value &response)
   : MessageBase("geometry_msgs/Inertia"),
     m(0),

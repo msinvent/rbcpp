@@ -36,10 +36,12 @@
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
+#include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/wrench_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
@@ -829,43 +831,59 @@ struct AccelStampedTest : public Test
 //  }
 //};
 //
-//struct WrenchTest : public Test
-//{
-//  WrenchTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("WrenchTest")[0]),
-//        test2(dataframe.data.at("WrenchTest")[1])
-//  {}
+struct WrenchTest : public Test
+{
+  WrenchTest(const DataFrame &dataframe)
+    : test1(dataframe.data.at("WrenchTest")[0]),
+      test2(dataframe.data.at("WrenchTest")[1])
+  {}
+
+  ~WrenchTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(double x1, double y1, double z1, double x2, double y2, double z2) const
+  {
+    geometry_msgs::Wrench msg(x1, y1, z1, x2, y2, z2);
+    return messageToString<geometry_msgs::Wrench>(msg);
+  }
+
+  inline std::string getMessage(const geometry_msgs::Vector3 &force, const geometry_msgs::Vector3 &torque) const
+  {
+    geometry_msgs::Wrench msg(force, torque);
+    return messageToString<geometry_msgs::Wrench>(msg);
+  }
+};
+
 //
-//  ~WrenchTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(const Vector3 &force, const Vector3 &torque) const
-//  {
-//    geometry_msgs::WrenchTest msg(force, torque);
-//    return messageToString(msg);
-//  }
-//};
-//
-//struct WrenchStampedTest : public Test
-//{
-//  WrenchStampedTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("WrenchStampedTest")[0]),
-//        test2(dataframe.data.at("WrenchStampedTest")[1])
-//  {}
-//
-//  ~WrenchStampedTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(const Vector3 &force, const Vector3 &torque, std::string frame_id = "world") const
-//  {
-//    geometry_msgs::WrenchStampedTest msg(force, torque, frame_id);
-//    return messageToString(msg);
-//  }
-//};
+struct WrenchStampedTest : public Test
+{
+  WrenchStampedTest(const DataFrame &dataframe)
+    : test1(dataframe.data.at("WrenchStampedTest")[0]),
+      test2(dataframe.data.at("WrenchStampedTest")[1])
+  {}
+
+  ~WrenchStampedTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string
+  getMessage(double x1, double y1, double z1, double x2, double y2, double z2, std::string frame_id = "world") const
+  {
+    geometry_msgs::WrenchStamped msg(x1, y1, z1, x2, y2, z2, frame_id);
+    return messageToString<geometry_msgs::WrenchStamped>(msg);
+  }
+
+  inline std::string getMessage(const geometry_msgs::Vector3 &force, const geometry_msgs::Vector3 &torque,
+                                std::string frame_id = "world") const
+  {
+    geometry_msgs::WrenchStamped msg(force, torque, frame_id);
+    return messageToString<geometry_msgs::WrenchStamped>(msg);
+  }
+};
+
 //
 //struct PolygonTest : public Test
 //{

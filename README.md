@@ -72,5 +72,5 @@ All messages that are checked below can be used already. Examples can be found [
 
 - [ ] Actionlib
 - [ ] #endifs header guard uint/int
-- [ ] complex RBCMessage constructor
 - [ ] make web value json call safer
+- [ ] test all wrench stamped constructors

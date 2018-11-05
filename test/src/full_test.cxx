@@ -11,10 +11,12 @@
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
+#include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/wrench_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
@@ -28,7 +30,7 @@ using namespace ros_bridge_client::msgs;
 
 
 std::atomic<size_t> messages_received;
-size_t num_publishers = 14;
+size_t num_publishers = 16;
 
 void hcallback(const std::shared_ptr<std_msgs::Header> msg)
 {
@@ -145,6 +147,29 @@ void ascallback(const std::shared_ptr<geometry_msgs::AccelStamped> msg)
   assert((msg->accel.angular.z == .1));
 }
 
+void wcallback(const std::shared_ptr<geometry_msgs::Wrench> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Wrench]\n";
+  assert((msg->force.x == .1));
+  assert((msg->force.y == .2));
+  assert((msg->force.z == .3));
+  assert((msg->torque.x == .3));
+  assert((msg->torque.y == .2));
+  assert((msg->torque.z == .1));
+}
+
+void wscallback(const std::shared_ptr<geometry_msgs::WrenchStamped> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[WrenchStamped]\n";
+  assert((msg->header.frame_id == "a frame"));
+  assert((msg->wrench.force.x == .1));
+  assert((msg->wrench.force.y == .2));
+  assert((msg->wrench.force.z == .3));
+  assert((msg->wrench.torque.x == .3));
+  assert((msg->wrench.torque.y == .2));
+  assert((msg->wrench.torque.z == .1));
+}
+
 void icallback(const std::shared_ptr<geometry_msgs::Inertia> msg)
 {
   std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Inertia]\n";
@@ -186,12 +211,14 @@ int main()
   auto header_pub = rbc->addPublisher<std_msgs::Header>("/rosbridge/header/");
   auto point_pub = rbc->addPublisher<geometry_msgs::Point>("/rosbridge/point/");
   auto accel_pub = rbc->addPublisher<geometry_msgs::Accel>("/rosbridge/accel/");
+  auto wrench_pub = rbc->addPublisher<geometry_msgs::Wrench>("/rosbridge/wrench/");
   auto pose_pub = rbc->addPublisher<geometry_msgs::Pose>("/rosbridge/pose/");
   auto point32_pub = rbc->addPublisher<geometry_msgs::Point32>("/rosbridge/point32/");
   auto inertia_pub = rbc->addPublisher<geometry_msgs::Inertia>("/rosbridge/inertia/");
   auto inertia_stamped_pub = rbc->addPublisher<geometry_msgs::InertiaStamped>("/rosbridge/inertia_stamped/");
   auto point_stamped_pub = rbc->addPublisher<geometry_msgs::PointStamped>("/rosbridge/point_stamped/");
   auto accel_stamped_pub = rbc->addPublisher<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/");
+  auto wrench_stamped_pub = rbc->addPublisher<geometry_msgs::WrenchStamped>("/rosbridge/wrench_stamped/");
   auto pose_stamped_pub = rbc->addPublisher<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/");
   auto vector3_pub = rbc->addPublisher<geometry_msgs::Vector3>("/rosbridge/vector3/");
   auto vector3_stamped_pub = rbc->addPublisher<geometry_msgs::Vector3Stamped>("/rosbridge/vector3_stamped/");
@@ -202,12 +229,14 @@ int main()
   auto header_sub = rbc->addSubscriber<std_msgs::Header>("/rosbridge/header/", 100, hcallback);
   auto point_sub = rbc->addSubscriber<geometry_msgs::Point>("/rosbridge/point/", 100, pcallback);
   auto accel_sub = rbc->addSubscriber<geometry_msgs::Accel>("/rosbridge/accel/", 100, acallback);
+  auto wrench_sub = rbc->addSubscriber<geometry_msgs::Wrench>("/rosbridge/wrench/", 100, wcallback);
   auto pose_sub = rbc->addSubscriber<geometry_msgs::Pose>("/rosbridge/pose/", 100, pocallback);
   auto point32_sub = rbc->addSubscriber<geometry_msgs::Point32>("/rosbridge/point32/", 100, p32callback);
   auto inertia_sub = rbc->addSubscriber<geometry_msgs::Inertia>("/rosbridge/inertia/", 100, icallback);
   auto inertia_stamped_sub = rbc->addSubscriber<geometry_msgs::InertiaStamped>("/rosbridge/inertia_stamped/", 100, iscallback);
   auto point_stamped_sub = rbc->addSubscriber<geometry_msgs::PointStamped>("/rosbridge/point_stamped/", 100, pscallback);
   auto accel_stamped_sub = rbc->addSubscriber<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/", 100, ascallback);
+  auto wrench_stamped_sub = rbc->addSubscriber<geometry_msgs::WrenchStamped>("/rosbridge/wrench_stamped/", 100, wscallback);
   auto pose_stamped_sub = rbc->addSubscriber<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/", 100, poscallback);
   auto vector3_sub = rbc->addSubscriber<geometry_msgs::Vector3>("/rosbridge/vector3/", 100, vcallback);
   auto vector3_stamped_sub = rbc->addSubscriber<geometry_msgs::Vector3Stamped>("/rosbridge/vector3_stamped/", 100, vscallback);
@@ -225,7 +254,13 @@ int main()
 
     geometry_msgs::Accel a(0.1, 0.2, 0.3, 0.3, 0.2, 0.1);
     accel_pub->publish(a);
-    
+
+    geometry_msgs::Wrench w(0.1, 0.2, 0.3, 0.3, 0.2, 0.1);
+    wrench_pub->publish(w);
+
+    geometry_msgs::WrenchStamped ws(0.1, 0.2, 0.3, 0.3, 0.2, 0.1, "a frame");
+    wrench_stamped_pub->publish(ws);
+
     geometry_msgs::PoseStamped pos(0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 0.4, "a frame");
     pose_stamped_pub->publish(pos);
 

@@ -12,11 +12,13 @@
 #include <ros_bridge_client/msgs/geometry_msgs/pose.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
+#include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/wrench_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
@@ -32,6 +34,7 @@ class JsonCreator
 {
 private:
   web::json::value json_;
+  
 public:
   JsonCreator();
 
@@ -41,7 +44,7 @@ public:
 
   template<typename T>
   web::json::value &toJson(const msgs::XYZMessage<T> &xyz, bool sub_json = false);
-
+  
   web::json::value &toJson(const msgs::geometry_msgs::PointStamped &point_stamped, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::Pose &pose, bool sub_json = false);
@@ -53,6 +56,10 @@ public:
   web::json::value &toJson(const msgs::geometry_msgs::AccelStamped &accel_stamped, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::InertiaStamped &inertia_stamped, bool sub_json = false);
+
+  web::json::value &toJson(const msgs::geometry_msgs::Wrench &wrench, bool sub_json = false);
+  
+  web::json::value &toJson(const msgs::geometry_msgs::WrenchStamped &wrench, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::PoseStamped &pose_stamped, bool sub_json = false);
 

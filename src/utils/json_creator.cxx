@@ -150,3 +150,23 @@ web::json::value &JsonCreator::toJson(const msgs::geometry_msgs::InertiaStamped 
 
   return not sub_json ? completeJson(inertia_stamped, inertia_stamped_json) : inertia_stamped_json;
 }
+
+web::json::value &JsonCreator::toJson(const geometry_msgs::Wrench &wrench, bool sub_json)
+{
+  static json::value wrench_json;
+
+  wrench_json[U("force")]  = toJson(wrench.force, true);
+  wrench_json[U("torque")] = toJson(wrench.torque, true);
+
+  return not sub_json ? completeJson(wrench, wrench_json) : wrench_json;
+}
+
+web::json::value &JsonCreator::toJson(const geometry_msgs::WrenchStamped &wrench_stamped, bool sub_json)
+{
+  static json::value wrench_stamped_json;
+
+  wrench_stamped_json[U("header")] = toJson(wrench_stamped.header, true);
+  wrench_stamped_json[U("wrench")] = toJson(wrench_stamped.wrench, true);
+
+  return not sub_json ? completeJson(wrench_stamped, wrench_stamped_json) : wrench_stamped_json;
+}

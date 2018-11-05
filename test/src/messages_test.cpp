@@ -23,11 +23,13 @@ test::PoseTest              pose_test(dataframe);
 test::AccelTest             accel_test(dataframe);
 test::Point32Test           point32_test(dataframe);
 test::Vector3Test           vector3_test(dataframe);
+test::WrenchTest            wrench_test(dataframe);
 test::InertiaTest           inertia_test(dataframe);
 //test::Point32Message            point32_messages(dataframe);
 test::PoseStampedTest       pose_stamped_test(dataframe);
 test::PointStampedTest      point_stamped_test(dataframe);
 test::AccelStampedTest      accel_stamped_test(dataframe);
+test::WrenchStampedTest     wrench_stamped_test(dataframe);
 test::InertiaStampedTest    inertia_stamped_test(dataframe);
 test::QuaternionTest        quaternion_test(dataframe);
 test::QuaternionStampedTest quaternion_stamped_test(dataframe);
@@ -45,8 +47,8 @@ test::HeaderTest            header_test(dataframe);
 //test::PoseArrayMessage          pose_array_messages(dataframe);
 //test::TransformMessage          transform_messages(dataframe);
 //test::TransformStampedMessage   transform_stamped_messages(dataframe);
-//test::WrenchMessage             wrench_messages(dataframe);
-//test::WrenchStampedMessage      wrench_stamped_messages(dataframe);
+//test::WrenchMessage             wrench_test(dataframe);
+//test::WrenchStampedMessage      wrench_stamped_test(dataframe);
 //test::PolygonMessage            polygon_messages(dataframe);
 //test::PolygonStampedMessage     polygon_stamped_messages(dataframe);
 //test::InertiaMessage            inertia_messages(dataframe);
@@ -459,58 +461,66 @@ TEST_CASE("Accel Stamped test", "[accel_stamped_test]")
 //  }
 //}
 //
-//TEST_CASE("Wrench Messages test", "[wrench_messages]")
-//{
-//  {
-//    Vector3 force;
-//    force.x = 0.10;
-//    force.y = 0.20;
-//    force.z = 0.30;
-//    Vector3 torque;
-//    torque.x = 0.1;
-//    torque.y = 0.5;
-//    torque.z = 0.3;
-//    REQUIRE(wrench_messages.getMessage(force, torque) == wrench_messages.test1);
-//  }
-//  {
-//    Vector3 force;
-//    force.x = 0.1;
-//    force.y = 0.5;
-//    force.z = 0.3;
-//    Vector3 torque;
-//    torque.x = 0.10;
-//    torque.y = 0.20;
-//    torque.z = 0.80;
-//    REQUIRE(wrench_messages.getMessage(force, torque) == wrench_messages.test2);
-//  }
-//}
-//
-//TEST_CASE("Wrench Stamped Messages test", "[wrench_stamped_messages]")
-//{
-//  {
-//    Vector3 force;
-//    force.x = 0.10;
-//    force.y = 0.20;
-//    force.z = 0.30;
-//    Vector3 torque;
-//    torque.x = 0.1;
-//    torque.y = 0.5;
-//    torque.z = 0.3;
-//    REQUIRE(wrench_stamped_messages.getMessage(force, torque) == wrench_stamped_messages.test1);
-//  }
-//  {
-//    Vector3 force;
-//    force.x = 0.1;
-//    force.y = 0.5;
-//    force.z = 0.3;
-//    Vector3 torque;
-//    torque.x = 0.10;
-//    torque.y = 0.20;
-//    torque.z = 0.80;
-//    REQUIRE(wrench_stamped_messages.getMessage(force, torque, "a_frame") == wrench_stamped_messages.test2);
-//  }
-//}
-//
+TEST_CASE("Wrench Messages test", "[wrench_test]")
+{
+  {
+    geometry_msgs::Vector3 force;
+    force.x = 0.10;
+    force.y = 0.20;
+    force.z = 0.30;
+    geometry_msgs::Vector3 torque;
+    torque.x = 0.1;
+    torque.y = 0.5;
+    torque.z = 0.3;
+    REQUIRE(wrench_test.getMessage(force, torque) == wrench_test.test1);
+
+    REQUIRE(wrench_test.getMessage(0.10, 0.20, 0.30, 0.1, 0.5, 0.3) == wrench_test.test1);
+  }
+  {
+    geometry_msgs::Vector3 force;
+    force.x = 0.1;
+    force.y = 0.5;
+    force.z = 0.3;
+    geometry_msgs::Vector3 torque;
+    torque.x = 0.10;
+    torque.y = 0.20;
+    torque.z = 0.80;
+    REQUIRE(wrench_test.getMessage(force, torque) == wrench_test.test2);
+
+    REQUIRE(wrench_test.getMessage(0.1, 0.5, 0.3, 0.10, 0.20, 0.80) == wrench_test.test2);
+  }
+}
+
+TEST_CASE("Wrench Stamped test", "[wrench_stamped_test]")
+{
+  {
+    geometry_msgs::Vector3 force;
+    force.x = 0.10;
+    force.y = 0.20;
+    force.z = 0.30;
+    geometry_msgs::Vector3 torque;
+    torque.x = 0.1;
+    torque.y = 0.5;
+    torque.z = 0.3;
+    REQUIRE(wrench_stamped_test.getMessage(force, torque) == wrench_stamped_test.test1);
+
+    REQUIRE(wrench_stamped_test.getMessage(0.10, 0.20, 0.30, 0.1, 0.5, 0.3) == wrench_stamped_test.test1);
+  }
+  {
+    geometry_msgs::Vector3 force;
+    force.x = 0.1;
+    force.y = 0.5;
+    force.z = 0.3;
+    geometry_msgs::Vector3 torque;
+    torque.x = 0.10;
+    torque.y = 0.20;
+    torque.z = 0.80;
+    REQUIRE(wrench_stamped_test.getMessage(force, torque, "a_frame") == wrench_stamped_test.test2);
+
+    REQUIRE(wrench_stamped_test.getMessage(0.1, 0.5, 0.3, 0.10, 0.20, 0.80, "a_frame") == wrench_stamped_test.test2);
+  }
+}
+
 //TEST_CASE("Polygon Messages test", "[polygon_messages]")
 //{
 //  {

@@ -17,9 +17,7 @@ Accel::Accel(double lx, double ly, double lz, double ax, double ay, double az)
   : MessageBase("geometry_msgs/Accel"),
     linear(lx, ly, lz),
     angular(ax, ay, az)
-{
-
-}
+{}
 
 Accel::Accel(const Vector3 &linear, const Vector3 &angular)
   : MessageBase("geometry_msgs/Accel"),

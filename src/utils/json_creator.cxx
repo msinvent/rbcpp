@@ -106,7 +106,7 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::PoseStamped &pose_sta
 web::json::value &JsonCreator::toJson(const geometry_msgs::Accel &accel, bool sub_json)
 {
   static json::value accel_json;
-  
+
   accel_json[U("linear")] = toJson(accel.linear, true);
   accel_json[U("angular")] = toJson(accel.angular, true);
 
@@ -173,10 +173,20 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::WrenchStamped &wrench
 
 web::json::value &JsonCreator::toJson(const geometry_msgs::Transform &transform, bool sub_json)
 {
+  static json::value transform_json;
+
+  transform_json[U("translation")] = toJson(transform.translation, true);
+  transform_json[U("rotation")]    = toJson(transform.rotation, true);
+
+  return not sub_json ? completeJson(transform, transform_json) : transform_json;
+}
+
+web::json::value &JsonCreator::toJson(const msgs::geometry_msgs::TransformStamped &transform_stamped, bool sub_json)
+{
   static json::value transform_stamped_json;
 
-  transform_stamped_json[U("translation")] = toJson(transform.translation, true);
-  transform_stamped_json[U("rotation")]    = toJson(transform.rotation, true);
+  transform_stamped_json[U("header")] = toJson(transform_stamped.header, true);
+  transform_stamped_json[U("transform")]    = toJson(transform_stamped.transform, true);
 
-  return not sub_json ? completeJson(transform, transform_stamped_json) : transform_stamped_json;
+  return not sub_json ? completeJson(transform_stamped, transform_stamped_json) : transform_stamped_json;
 }

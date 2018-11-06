@@ -18,7 +18,8 @@ ROSBridgeClient::ROSBridgeClient(const std::string addr) : connected(false)
 
 std::shared_ptr<ROSBridgeClient> ROSBridgeClient::init(std::string addr)
 {
-  // have to jump trough loops because of https://stackoverflow.com/a/8147213
+  // have to jump trough loops because ROSBridgeClient constructor is protected
+  // https://stackoverflow.com/a/8147213
   // example https://stackoverflow.com/a/25069711
   struct make_share_enabler : public ROSBridgeClient
   {
@@ -34,8 +35,7 @@ std::shared_ptr<ROSBridgeClient> ROSBridgeClient::init(std::string addr)
 template<typename T>
 std::shared_ptr<publisher::RBCPublisher<T>> ROSBridgeClient::addPublisher(std::string topic)
 {
-  T ros_type;
-  auto pub = std::make_shared<publisher::RBCPublisher<T>>(shared_from_this(), topic, ros_type.rosMsgType());
+  auto pub = std::make_shared<publisher::RBCPublisher<T>>(shared_from_this(), topic, T().rosMsgType());
   return pub;
 }
 
@@ -43,8 +43,7 @@ template<typename T>
 std::shared_ptr<subscriber::RBCSubscriber<T>>
 ROSBridgeClient::addSubscriber(std::string topic, size_t buffer_size, std::function<void(std::shared_ptr<T>)> cb)
 {
-  T ros_type;
-  auto sub = std::make_shared<subscriber::RBCSubscriber<T>>(shared_from_this(), topic, ros_type.rosMsgType(),
+  auto sub = std::make_shared<subscriber::RBCSubscriber<T>>(shared_from_this(), topic, T().rosMsgType(),
                                                             buffer_size, cb);
   subscribers.push_back(sub);
   return sub;
@@ -196,7 +195,6 @@ void ROSBridgeClient::receive()
       {
         std::cerr << "can't send message to subscriber: " << b.what() << "\n";
       }
-
     }
   });
 }

@@ -35,6 +35,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/pose.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
+#include <ros_bridge_client/msgs/geometry_msgs/twist.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
@@ -720,32 +721,32 @@ struct AccelStampedTest : public Test
   }
 };
 
-//
-//struct TwistTest : public Test
-//{
-//  TwistTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("TwistTest")[0]),
-//        test2(dataframe.data.at("TwistTest")[1])
-//  {}
-//
-//  ~TwistTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(double lx, double ly, double lz, double ax, double ay, double az) const
-//  {
-//    geometry_msgs::TwistTest msg(lx, ly, lz, ax, ay, az);
-//    return messageToString(msg);
-//  }
-//
-//  inline std::string getMessage(const Vector3 &linear, const Vector3 &angular) const
-//  {
-//    geometry_msgs::TwistTest msg(linear, angular);
-//    return messageToString(msg);
-//  }
-//};
-//
+
+struct TwistTest : public Test
+{
+  TwistTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("TwistTest")[0]),
+        test2(dataframe.data.at("TwistTest")[1])
+  {}
+
+  ~TwistTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(double lx, double ly, double lz, double ax, double ay, double az) const
+  {
+    geometry_msgs::Twist msg(lx, ly, lz, ax, ay, az);
+    return messageToString<geometry_msgs::Twist>(msg);
+  }
+
+  inline std::string getMessage(const geometry_msgs::Vector3 &linear, const geometry_msgs::Vector3 &angular) const
+  {
+    geometry_msgs::Twist msg(linear, angular);
+    return messageToString<geometry_msgs::Twist>(msg);
+  }
+};
+
 //struct TwistStampedTest : public Test
 //{
 //  TwistStampedTest(const DataFrame &dataframe)

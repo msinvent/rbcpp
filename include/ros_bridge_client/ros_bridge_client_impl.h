@@ -10,7 +10,7 @@
 using namespace web::web_sockets::client;
 using namespace ros_bridge_client;
 
-ROSBridgeClient::ROSBridgeClient(const std::string addr) : connected(false)
+ROSBridgeClient::ROSBridgeClient(const std::string addr)
 {
   connect(addr);
   receive();
@@ -51,23 +51,16 @@ ROSBridgeClient::addSubscriber(std::string topic, size_t buffer_size, std::funct
 
 ROSBridgeClient::~ROSBridgeClient()
 {
-  if (connected)
-  {
-    ws_client.close().then([]() {
-      std::cout << "Closing Connection\n";
-    }).wait();
-  }
-
-  connected = false;
+  ws_client.close().then([]() {
+    std::cout << "Closing Connection\n";
+  }).wait();
 }
 
 void ROSBridgeClient::connect(const std::string addr)
 {
   try
   {
-    ws_client.connect(U(addr)).then([&]() {
-      connected = true;
-    }).wait();
+    ws_client.connect(U(addr)).then([&]() {}).wait();
   }
   catch (const std::exception &e)
   {
@@ -79,12 +72,6 @@ void ROSBridgeClient::connect(const std::string addr)
 
 void ROSBridgeClient::send(const msgs::RBCMessage &msg)
 {
-  if (!connected)
-  {
-    std::cerr << "Can't send: Not connected" << std::endl;
-    return;
-  }
-
   json::value test;
   try
   {
@@ -103,7 +90,8 @@ void ROSBridgeClient::send(const msgs::RBCMessage &msg)
   try
   {
     ws_client.send(m).then([&]() {}).wait();
-  } catch (const std::exception &e)
+  }
+  catch (const std::exception &e)
   {
     std::cerr << "Failed to send: " << e.what() << std::endl;
   }
@@ -117,12 +105,6 @@ void ROSBridgeClient::send(const msgs::RBCMessage *msg)
 
 void ROSBridgeClient::send(const web::json::value &msg)
 {
-  if (!connected)
-  {
-    std::cerr << "Can't send: Not connected" << std::endl;
-    return;
-  }
-
   json::value test;
   try
   {
@@ -149,12 +131,6 @@ void ROSBridgeClient::send(const web::json::value &msg)
 
 void ROSBridgeClient::send(const std::string msg)
 {
-  if (!connected)
-  {
-    std::cerr << "Can't send. Not connected" << std::endl;
-    return;
-  }
-
   websocket_outgoing_message m;
   m.set_utf8_message(msg);
   ws_client.send(m).then([&]() {}).wait();
@@ -207,7 +183,14 @@ void ROSBridgeClient::callSubscriber(const web::json::value &response)
 
 }
 
-bool ROSBridgeClient::connectionOk() const
+std::string ROSBridgeClient::toString(const RBCMessage &msg)
 {
-  return connected;
+  return toString(msg.msg());
+}
+
+std::string ROSBridgeClient::toString(const json::value &input)
+{
+  utility::stringstream_t stream;
+  input.serialize(stream);
+  return stream.str();
 }

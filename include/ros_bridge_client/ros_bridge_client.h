@@ -41,8 +41,6 @@ public:
 
   virtual ~ROSBridgeClient();
 
-  bool connectionOk() const;
-
   void send(const msgs::RBCMessage &msg);
 
   void send(const msgs::RBCMessage *msg);
@@ -69,7 +67,10 @@ private:
 
   void callSubscriber(const web::json::value &response);
 
-  bool connected;
+  std::string toString(const RBCMessage &msg);
+
+  std::string toString(const web::json::value &input);
+
   WSClient ws_client;
 
   std::unordered_map<std::string, std::weak_ptr<subscriber::SubscriberBase>> subscribers;

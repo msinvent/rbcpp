@@ -43,7 +43,7 @@ test::HeaderTest            header_test(dataframe);
 //test::PoseStampedMessage        pose_stamped_messages(dataframe);
 //test::AccelMessage              accel_messages(dataframe);
 //test::AccelStampedMessage       accel_stamped_messages(dataframe);
-//test::TwistMessage              twist_messages(dataframe);
+test::TwistTest             twist_test(dataframe);
 //test::TwistStampedMessage       twist_stamped_messages(dataframe);
 //test::GridCellsMessage          grid_cell_messages(dataframe);
 //test::PoseArrayMessage          pose_array_messages(dataframe);
@@ -340,37 +340,37 @@ TEST_CASE("Accel Stamped test", "[accel_stamped_test]")
     REQUIRE(accel_stamped_test.getMessage(linear, angular, "a_frame") == accel_stamped_test.test2);
   }
 }
-//
-//TEST_CASE("Twist Messages test", "[twist_messages]")
-//{
-//  {
-//    REQUIRE(twist_messages.getMessage(0.1, 0.2, 0.3, 0.1, 0.2, 0.3) == twist_messages.test1);
-//
-//    Vector3 linear;
-//    linear.x = 0.1;
-//    linear.y = 0.2;
-//    linear.z = 0.3;
-//    Vector3 angular;
-//    angular.x = 0.1;
-//    angular.y = 0.2;
-//    angular.z = 0.3;
-//    REQUIRE(twist_messages.getMessage(linear, angular) == twist_messages.test1);
-//  }
-//  {
-//    REQUIRE(twist_messages.getMessage(0.1, 0.5, 0.3, 0.1, 0.9, 1.0) == twist_messages.test2);
-//
-//    Vector3 linear;
-//    linear.x = 0.1;
-//    linear.y = 0.5;
-//    linear.z = 0.3;
-//    Vector3 angular;
-//    angular.x = 0.1;
-//    angular.y = 0.9;
-//    angular.z = 1.0;
-//    REQUIRE(twist_messages.getMessage(linear, angular) == twist_messages.test2);
-//  }
-//}
-//
+
+TEST_CASE("Twist test", "[twist_test]")
+{
+  {
+    REQUIRE(twist_test.getMessage(0.1, 0.2, 0.3, 0.1, 0.2, 0.3) == twist_test.test1);
+
+    geometry_msgs::Vector3 linear;
+    linear.x = 0.1;
+    linear.y = 0.2;
+    linear.z = 0.3;
+    geometry_msgs::Vector3 angular;
+    angular.x = 0.1;
+    angular.y = 0.2;
+    angular.z = 0.3;
+    REQUIRE(twist_test.getMessage(linear, angular) == twist_test.test1);
+  }
+  {
+    REQUIRE(twist_test.getMessage(0.1, 0.5, 0.3, 0.1, 0.9, 1.0) == twist_test.test2);
+
+    geometry_msgs::Vector3 linear;
+    linear.x = 0.1
+    linear.y = 0.5;
+    linear.z = 0.3;
+    geometry_msgs::Vector3 angular;
+    angular.x = 0.1;
+    angular.y = 0.9;
+    angular.z = 1.0;
+    REQUIRE(twist_test.getMessage(linear, angular) == twist_test.test2);
+  }
+}
+
 //TEST_CASE("Twist Stamped Messages test", "[twist_stamped_messages]")
 //{
 //  {

@@ -20,13 +20,13 @@ namespace geometry_msgs
 
 struct Accel : public MessageBase
 {
-  Accel();
+  explicit Accel(std::string ros_msg_type = "geometry_msgs/Accel");
 
-  Accel(double lx, double ly, double lz, double ax, double ay, double az);
+  Accel(double lx, double ly, double lz, double ax, double ay, double az, std::string ros_msg_type = "geometry_msgs/Accel");
 
-  Accel(const Vector3 &linear, const Vector3 &angular);
+  Accel(const Vector3 &linear, const Vector3 &angular, std::string ros_msg_type = "geometry_msgs/Accel");
 
-  explicit Accel(const web::json::value &response);
+  explicit Accel(const web::json::value &response, std::string ros_msg_type = "geometry_msgs/Accel");
 
   ~Accel() override = default;
 

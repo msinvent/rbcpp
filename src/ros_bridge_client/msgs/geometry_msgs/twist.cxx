@@ -2,33 +2,25 @@
 // Created by Julian on 29.10.18.
 //
 
-#include <ros_bridge_client/msgs/geometry_msgs/accel.h>
+#include <ros_bridge_client/msgs/geometry_msgs/twist.h>
 #include <ros_bridge_client/utils/response_converter.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
-Accel::Accel(std::string frame_id)
-  : MessageBase(frame_id),
-    linear(0, 0, 0),
-    angular(0, 0, 0)
+Twist::Twist()
+  : Accel("geometry_msgs/Twist")
 {}
 
-Accel::Accel(double lx, double ly, double lz, double ax, double ay, double az, std::string frame_id)
-  : MessageBase(frame_id),
-    linear(lx, ly, lz),
-    angular(ax, ay, az)
+Twist::Twist(double lx, double ly, double lz, double ax, double ay, double az)
+  : Accel(lx, ly, lz, ax, ay, az, "geometry_msgs/Twist")
 {}
 
-Accel::Accel(const Vector3 &linear, const Vector3 &angular, std::string frame_id)
-  : MessageBase(frame_id),
-    linear(linear),
-    angular(angular)
+Twist::Twist(const Vector3 &linear, const Vector3 &angular)
+  : Accel(linear, angular, "geometry_msgs/Twist")
 {}
 
-Accel::Accel(const web::json::value &response, std::string frame_id)
-  : MessageBase(frame_id),
-    linear(0, 0, 0),
-    angular(0, 0, 0)
+Twist::Twist(const web::json::value &response)
+  : Accel(response, "geometry_msgs/Twist")
 {
   const auto &msg = response.at(U("msg"));
 
@@ -39,15 +31,15 @@ Accel::Accel(const web::json::value &response, std::string frame_id)
     utils::ResponseConverter::responseToVector3(msg.at(U("angular")), true);
 }
 
-std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Accel &p)
+std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Twist &p)
 {
-  os << "\nAccel: linear/angular";
+  os << "\nTwist: linear/angular";
   os << p.linear;
   os << p.angular;
   return os;
 }
 
-std::ostream & operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::Accel> &p)
+std::ostream & operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::Twist> &p)
 {
   return os << p.get();
 }

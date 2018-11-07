@@ -3,6 +3,7 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/rbc_message.cpp"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/point.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/accel.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/twist.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/point32.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/wrench.cxx"

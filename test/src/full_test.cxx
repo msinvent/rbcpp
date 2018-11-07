@@ -234,8 +234,7 @@ int main(void)
   size_t messages = 0;
 
   auto& config = config_parser::ConfigParser::init("config.json");
-  std::chrono::milliseconds pause(config.get().at(U("config")).at("pause").as_integer());
-
+  std::chrono::milliseconds pause(config.pause());
   auto rbc = ROSBridgeClient::init("ws://127.0.0.1:9090");
 
   auto header_pub = rbc->addPublisher<std_msgs::Header>("/rosbridge/header/");

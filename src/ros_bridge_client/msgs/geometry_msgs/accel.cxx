@@ -7,26 +7,26 @@
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
-Accel::Accel()
-  : MessageBase("geometry_msgs/Accel"),
+Accel::Accel(std::string frame_id)
+  : MessageBase(frame_id),
     linear(0, 0, 0),
     angular(0, 0, 0)
 {}
 
-Accel::Accel(double lx, double ly, double lz, double ax, double ay, double az)
-  : MessageBase("geometry_msgs/Accel"),
+Accel::Accel(double lx, double ly, double lz, double ax, double ay, double az, std::string frame_id)
+  : MessageBase(frame_id),
     linear(lx, ly, lz),
     angular(ax, ay, az)
 {}
 
-Accel::Accel(const Vector3 &linear, const Vector3 &angular)
-  : MessageBase("geometry_msgs/Accel"),
+Accel::Accel(const Vector3 &linear, const Vector3 &angular, std::string frame_id)
+  : MessageBase(frame_id),
     linear(linear),
     angular(angular)
 {}
 
-Accel::Accel(const web::json::value &response)
-  : MessageBase("geometry_msgs/Accel"),
+Accel::Accel(const web::json::value &response, std::string frame_id)
+  : MessageBase(frame_id),
     linear(0, 0, 0),
     angular(0, 0, 0)
 {

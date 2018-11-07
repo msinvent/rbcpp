@@ -18,6 +18,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/transform_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
@@ -31,7 +32,7 @@ using namespace ros_bridge_client::msgs;
 
 
 std::atomic<size_t> messages_received;
-size_t num_publishers = 17;
+size_t num_publishers = 18;
 
 void hcallback(const std::shared_ptr<std_msgs::Header> msg)
 {
@@ -80,6 +81,19 @@ void tcallback(const std::shared_ptr<geometry_msgs::Transform> msg)
   assert((msg->rotation.y == .3));
   assert((msg->rotation.z == .2));
   assert((msg->rotation.w == .1));
+}
+
+void tscallback(const std::shared_ptr<geometry_msgs::TransformStamped> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[TransformStamped]\n";
+  assert((msg->header.frame_id == "a frame"));
+  assert((msg->transform.translation.x == .1));
+  assert((msg->transform.translation.y == .2));
+  assert((msg->transform.translation.z == .3));
+  assert((msg->transform.rotation.x == .4));
+  assert((msg->transform.rotation.y == .3));
+  assert((msg->transform.rotation.z == .2));
+  assert((msg->transform.rotation.w == .1));
 }
 
 void p32callback(const std::shared_ptr<geometry_msgs::Point32> msg)
@@ -218,7 +232,7 @@ int main()
 {
   size_t messages = 0;
 
-  std::chrono::milliseconds pause(100);
+  std::chrono::milliseconds pause(500);
   auto rbc = ROSBridgeClient::init("ws://127.0.0.1:9090");
 
   auto header_pub = rbc->addPublisher<std_msgs::Header>("/rosbridge/header/");
@@ -234,6 +248,7 @@ int main()
   auto accel_stamped_pub = rbc->addPublisher<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/");
   auto wrench_stamped_pub = rbc->addPublisher<geometry_msgs::WrenchStamped>("/rosbridge/wrench_stamped/");
   auto pose_stamped_pub = rbc->addPublisher<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/");
+  auto transform_stamped_pub = rbc->addPublisher<geometry_msgs::TransformStamped>("/rosbridge/transform_stamped/");
   auto vector3_pub = rbc->addPublisher<geometry_msgs::Vector3>("/rosbridge/vector3/");
   auto vector3_stamped_pub = rbc->addPublisher<geometry_msgs::Vector3Stamped>("/rosbridge/vector3_stamped/");
   auto quaternion_pub = rbc->addPublisher<geometry_msgs::Quaternion>("/rosbridge/quaternion/");
@@ -248,6 +263,7 @@ int main()
   auto point32_sub = rbc->addSubscriber<geometry_msgs::Point32>("/rosbridge/point32/", 100, p32callback);
   auto inertia_sub = rbc->addSubscriber<geometry_msgs::Inertia>("/rosbridge/inertia/", 100, icallback);
   auto transform_sub = rbc->addSubscriber<geometry_msgs::Transform>("/rosbridge/transform/", 100, tcallback);
+  auto transform_stamped_sub = rbc->addSubscriber<geometry_msgs::TransformStamped>("/rosbridge/transform_stamped/", 100, tscallback);
   auto inertia_stamped_sub = rbc->addSubscriber<geometry_msgs::InertiaStamped>("/rosbridge/inertia_stamped/", 100, iscallback);
   auto point_stamped_sub = rbc->addSubscriber<geometry_msgs::PointStamped>("/rosbridge/point_stamped/", 100, pscallback);
   auto accel_stamped_sub = rbc->addSubscriber<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/", 100, ascallback);
@@ -258,9 +274,10 @@ int main()
   auto quaternion_sub = rbc->addSubscriber<geometry_msgs::Quaternion>("/rosbridge/quaternion/", 100, qcallback);
   auto quaternion_stamped_sub = rbc->addSubscriber<geometry_msgs::QuaternionStamped>("/rosbridge/quaternion_stamped/", 100, qscallback);
 
-
   while (messages++ < 10)
   {
+    std::this_thread::sleep_for(pause);
+
     std_msgs::Header h("a frame");
     header_pub->publish(h);
 
@@ -303,6 +320,9 @@ int main()
     geometry_msgs::Transform t(0.1, 0.2, 0.3, 0.4, 0.3, 0.2, 0.1);
     transform_pub->publish(t);
 
+    geometry_msgs::TransformStamped ts(0.1, 0.2, 0.3, 0.4, 0.3, 0.2, 0.1, "a frame");
+    transform_stamped_pub->publish(ts);
+
     geometry_msgs::AccelStamped as(0.1, 0.2, 0.3, 0.3, 0.2, 0.1, "a frame");
     accel_stamped_pub->publish(as);
     
@@ -311,9 +331,8 @@ int main()
 
     geometry_msgs::InertiaStamped is(0.1, geometry_msgs::Vector3(.1, .2, .3), 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, "a frame");
     inertia_stamped_pub->publish(is);
-    
-    std::this_thread::sleep_for(pause);
   }
 
+  std::this_thread::sleep_for(std::chrono::seconds(3));
   return messages_received == num_publishers*10 ? 0 : 1;
 }

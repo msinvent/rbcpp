@@ -186,15 +186,12 @@ void ROSBridgeClient::receive()
 
     for (auto &subscriber: subscribers)
     {
-      try
-      {
-        auto sub = subscriber.lock();
-        if (topic_received != sub->getTopic()) continue;
+      auto sub = subscriber.lock();
+      if (sub != nullptr and topic_received == sub->getTopic())
         sub->addMessage(json);
-      } catch (std::bad_weak_ptr b)
-      {
-        std::cerr << "can't send message to subscriber: " << b.what() << "\n";
-      }
+
+      if (sub == nullptr)
+        std::cout << "Sub nullptr. Y?!\n";
     }
   });
 }

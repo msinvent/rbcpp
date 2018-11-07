@@ -15,6 +15,10 @@ Vector3::Vector3(double x, double y, double z)
   : XYZMessage<double>("geometry_msgs/Vector3", x, y, z)
 {}
 
+Vector3::Vector3(const Vector3 &vec)
+  : XYZMessage<double>(vec)
+{}
+
 Vector3::Vector3(const web::json::value &response)
   : XYZMessage<double>("geometry_msgs/Vector3")
 {

@@ -7,32 +7,34 @@
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
-AccelStamped::AccelStamped()
-  : MessageBase("geometry_msgs/AccelStamped"),
+AccelStamped::AccelStamped(std::string ros_msg_type)
+  : MessageBase(ros_msg_type),
     header(),
     accel()
 {}
 
-AccelStamped::AccelStamped(const Accel &accel, std::string frame_id)
-  : MessageBase("geometry_msgs/AccelStamped"),
+AccelStamped::AccelStamped(const Accel &accel, std::string frame_id, std::string ros_msg_type)
+  : MessageBase(ros_msg_type),
     header(frame_id),
     accel(accel)
 {}
 
-AccelStamped::AccelStamped(double lx, double ly, double lz, double ax, double ay, double az, std::string frame_id)
-  : MessageBase("geometry_msgs/AccelStamped"),
+AccelStamped::AccelStamped(double lx, double ly, double lz, double ax, double ay, double az, std::string frame_id,
+                           std::string ros_msg_type)
+  : MessageBase(ros_msg_type),
     header(frame_id),
     accel(lx, ly, lz, ax, ay, az)
 {}
 
-AccelStamped::AccelStamped(const Vector3 &linear, const Vector3 &angular, std::string frame_id)
-  : MessageBase("geometry_msgs/AccelStamped"),
+AccelStamped::AccelStamped(const Vector3 &linear, const Vector3 &angular, std::string frame_id,
+                           std::string ros_msg_type)
+  : MessageBase(ros_msg_type),
     header(frame_id),
     accel(linear, angular)
 {}
 
-AccelStamped::AccelStamped(const web::json::value &response)
-  : MessageBase("geometry_msgs/AccelStamped"),
+AccelStamped::AccelStamped(const web::json::value &response, std::string ros_msg_type)
+  : MessageBase(ros_msg_type),
     header(),
     accel()
 {

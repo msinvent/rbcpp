@@ -44,7 +44,7 @@ test::HeaderTest            header_test(dataframe);
 //test::AccelMessage              accel_messages(dataframe);
 //test::AccelStampedMessage       accel_stamped_messages(dataframe);
 test::TwistTest             twist_test(dataframe);
-//test::TwistStampedMessage       twist_stamped_messages(dataframe);
+test::TwistStampedTest      twist_stamped_test(dataframe);
 //test::GridCellsMessage          grid_cell_messages(dataframe);
 //test::PoseArrayMessage          pose_array_messages(dataframe);
 //test::TransformMessage          transform_test(dataframe);
@@ -360,7 +360,7 @@ TEST_CASE("Twist test", "[twist_test]")
     REQUIRE(twist_test.getMessage(0.1, 0.5, 0.3, 0.1, 0.9, 1.0) == twist_test.test2);
 
     geometry_msgs::Vector3 linear;
-    linear.x = 0.1
+    linear.x = 0.1;
     linear.y = 0.5;
     linear.z = 0.3;
     geometry_msgs::Vector3 angular;
@@ -371,36 +371,46 @@ TEST_CASE("Twist test", "[twist_test]")
   }
 }
 
-//TEST_CASE("Twist Stamped Messages test", "[twist_stamped_messages]")
-//{
-//  {
-//    REQUIRE(twist_stamped_messages.getMessage(0.10, 0.20, 0.30, 0.1, 0.2, 0.3) == twist_stamped_messages.test1);
-//
-//    Vector3 linear;
-//    linear.x = 0.10;
-//    linear.y = 0.20;
-//    linear.z = 0.30;
-//    Vector3 angular;
-//    angular.x = 0.1;
-//    angular.y = 0.2;
-//    angular.z = 0.3;
-//    REQUIRE(twist_stamped_messages.getMessage(linear, angular) == twist_stamped_messages.test1);
-//  }
-//  {
-//    REQUIRE(twist_stamped_messages.getMessage(0.1, 0.5, 0.3, 0.1, 0.9, 1.0, "a_frame") == twist_stamped_messages.test2);
-//
-//    Vector3 linear;
-//    linear.x = 0.1;
-//    linear.y = 0.5;
-//    linear.z = 0.3;
-//    Vector3 angular;
-//    angular.x = 0.1;
-//    angular.y = 0.9;
-//    angular.z = 1.0;
-//    REQUIRE(twist_stamped_messages.getMessage(linear, angular, "a_frame") == twist_stamped_messages.test2);
-//  }
-//}
-//
+TEST_CASE("Twist Stamped test", "[twist_stamped_test]")
+{
+  {
+    REQUIRE(twist_stamped_test.getMessage(0.10, 0.20, 0.30, 0.1, 0.2, 0.3) == twist_stamped_test.test1);
+
+    geometry_msgs::Vector3 linear;
+    linear.x = 0.10;
+    linear.y = 0.20;
+    linear.z = 0.30;
+    geometry_msgs::Vector3 angular;
+    angular.x = 0.1;
+    angular.y = 0.2;
+    angular.z = 0.3;
+    REQUIRE(twist_stamped_test.getMessage(linear, angular) == twist_stamped_test.test1);
+
+    geometry_msgs::Twist ts;
+    ts.linear = linear;
+    ts.angular = angular;
+    REQUIRE(twist_stamped_test.getMessage(ts) == twist_stamped_test.test1);
+  }
+  {
+    REQUIRE(twist_stamped_test.getMessage(0.1, 0.5, 0.3, 0.1, 0.9, 1.0, "a_frame") == twist_stamped_test.test2);
+
+    geometry_msgs::Vector3 linear;
+    linear.x = 0.1;
+    linear.y = 0.5;
+    linear.z = 0.3;
+    geometry_msgs::Vector3 angular;
+    angular.x = 0.1;
+    angular.y = 0.9;
+    angular.z = 1.0;
+    REQUIRE(twist_stamped_test.getMessage(linear, angular, "a_frame") == twist_stamped_test.test2);
+
+    geometry_msgs::Twist ts;
+    ts.linear = linear;
+    ts.angular = angular;
+    REQUIRE(twist_stamped_test.getMessage(ts, "a_frame") == twist_stamped_test.test2);
+  }
+}
+
 //TEST_CASE("Gridcells Messages test", "[grid_cells_messages]")
 //{
 //  REQUIRE(grid_cell_messages.getMessage(.1, .2) == grid_cell_messages.test1);

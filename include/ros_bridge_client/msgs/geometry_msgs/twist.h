@@ -30,9 +30,6 @@ struct Twist : public Accel
   explicit Twist(const web::json::value &response);
 
   ~Twist() override = default;
-
-  Vector3 linear;
-  Vector3 angular;
 };
 
 } // namespace geometry_msgs

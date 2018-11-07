@@ -190,3 +190,13 @@ web::json::value &JsonCreator::toJson(const msgs::geometry_msgs::TransformStampe
 
   return not sub_json ? completeJson(transform_stamped, transform_stamped_json) : transform_stamped_json;
 }
+
+web::json::value &JsonCreator::toJson(const geometry_msgs::TwistStamped &twist_stamped, bool sub_json)
+{
+  static json::value twist_stamped_json;
+
+  twist_stamped_json[U("header")] = toJson(twist_stamped.header, true);
+  twist_stamped_json[U("twist")] = toJson(twist_stamped.twist, true);
+
+  return not sub_json ? completeJson(twist_stamped, twist_stamped_json) : twist_stamped_json;
+}

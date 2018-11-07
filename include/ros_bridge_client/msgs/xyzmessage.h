@@ -26,6 +26,8 @@ protected:
 
   XYZMessage(std::string ros_msg_type, T x, T y, T z);
 
+  XYZMessage(const XYZMessage<T> &xyz);
+
   ~XYZMessage() override = default;
 };
 
@@ -37,6 +39,11 @@ XYZMessage<T>::XYZMessage(std::string ros_msg_type)
 template<typename T>
 XYZMessage<T>::XYZMessage(std::string ros_msg_type, T x, T y, T z)
   : MessageBase(ros_msg_type), x(x), y(y), z(z)
+{}
+
+template<typename T>
+XYZMessage<T>::XYZMessage(const XYZMessage<T> &xyz)
+  : MessageBase(xyz.rosMsgType()), x(xyz.x), y(xyz.y), z(xyz.z)
 {}
 
 } // namespace msgs

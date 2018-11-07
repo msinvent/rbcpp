@@ -23,6 +23,8 @@ struct Vector3 : public XYZMessage<double>
 
   Vector3(double x, double y, double z);
 
+  Vector3(const Vector3 &vec);
+
   explicit Vector3(const web::json::value &response);
 
   ~Vector3() override = default;

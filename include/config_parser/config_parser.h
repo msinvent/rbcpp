@@ -21,10 +21,15 @@ public:
   ~ConfigParser();
 
   const web::json::value &get() const;
+
+  int pause() const;
+
 private:
   ConfigParser() = delete;
 
   explicit ConfigParser(std::string filename);
+
+  void checkForValidity();
 
   std::ifstream file;
   web::json::value json;

@@ -1,11 +1,20 @@
 # ROS Bridge Client
 
+
+
+### TOC
+
+1. [Status](#status)
+2. [Usage](#usage) 
+
+<a name="status"></a>
+
 ## Status: very early development
 All messages that are checked below can be used already. Examples can be found [here](test/full_test.cpp)
-  
+
 | Type           | Message Status | Subscriber Status | Publisher Status |
 |----------------|----------------|----------------|----------------|
-|**geometry_msgs**| quaternion  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|**geometry_msgs**| quaternion  | <ul><li>-[x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | quaternion stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | vector3  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | vector3 stamped | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
@@ -67,6 +76,12 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | UInt8 | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | UInt8MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |**nav_msgs**     | GridCells  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+
+<a name="usage"></a>
+
+## Usage
+
+
 
 ### TODO
 

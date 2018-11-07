@@ -24,6 +24,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
+#include <config_parser/config_parser.h>
 #include <cassert>
 
 using namespace std::chrono;
@@ -232,7 +233,9 @@ int main(void)
 {
   size_t messages = 0;
 
-  std::chrono::milliseconds pause(10);
+  auto& config = config_parser::ConfigParser::init("config.json");
+  std::chrono::milliseconds pause(config.get().at(U("config")).at("pause").as_integer());
+
   auto rbc = ROSBridgeClient::init("ws://127.0.0.1:9090");
 
   auto header_pub = rbc->addPublisher<std_msgs::Header>("/rosbridge/header/");

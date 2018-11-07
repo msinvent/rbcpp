@@ -1,0 +1,1 @@
+target_sources(config_parser PRIVATE "${CMAKE_CURRENT_LIST_DIR}/config_parser.cxx")

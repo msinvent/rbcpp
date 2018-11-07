@@ -9,6 +9,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/pose.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
+#include <ros_bridge_client/msgs/geometry_msgs/twist.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
 #include <ros_bridge_client/msgs/geometry_msgs/transform.h>
@@ -33,7 +34,7 @@ using namespace ros_bridge_client::msgs;
 
 
 std::atomic<size_t> messages_received;
-size_t num_publishers = 18;
+size_t num_publishers = 19;
 
 void hcallback(const std::shared_ptr<std_msgs::Header> msg)
 {
@@ -64,6 +65,17 @@ void pcallback(const std::shared_ptr<geometry_msgs::Point> msg)
 void acallback(const std::shared_ptr<geometry_msgs::Accel> msg)
 {
   std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Accel]\n";
+  assert((msg->linear.x == .1));
+  assert((msg->linear.y == .2));
+  assert((msg->linear.z == .3));
+  assert((msg->angular.x == .3));
+  assert((msg->angular.y == .2));
+  assert((msg->angular.z == .1));
+}
+
+void twcallback(const std::shared_ptr<geometry_msgs::Twist> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Twist]\n";
   assert((msg->linear.x == .1));
   assert((msg->linear.y == .2));
   assert((msg->linear.z == .3));
@@ -240,6 +252,7 @@ int main(void)
   auto header_pub = rbc->addPublisher<std_msgs::Header>("/rosbridge/header/");
   auto point_pub = rbc->addPublisher<geometry_msgs::Point>("/rosbridge/point/");
   auto accel_pub = rbc->addPublisher<geometry_msgs::Accel>("/rosbridge/accel/");
+  auto twist_pub = rbc->addPublisher<geometry_msgs::Twist>("/rosbridge/twist/");
   auto wrench_pub = rbc->addPublisher<geometry_msgs::Wrench>("/rosbridge/wrench/");
   auto pose_pub = rbc->addPublisher<geometry_msgs::Pose>("/rosbridge/pose/");
   auto point32_pub = rbc->addPublisher<geometry_msgs::Point32>("/rosbridge/point32/");
@@ -260,6 +273,7 @@ int main(void)
   auto header_sub = rbc->addSubscriber<std_msgs::Header>("/rosbridge/header/", 100, hcallback);
   auto point_sub = rbc->addSubscriber<geometry_msgs::Point>("/rosbridge/point/", 100, pcallback);
   auto accel_sub = rbc->addSubscriber<geometry_msgs::Accel>("/rosbridge/accel/", 100, acallback);
+  auto twist_sub = rbc->addSubscriber<geometry_msgs::Twist>("/rosbridge/twist/", 100, twcallback);
   auto wrench_sub = rbc->addSubscriber<geometry_msgs::Wrench>("/rosbridge/wrench/", 100, wcallback);
   auto pose_sub = rbc->addSubscriber<geometry_msgs::Pose>("/rosbridge/pose/", 100, pocallback);
   auto point32_sub = rbc->addSubscriber<geometry_msgs::Point32>("/rosbridge/point32/", 100, p32callback);
@@ -288,6 +302,9 @@ int main(void)
 
     geometry_msgs::Accel a(0.1, 0.2, 0.3, 0.3, 0.2, 0.1);
     accel_pub->publish(a);
+
+    geometry_msgs::Twist tw(0.1, 0.2, 0.3, 0.3, 0.2, 0.1);
+    twist_pub->publish(tw);
 
     geometry_msgs::Wrench w(0.1, 0.2, 0.3, 0.3, 0.2, 0.1);
     wrench_pub->publish(w);

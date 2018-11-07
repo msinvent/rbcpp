@@ -45,7 +45,7 @@ ROSBridgeClient::addSubscriber(std::string topic, size_t buffer_size, std::funct
 {
   auto sub = std::make_shared<subscriber::RBCSubscriber<T>>(shared_from_this(), topic, T().rosMsgType(),
                                                             buffer_size, cb);
-  subscribers.push_back(sub);
+  subscribers[topic] = sub;
   return sub;
 }
 
@@ -167,33 +167,44 @@ void ROSBridgeClient::receive()
       return;
 
     auto msg_str = msg.extract_string().get();
+    web::json::value response = web::json::value::parse(U(msg_str));
 
     log.log("Received ", msg_str);
 
-    web::json::value json = web::json::value::parse(U(msg_str));
+    callSubscriber(response);
+  });
+}
 
-    try
+void ROSBridgeClient::callSubscriber(const web::json::value &response)
+{
+  std::string topic_received;
+
+  try
+  {
+    topic_received = response.at(U("topic")).as_string();
+  }
+  catch (std::exception &e)
+  {
+    std::cerr << "Message malformed? Can't get topic: " << e.what() << "\n";
+    return;
+  }
+
+  if (subscribers.find(topic_received) != std::end(subscribers))
+  {
+    auto sub = subscribers.at(topic_received).lock();
+    if (not sub)
     {
-      json.at(U("topic"));
-    }
-    catch (const std::exception &e)
-    {
-      std::cerr << "Can't get key 'topic'. Subscribed message is wrong" << e.what() << std::endl;
+      std::cout << "Sub nullptr. Y?!\n";
       return;
     }
 
-    const auto &topic_received = json.at(U("topic")).as_string();
+    sub->addMessage(response);
+  }
+  else
+  {
+    std::cout << "Topic '" << topic_received <<  "' doesn't seems to be subscribed to!\n";
+  }
 
-    for (auto &subscriber: subscribers)
-    {
-      auto sub = subscriber.lock();
-      if (sub != nullptr and topic_received == sub->getTopic())
-        sub->addMessage(json);
-
-      if (sub == nullptr)
-        std::cout << "Sub nullptr. Y?!\n";
-    }
-  });
 }
 
 bool ROSBridgeClient::connectionOk() const

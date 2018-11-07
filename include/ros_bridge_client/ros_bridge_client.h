@@ -8,6 +8,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <unordered_map>
 #include <functional>
 #include <cpprest/ws_client.h>
 #include <ros_bridge_client/logging/logger.h>
@@ -66,10 +67,12 @@ private:
 
   void connect(const std::string addr);
 
+  void callSubscriber(const web::json::value &response);
+
   bool connected;
   WSClient ws_client;
 
-  std::vector<std::weak_ptr<subscriber::SubscriberBase>> subscribers;
+  std::unordered_map<std::string, std::weak_ptr<subscriber::SubscriberBase>> subscribers;
 };
 } // namespace ros_bridge_client
 

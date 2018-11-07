@@ -228,11 +228,11 @@ void iscallback(const std::shared_ptr<geometry_msgs::InertiaStamped> msg)
   assert((msg->inertia.com.z == .3));
 }
 
-int main()
+int main(void)
 {
   size_t messages = 0;
 
-  std::chrono::milliseconds pause(500);
+  std::chrono::milliseconds pause(10);
   auto rbc = ROSBridgeClient::init("ws://127.0.0.1:9090");
 
   auto header_pub = rbc->addPublisher<std_msgs::Header>("/rosbridge/header/");

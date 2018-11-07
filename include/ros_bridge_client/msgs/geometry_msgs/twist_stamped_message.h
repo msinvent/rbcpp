@@ -19,9 +19,9 @@ public:
   TwistStampedMessage() = delete;
 
   TwistStampedMessage(const ros_types::Vector3 &linear, const ros_types::Vector3 &angular,
-                      std::string frame_id = "world");
+                      std::string frame_id);
 
-  TwistStampedMessage(double lx, double ly, double lz, double ax, double ay, double az, std::string frame_id = "world");
+  TwistStampedMessage(double lx, double ly, double lz, double ax, double ay, double az, std::string frame_id);
 
   ~TwistStampedMessage() final = default;
 

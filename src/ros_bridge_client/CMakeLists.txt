@@ -13,6 +13,7 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/quaternion.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/point_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/accel_stamped.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/twist_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/wrench_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/vector3_stamped.cxx"

@@ -15,17 +15,16 @@ namespace msgs
 
 struct MessageBase
 {
-  MessageBase() = delete;
-
   virtual ~MessageBase() = default;
 
   const std::string &rosMsgType() const;
 
 protected:
+  MessageBase() = default;
   explicit MessageBase(std::string ros_msg_type);
 
 private:
-  const std::string ros_msg_type;
+  std::string ros_msg_type;
 
 };
 

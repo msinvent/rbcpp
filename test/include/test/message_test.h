@@ -43,6 +43,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/twist_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/transform_stamped.h>
@@ -725,8 +726,8 @@ struct AccelStampedTest : public Test
 struct TwistTest : public Test
 {
   TwistTest(const DataFrame &dataframe)
-      : test1(dataframe.data.at("TwistTest")[0]),
-        test2(dataframe.data.at("TwistTest")[1])
+    : test1(dataframe.data.at("TwistTest")[0]),
+      test2(dataframe.data.at("TwistTest")[1])
   {}
 
   ~TwistTest() final = default;
@@ -747,31 +748,38 @@ struct TwistTest : public Test
   }
 };
 
-//struct TwistStampedTest : public Test
-//{
-//  TwistStampedTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("TwistStampedTest")[0]),
-//        test2(dataframe.data.at("TwistStampedTest")[1])
-//  {}
-//
-//  ~TwistStampedTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string
-//  getMessage(double lx, double ly, double lz, double ax, double ay, double az, std::string frame_id = "world") const
-//  {
-//    geometry_msgs::TwistStampedTest msg(lx, ly, lz, ax, ay, az, frame_id);
-//    return messageToString(msg);
-//  }
-//
-//  inline std::string getMessage(const Vector3 &linear, const Vector3 &angular, std::string frame_id = "world") const
-//  {
-//    geometry_msgs::TwistStampedTest msg(linear, angular, frame_id);
-//    return messageToString(msg);
-//  }
-//};
+struct TwistStampedTest : public Test
+{
+  TwistStampedTest(const DataFrame &dataframe)
+    : test1(dataframe.data.at("TwistStampedTest")[0]),
+      test2(dataframe.data.at("TwistStampedTest")[1])
+  {}
+
+  ~TwistStampedTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(const geometry_msgs::Twist &t, std::string frame_id = "world") const
+  {
+    geometry_msgs::TwistStamped msg(t, frame_id);
+    return messageToString<geometry_msgs::TwistStamped>(msg);
+  }
+
+  inline std::string
+  getMessage(double lx, double ly, double lz, double ax, double ay, double az, std::string frame_id = "world") const
+  {
+    geometry_msgs::TwistStamped msg(lx, ly, lz, ax, ay, az, frame_id);
+    return messageToString<geometry_msgs::TwistStamped>(msg);
+  }
+
+  inline std::string getMessage(const geometry_msgs::Vector3 &linear, const geometry_msgs::Vector3 &angular,
+                                std::string frame_id = "world") const
+  {
+    geometry_msgs::TwistStamped msg(linear, angular, frame_id);
+    return messageToString<geometry_msgs::TwistStamped>(msg);
+  }
+};
 //
 //struct GridCellsTest : public Test
 //{
@@ -837,14 +845,16 @@ struct TransformStampedTest : public Test
   const std::string test1;
   const std::string test2;
 
-  inline std::string getMessage(double tx, double ty, double tz, double fx, double fy, double fz, double fw, std::string frame_id = "world") const
+  inline std::string getMessage(double tx, double ty, double tz, double fx, double fy, double fz, double fw,
+                                std::string frame_id = "world") const
   {
     geometry_msgs::TransformStamped msg(tx, ty, tz, fx, fy, fz, fw, frame_id);
     return messageToString<geometry_msgs::TransformStamped>(msg);
   }
 
   inline std::string
-  getMessage(const geometry_msgs::Vector3 &translation, const geometry_msgs::Quaternion &rotation, std::string frame_id = "world") const
+  getMessage(const geometry_msgs::Vector3 &translation, const geometry_msgs::Quaternion &rotation,
+             std::string frame_id = "world") const
   {
     geometry_msgs::TransformStamped msg(translation, rotation, frame_id);
     return messageToString<geometry_msgs::TransformStamped>(msg);

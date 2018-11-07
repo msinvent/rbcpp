@@ -21,15 +21,7 @@ Twist::Twist(const Vector3 &linear, const Vector3 &angular)
 
 Twist::Twist(const web::json::value &response)
   : Accel(response, "geometry_msgs/Twist")
-{
-  const auto &msg = response.at(U("msg"));
-
-  std::tie(linear.x, linear.y, linear.z) =
-    utils::ResponseConverter::responseToVector3(msg.at(U("linear")), true);
-
-  std::tie(angular.x, angular.y, angular.z) =
-    utils::ResponseConverter::responseToVector3(msg.at(U("angular")), true);
-}
+{}
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Twist &p)
 {

@@ -17,6 +17,15 @@ PointTuple ResponseConverter::responseToPoint(const web::json::value &response, 
   return std::forward_as_tuple(x, y, z);
 }
 
+PointTuple ResponseConverter::responseToPoint2D(const web::json::value &response, bool is_sub_json)
+{
+  const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
+  const double &x = msg.at(U("x")).as_double();
+  const double &y = msg.at(U("y")).as_double();
+  const double &theta = msg.at(U("theta")).as_double();
+  return std::forward_as_tuple(x, y, theta);
+}
+
 Point32Tuple ResponseConverter::responseToPoint32(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;

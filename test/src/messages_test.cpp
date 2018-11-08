@@ -26,7 +26,7 @@ test::Vector3Test           vector3_test(dataframe);
 test::WrenchTest            wrench_test(dataframe);
 test::InertiaTest           inertia_test(dataframe);
 test::TransformTest         transform_test(dataframe);
-//test::Point32Message            point32_messages(dataframe);
+test::Point2DTest           point2d_test(dataframe);
 test::PoseStampedTest       pose_stamped_test(dataframe);
 test::PointStampedTest      point_stamped_test(dataframe);
 test::AccelStampedTest      accel_stamped_test(dataframe);
@@ -150,6 +150,12 @@ TEST_CASE("Point Test", "[point_test]")
 {
   REQUIRE(point_test.getMessage(0.1, 0.2, 0.3) == point_test.test1);
   REQUIRE(point_test.getMessage(0.2, 0.2, 0.3) == point_test.test2);
+}
+
+TEST_CASE("Point 2D Test", "[point2d_test]")
+{
+  REQUIRE(point2d_test.getMessage(0.1, 0.2, 0.3) == point2d_test.test1);
+  REQUIRE(point2d_test.getMessage(0.2, 0.2, 0.3) == point2d_test.test2);
 }
 
 TEST_CASE("Point32 test", "[point32_messages]")

@@ -9,8 +9,7 @@
 #include <tuple>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
-#include <ros_bridge_client/msgs/geometry_msgs/pose.h>
-
+#include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 
 namespace ros_bridge_client
 {
@@ -28,6 +27,8 @@ using HeaderTuple = std::tuple<double, double, double, std::string>;
 struct ResponseConverter
 {
   static PointTuple responseToPoint(const web::json::value &response, bool is_sub_json = false);
+  
+  static PointTuple responseToPoint2D(const web::json::value &response, bool is_sub_json = false);
 
   static InertiaTuple responseToInertia(const web::json::value &response, bool is_sub_json = false);
 

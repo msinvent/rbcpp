@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <atomic>
 #include <thread>
 #include <memory>
@@ -33,9 +34,21 @@ using namespace std::chrono;
 using namespace ros_bridge_client;
 using namespace ros_bridge_client::msgs;
 
+namespace test
+{
+
+struct TestException : public std::exception
+{
+    inline const char *what() const throw()
+    {
+      return "TestException\n  Test Error! \n  Didn't receive all messages! \n  Exiting.\n";
+    }
+};
+
+} // namespace exception
 
 std::atomic<size_t> messages_received;
-size_t num_publishers = 20;
+size_t num_publishers = 0;
 
 void hcallback(const std::shared_ptr<std_msgs::Header> msg)
 {
@@ -260,6 +273,7 @@ int main(void)
 
   auto& config = config_parser::ConfigParser::init("config.json");
   std::chrono::milliseconds pause(config.pause());
+  num_publishers = config.publishers();
   auto rbc = ROSBridgeClient::init("ws://127.0.0.1:9090");
 
   auto header_pub = rbc->addPublisher<std_msgs::Header>("/rosbridge/header/");
@@ -370,6 +384,12 @@ int main(void)
     inertia_stamped_pub->publish(is);
   }
 
-  std::this_thread::sleep_for(std::chrono::seconds(3));
-  return messages_received == num_publishers*10 ? 0 : 1;
+  std::this_thread::sleep_for(std::chrono::seconds(1)); // for last incoming messages
+
+  if (messages_received != num_publishers*10)
+  {
+    throw test::TestException();
+  }
+
+  return 0;
 }

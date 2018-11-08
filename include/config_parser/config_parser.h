@@ -24,6 +24,8 @@ public:
 
   int pause() const;
 
+  size_t publishers() const;
+
 private:
   ConfigParser() = delete;
 

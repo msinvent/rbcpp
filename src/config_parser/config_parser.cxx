@@ -74,6 +74,17 @@ void ConfigParser::checkForValidity()
     throw exception::ConfigParserValidityException();
   }
 
+  try
+  {
+    const auto &j = msg.at(U("publishers")).as_integer();
+    std::cout << j << " publishers configured\n";
+  }
+  catch (std::exception &e)
+  {
+    std::cerr << "Missing key: 'config/publishers'\n";
+    throw exception::ConfigParserValidityException();
+  }
+
   std::cout << "Config file valid\n";
 }
 
@@ -81,4 +92,10 @@ int ConfigParser::pause() const
 {
   int pause = json.at(U("config")).at(U("pause")).as_integer();
   return pause;
+}
+
+size_t ConfigParser::publishers() const
+{
+  size_t publishers = json.at(U("config")).at(U("publishers")).as_integer();
+  return publishers;
 }

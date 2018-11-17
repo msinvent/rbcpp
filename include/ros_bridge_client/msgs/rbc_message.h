@@ -9,9 +9,7 @@
 #include <sstream>
 #include <cpprest/json.h>
 
-namespace ros_bridge_client
-{
-namespace msgs
+namespace ros_bridge_client::msgs
 {
 
 class RBCMessage
@@ -43,7 +41,6 @@ protected:
   std::string topic;
 };
 
-} // namespace msgs
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::msg
 
 #endif //ROSBRIDGECLIENT_RBC_MESSAGE_HPP

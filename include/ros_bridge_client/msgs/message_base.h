@@ -7,10 +7,7 @@
 
 #include <string>
 
-namespace ros_bridge_client
-{
-
-namespace msgs
+namespace ros_bridge_client::msgs
 {
 
 struct MessageBase
@@ -28,9 +25,6 @@ private:
 
 };
 
-
-} // msgs
-} // ros_bridge_client
-
+} // namespace ros_bridge_client::msgs
 
 #endif //ROSBRIDGECLIENT_MESSAGE_BASE_H

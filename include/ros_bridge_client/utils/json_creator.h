@@ -29,10 +29,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
 
-namespace ros_bridge_client
-{
-
-namespace utils
+namespace ros_bridge_client::utils
 {
 
 class JsonCreator
@@ -100,7 +97,6 @@ web::json::value &JsonCreator::toJson(const msgs::XYZMessage<T> &xyz, bool sub_j
   return not sub_json ? completeJson(xyz, json_xyz) : json_xyz;
 }
 
-} // namespace msgs
-} // namespace ros_bridge_client
+} // namespace namespace ros_bridge_client::utils
 
 #endif //ROSBRIDGECLIENT_JSON_CREATER_H

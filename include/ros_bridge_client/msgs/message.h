@@ -8,10 +8,7 @@
 #include <cpprest/json.h>
 #include <ros_bridge_client/utils/json_creator.h>
 
-namespace ros_bridge_client
-{
-
-namespace msgs
+namespace ros_bridge_client::msgs
 {
 
 template<typename T>
@@ -34,8 +31,7 @@ private:
   web::json::value &json_msg_;
 };
 
-} // namespace msgs
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::msgs
 
 #include <ros_bridge_client/msgs/message_impl.h>
 

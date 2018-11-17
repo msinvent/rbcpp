@@ -10,13 +10,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
 #include <ros_bridge_client/msgs/message_base.h>
 
-namespace ros_bridge_client
-{
-
-namespace msgs
-{
-
-namespace geometry_msgs
+namespace ros_bridge_client::msgs::geometry_msgs
 {
 
 struct AccelStamped : public MessageBase
@@ -39,14 +33,11 @@ struct AccelStamped : public MessageBase
   Accel accel;
 };
 
-} // namespace geometry_msgs
-} // namespace msgs
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::msgs::geometry_msgs
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::AccelStamped &a);
 
 std::ostream &
 operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::AccelStamped> &a);
-
 
 #endif //ROSBRIDGECLIENT_ACCEL_STAMPED_H

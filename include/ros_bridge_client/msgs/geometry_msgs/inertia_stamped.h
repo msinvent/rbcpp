@@ -9,11 +9,7 @@
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
 
-namespace ros_bridge_client
-{
-namespace msgs
-{
-namespace geometry_msgs
+namespace ros_bridge_client::msgs::geometry_msgs
 {
 
 struct InertiaStamped : public MessageBase
@@ -35,9 +31,7 @@ struct InertiaStamped : public MessageBase
   Inertia inertia;
 };
 
-} // namespace geometry_msgs
-} // namespace msgs
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::msgs::geometry_msgs
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::InertiaStamped &is);
 

@@ -11,11 +11,7 @@
 #include <memory>
 #include <iostream>
 
-namespace ros_bridge_client
-{
-namespace msgs
-{
-namespace geometry_msgs
+namespace ros_bridge_client::msgs::geometry_msgs
 {
 
 struct Wrench : public MessageBase
@@ -34,9 +30,7 @@ struct Wrench : public MessageBase
   Vector3 torque;
 };
 
-} // namespace geometry_msgs
-} // namespace msgs
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::msgs::geometry_msgs
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Wrench &p);
 

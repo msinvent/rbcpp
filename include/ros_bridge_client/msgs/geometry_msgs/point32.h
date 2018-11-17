@@ -11,11 +11,7 @@
 #include <memory>
 #include <iostream>
 
-namespace ros_bridge_client
-{
-namespace msgs
-{
-namespace geometry_msgs
+namespace ros_bridge_client::msgs::geometry_msgs
 {
 
 struct Point32 : public XYZMessage<float>
@@ -29,9 +25,7 @@ struct Point32 : public XYZMessage<float>
   ~Point32() override = default;
 };
 
-} // namespace geometry_msgs
-} // namespace msgs
-} // namespace ros_bridge_client
+} // namespace geometry_msgs::msgs::namespace ros_bridge_client
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Point32 &p);
 

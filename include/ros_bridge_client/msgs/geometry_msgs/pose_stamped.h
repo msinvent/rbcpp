@@ -10,13 +10,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/pose.h>
 #include <ros_bridge_client/msgs/message_base.h>
 
-namespace ros_bridge_client
-{
-
-namespace msgs
-{
-
-namespace geometry_msgs
+namespace ros_bridge_client::msgs::geometry_msgs
 {
 
 struct PoseStamped : public MessageBase
@@ -35,9 +29,7 @@ struct PoseStamped : public MessageBase
   Pose pose;
 };
 
-} // namespace geometry_msgs
-} // namespace msgs
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::msgs::geometry_msgs
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::PoseStamped &p);
 

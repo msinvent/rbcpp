@@ -9,11 +9,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/message_base.h>
 
-namespace ros_bridge_client
-{
-namespace msgs
-{
-namespace geometry_msgs
+namespace ros_bridge_client::msgs::geometry_msgs
 {
 
 struct PointStamped : public MessageBase
@@ -31,9 +27,7 @@ public:
   Point point;
 };
 
-} // namespace geometry_msgs
-} // namespace msgs
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::msgs::geometry_msgs
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::PointStamped &p);
 

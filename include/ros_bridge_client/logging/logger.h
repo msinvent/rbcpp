@@ -12,10 +12,7 @@
 #include <iostream>
 #include <ros_bridge_client/exceptions/logger_init_exception.h>
 
-namespace ros_bridge_client
-{
-
-namespace logging
+namespace ros_bridge_client::logging
 {
 
 struct Logger
@@ -35,8 +32,7 @@ private:
   std::stringstream stream;
 };
 
-} // namespace logging
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::logging
 
 #include <ros_bridge_client/logging/logger_impl.h>
 

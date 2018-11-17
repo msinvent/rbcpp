@@ -12,3 +12,8 @@ add_executable(messages_test src/messages_test.cpp)
 target_include_directories(messages_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_compile_options(messages_test PRIVATE -Wall -Wextra -Wpedantic)
 target_link_libraries(messages_test PRIVATE librbc csv_reader)
+
+add_executable(response_test src/response_test.cxx)
+target_include_directories(response_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+target_compile_options(response_test PRIVATE -Wall -Wextra -Wpedantic)
+target_link_libraries(response_test PRIVATE librbc csv_reader)

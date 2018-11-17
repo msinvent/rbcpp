@@ -7,10 +7,7 @@
 
 #include <exception>
 
-namespace ros_bridge_client
-{
-
-namespace exception
+namespace ros_bridge_client::exception
 {
 
 struct LoggerInitException : public std::exception
@@ -21,7 +18,6 @@ struct LoggerInitException : public std::exception
   }
 };
 
-} // namespace exception
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::exception
 
 #endif //ROSBRIDGECLIENT_LOGGER_INIT_EXCEPTION_H

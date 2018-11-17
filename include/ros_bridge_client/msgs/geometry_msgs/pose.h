@@ -10,13 +10,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 
-namespace ros_bridge_client
-{
-
-namespace msgs
-{
-
-namespace geometry_msgs
+namespace ros_bridge_client::msgs::geometry_msgs
 {
 
 struct Pose : public MessageBase
@@ -31,9 +25,7 @@ struct Pose : public MessageBase
   Quaternion quaternion;
 };
 
-} // namespace geometry_msgs
-} // namespace msgs
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::msgs::geometry_msgs
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Pose &p);
 

@@ -8,9 +8,7 @@
 #include <ros_bridge_client/ros_bridge_client.h>
 #include <ros_bridge_client/msgs/service/service_message.h>
 
-namespace ros_bridge_client
-{
-namespace service
+namespace ros_bridge_client::service
 {
 
 class RBCService
@@ -29,7 +27,6 @@ private:
   const std::string service_name;
 };
 
-} // namespace service
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::service
 
 #endif //ROSBRIDGECLIENT_RBC_SERVICE_H

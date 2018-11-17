@@ -9,11 +9,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
 #include <ros_bridge_client/msgs/message_base.h>
 
-namespace ros_bridge_client
-{
-namespace msgs
-{
-namespace geometry_msgs
+namespace ros_bridge_client::msgs::geometry_msgs
 {
 
 struct Vector3Stamped : public MessageBase
@@ -31,9 +27,7 @@ public:
   Vector3 vector;
 };
 
-} // namespace geometry_msgs
-} // namespace msgs
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::msgs::geometry_msgs
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Vector3Stamped &p);
 

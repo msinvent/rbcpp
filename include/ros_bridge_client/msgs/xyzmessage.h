@@ -8,10 +8,7 @@
 #include <ros_bridge_client/msgs/message_base.h>
 #include <iostream>
 
-namespace ros_bridge_client
-{
-
-namespace msgs
+namespace ros_bridge_client::msgs
 {
 
 template<typename T>
@@ -46,7 +43,6 @@ XYZMessage<T>::XYZMessage(const XYZMessage<T> &xyz)
   : MessageBase(xyz.rosMsgType()), x(xyz.x), y(xyz.y), z(xyz.z)
 {}
 
-} // namespace msgs
-} // namespace ros_bridge)client
+} // namespace ros_bridge_client::msgs
 
 #endif //ROSBRIDGECLIENT_XYZMESSAGE_H

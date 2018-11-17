@@ -7,11 +7,7 @@
 #include <ros_bridge_client/ros_types/ros_types.h>
 #include <ros_bridge_client/msgs/geometry_msgs/polygon_message.h>
 
-namespace ros_bridge_client
-{
-namespace msgs
-{
-namespace geometry_msgs
+namespace ros_bridge_client::msgs::geometry_msgs
 {
 
 class PolygonStampedMessage : public PolygonMessage
@@ -32,9 +28,7 @@ private:
   web::json::value createJsonMsg() const final;
 };
 
-} // namespace geometry_msgs
-} // namespace msgs
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::msgs::geometry_msgs
 
 
 #endif //ROSBRIDGECLIENT_POLYGON_STAMPED_MESSAGE_HPP

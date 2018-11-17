@@ -10,11 +10,7 @@
 #include <memory>
 #include <iostream>
 
-namespace ros_bridge_client
-{
-namespace msgs
-{
-namespace geometry_msgs
+namespace ros_bridge_client::msgs::geometry_msgs
 {
 
 struct Pose2D : public XYZMessage<double>
@@ -30,9 +26,7 @@ struct Pose2D : public XYZMessage<double>
   double theta;
 };
 
-} // namespace geometry_msgs
-} // namespace msgs
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::msgs::geometry_msgs
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Pose2D &p);
 

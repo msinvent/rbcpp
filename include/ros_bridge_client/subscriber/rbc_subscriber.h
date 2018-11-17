@@ -16,9 +16,7 @@
 #include <ros_bridge_client/subscriber/rbc_subscriber_base.h>
 #include <ros_bridge_client/msgs/rbc_subscribe_message.h>
 
-namespace ros_bridge_client
-{
-namespace subscriber
+namespace ros_bridge_client::subscriber
 {
 
 template<typename T>
@@ -50,8 +48,7 @@ protected:
   void unsubscribe();
 };
 
-} // namespace subscriber
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::subscriber
 
 #include <ros_bridge_client/subscriber/rbc_subscriber_impl.h>
 

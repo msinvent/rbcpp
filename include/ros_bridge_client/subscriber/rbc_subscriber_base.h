@@ -9,9 +9,7 @@
 #include <sstream>
 #include <cpprest/json.h>
 
-namespace ros_bridge_client
-{
-namespace subscriber
+namespace ros_bridge_client::subscriber
 {
 
 class SubscriberBase
@@ -35,7 +33,6 @@ protected:
   const web::json::value &msg() const;
 };
 
-} // namespace subscriber
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::subscriber
 
 #endif //ROSBRIDGECLIENT_SUBSCRIBER_HPP

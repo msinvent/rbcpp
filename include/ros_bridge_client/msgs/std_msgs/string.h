@@ -19,6 +19,6 @@ struct String : public StdMsg<std::string>
   ~String() final = default;
 };
 
-}
+} // namespace ros_bridge_client::msgs::std_msgs
 
 #endif //ROSBRIDGECLIENT_STRING_H

@@ -24,6 +24,7 @@ namespace publisher
 template<typename T>
 class RBCPublisher;
 }
+
 namespace subscriber
 {
 template<typename T>

@@ -11,9 +11,7 @@
 #include <ros_bridge_client/publisher/publisher.h>
 #include <ros_bridge_client/msgs/rbc_message.h>
 
-namespace ros_bridge_client
-{
-namespace publisher
+namespace ros_bridge_client::publisher
 {
 
 template<class T>
@@ -39,8 +37,7 @@ private:
   std::shared_ptr<ROSBridgeClient> rbc;
 };
 
-} // namespace publisher
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::publisher
 
 #include <ros_bridge_client/publisher/rbc_publisher_impl.h>
 

@@ -9,11 +9,7 @@
 #include <memory>
 #include <cpprest/json.h>
 
-namespace ros_bridge_client
-{
-namespace msgs
-{
-namespace std_msgs
+namespace ros_bridge_client::msgs::std_msgs
 {
 
 struct Header : public MessageBase
@@ -40,9 +36,7 @@ struct Header : public MessageBase
   std::string frame_id;
 };
 
-} // namespace std_msgs
-} // namespace msgs
-} // namespace ros_bridge_client
+} // namespace ros_bridge_client::msgs::std_msgs
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::std_msgs::Header &h);
 

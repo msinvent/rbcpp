@@ -201,13 +201,13 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::TwistStamped &twist_s
   return not sub_json ? completeJson(twist_stamped, twist_stamped_json) : twist_stamped_json;
 }
 
-web::json::value &JsonCreator::toJson(const msgs::geometry_msgs::Point2D &point2d, bool sub_json)
+web::json::value &JsonCreator::toJson(const msgs::geometry_msgs::Pose2D &pose2d, bool sub_json)
 {
-  static web::json::value json_point2d;
+  static web::json::value json_pose2d;
   
-  json_point2d[U("x")] = web::json::value(point2d.x);
-  json_point2d[U("y")] = web::json::value(point2d.y);
-  json_point2d[U("theta")] = web::json::value(point2d.theta);
+  json_pose2d[U("x")] = web::json::value(pose2d.x);
+  json_pose2d[U("y")] = web::json::value(pose2d.y);
+  json_pose2d[U("theta")] = web::json::value(pose2d.theta);
 
-  return not sub_json ? completeJson(point2d, json_point2d) : json_point2d;
+  return not sub_json ? completeJson(pose2d, json_pose2d) : json_pose2d;
 }

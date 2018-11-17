@@ -12,7 +12,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/pose.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
-#include <ros_bridge_client/msgs/geometry_msgs/point2d.h>
+#include <ros_bridge_client/msgs/geometry_msgs/pose2d.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
 #include <ros_bridge_client/msgs/geometry_msgs/transform.h>
@@ -49,7 +49,7 @@ public:
   template<typename T>
   web::json::value &toJson(const msgs::XYZMessage<T> &xyz, bool sub_json = false);
   
-  web::json::value &toJson(const msgs::geometry_msgs::Point2D &point2d, bool sub_json = false);
+  web::json::value &toJson(const msgs::geometry_msgs::Pose2D &pose2d, bool sub_json = false);
   
   web::json::value &toJson(const msgs::geometry_msgs::PointStamped &point_stamped, bool sub_json = false);
 

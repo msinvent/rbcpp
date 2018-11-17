@@ -12,7 +12,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
-#include <ros_bridge_client/msgs/geometry_msgs/point2d.h>
+#include <ros_bridge_client/msgs/geometry_msgs/pose2d.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
 #include <ros_bridge_client/msgs/geometry_msgs/transform.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
@@ -49,7 +49,7 @@ struct TestException : public std::exception
 } // namespace exception
 
 std::atomic<size_t> messages_received;
-size_t num_publishers = 0;
+size_t num_publishers;
 
 void hcallback(const std::shared_ptr<std_msgs::Header> msg)
 {
@@ -75,6 +75,14 @@ void pcallback(const std::shared_ptr<geometry_msgs::Point> msg)
   assert((msg->x == .1));
   assert((msg->y == .2));
   assert((msg->z == .3));
+}
+
+void p2dcallback(const std::shared_ptr<geometry_msgs::Pose2D> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Point2d]\n";
+  assert((msg->x == .1));
+  assert((msg->y == .2));
+  assert((msg->theta == .3));
 }
 
 void acallback(const std::shared_ptr<geometry_msgs::Accel> msg)
@@ -284,7 +292,7 @@ int main(void)
   auto wrench_pub = rbc->addPublisher<geometry_msgs::Wrench>("/rosbridge/wrench/");
   auto pose_pub = rbc->addPublisher<geometry_msgs::Pose>("/rosbridge/pose/");
   auto point32_pub = rbc->addPublisher<geometry_msgs::Point32>("/rosbridge/point32/");
-  auto point2d_pub = rbc->addPublisher<geometry_msgs::Point2D>("/rosbridge/point2d/");
+  auto pose2d_pub = rbc->addPublisher<geometry_msgs::Pose2D>("/rosbridge/pose2d/");
   auto inertia_pub = rbc->addPublisher<geometry_msgs::Inertia>("/rosbridge/inertia/");
   auto transform_pub = rbc->addPublisher<geometry_msgs::Transform>("/rosbridge/transform/");
   auto inertia_stamped_pub = rbc->addPublisher<geometry_msgs::InertiaStamped>("/rosbridge/inertia_stamped/");
@@ -307,7 +315,7 @@ int main(void)
   auto wrench_sub = rbc->addSubscriber<geometry_msgs::Wrench>("/rosbridge/wrench/", 100, wcallback);
   auto pose_sub = rbc->addSubscriber<geometry_msgs::Pose>("/rosbridge/pose/", 100, pocallback);
   auto point32_sub = rbc->addSubscriber<geometry_msgs::Point32>("/rosbridge/point32/", 100, p32callback);
-  auto point2d_sub = rbc->addSubscriber<geometry_msgs::Point2D>("/rosbridge/point2d/", 100, p2dcallback);
+  auto pose2d_sub = rbc->addSubscriber<geometry_msgs::Pose2D>("/rosbridge/pose2d/", 100, p2dcallback);
   auto inertia_sub = rbc->addSubscriber<geometry_msgs::Inertia>("/rosbridge/inertia/", 100, icallback);
   auto transform_sub = rbc->addSubscriber<geometry_msgs::Transform>("/rosbridge/transform/", 100, tcallback);
   auto transform_stamped_sub = rbc->addSubscriber<geometry_msgs::TransformStamped>("/rosbridge/transform_stamped/", 100, tscallback);
@@ -353,8 +361,8 @@ int main(void)
     geometry_msgs::Point p(0.1, 0.2, 0.3);
     point_pub->publish(p);
     
-    geometry_msgs::Point2D p2d(0.1, 0.2, 0.3);
-    point2d_pub->publish(p2d);
+    geometry_msgs::Pose2D p2d(0.1, 0.2, 0.3);
+    pose2d_pub->publish(p2d);
 
     geometry_msgs::Point32 p32(0.1f, 0.2f, 0.3f);
     point32_pub->publish(p32);

@@ -37,7 +37,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
-#include <ros_bridge_client/msgs/geometry_msgs/point2d.h>
+#include <ros_bridge_client/msgs/geometry_msgs/pose2d.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
 #include <ros_bridge_client/msgs/geometry_msgs/transform.h>
@@ -357,22 +357,22 @@ struct PointTest : public Test
   }
 };
 
-struct Point2DTest : public Test
+struct Pose2DTest : public Test
 {
-  explicit Point2DTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("Point2DTest")[0]),
-      test2(dataframe.data.at("Point2DTest")[1])
+  explicit Pose2DTest(const DataFrame &dataframe)
+    : test1(dataframe.data.at("Pose2DTest")[0]),
+      test2(dataframe.data.at("Pose2DTest")[1])
   {}
 
-  ~Point2DTest() final = default;
+  ~Pose2DTest() final = default;
 
   const std::string test1;
   const std::string test2;
 
   inline std::string getMessage(double x, double y, double theta) const
   {
-    geometry_msgs::Point2D msg(x, y, theta);
-    return messageToString<geometry_msgs::Point2D>(msg);
+    geometry_msgs::Pose2D msg(x, y, theta);
+    return messageToString<geometry_msgs::Pose2D>(msg);
   }
 };
 

@@ -17,15 +17,15 @@ namespace msgs
 namespace geometry_msgs
 {
 
-struct Point2D : public XYZMessage<double>
+struct Pose2D : public XYZMessage<double>
 {
-  Point2D();
+  Pose2D();
 
-  Point2D(double x, double y, double theta);
+  Pose2D(double x, double y, double theta);
 
-  explicit Point2D(const web::json::value &response);
+  explicit Pose2D(const web::json::value &response);
 
-  ~Point2D() override = default;
+  ~Pose2D() override = default;
   
   double theta;
 };
@@ -34,8 +34,8 @@ struct Point2D : public XYZMessage<double>
 } // namespace msgs
 } // namespace ros_bridge_client
 
-std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Point2D &p);
+std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Pose2D &p);
 
-std::ostream &operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::Point2D> &p);
+std::ostream &operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::Pose2D> &p);
 
 #endif //ROSBRIDGECLIENT_POINT_2DHPP

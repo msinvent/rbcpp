@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 cd ~/Downloads
 
 git clone --recurse-submodules https://github.com/Microsoft/cpprestsdk && cd cpprestsdk

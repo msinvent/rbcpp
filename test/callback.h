@@ -1,8 +1,0 @@
-//
-// Created by Julian on 17.10.18.
-//
-
-#ifndef ROSBRIDGECLIENT_CALLBACK_H
-#define ROSBRIDGECLIENT_CALLBACK_H
-
-#endif //ROSBRIDGECLIENT_CALLBACK_H

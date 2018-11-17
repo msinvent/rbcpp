@@ -18,7 +18,7 @@
 //#include <ros_bridge_client/msgs/std_msgs/uint16_message.h>
 //#include <ros_bridge_client/msgs/std_msgs/uint32_message.h>
 //#include <ros_bridge_client/msgs/std_msgs/uint64_message.h>
-//#include <ros_bridge_client/msgs/std_msgs/string_message.h>
+#include <ros_bridge_client/msgs/std_msgs/string.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 //#include <ros_bridge_client/msgs/std_msgs/color_rgba_message.h>
 //
@@ -121,25 +121,25 @@ struct HeaderTest : public Test
   }
 };
 
-//
-//struct StringTest : public Test
-//{
-//  StringTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("StringTest")[0]),
-//        test2(dataframe.data.at("StringTest")[1])
-//  {}
-//
-//  ~StringTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(std::string message) const
-//  {
-//    std_msgs::StringTest msg(message);
-//    return messageToString(msg);
-//  }
-//};
+
+struct StringTest : public Test
+{
+  StringTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("StringTest")[0]),
+        test2(dataframe.data.at("StringTest")[1])
+  {}
+
+  ~StringTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(std::string message) const
+  {
+    std_msgs::String msg(message);
+    return messageToString(msg);
+  }
+};
 //
 //struct UInt8Test : public Test
 //{

@@ -38,6 +38,7 @@ test::QuaternionStampedTest quaternion_stamped_test(dataframe);
 //test::Vector3Message            vector3_messages(dataframe);
 test::Vector3StampedTest    vector3_stamped_test(dataframe);
 test::HeaderTest            header_test(dataframe);
+test::StringTest            string_test(dataframe);
 //test::PoseMessage               pose_messages(dataframe);
 //test::Pose2DMessage             pose_2d_messages(dataframe);
 //test::PoseStampedMessage        pose_stamped_messages(dataframe);
@@ -56,17 +57,17 @@ test::TwistStampedTest      twist_stamped_test(dataframe);
 //test::InertiaMessage            inertia_messages(dataframe);
 //test::InertiaStampedMessage     inertia_stamped_messages(dataframe);
 
-TEST_CASE("Header Messages test", "[header_messages]")
+TEST_CASE("Header test", "[header]")
 {
   REQUIRE(header_test.getMessage() == header_test.test1);
   REQUIRE(header_test.getMessage("test_frame") == header_test.test2);
 }
-//
-//TEST_CASE("String Messages test", "[string_messages]")
-//{
-//  REQUIRE(string_messages.getMessage("A Message") == string_messages.test1);
-//  REQUIRE(string_messages.getMessage("Message 2") == string_messages.test2);
-//}
+
+TEST_CASE("String test", "[string_messages]")
+{
+  REQUIRE(string_test.getMessage("A Test") == string_test.test1);
+  REQUIRE(string_test.getMessage("Test 2") == string_test.test2);
+}
 //
 //TEST_CASE("Service Messages test", "[service_messages]")
 //{

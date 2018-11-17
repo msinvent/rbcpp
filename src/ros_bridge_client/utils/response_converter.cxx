@@ -35,7 +35,6 @@ Point32Tuple ResponseConverter::responseToPoint32(const web::json::value &respon
   return std::forward_as_tuple(x, y, z);
 }
 
-
 HeaderTuple ResponseConverter::responseToHeader(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;

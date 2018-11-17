@@ -8,6 +8,7 @@
 #include <cpprest/json.h>
 #include <ros_bridge_client/msgs/xyzmessage.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
+#include <ros_bridge_client/msgs/std_msgs/string.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
@@ -46,9 +47,13 @@ public:
 
   const web::json::value &json() const;
 
+  web::json::value &toJson(const msgs::std_msgs::Header &header, bool sub_json = false);
+
+  web::json::value &toJson(const msgs::std_msgs::String &string, bool sub_json = false);
+
   template<typename T>
   web::json::value &toJson(const msgs::XYZMessage<T> &xyz, bool sub_json = false);
-  
+
   web::json::value &toJson(const msgs::geometry_msgs::Pose2D &pose2d, bool sub_json = false);
   
   web::json::value &toJson(const msgs::geometry_msgs::PointStamped &point_stamped, bool sub_json = false);
@@ -76,8 +81,6 @@ public:
   web::json::value &toJson(const msgs::geometry_msgs::Quaternion &quaternion, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::QuaternionStamped &quaternion_stamped, bool sub_json = false);
-
-  web::json::value &toJson(const msgs::std_msgs::Header &header, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::Transform &transform, bool sub_json = false);
   

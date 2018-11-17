@@ -15,6 +15,30 @@ JsonCreator::JsonCreator()
   json_[U("topic")] = json::value::string("/rosbridge/message");
 }
 
+web::json::value &JsonCreator::toJson(const std_msgs::String &string, bool sub_json)
+{
+  static web::json::value string_json;
+
+  string_json[U("data")] = json::value::string(string.data);
+
+  return not sub_json ? completeJson(string, string_json) : string_json;
+}
+
+web::json::value &JsonCreator::toJson(const std_msgs::Header &header, bool sub_json)
+{
+  static web::json::value header_json;
+  header_json[U("seq")] = json::value(header.seq);
+
+  json::value json_stamp;
+  json_stamp[U("sec")] = json::value(header.stamp.sec);
+  json_stamp[U("nsec")] = json::value(header.stamp.nsec);
+
+  header_json[U("stamp")] = json_stamp;
+  header_json[U("frame_id")] = json::value::string(header.frame_id);
+
+  return not sub_json ? completeJson(header, header_json) : header_json;
+}
+
 json::value &JsonCreator::completeJson(const MessageBase &msg, const web::json::value &sub_json)
 {
   json_[U("type")] = json::value::string(msg.rosMsgType());
@@ -36,21 +60,6 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::Quaternion &quaternio
   json_quaternion[U("w")] = json::value(quaternion.w);
 
   return not sub_json ? completeJson(quaternion, json_quaternion) : json_quaternion;
-}
-
-web::json::value &JsonCreator::toJson(const std_msgs::Header &header, bool sub_json)
-{
-  static web::json::value header_json;
-  header_json[U("seq")] = json::value(header.seq);
-
-  json::value json_stamp;
-  json_stamp[U("sec")] = json::value(header.stamp.sec);
-  json_stamp[U("nsec")] = json::value(header.stamp.nsec);
-
-  header_json[U("stamp")] = json_stamp;
-  header_json[U("frame_id")] = json::value::string(header.frame_id);
-
-  return not sub_json ? completeJson(header, header_json) : header_json;
 }
 
 web::json::value &JsonCreator::toJson(const geometry_msgs::PointStamped &point_stamped, bool sub_json)

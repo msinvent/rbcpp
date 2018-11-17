@@ -12,10 +12,3 @@ add_executable(messages_test src/messages_test.cpp)
 target_include_directories(messages_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_compile_options(messages_test PRIVATE -Wall -Wextra -Wpedantic)
 target_link_libraries(messages_test PRIVATE librbc csv_reader)
-
-add_executable(callback_test callback.cpp subscriber_base.cpp publisher_base.cpp)
-target_link_libraries(callback_test
-        cpprestsdk::cpprest
-        ${Boost_SYSTEM_LIBRARY}
-        ${Boost_THREAD_LIBRARY}
-        ${Boost_CHRONO_LIBRARY})

@@ -11,10 +11,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 
-namespace ros_bridge_client
-{
-
-namespace utils
+namespace ros_bridge_client::utils
 {
 
 using PointTuple = std::tuple<double, double, double>;
@@ -26,6 +23,9 @@ using HeaderTuple = std::tuple<double, double, double, std::string>;
 
 struct ResponseConverter
 {
+  template <typename T>
+  static T responseToStdMsg(const web::json::value &response, std::string data_type, bool is_sub_json = false);
+
   static PointTuple responseToPoint(const web::json::value &response, bool is_sub_json = false);
   
   static PointTuple responseToPose2D(const web::json::value &response, bool is_sub_json = false);
@@ -41,8 +41,22 @@ struct ResponseConverter
   static HeaderTuple responseToHeader(const web::json::value &response, bool is_sub_json = false);
 };
 
-} // namespace msgs
-} // ros_bridge_client
+template <typename T>
+T ResponseConverter::responseToStdMsg(const web::json::value &response, std::string data_type, bool is_sub_json)
+{
+  const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
+
+  if (data_type == "string")
+  {
+    T data = msg.at(U("data")).as_string();
+    return data;
+  }
+
+  T data = msg.at(U("msg")).as_string();
+  return data;
+}
+
+} // namespace ros_bridge_client::utils
 
 
 #endif //ROSBRIDGECLIENT_RESPONSE_CONVERTER_H

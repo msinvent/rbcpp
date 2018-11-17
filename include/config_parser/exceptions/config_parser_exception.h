@@ -22,6 +22,6 @@ struct ConfigParserException : public std::exception
 };
 
 } // namespace exception
-} // namespace ros_bridge_client
+} // pose2d
 
 #endif //ROSBRIDGECLIENT_CONFIG_PARSER_EXCEPTION_H

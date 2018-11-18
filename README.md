@@ -45,6 +45,24 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | twist with covariance stamped  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |**std_msgs**     | String  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | Header  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | Int8  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | Int8MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | Int16  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | Int16MultiArray  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | Int32  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | Int32MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | Int64  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | Int64MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | UInt8 | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | UInt16  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | UInt16MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | UInt32  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | UInt32MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | UInt64  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | UInt64MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | MultiArrayDimension  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | MultiArrayLayout  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | Time  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | Byte   | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | ByteMultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | Char  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
@@ -56,24 +74,6 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | Float32MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | Float64  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | Float64MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | Int16  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | Int16MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | Int32  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | Int32MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | Int64  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | Int64MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | Int8  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | Int8MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | MultiArrayDimension  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | MultiArrayLayout  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | Time  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | UInt16  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | UInt16MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | UInt32  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | UInt32MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | UInt64  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | UInt64MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | UInt8 | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | UInt8MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |**nav_msgs**     | GridCells  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 
@@ -89,4 +89,4 @@ All messages that are checked below can be used already. Examples can be found [
 - [ ] #endifs header guard uint/int
 - [ ] make web value json call safer
 - [ ] test all wrench stamped constructors
-- [ ] Response test
+- [ ] Response tesx

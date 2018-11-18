@@ -1,11 +1,12 @@
 target_sources(librbc
         PRIVATE
         "${CMAKE_CURRENT_LIST_DIR}/msgs/rbc_message.cpp"
+
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/point.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/accel.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/twist.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose.cxx"
-        "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/point32.cxx"        
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/point32.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose2d.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/wrench.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/vector3.cxx"
@@ -21,9 +22,12 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/inertia_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/transform_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/quaternion_stamped.cxx"
+
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/header.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/string.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/int64.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/message_base.cpp"
+
         "${CMAKE_CURRENT_LIST_DIR}/utils/json_creator.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/utils/response_converter.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/subscriber/rbc_subscriber_base.cxx")

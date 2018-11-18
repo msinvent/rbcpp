@@ -13,7 +13,7 @@
 //#include <ros_bridge_client/msgs/std_msgs/int8_message.h>
 //#include <ros_bridge_client/msgs/std_msgs/int16_message.h>
 //#include <ros_bridge_client/msgs/std_msgs/int32_message.h>
-//#include <ros_bridge_client/msgs/std_msgs/int64_message.h>
+#include <ros_bridge_client/msgs/std_msgs/int64.h>
 //#include <ros_bridge_client/msgs/std_msgs/uint8_message.h>
 //#include <ros_bridge_client/msgs/std_msgs/uint16_message.h>
 //#include <ros_bridge_client/msgs/std_msgs/uint32_message.h>
@@ -273,26 +273,26 @@ struct StringTest : public Test
 //    return messageToString(msg);
 //  }
 //};
-//
-//struct Int64Test : public Test
-//{
-//  Int64Test(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("Int64Test")[0]),
-//        test2(dataframe.data.at("Int64Test")[1])
-//  {}
-//
-//  ~Int64Test() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(int64_t message) const
-//  {
-//    std_msgs::Int64Test msg(message);
-//    return messageToString(msg);
-//  }
-//};
-//
+
+struct Int64Test : public Test
+{
+  Int64Test(const DataFrame &dataframe)
+      : test1(dataframe.data.at("Int64Test")[0]),
+        test2(dataframe.data.at("Int64Test")[1])
+  {}
+
+  ~Int64Test() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(int64_t message) const
+  {
+    std_msgs::Int64 msg(message);
+    return messageToString(msg);
+  }
+};
+
 //struct ColorRGBATest : public Test
 //{
 //  ColorRGBATest(const DataFrame &dataframe)

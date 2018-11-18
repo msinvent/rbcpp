@@ -12,11 +12,11 @@ test::DataFrame             dataframe(reader);
 //test::Int8Message               int8_messages(dataframe);
 //test::Int16Message              int16_messages(dataframe);
 //test::Int32Message              int32_messages(dataframe);
-//test::Int64Message              int64_messages(dataframe);
+test::Int64Test             int64_test(dataframe);
 //test::UInt8Message              uint8_messages(dataframe);
 //test::UInt16Message             uint16_messages(dataframe);
 //test::UInt32Message             uint32_messages(dataframe);
-//test::UInt64Message             uint64_messages(dataframe);
+//test::UInt64Message             uint64_test(dataframe);
 //test::ColorRGBAMessage          color_rgba_messages(dataframe);
 test::PointTest             point_test(dataframe);
 test::PoseTest              pose_test(dataframe);
@@ -92,13 +92,13 @@ TEST_CASE("String test", "[string_messages]")
 //  REQUIRE(int32_messages.getMessage(-1) == int32_messages.test1);
 //  REQUIRE(int32_messages.getMessage(2) == int32_messages.test2);
 //}
-//
-//TEST_CASE("Int64 Messages test", "[int64_messages]")
-//{
-//  REQUIRE(int64_messages.getMessage(-1) == int64_messages.test1);
-//  REQUIRE(int64_messages.getMessage(2) == int64_messages.test2);
-//}
-//
+
+TEST_CASE("Int64 test", "[int64_test]")
+{
+  REQUIRE(int64_test.getMessage(-1) == int64_test.test1);
+  REQUIRE(int64_test.getMessage(2) == int64_test.test2);
+}
+
 //TEST_CASE("UInt8 Messages test", "[uint8_messages]")
 //{
 //  REQUIRE(uint8_messages.getMessage(1) == uint8_messages.test1);
@@ -117,10 +117,10 @@ TEST_CASE("String test", "[string_messages]")
 //  REQUIRE(uint32_messages.getMessage(2) == uint32_messages.test2);
 //}
 //
-//TEST_CASE("UInt64 Messages test", "[uint64_messages]")
+//TEST_CASE("UInt64 Messages test", "[uint64_test]")
 //{
-//  REQUIRE(uint64_messages.getMessage(1) == uint64_messages.test1);
-//  REQUIRE(uint64_messages.getMessage(2) == uint64_messages.test2);
+//  REQUIRE(uint64_test.getMessage(1) == uint64_test.test1);
+//  REQUIRE(uint64_test.getMessage(2) == uint64_test.test2);
 //}
 //
 //TEST_CASE("Color RGBA Messages test", "[color_rgba_messages]")

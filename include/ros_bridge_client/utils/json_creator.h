@@ -47,7 +47,10 @@ public:
   web::json::value &toJson(const msgs::std_msgs::Header &header, bool sub_json = false);
 
   web::json::value &toJson(const msgs::std_msgs::String &string, bool sub_json = false);
-
+  
+  template <typename T>
+  web::json::value &toJson(const msgs::std_msgs::StdMsg<T> &msg, bool sub_json = false);
+  
   template<typename T>
   web::json::value &toJson(const msgs::XYZMessage<T> &xyz, bool sub_json = false);
 
@@ -95,6 +98,16 @@ web::json::value &JsonCreator::toJson(const msgs::XYZMessage<T> &xyz, bool sub_j
   json_xyz[U("z")] = xyz.z;
 
   return not sub_json ? completeJson(xyz, json_xyz) : json_xyz;
+}
+
+template<typename T>
+web::json::value &JsonCreator::toJson(const msgs::std_msgs::StdMsg<T> &msg, bool sub_json)
+{
+  static web::json::value json_msg;
+  
+  json_msg[U("data")] = web::json::value(msg.data);
+
+  return not sub_json ? completeJson(msg, json_msg) : json_msg;
 }
 
 } // namespace namespace ros_bridge_client::utils

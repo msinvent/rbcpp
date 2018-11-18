@@ -11,11 +11,11 @@ test::DataFrame             dataframe(reader);
 //test::ServiceMessage            service_messages(dataframe);
 test::Int8Test              int8_test(dataframe);
 test::Int16Test             int16_test(dataframe);
-//test::Int32Message              int32_messages(dataframe);
+test::Int32Test             int32_test(dataframe);
 test::Int64Test             int64_test(dataframe);
-//test::UInt8Message              uint8_test(dataframe);
+test::UInt8Test             uint8_test(dataframe);
 //test::UInt16Message             uint16_test(dataframe);
-//test::UInt32Message             uint32_messages(dataframe);
+//test::UInt32Message             uint32_test(dataframe);
 //test::UInt64Message             uint64_test(dataframe);
 //test::ColorRGBAMessage          color_rgba_messages(dataframe);
 test::PointTest             point_test(dataframe);
@@ -87,11 +87,11 @@ TEST_CASE("Int16 test", "[int16_test]")
   REQUIRE(int16_test.getMessage(2) == int16_test.test2);
 }
 
-//TEST_CASE("Int32 Messages test", "[int32_messages]")
-//{
-//  REQUIRE(int32_messages.getMessage(-1) == int32_messages.test1);
-//  REQUIRE(int32_messages.getMessage(2) == int32_messages.test2);
-//}
+TEST_CASE("Int32 test", "[int32_test]")
+{
+  REQUIRE(int32_test.getMessage(-1) == int32_test.test1);
+  REQUIRE(int32_test.getMessage(2) == int32_test.test2);
+}
 
 TEST_CASE("Int64 test", "[int64_test]")
 {
@@ -99,22 +99,22 @@ TEST_CASE("Int64 test", "[int64_test]")
   REQUIRE(int64_test.getMessage(2) == int64_test.test2);
 }
 
-//TEST_CASE("UInt8 Messages test", "[uint8_test]")
-//{
-//  REQUIRE(uint8_test.getMessage(1) == uint8_test.test1);
-//  REQUIRE(uint8_test.getMessage(2) == uint8_test.test2);
-//}
-//
+TEST_CASE("UInt8 Messages test", "[uint8_test]")
+{
+  REQUIRE(uint8_test.getMessage(1) == uint8_test.test1);
+  REQUIRE(uint8_test.getMessage(2) == uint8_test.test2);
+}
+
 //TEST_CASE("UInt16 Messages test", "[uint16_test]")
 //{
 //  REQUIRE(uint16_test.getMessage(1) == uint16_test.test1);
 //  REQUIRE(uint16_test.getMessage(2) == uint16_test.test2);
 //}
 //
-//TEST_CASE("UInt32 Messages test", "[uint32_messages]")
+//TEST_CASE("UInt32 Messages test", "[uint32_test]")
 //{
-//  REQUIRE(uint32_messages.getMessage(1) == uint32_messages.test1);
-//  REQUIRE(uint32_messages.getMessage(2) == uint32_messages.test2);
+//  REQUIRE(uint32_test.getMessage(1) == uint32_test.test1);
+//  REQUIRE(uint32_test.getMessage(2) == uint32_test.test2);
 //}
 //
 //TEST_CASE("UInt64 Messages test", "[uint64_test]")
@@ -159,7 +159,7 @@ TEST_CASE("Point 2D Test", "[pose2d_test]")
   REQUIRE(pose2d_test.getMessage(0.2, 0.2, 0.3) == pose2d_test.test2);
 }
 
-TEST_CASE("Point32 test", "[point32_messages]")
+TEST_CASE("Point32 test", "[point32_test]")
 {
   REQUIRE(point32_test.getMessage(0.1, 0.2, 0.3) == point32_test.test1);
   REQUIRE(point32_test.getMessage(0.2, 0.2, 0.3) == point32_test.test2);

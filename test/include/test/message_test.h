@@ -15,9 +15,9 @@
 #include <ros_bridge_client/msgs/std_msgs/int32.h>
 #include <ros_bridge_client/msgs/std_msgs/int64.h>
 #include <ros_bridge_client/msgs/std_msgs/uint8.h>
-//#include <ros_bridge_client/msgs/std_msgs/uint16_message.h>
-//#include <ros_bridge_client/msgs/std_msgs/uint32_message.h>
-//#include <ros_bridge_client/msgs/std_msgs/uint64_message.h>
+#include <ros_bridge_client/msgs/std_msgs/uint16.h>
+#include <ros_bridge_client/msgs/std_msgs/uint32.h>
+#include <ros_bridge_client/msgs/std_msgs/uint64.h>
 #include <ros_bridge_client/msgs/std_msgs/string.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 //#include <ros_bridge_client/msgs/std_msgs/color_rgba_message.h>
@@ -159,63 +159,63 @@ struct UInt8Test : public Test
     return messageToString(msg);
   }
 };
-//
-//struct UInt16Test : public Test
-//{
-//  UInt16Test(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("UInt16Test")[0]),
-//        test2(dataframe.data.at("UInt16Test")[1])
-//  {}
-//
-//  ~UInt16Test() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(uint16_t message) const
-//  {
-//    std_msgs::UInt16Test msg(message);
-//    return messageToString(msg);
-//  }
-//};
-//
-//struct UInt32Test : public Test
-//{
-//  UInt32Test(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("UInt32Test")[0]),
-//        test2(dataframe.data.at("UInt32Test")[1])
-//  {}
-//
-//  ~UInt32Test() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(uint32_t message) const
-//  {
-//    std_msgs::UInt32Test msg(message);
-//    return messageToString(msg);
-//  }
-//};
-//
-//struct UInt64Test : public Test
-//{
-//  UInt64Test(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("UInt64Test")[0]),
-//        test2(dataframe.data.at("UInt64Test")[1])
-//  {}
-//
-//  ~UInt64Test() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(uint64_t message) const
-//  {
-//    std_msgs::UInt64Test msg(message);
-//    return messageToString(msg);
-//  }
-//};
+
+struct UInt16Test : public Test
+{
+  UInt16Test(const DataFrame &dataframe)
+      : test1(dataframe.data.at("UInt16Test")[0]),
+        test2(dataframe.data.at("UInt16Test")[1])
+  {}
+
+  ~UInt16Test() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(uint16_t message) const
+  {
+    std_msgs::UInt16 msg(message);
+    return messageToString(msg);
+  }
+};
+
+struct UInt32Test : public Test
+{
+  UInt32Test(const DataFrame &dataframe)
+      : test1(dataframe.data.at("UInt32Test")[0]),
+        test2(dataframe.data.at("UInt32Test")[1])
+  {}
+
+  ~UInt32Test() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(uint32_t message) const
+  {
+    std_msgs::UInt32 msg(message);
+    return messageToString(msg);
+  }
+};
+
+struct UInt64Test : public Test
+{
+  UInt64Test(const DataFrame &dataframe)
+      : test1(dataframe.data.at("UInt64Test")[0]),
+        test2(dataframe.data.at("UInt64Test")[1])
+  {}
+
+  ~UInt64Test() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(uint64_t message) const
+  {
+    std_msgs::UInt64 msg(message);
+    return messageToString(msg);
+  }
+};
 
 struct Int8Test : public Test
 {

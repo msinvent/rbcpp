@@ -14,9 +14,9 @@ test::Int16Test             int16_test(dataframe);
 test::Int32Test             int32_test(dataframe);
 test::Int64Test             int64_test(dataframe);
 test::UInt8Test             uint8_test(dataframe);
-//test::UInt16Message             uint16_test(dataframe);
-//test::UInt32Message             uint32_test(dataframe);
-//test::UInt64Message             uint64_test(dataframe);
+test::UInt16Test            uint16_test(dataframe);
+test::UInt32Test            uint32_test(dataframe);
+test::UInt64Test            uint64_test(dataframe);
 //test::ColorRGBAMessage          color_rgba_messages(dataframe);
 test::PointTest             point_test(dataframe);
 test::PoseTest              pose_test(dataframe);
@@ -48,14 +48,8 @@ test::TwistTest             twist_test(dataframe);
 test::TwistStampedTest      twist_stamped_test(dataframe);
 //test::GridCellsMessage          grid_cell_messages(dataframe);
 //test::PoseArrayMessage          pose_array_messages(dataframe);
-//test::TransformMessage          transform_test(dataframe);
-//test::TransformStampedMessage   transform_stamped_messages(dataframe);
-//test::WrenchMessage             wrench_test(dataframe);
-//test::WrenchStampedMessage      wrench_stamped_test(dataframe);
 //test::PolygonMessage            polygon_messages(dataframe);
 //test::PolygonStampedMessage     polygon_stamped_messages(dataframe);
-//test::InertiaMessage            inertia_messages(dataframe);
-//test::InertiaStampedMessage     inertia_stamped_messages(dataframe);
 
 TEST_CASE("Header test", "[header]")
 {
@@ -105,24 +99,24 @@ TEST_CASE("UInt8 Messages test", "[uint8_test]")
   REQUIRE(uint8_test.getMessage(2) == uint8_test.test2);
 }
 
-//TEST_CASE("UInt16 Messages test", "[uint16_test]")
-//{
-//  REQUIRE(uint16_test.getMessage(1) == uint16_test.test1);
-//  REQUIRE(uint16_test.getMessage(2) == uint16_test.test2);
-//}
-//
-//TEST_CASE("UInt32 Messages test", "[uint32_test]")
-//{
-//  REQUIRE(uint32_test.getMessage(1) == uint32_test.test1);
-//  REQUIRE(uint32_test.getMessage(2) == uint32_test.test2);
-//}
-//
-//TEST_CASE("UInt64 Messages test", "[uint64_test]")
-//{
-//  REQUIRE(uint64_test.getMessage(1) == uint64_test.test1);
-//  REQUIRE(uint64_test.getMessage(2) == uint64_test.test2);
-//}
-//
+TEST_CASE("UInt16 test", "[uint16_test]")
+{
+  REQUIRE(uint16_test.getMessage(1) == uint16_test.test1);
+  REQUIRE(uint16_test.getMessage(2) == uint16_test.test2);
+}
+
+TEST_CASE("UInt32 Messages test", "[uint32_test]")
+{
+  REQUIRE(uint32_test.getMessage(1) == uint32_test.test1);
+  REQUIRE(uint32_test.getMessage(2) == uint32_test.test2);
+}
+
+TEST_CASE("UInt64 Messages test", "[uint64_test]")
+{
+  REQUIRE(uint64_test.getMessage(1) == uint64_test.test1);
+  REQUIRE(uint64_test.getMessage(2) == uint64_test.test2);
+}
+
 //TEST_CASE("Color RGBA Messages test", "[color_rgba_messages]")
 //{
 //  {

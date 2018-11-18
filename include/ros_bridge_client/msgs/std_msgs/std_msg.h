@@ -28,7 +28,7 @@ StdMsg<T>::StdMsg(const T &data, std::string ros_msg_type)
 
 template<typename T>
 StdMsg<T>::StdMsg(std::string ros_msg_type)
-  : MessageBase(ros_msg_type)
+  : MessageBase(ros_msg_type), data()
 {}
 
 } // namespace ros_bridge_client::msgs::std_msgs

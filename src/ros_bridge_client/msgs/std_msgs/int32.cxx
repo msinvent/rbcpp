@@ -11,6 +11,6 @@ Int64::Int64()
 {}
 
 Int64::Int64(int64_t data)
-    : StdMsg(data, "std_msgs/Int64")
+  : StdMsg(data, "std_msgs/Int64")
 {}
 

@@ -25,6 +25,7 @@ target_sources(librbc
 
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/header.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/string.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/int8.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/int64.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/message_base.cpp"
 

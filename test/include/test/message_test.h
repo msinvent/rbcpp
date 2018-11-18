@@ -10,7 +10,7 @@
 #include <cpprest/ws_client.h>
 #include <ros_bridge_client/ros_bridge_client.h>
 #include <ros_bridge_client/msgs/message.h>
-//#include <ros_bridge_client/msgs/std_msgs/int8_message.h>
+#include <ros_bridge_client/msgs/std_msgs/int8.h>
 //#include <ros_bridge_client/msgs/std_msgs/int16_message.h>
 //#include <ros_bridge_client/msgs/std_msgs/int32_message.h>
 #include <ros_bridge_client/msgs/std_msgs/int64.h>
@@ -216,26 +216,26 @@ struct StringTest : public Test
 //    return messageToString(msg);
 //  }
 //};
-//
-//struct Int8Test : public Test
-//{
-//  Int8Test(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("Int8Test")[0]),
-//        test2(dataframe.data.at("Int8Test")[1])
-//  {}
-//
-//  ~Int8Test() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(int8_t message) const
-//  {
-//    std_msgs::Int8Test msg(message);
-//    return messageToString(msg);
-//  }
-//};
-//
+
+struct Int8Test : public Test
+{
+  Int8Test(const DataFrame &dataframe)
+      : test1(dataframe.data.at("Int8Test")[0]),
+        test2(dataframe.data.at("Int8Test")[1])
+  {}
+
+  ~Int8Test() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(int8_t message) const
+  {
+    std_msgs::Int8 msg(message);
+    return messageToString(msg);
+  }
+};
+
 //struct Int16Test : public Test
 //{
 //  Int16Test(const DataFrame &dataframe)

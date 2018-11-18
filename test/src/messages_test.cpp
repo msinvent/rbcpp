@@ -9,11 +9,11 @@ test::CSVReader             reader("../../test/test_messages.csv", ";");
 test::DataFrame             dataframe(reader);
 //test::StringMessage             string_messages(dataframe);
 //test::ServiceMessage            service_messages(dataframe);
-//test::Int8Message               int8_messages(dataframe);
+test::Int8Test              int8_test(dataframe);
 //test::Int16Message              int16_messages(dataframe);
 //test::Int32Message              int32_messages(dataframe);
 test::Int64Test             int64_test(dataframe);
-//test::UInt8Message              uint8_messages(dataframe);
+//test::UInt8Message              uint8_test(dataframe);
 //test::UInt16Message             uint16_messages(dataframe);
 //test::UInt32Message             uint32_messages(dataframe);
 //test::UInt64Message             uint64_test(dataframe);
@@ -74,13 +74,13 @@ TEST_CASE("String test", "[string_messages]")
 //  REQUIRE(service_messages.getMessage() == service_messages.test1);
 //  REQUIRE(service_messages.getMessage({"this", "is", "a", "test"}) == service_messages.test2);
 //}
-//
-//TEST_CASE("Int8 Messages test", "[int8_messages]")
-//{
-//  REQUIRE(int8_messages.getMessage(-1) == int8_messages.test1);
-//  REQUIRE(int8_messages.getMessage(2) == int8_messages.test2);
-//}
-//
+
+TEST_CASE("Int8 test", "[int8_test]")
+{
+  REQUIRE(int8_test.getMessage(-1) == int8_test.test1);
+  REQUIRE(int8_test.getMessage(2) == int8_test.test2);
+}
+
 //TEST_CASE("Int16 Messages test", "[uint16_messages]")
 //{
 //  REQUIRE(int16_messages.getMessage(-1) == int16_messages.test1);
@@ -99,10 +99,10 @@ TEST_CASE("Int64 test", "[int64_test]")
   REQUIRE(int64_test.getMessage(2) == int64_test.test2);
 }
 
-//TEST_CASE("UInt8 Messages test", "[uint8_messages]")
+//TEST_CASE("UInt8 Messages test", "[uint8_test]")
 //{
-//  REQUIRE(uint8_messages.getMessage(1) == uint8_messages.test1);
-//  REQUIRE(uint8_messages.getMessage(2) == uint8_messages.test2);
+//  REQUIRE(uint8_test.getMessage(1) == uint8_test.test1);
+//  REQUIRE(uint8_test.getMessage(2) == uint8_test.test2);
 //}
 //
 //TEST_CASE("UInt16 Messages test", "[uint16_messages]")

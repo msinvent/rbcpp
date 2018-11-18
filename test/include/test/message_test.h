@@ -11,7 +11,7 @@
 #include <ros_bridge_client/ros_bridge_client.h>
 #include <ros_bridge_client/msgs/message.h>
 #include <ros_bridge_client/msgs/std_msgs/int8.h>
-//#include <ros_bridge_client/msgs/std_msgs/int16_message.h>
+#include <ros_bridge_client/msgs/std_msgs/int16.h>
 //#include <ros_bridge_client/msgs/std_msgs/int32_message.h>
 #include <ros_bridge_client/msgs/std_msgs/int64.h>
 //#include <ros_bridge_client/msgs/std_msgs/uint8_message.h>
@@ -236,25 +236,25 @@ struct Int8Test : public Test
   }
 };
 
-//struct Int16Test : public Test
-//{
-//  Int16Test(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("Int16Test")[0]),
-//        test2(dataframe.data.at("Int16Test")[1])
-//  {}
-//
-//  ~Int16Test() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(int16_t message) const
-//  {
-//    std_msgs::Int16Test msg(message);
-//    return messageToString(msg);
-//  }
-//};
-//
+struct Int16Test : public Test
+{
+  Int16Test(const DataFrame &dataframe)
+      : test1(dataframe.data.at("Int16Test")[0]),
+        test2(dataframe.data.at("Int16Test")[1])
+  {}
+
+  ~Int16Test() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(int16_t message) const
+  {
+    std_msgs::Int16 msg(message);
+    return messageToString(msg);
+  }
+};
+
 //struct Int32Test : public Test
 //{
 //  Int32Test(const DataFrame &dataframe)

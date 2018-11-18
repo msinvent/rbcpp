@@ -10,11 +10,11 @@ test::DataFrame             dataframe(reader);
 //test::StringMessage             string_messages(dataframe);
 //test::ServiceMessage            service_messages(dataframe);
 test::Int8Test              int8_test(dataframe);
-//test::Int16Message              int16_messages(dataframe);
+test::Int16Test             int16_test(dataframe);
 //test::Int32Message              int32_messages(dataframe);
 test::Int64Test             int64_test(dataframe);
 //test::UInt8Message              uint8_test(dataframe);
-//test::UInt16Message             uint16_messages(dataframe);
+//test::UInt16Message             uint16_test(dataframe);
 //test::UInt32Message             uint32_messages(dataframe);
 //test::UInt64Message             uint64_test(dataframe);
 //test::ColorRGBAMessage          color_rgba_messages(dataframe);
@@ -81,12 +81,12 @@ TEST_CASE("Int8 test", "[int8_test]")
   REQUIRE(int8_test.getMessage(2) == int8_test.test2);
 }
 
-//TEST_CASE("Int16 Messages test", "[uint16_messages]")
-//{
-//  REQUIRE(int16_messages.getMessage(-1) == int16_messages.test1);
-//  REQUIRE(int16_messages.getMessage(2) == int16_messages.test2);
-//}
-//
+TEST_CASE("Int16 test", "[int16_test]")
+{
+  REQUIRE(int16_test.getMessage(-1) == int16_test.test1);
+  REQUIRE(int16_test.getMessage(2) == int16_test.test2);
+}
+
 //TEST_CASE("Int32 Messages test", "[int32_messages]")
 //{
 //  REQUIRE(int32_messages.getMessage(-1) == int32_messages.test1);
@@ -105,10 +105,10 @@ TEST_CASE("Int64 test", "[int64_test]")
 //  REQUIRE(uint8_test.getMessage(2) == uint8_test.test2);
 //}
 //
-//TEST_CASE("UInt16 Messages test", "[uint16_messages]")
+//TEST_CASE("UInt16 Messages test", "[uint16_test]")
 //{
-//  REQUIRE(uint16_messages.getMessage(1) == uint16_messages.test1);
-//  REQUIRE(uint16_messages.getMessage(2) == uint16_messages.test2);
+//  REQUIRE(uint16_test.getMessage(1) == uint16_test.test1);
+//  REQUIRE(uint16_test.getMessage(2) == uint16_test.test2);
 //}
 //
 //TEST_CASE("UInt32 Messages test", "[uint32_messages]")

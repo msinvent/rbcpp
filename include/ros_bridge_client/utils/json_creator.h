@@ -9,6 +9,7 @@
 #include <ros_bridge_client/msgs/xyzmessage.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/std_msgs/string.h>
+#include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
@@ -47,7 +48,9 @@ public:
   web::json::value &toJson(const msgs::std_msgs::Header &header, bool sub_json = false);
 
   web::json::value &toJson(const msgs::std_msgs::String &string, bool sub_json = false);
-  
+
+  web::json::value &toJson(const msgs::std_msgs::ColorRGBA &rgba, bool sub_json = false);
+
   template <typename T>
   web::json::value &toJson(const msgs::std_msgs::StdMsg<T> &msg, bool sub_json = false);
   

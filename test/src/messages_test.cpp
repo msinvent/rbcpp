@@ -17,7 +17,8 @@ test::UInt8Test             uint8_test(dataframe);
 test::UInt16Test            uint16_test(dataframe);
 test::UInt32Test            uint32_test(dataframe);
 test::UInt64Test            uint64_test(dataframe);
-//test::ColorRGBAMessage          color_rgba_messages(dataframe);
+test::ColorRGBATest         color_rgba_test(dataframe);
+//test::ColorRGBAMessage          color_rgba_test(dataframe);
 test::PointTest             point_test(dataframe);
 test::PoseTest              pose_test(dataframe);
 test::AccelTest             accel_test(dataframe);
@@ -117,27 +118,34 @@ TEST_CASE("UInt64 Messages test", "[uint64_test]")
   REQUIRE(uint64_test.getMessage(2) == uint64_test.test2);
 }
 
-//TEST_CASE("Color RGBA Messages test", "[color_rgba_messages]")
+TEST_CASE("Color RGBA Messages test", "[color_rgba_test]")
+{
+  REQUIRE(color_rgba_test.getMessage(.1, .2, .9, .0) == color_rgba_test.test1);
+  REQUIRE(color_rgba_test.getMessage(.2, .2, .7, .1) == color_rgba_test.test2);
+}
+
+
+//TEST_CASE("Color RGBA Messages test", "[color_rgba_test]")
 //{
 //  {
-//    REQUIRE(color_rgba_messages.getMessage(.1, .2, .9, .0) == color_rgba_messages.test1);
+//    REQUIRE(color_rgba_test.getMessage(.1, .2, .9, .0) == color_rgba_test.test1);
 //
 //    ColorRGBA c;
 //    c.r = .1;
 //    c.g = .2;
 //    c.b = .9;
 //    c.a = .0;
-//    REQUIRE(color_rgba_messages.getMessage(c) == color_rgba_messages.test1);
+//    REQUIRE(color_rgba_test.getMessage(c) == color_rgba_test.test1);
 //  }
 //  {
-//    REQUIRE(color_rgba_messages.getMessage(.2, .2, .7, .1) == color_rgba_messages.test2);
+//    REQUIRE(color_rgba_test.getMessage(.2, .2, .7, .1) == color_rgba_test.test2);
 //
 //    ColorRGBA c;
 //    c.r = .2;
 //    c.g = .2;
 //    c.b = .7;
 //    c.a = .1;
-//    REQUIRE(color_rgba_messages.getMessage(c) == color_rgba_messages.test2);
+//    REQUIRE(color_rgba_test.getMessage(c) == color_rgba_test.test2);
 //  }
 //}
 //

@@ -33,6 +33,7 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/uint16.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/uint32.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/uint64.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/color_rgba.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/message_base.cpp"
 
         "${CMAKE_CURRENT_LIST_DIR}/utils/json_creator.cxx"

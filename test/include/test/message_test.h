@@ -20,6 +20,7 @@
 #include <ros_bridge_client/msgs/std_msgs/uint64.h>
 #include <ros_bridge_client/msgs/std_msgs/string.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
+#include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 //#include <ros_bridge_client/msgs/std_msgs/color_rgba_message.h>
 //
 //#include <ros_bridge_client/msgs/service/service_message.h>
@@ -78,8 +79,8 @@ struct DataFrame
   DataFrame() = delete;
 
   DataFrame(const test::CSVReader &reader)
-    : reader(reader),
-      data(reader.getData())
+      : reader(reader),
+        data(reader.getData())
   {}
 
   ~DataFrame() = default;
@@ -105,8 +106,8 @@ struct Test
 struct HeaderTest : public Test
 {
   explicit HeaderTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("HeaderTest")[0]),
-      test2(dataframe.data.at("HeaderTest")[1])
+      : test1(dataframe.data.at("HeaderTest")[0]),
+        test2(dataframe.data.at("HeaderTest")[1])
   {}
 
   ~HeaderTest() final = default;
@@ -289,6 +290,25 @@ struct Int64Test : public Test
   inline std::string getMessage(int64_t message) const
   {
     std_msgs::Int64 msg(message);
+    return messageToString(msg);
+  }
+};
+
+struct ColorRGBATest : public Test
+{
+  ColorRGBATest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("ColorRGBATest")[0]),
+        test2(dataframe.data.at("ColorRGBATest")[1])
+  {}
+
+  ~ColorRGBATest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(float r, float g, float b, float a) const
+  {
+    std_msgs::ColorRGBA msg(r, g, b, a);
     return messageToString(msg);
   }
 };

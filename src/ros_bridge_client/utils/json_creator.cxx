@@ -220,3 +220,15 @@ web::json::value &JsonCreator::toJson(const msgs::geometry_msgs::Pose2D &pose2d,
 
   return not sub_json ? completeJson(pose2d, json_pose2d) : json_pose2d;
 }
+
+web::json::value &JsonCreator::toJson(const std_msgs::ColorRGBA &rgba, bool sub_json)
+{
+  static web::json::value json_rgba;
+
+  json_rgba[U("r")] = web::json::value(rgba.r);
+  json_rgba[U("g")] = web::json::value(rgba.g);
+  json_rgba[U("b")] = web::json::value(rgba.b);
+  json_rgba[U("a")] = web::json::value(rgba.a);
+
+  return not sub_json ? completeJson(rgba, json_rgba) : json_rgba;
+}

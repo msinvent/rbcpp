@@ -29,6 +29,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/std_msgs/string.h>
+#include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 #include <config_parser/config_parser.h>
 #include <cassert>
 
@@ -157,6 +158,15 @@ void p32callback(const std::shared_ptr<geometry_msgs::Point32> msg)
   assert((msg->x == .1f));
   assert((msg->y == .2f));
   assert((msg->z == .3f));
+}
+
+void ccallback(const std::shared_ptr<std_msgs::ColorRGBA> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[ColorRGBA]\n";
+  assert((msg->r == .1f));
+  assert((msg->g == .2f));
+  assert((msg->b == .3f));
+  assert((msg->a == .4f));
 }
 
 void pscallback(const std::shared_ptr<geometry_msgs::PointStamped> msg)
@@ -290,10 +300,11 @@ int main(void)
   auto& config = config_parser::ConfigParser::init("config.json");
   std::chrono::milliseconds pause(config.pause());
   num_publishers = config.publishers();
-  auto rbc = ROSBridgeClient::init("ws://127.0.0.1:9090");
+  auto rbc = ROSBridgeClient::init(config.host());
 
   auto header_pub = rbc->addPublisher<std_msgs::Header>("/rosbridge/header/");
   auto string_pub = rbc->addPublisher<std_msgs::String>("/rosbridge/string/");
+  auto color_pub = rbc->addPublisher<std_msgs::ColorRGBA>("/rosbridge/color/");
   auto point_pub = rbc->addPublisher<geometry_msgs::Point>("/rosbridge/point/");
   auto accel_pub = rbc->addPublisher<geometry_msgs::Accel>("/rosbridge/accel/");
   auto twist_pub = rbc->addPublisher<geometry_msgs::Twist>("/rosbridge/twist/");
@@ -318,6 +329,7 @@ int main(void)
 
   auto header_sub = rbc->addSubscriber<std_msgs::Header>("/rosbridge/header/", 100, hcallback);
   auto string_sub = rbc->addSubscriber<std_msgs::String>("/rosbridge/string/", 100, scallback);
+  auto color_sub = rbc->addSubscriber<std_msgs::ColorRGBA>("/rosbridge/color/", 100, ccallback);
   auto point_sub = rbc->addSubscriber<geometry_msgs::Point>("/rosbridge/point/", 100, pcallback);
   auto accel_sub = rbc->addSubscriber<geometry_msgs::Accel>("/rosbridge/accel/", 100, acallback);
   auto twist_sub = rbc->addSubscriber<geometry_msgs::Twist>("/rosbridge/twist/", 100, twcallback);
@@ -348,6 +360,9 @@ int main(void)
 
     std_msgs::String s("a string");
     string_pub->publish(s);
+
+    std_msgs::ColorRGBA c(.1, .2, .3, .4);
+//    color_pub->publish(c);
 
     geometry_msgs::Pose po(0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 0.4);
     pose_pub->publish(po);

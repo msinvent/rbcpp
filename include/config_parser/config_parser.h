@@ -26,6 +26,8 @@ public:
 
   size_t publishers() const;
 
+  std::string host() const;
+
 private:
   ConfigParser() = delete;
 

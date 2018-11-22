@@ -32,7 +32,9 @@ TwistStamped::TwistStamped(const Vector3 &linear, const Vector3 &angular, std::s
 {}
 
 TwistStamped::TwistStamped(const web::json::value &response)
-  : MessageBase("geometry_msgs/TwistStamped")
+  : MessageBase("geometry_msgs/TwistStamped"),
+    header(),
+    twist()
 {
   const auto &msg = response.at(U("msg"));
   const auto &twist_msg = msg.at(U("twist"));

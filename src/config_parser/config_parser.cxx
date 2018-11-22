@@ -85,6 +85,17 @@ void ConfigParser::checkForValidity()
     throw exception::ConfigParserValidityException();
   }
 
+  try
+  {
+    const auto &j = msg.at(U("host")).as_string();
+    std::cout << "Host set to" << j << " websocket\n";
+  }
+  catch (std::exception &e)
+  {
+    std::cerr << "Missing key: 'config/host'\n";
+    throw exception::ConfigParserValidityException();
+  }
+
   std::cout << "Config file valid\n";
 }
 
@@ -98,4 +109,10 @@ size_t ConfigParser::publishers() const
 {
   size_t publishers = json.at(U("config")).at(U("publishers")).as_integer();
   return publishers;
+}
+
+std::string ConfigParser::host() const
+{
+  std::string host = json.at(U("config")).at(U("host")).as_string();
+  return host;
 }

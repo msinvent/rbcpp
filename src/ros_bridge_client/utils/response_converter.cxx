@@ -74,3 +74,13 @@ InertiaTuple ResponseConverter::responseToInertia(const web::json::value &respon
 
   return std::forward_as_tuple(m, ixx, ixy, ixz, iyy, iyz, izz);
 }
+
+ColorTuple ResponseConverter::responseToColor(const web::json::value &response, bool is_sub_json)
+{
+  const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
+  const float &r = static_cast<float>(msg.at(U("r")).as_double());
+  const float &g = static_cast<float>(msg.at(U("g")).as_double());
+  const float &b = static_cast<float>(msg.at(U("b")).as_double());
+  const float &a = static_cast<float>(msg.at(U("a")).as_double());
+  return std::forward_as_tuple(r, b, g, a);
+}

@@ -15,6 +15,7 @@ namespace ros_bridge_client::utils
 {
 
 using PointTuple = std::tuple<double, double, double>;
+using ColorTuple = std::tuple<float, float, float, float>;
 using InertiaTuple = std::tuple<double, double, double, double, double, double, double>;
 using PoseTuple = std::tuple<msgs::geometry_msgs::Point, msgs::geometry_msgs::Quaternion>;
 using Point32Tuple = std::tuple<float, float, float>;
@@ -25,6 +26,8 @@ struct ResponseConverter
 {
   template <typename T>
   static T responseToStdMsg(const web::json::value &response, std::string data_type, bool is_sub_json = false);
+
+  static ColorTuple responseToColor(const web::json::value &response, bool is_sub_json = false);
 
   static PointTuple responseToPoint(const web::json::value &response, bool is_sub_json = false);
   

@@ -66,7 +66,7 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | Byte   | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | ByteMultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | Char  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | ColorRGBA  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | ColorRGBA  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | Duration  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | Empty  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | Bool  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |

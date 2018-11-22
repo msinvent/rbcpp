@@ -93,7 +93,7 @@ void ROSBridgeClient::send(const msgs::RBCMessage &msg)
   }
   catch (const std::exception &e)
   {
-    std::cerr << "Failed to send: " << e.what() << std::endl;
+    std::cerr << "Failed to send: " << RBCMessage::toString(msg.msg()) << e.what() << std::endl;
   }
 }
 
@@ -123,9 +123,10 @@ void ROSBridgeClient::send(const web::json::value &msg)
   try
   {
     ws_client.send(m).then([&]() {}).wait();
-  } catch (const std::exception &e)
+  }
+  catch (const std::exception &e)
   {
-    std::cerr << "Failed to send: " << e.what() << std::endl;
+    std::cerr << "Failed to send: " << RBCMessage::toString(msg) << ": " << e.what() << std::endl;
   }
 }
 
@@ -133,7 +134,15 @@ void ROSBridgeClient::send(const std::string msg)
 {
   websocket_outgoing_message m;
   m.set_utf8_message(msg);
-  ws_client.send(m).then([&]() {}).wait();
+
+  try
+  {
+    ws_client.send(m).then([&]() {}).wait();
+  }
+  catch(const std::exception &e)
+  {
+    std::cerr << "Failed to send: " << msg << ": " << e.what() << std::endl;
+  }
 }
 
 void ROSBridgeClient::receive()

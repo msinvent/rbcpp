@@ -362,7 +362,7 @@ int main(void)
     string_pub->publish(s);
 
     std_msgs::ColorRGBA c(.1, .2, .3, .4);
-//    color_pub->publish(c);
+    color_pub->publish(c);
 
     geometry_msgs::Pose po(0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 0.4);
     pose_pub->publish(po);

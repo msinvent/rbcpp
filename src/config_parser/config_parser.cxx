@@ -13,7 +13,8 @@
 using namespace config_parser;
 
 ConfigParser::ConfigParser(std::string filename)
-  : file(filename)
+  : file(filename),
+    json()
 {
   if (not file)
   {
@@ -88,7 +89,7 @@ void ConfigParser::checkForValidity()
   try
   {
     const auto &j = msg.at(U("host")).as_string();
-    std::cout << "Host set to" << j << " websocket\n";
+    std::cout << "Host set to " << j << " websocket\n";
   }
   catch (std::exception &e)
   {

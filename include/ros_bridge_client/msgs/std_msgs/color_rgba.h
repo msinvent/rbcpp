@@ -24,6 +24,10 @@ struct ColorRGBA : public MessageBase
   float r, g, b, a;
 };
 
+std::ostream &operator<<(std::ostream &os, const ColorRGBA &c);
+
+std::ostream &operator<<(std::ostream &os, const std::shared_ptr<ColorRGBA> &c);
+
 } // namespace ros_bridge_client::msgs::std_msgs
 
 #endif //ROSBRIDGECLIENT_COLOR_RGBA_H

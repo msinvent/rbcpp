@@ -82,5 +82,5 @@ ColorTuple ResponseConverter::responseToColor(const web::json::value &response, 
   const float &g = static_cast<float>(msg.at(U("g")).as_double());
   const float &b = static_cast<float>(msg.at(U("b")).as_double());
   const float &a = static_cast<float>(msg.at(U("a")).as_double());
-  return std::forward_as_tuple(r, b, g, a);
+  return std::forward_as_tuple(r, g, b, a);
 }

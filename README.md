@@ -87,7 +87,6 @@ All messages that are checked below can be used already. Examples can be found [
 ### TODO
 
 - [ ] Actionlib
-- [ ] #endifs header guard uint/int
 - [ ] make web value json call safer
 - [ ] test all wrench stamped constructors
-- [ ] Response tesx
+- [ ] overload operators for Int/Float std_msgs

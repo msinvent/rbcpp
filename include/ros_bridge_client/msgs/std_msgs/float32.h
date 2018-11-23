@@ -6,6 +6,7 @@
 #define ROSBRIDGECLIENT_FLOAT32_H
 
 #include <ros_bridge_client/msgs/std_msgs/std_msg.h>
+#include <cpprest/json.h>
 
 namespace ros_bridge_client::msgs::std_msgs
 {
@@ -16,6 +17,8 @@ struct Float32 : public StdMsg<float>
 
   explicit Float32(float data);
 
+  explicit Float32(const web::json::value &response);
+  
   ~Float32() final = default;
 };
 

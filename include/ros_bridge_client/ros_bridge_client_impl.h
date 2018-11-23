@@ -60,14 +60,16 @@ void ROSBridgeClient::connect(const std::string addr)
 {
   try
   {
-    ws_client.connect(U(addr)).then([&]() {}).wait();
+    ws_client.connect(U(addr)).then([&]() {
+      std::cout << "Attempting to connect to " << addr << "\n";
+    }).wait();
   }
   catch (const std::exception &e)
   {
     throw exception::ConnectionException();
   }
 
-  std::cout << "Successfully connect to " << addr << std::endl;
+  std::cout << "Successfully connect to " << addr << "\n";
 }
 
 void ROSBridgeClient::send(const msgs::RBCMessage &msg)
@@ -89,7 +91,7 @@ void ROSBridgeClient::send(const msgs::RBCMessage &msg)
 
   try
   {
-    ws_client.send(m).then([&]() {}).wait();
+    ws_client.send(m).wait();
   }
   catch (const std::exception &e)
   {
@@ -122,7 +124,7 @@ void ROSBridgeClient::send(const web::json::value &msg)
 
   try
   {
-    ws_client.send(m).then([&]() {}).wait();
+    ws_client.send(m).wait();
   }
   catch (const std::exception &e)
   {
@@ -137,7 +139,7 @@ void ROSBridgeClient::send(const std::string msg)
 
   try
   {
-    ws_client.send(m).then([&]() {}).wait();
+    ws_client.send(m).wait();
   }
   catch(const std::exception &e)
   {

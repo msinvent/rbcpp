@@ -32,5 +32,5 @@ std::ostream &operator<<(std::ostream &os, const Point &p)
 
 std::ostream &operator<<(std::ostream &os, const std::shared_ptr<Point> &p)
 {
-  return os << p.get();
+  return os << *p.get();
 }

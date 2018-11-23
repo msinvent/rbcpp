@@ -62,5 +62,5 @@ std::ostream &operator<<(std::ostream &os, const AccelStamped &p)
 
 std::ostream &operator<<(std::ostream &os, const std::shared_ptr<AccelStamped> &p)
 {
-  return os << p.get();
+  return os << *p.get();
 }

@@ -90,3 +90,4 @@ All messages that are checked below can be used already. Examples can be found [
 - [ ] make web value json call safer
 - [ ] test all wrench stamped constructors
 - [ ] overload operators for Int/Float std_msgs
+- [ ] *withCovariance stuff, see branch array-support

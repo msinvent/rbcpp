@@ -7,6 +7,7 @@
 
 #include <cpprest/json.h>
 #include <tuple>
+#include <vector>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
@@ -26,6 +27,9 @@ struct ResponseConverter
 {
   template <typename T>
   static T responseToStdMsg(const web::json::value &response, std::string data_type, bool is_sub_json = false);
+
+  template <typename T>
+  static void responseToArray(std::vector<T> &vec, const web::json::value &response);
 
   static ColorTuple responseToColor(const web::json::value &response, bool is_sub_json = false);
 
@@ -57,6 +61,17 @@ T ResponseConverter::responseToStdMsg(const web::json::value &response, std::str
 
   T data = msg.at(U("msg")).as_string();
   return data;
+}
+
+template<typename T>
+void ResponseConverter::responseToArray(std::vector<T> &vec, const web::json::value &response)
+{
+  const auto& msg = response.at(U("arr")).as_array();
+  std::vector<web::json::value> json_vec(msg.cbegin(), msg.cend());
+  for (const auto& val: json_vec)
+  {
+    vec.push_back(static_cast<T>(val.as_double()));
+  }
 }
 
 } // namespace ros_bridge_client::utils

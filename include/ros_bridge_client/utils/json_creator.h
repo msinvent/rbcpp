@@ -51,12 +51,6 @@ public:
 
   web::json::value &toJson(const msgs::std_msgs::ColorRGBA &rgba, bool sub_json = false);
 
-  template <typename T>
-  web::json::value &toJson(const msgs::std_msgs::StdMsg<T> &msg, bool sub_json = false);
-  
-  template<typename T>
-  web::json::value &toJson(const msgs::XYZMessage<T> &xyz, bool sub_json = false);
-
   web::json::value &toJson(const msgs::geometry_msgs::Pose2D &pose2d, bool sub_json = false);
   
   web::json::value &toJson(const msgs::geometry_msgs::PointStamped &point_stamped, bool sub_json = false);
@@ -90,6 +84,15 @@ public:
   web::json::value &toJson(const msgs::geometry_msgs::TransformStamped &transform_stamped, bool sub_json = false);
 
   web::json::value &completeJson(const msgs::MessageBase &msg, const web::json::value &sub_json);
+
+  template <typename T>
+  web::json::value &toJson(const msgs::std_msgs::StdMsg<T> &msg, bool sub_json = false);
+
+  template<typename T>
+  web::json::value &toJson(const msgs::XYZMessage<T> &xyz, bool sub_json = false);
+
+  template <typename T>
+  web::json::value &toJson(const std::vector<T> &data);
 };
 
 template<typename T>
@@ -111,6 +114,21 @@ web::json::value &JsonCreator::toJson(const msgs::std_msgs::StdMsg<T> &msg, bool
   json_msg[U("data")] = web::json::value(msg.data);
 
   return not sub_json ? completeJson(msg, json_msg) : json_msg;
+}
+
+template<typename T>
+web::json::value &JsonCreator::toJson(const std::vector<T> &data)
+{
+  static web::json::value json_arr;
+  std::vector<web::json::value> array;
+
+  for (const auto& num: data)
+  {
+    array.push_back(web::json::value(num));
+  }
+
+  json_arr[U("arr")] = web::json::value::array(array);
+  return json_arr;
 }
 
 } // namespace namespace ros_bridge_client::utils

@@ -84,3 +84,10 @@ ColorTuple ResponseConverter::responseToColor(const web::json::value &response, 
   const float &a = static_cast<float>(msg.at(U("a")).as_double());
   return std::forward_as_tuple(r, g, b, a);
 }
+
+const std::string &ResponseConverter::responseToString(const web::json::value &response, bool is_sub_json)
+{
+  const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
+  const std::string &s = msg.at(U("data")).as_string();
+  return s;
+}

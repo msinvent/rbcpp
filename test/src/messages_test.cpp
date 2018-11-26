@@ -7,8 +7,11 @@
 
 test::CSVReader             reader("../../test/test_messages.csv", ";");
 test::DataFrame             dataframe(reader);
-//test::StringMessage             string_messages(dataframe);
+test::HeaderTest            header_test(dataframe);
+test::StringTest            string_test(dataframe);
 //test::ServiceMessage            service_messages(dataframe);
+test::Float32Test           float32_test(dataframe);
+test::Float64Test           float64_test(dataframe);
 test::Int8Test              int8_test(dataframe);
 test::Int16Test             int16_test(dataframe);
 test::Int32Test             int32_test(dataframe);
@@ -18,7 +21,6 @@ test::UInt16Test            uint16_test(dataframe);
 test::UInt32Test            uint32_test(dataframe);
 test::UInt64Test            uint64_test(dataframe);
 test::ColorRGBATest         color_rgba_test(dataframe);
-//test::ColorRGBAMessage          color_rgba_test(dataframe);
 test::PointTest             point_test(dataframe);
 test::PoseTest              pose_test(dataframe);
 test::AccelTest             accel_test(dataframe);
@@ -36,21 +38,9 @@ test::InertiaStampedTest    inertia_stamped_test(dataframe);
 test::TransformStampedTest  transform_stamped_test(dataframe);
 test::QuaternionTest        quaternion_test(dataframe);
 test::QuaternionStampedTest quaternion_stamped_test(dataframe);
-//test::Vector3Message            vector3_messages(dataframe);
 test::Vector3StampedTest    vector3_stamped_test(dataframe);
-test::HeaderTest            header_test(dataframe);
-test::StringTest            string_test(dataframe);
-//test::PoseMessage               pose_messages(dataframe);
-//test::Pose2DMessage             pose_2d_messages(dataframe);
-//test::PoseStampedMessage        pose_stamped_messages(dataframe);
-//test::AccelMessage              accel_messages(dataframe);
-//test::AccelStampedMessage       accel_stamped_messages(dataframe);
 test::TwistTest             twist_test(dataframe);
 test::TwistStampedTest      twist_stamped_test(dataframe);
-//test::GridCellsMessage          grid_cell_messages(dataframe);
-//test::PoseArrayMessage          pose_array_messages(dataframe);
-//test::PolygonMessage            polygon_messages(dataframe);
-//test::PolygonStampedMessage     polygon_stamped_messages(dataframe);
 
 TEST_CASE("Header test", "[header]")
 {
@@ -69,6 +59,18 @@ TEST_CASE("String test", "[string_messages]")
 //  REQUIRE(service_messages.getMessage() == service_messages.test1);
 //  REQUIRE(service_messages.getMessage({"this", "is", "a", "test"}) == service_messages.test2);
 //}
+
+TEST_CASE("Float32 test", "[float32_test]")
+{
+  REQUIRE(float32_test.getMessage(2.) == float32_test.test1);
+  REQUIRE(float32_test.getMessage(2.5f) == float32_test.test2);
+}
+
+TEST_CASE("Float64 test", "[float64_test]")
+{
+  REQUIRE(float64_test.getMessage(1.f) == float64_test.test1);
+  REQUIRE(float64_test.getMessage(1.5) == float64_test.test2);
+}
 
 TEST_CASE("Int8 test", "[int8_test]")
 {
@@ -124,31 +126,6 @@ TEST_CASE("Color RGBA Messages test", "[color_rgba_test]")
   REQUIRE(color_rgba_test.getMessage(.2, .2, .7, .1) == color_rgba_test.test2);
 }
 
-
-//TEST_CASE("Color RGBA Messages test", "[color_rgba_test]")
-//{
-//  {
-//    REQUIRE(color_rgba_test.getMessage(.1, .2, .9, .0) == color_rgba_test.test1);
-//
-//    ColorRGBA c;
-//    c.r = .1;
-//    c.g = .2;
-//    c.b = .9;
-//    c.a = .0;
-//    REQUIRE(color_rgba_test.getMessage(c) == color_rgba_test.test1);
-//  }
-//  {
-//    REQUIRE(color_rgba_test.getMessage(.2, .2, .7, .1) == color_rgba_test.test2);
-//
-//    ColorRGBA c;
-//    c.r = .2;
-//    c.g = .2;
-//    c.b = .7;
-//    c.a = .1;
-//    REQUIRE(color_rgba_test.getMessage(c) == color_rgba_test.test2);
-//  }
-//}
-//
 TEST_CASE("Point Test", "[point_test]")
 {
   REQUIRE(point_test.getMessage(0.1, 0.2, 0.3) == point_test.test1);
@@ -674,6 +651,4 @@ TEST_CASE("Inertia Stamped test", "[inertia_stamped_test]")
     inertia.com.z = vec.z;
     REQUIRE(inertia_stamped_test.getMessage(inertia, "a_frame") == inertia_stamped_test.test2);
   }
-}
-
 }

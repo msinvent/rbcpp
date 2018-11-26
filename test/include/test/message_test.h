@@ -21,18 +21,8 @@
 #include <ros_bridge_client/msgs/std_msgs/string.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
-//#include <ros_bridge_client/msgs/std_msgs/color_rgba_message.h>
-//
-//#include <ros_bridge_client/msgs/service/service_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/pose_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/twist_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/accel.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/wrench_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/pose_2d_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/polygon_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/inertia_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/vector3_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/point32_message.h>
+#include <ros_bridge_client/msgs/std_msgs/float32.h>
+#include <ros_bridge_client/msgs/std_msgs/float64.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
@@ -51,25 +41,8 @@
 #include <ros_bridge_client/msgs/geometry_msgs/transform_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/transform_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/quaternion_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/pose_array_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/pose_stamped_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/accel_stamped_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/point_stamped_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/twist_stamped_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/wrench_stamped_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/vector3_stamped_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/polygon_stamped_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/transform_stamped_message.h>
-//#include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped_message.h>
-
-//#include <ros_bridge_client/ros_types/ros_types.h>
-//#include <ros_bridge_client/msgs/nav_msgs/grid_cells_message.h>
 
 using namespace ros_bridge_client::msgs;
-//using namespace ros_bridge_client::ros_types;
 
 namespace test
 {
@@ -140,6 +113,44 @@ struct StringTest : public Test
     std_msgs::String msg(message);
     return messageToString(msg);
   }
+};
+
+struct Float32Test : public Test
+{
+    Float32Test(const DataFrame &dataframe)
+        : test1(dataframe.data.at("Float32Test")[0]),
+          test2(dataframe.data.at("Float32Test")[1])
+    {}
+
+    ~Float32Test() final = default;
+
+    const std::string test1;
+    const std::string test2;
+
+    inline std::string getMessage(float message) const
+    {
+      std_msgs::Float32 msg(message);
+      return messageToString(msg);
+    }
+};
+
+struct Float64Test : public Test
+{
+    Float64Test(const DataFrame &dataframe)
+        : test1(dataframe.data.at("Float64Test")[0]),
+          test2(dataframe.data.at("Float64Test")[1])
+    {}
+
+    ~Float64Test() final = default;
+
+    const std::string test1;
+    const std::string test2;
+
+    inline std::string getMessage(double message) const
+    {
+      std_msgs::Float64 msg(message);
+      return messageToString(msg);
+    }
 };
 
 struct UInt8Test : public Test
@@ -544,164 +555,6 @@ struct QuaternionStampedTest : public Test
   }
 };
 
-//
-//struct Vector3Test : public Test
-//{
-//  Vector3Test(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("Vector3Test")[0]),
-//        test2(dataframe.data.at("Vector3Test")[1])
-//  {}
-//
-//  ~Vector3Test() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(double x, double y, double z) const
-//  {
-//    geometry_msgs::Vector3Test msg(x, y, z);
-//    return messageToString(msg);
-//  }
-//
-//  inline std::string getMessage(const Vector3 &vec) const
-//  {
-//    geometry_msgs::Vector3Test msg(vec);
-//    return messageToString(msg);
-//  }
-//};
-//
-//struct Vector3StampedTest : public Test
-//{
-//  Vector3StampedTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("Vector3StampedTest")[0]),
-//        test2(dataframe.data.at("Vector3StampedTest")[1])
-//  {}
-//
-//  ~Vector3StampedTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(double x, double y, double z, std::string frame_id = "world") const
-//  {
-//    geometry_msgs::Vector3StampedTest msg(x, y, z, frame_id);
-//    return messageToString(msg);
-//  }
-//
-//  inline std::string getMessage(const Vector3 &vec) const
-//  {
-//    geometry_msgs::Vector3StampedTest msg(vec);
-//    return messageToString(msg);
-//  }
-//};
-//
-//struct PoseTest : public Test
-//{
-//  PoseTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("PoseTest")[0]),
-//        test2(dataframe.data.at("PoseTest")[1])
-//  {}
-//
-//  ~PoseTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(double x, double y, double z, double xx, double yy, double zz, double ww) const
-//  {
-//    geometry_msgs::PoseTest msg(x, y, z, xx, yy, zz, ww);
-//    return messageToString(msg);
-//  }
-//
-//  inline std::string getMessage(const Point &p, const Quaternion &q) const
-//  {
-//    geometry_msgs::PoseTest msg(p, q);
-//    return messageToString(msg);
-//  }
-//
-//  inline std::string getMessage(const Pose &p) const
-//  {
-//    geometry_msgs::PoseTest msg(p);
-//    return messageToString(msg);
-//  }
-//};
-//
-//struct PoseStampedTest : public Test
-//{
-//  PoseStampedTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("PoseStampedTest")[0]),
-//        test2(dataframe.data.at("PoseStampedTest")[1])
-//  {}
-//
-//  ~PoseStampedTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string
-//  getMessage(double x, double y, double z, double xx, double yy, double zz, double ww, std::string frame = "world") const
-//  {
-//    geometry_msgs::PoseStampedTest msg(x, y, z, xx, yy, zz, ww, frame);
-//    return messageToString(msg);
-//  }
-//
-//  inline std::string getMessage(const Point &p, const Quaternion &q, std::string frame = "world") const
-//  {
-//    geometry_msgs::PoseStampedTest msg(p, q, frame);
-//    return messageToString(msg);
-//  }
-//
-//  inline std::string getMessage(const Pose &p, std::string frame = "world") const
-//  {
-//    geometry_msgs::PoseStampedTest msg(p, frame);
-//    return messageToString(msg);
-//  }
-//};
-//
-//struct PoseArrayTest : public Test
-//{
-//  PoseArrayTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("PoseArrayTest")[0]),
-//        test2(dataframe.data.at("PoseArrayTest")[1])
-//  {}
-//
-//  ~PoseArrayTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage1(std::string frame = "world") const
-//  {
-//    geometry_msgs::PoseArrayTest msg(frame);
-//    Pose p;
-//    p.p.x = 0.1;
-//    p.p.y = 0.2;
-//    p.p.z = 0.3;
-//    p.q.x = 0.1;
-//    p.q.y = 0.;
-//    p.q.z = 0.;
-//    p.q.w = 1.0;
-//    msg.add(p);
-//    return messageToString(msg);
-//  }
-//
-//  inline std::string getMessage2(std::string frame = "world") const
-//  {
-//    geometry_msgs::PoseArrayTest msg(frame);
-//    Pose p;
-//    p.p.x = 0.1;
-//    p.p.y = 0.2;
-//    p.p.z = 0.3;
-//    p.q.x = 0.1;
-//    p.q.y = 0.;
-//    p.q.z = 0.;
-//    p.q.w = 1.0;
-//    msg.add(p);
-//    msg.add(4.1, 0.2, 0.3, 0.41, 0.5, 0., 0.3);
-//    return messageToString(msg);
-//  }
-//};
-//
 struct AccelTest : public Test
 {
   explicit AccelTest(const DataFrame &dataframe)
@@ -727,7 +580,6 @@ struct AccelTest : public Test
     return messageToString<geometry_msgs::Accel>(msg);
   }
 };
-//};
 
 struct AccelStampedTest : public Test
 {
@@ -1066,57 +918,7 @@ struct InertiaStampedTest : public Test
     return messageToString(msg);
   }
 };
-//
-//struct Pose2DTest : public Test
-//{
-//  Pose2DTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("Pose2DTest")[0]),
-//        test2(dataframe.data.at("Pose2DTest")[1])
-//  {}
-//
-//  ~Pose2DTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(double x, double y, double theta) const
-//  {
-//    geometry_msgs::Pose2DTest msg(x, y, theta);
-//    return messageToString(msg);
-//  }
-//
-//  inline std::string getMessage(Pose2D p) const
-//  {
-//    geometry_msgs::Pose2DTest msg(p);
-//    return messageToString(msg);
-//  }
-//};
-//
-//struct ServiceTest : public Test
-//{
-//  ServiceTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("ServiceTest")[0]),
-//        test2(dataframe.data.at("ServiceTest")[1])
-//  {}
-//
-//  ~ServiceTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage() const
-//  {
-//    service::ServiceTest msg;
-//    return messageToString(msg);
-//  }
-//
-//  inline std::string getMessage(const std::vector<std::string> &vec) const
-//  {
-//    service::ServiceTest msg(vec);
-//    return messageToString(msg);
-//  }
-//};
-//
-//} // namespace test
+
+} // namespace test
 
 #endif //ROSBRIDGECLIENT_Test_TEST_HPP

@@ -29,6 +29,8 @@
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/std_msgs/string.h>
+#include <ros_bridge_client/msgs/std_msgs/float32.h>
+#include <ros_bridge_client/msgs/std_msgs/float64.h>
 #include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 #include <config_parser/config_parser.h>
 #include <cassert>
@@ -63,6 +65,18 @@ void scallback(const std::shared_ptr<std_msgs::String> msg)
 {
   std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[String]\n";
   assert((msg->data == "a string"));
+}
+
+void f32callback(const std::shared_ptr<std_msgs::Float32> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Float32]\n";
+  assert((msg->data == .1f));
+}
+
+void f64callback(const std::shared_ptr<std_msgs::Float64> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Float64]\n";
+  assert((msg->data == .1));
 }
 
 void pocallback(const std::shared_ptr<geometry_msgs::Pose> msg)
@@ -304,6 +318,8 @@ int main(void)
 
   auto header_pub = rbc->addPublisher<std_msgs::Header>("/rosbridge/header/");
   auto string_pub = rbc->addPublisher<std_msgs::String>("/rosbridge/string/");
+  auto float32_pub = rbc->addPublisher<std_msgs::Float32>("/rosbridge/float32/");
+  auto float64_pub = rbc->addPublisher<std_msgs::Float64>("/rosbridge/float64/");
   auto color_pub = rbc->addPublisher<std_msgs::ColorRGBA>("/rosbridge/color/");
   auto point_pub = rbc->addPublisher<geometry_msgs::Point>("/rosbridge/point/");
   auto accel_pub = rbc->addPublisher<geometry_msgs::Accel>("/rosbridge/accel/");
@@ -329,6 +345,8 @@ int main(void)
 
   auto header_sub = rbc->addSubscriber<std_msgs::Header>("/rosbridge/header/", 100, hcallback);
   auto string_sub = rbc->addSubscriber<std_msgs::String>("/rosbridge/string/", 100, scallback);
+  auto f32_sub = rbc->addSubscriber<std_msgs::Float32>("/rosbridge/float32/", 100, f32callback);
+  auto f64_sub = rbc->addSubscriber<std_msgs::Float64>("/rosbridge/float64/", 100, f64callback);
   auto color_sub = rbc->addSubscriber<std_msgs::ColorRGBA>("/rosbridge/color/", 100, ccallback);
   auto point_sub = rbc->addSubscriber<geometry_msgs::Point>("/rosbridge/point/", 100, pcallback);
   auto accel_sub = rbc->addSubscriber<geometry_msgs::Accel>("/rosbridge/accel/", 100, acallback);
@@ -363,6 +381,12 @@ int main(void)
 
     std_msgs::ColorRGBA c(.1, .2, .3, .4);
     color_pub->publish(c);
+
+    std_msgs::Float32 f32(.1);
+    float32_pub->publish(f32);
+
+    std_msgs::Float64 f64(.1);
+    float64_pub->publish(f64);
 
     geometry_msgs::Pose po(0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 0.4);
     pose_pub->publish(po);

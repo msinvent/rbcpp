@@ -25,8 +25,10 @@ using HeaderTuple = std::tuple<double, double, double, std::string>;
 
 struct ResponseConverter
 {
+  static const std::string &responseToString(const web::json::value &response, bool is_sub_json = false);
+
   template <typename T>
-  static T responseToStdMsg(const web::json::value &response, std::string data_type, bool is_sub_json = false);
+  static T responseToStdMsg(const web::json::value &response, bool is_sub_json = false);
 
   template <typename T>
   static void responseToArray(std::vector<T> &vec, const web::json::value &response);
@@ -49,17 +51,11 @@ struct ResponseConverter
 };
 
 template <typename T>
-T ResponseConverter::responseToStdMsg(const web::json::value &response, std::string data_type, bool is_sub_json)
+T ResponseConverter::responseToStdMsg(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
 
-  if (data_type == "string")
-  {
-    T data = msg.at(U("data")).as_string();
-    return data;
-  }
-
-  T data = msg.at(U("msg")).as_string();
+  T data = static_cast<T>(msg.at("data").as_double());
   return data;
 }
 

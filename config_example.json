@@ -1,5 +1,7 @@
 {
   "config" : {
-    "pause" : 300
+    "host" : "ws://localhost:9090",
+    "pause" : 300,
+    "num_publishers": 25
   }
 }

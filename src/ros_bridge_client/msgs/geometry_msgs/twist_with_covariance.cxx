@@ -24,3 +24,9 @@ TwistWithCovariance::TwistWithCovariance(const Twist &twist, std::array<double, 
     twist(twist),
     covariance(covariance)
 {}
+
+TwistWithCovariance::TwistWithCovariance(const TwistWithCovariance &twist_cov)
+    : ROSTypeBase("geometry_msgs/TwistWithCovariance"),
+      twist(twist_cov.twist),
+      covariance(twist_cov.covariance)
+{}

@@ -15,6 +15,7 @@ namespace ros_bridge_client::msgs::geometry_msgs
 struct TwistWithCovariance : public ROSTypeBase
 {
   TwistWithCovariance();
+  TwistWithCovariance(const TwistWithCovariance &twist_cov);
   TwistWithCovariance(const Vector3& linear, const Vector3 &angular, std::array<double, 36> covariance);
   TwistWithCovariance(const Twist &twist, std::array<double, 36> covariance);
   ~TwistWithCovariance() final = default;

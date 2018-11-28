@@ -9,27 +9,28 @@
 #include <ros_bridge_client/msgs/xyzmessage.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/std_msgs/string.h>
+#include <ros_bridge_client/msgs/geometry_msgs/pose.h>
 #include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
-#include <ros_bridge_client/msgs/geometry_msgs/pose.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
-#include <ros_bridge_client/msgs/geometry_msgs/point32.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose2d.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
-#include <ros_bridge_client/msgs/geometry_msgs/transform.h>
+#include <ros_bridge_client/msgs/geometry_msgs/point32.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
+#include <ros_bridge_client/msgs/geometry_msgs/transform.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/vector3_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/wrench_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/wrench_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/vector3_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/transform_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance.h>
-#include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance_stamped.h>
 
 namespace ros_bridge_client::utils
 {
@@ -67,6 +68,8 @@ public:
   web::json::value &toJson(const msgs::geometry_msgs::TwistStamped &twist_stamped, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::TwistWithCovariance &twist_cov, bool sub_json = false);
+
+  web::json::value &toJson(const msgs::geometry_msgs::TwistWithCovarianceStamped &twist_st_cov, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::InertiaStamped &inertia_stamped, bool sub_json = false);
 

@@ -242,3 +242,13 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::TwistWithCovariance &
 
   return not sub_json ? completeJson(twist_cov, json_twist_cov) : json_twist_cov;
 }
+
+web::json::value &JsonCreator::toJson(const geometry_msgs::TwistWithCovarianceStamped &twist_st_cov, bool sub_json)
+{
+  static web::json::value json_twist_cov;
+
+  json_twist_cov[U("twist")] = toJson(twist_st_cov.twist, true);
+  json_twist_cov[U("header")] = toJson(twist_st_cov.header, true);
+
+  return not sub_json ? completeJson(twist_st_cov, json_twist_cov) : json_twist_cov;
+}

@@ -10,7 +10,7 @@ using namespace ros_bridge_client::msgs::geometry_msgs;
 
 
 Inertia::Inertia()
-  : MessageBase("geometry_msgs/Inertia"),
+  : ROSTypeBase("geometry_msgs/Inertia"),
     m(0),
     ixx(0), ixy(0), ixz(0),
     iyy(0), iyz(0), izz(0),
@@ -18,7 +18,7 @@ Inertia::Inertia()
 {}
 
 Inertia::Inertia(double m, const Vector3 &com, double ixx, double ixy, double ixz, double iyy, double iyz, double izz)
-  : MessageBase("geometry_msgs/Inertia"),
+  : ROSTypeBase("geometry_msgs/Inertia"),
     m(m),
     ixx(ixx), ixy(ixy), ixz(ixz),
     iyy(iyy), iyz(iyz), izz(izz),
@@ -26,7 +26,7 @@ Inertia::Inertia(double m, const Vector3 &com, double ixx, double ixy, double ix
 {}
 
 Inertia::Inertia(const Inertia &inertia)
-  : MessageBase("geometry_msgs/Inertia"),
+  : ROSTypeBase("geometry_msgs/Inertia"),
     m(inertia.m),
     ixx(inertia.ixx), ixy(inertia.ixy), ixz(inertia.ixz),
     iyy(inertia.iyy), iyz(inertia.iyz), izz(inertia.izz),
@@ -34,7 +34,7 @@ Inertia::Inertia(const Inertia &inertia)
 {}
 
 Inertia::Inertia(const web::json::value &response)
-  : MessageBase("geometry_msgs/Inertia"),
+  : ROSTypeBase("geometry_msgs/Inertia"),
     m(0),
     ixx(0), ixy(0), ixz(0),
     iyy(0), iyz(0), izz(0),

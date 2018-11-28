@@ -9,15 +9,15 @@ using namespace ros_bridge_client::publisher;
 
 template<typename T>
 RBCPublisher<T>::RBCPublisher(std::shared_ptr<ROSBridgeClient> rbc, std::string topic, std::string msg_type)
-  : mode("publish"),
-    topic(topic),
-    rbc(rbc)
+  : topic(topic),
+    msg_type(msg_type),
+    rbc(rbc),
+    json()
 {
+  json[U("op")] = web::json::value("publish");
   json[U("topic")] = web::json::value::string(topic);
   json[U("type")] = web::json::value::string(msg_type);
   advertise();
-
-  json[U("op")] = web::json::value::string(mode);
 }
 
 template<typename T>
@@ -31,9 +31,11 @@ void RBCPublisher<T>::advertise()
 {
   json[U("op")] = web::json::value::string("advertise");
 
-  rbc->log.log("Advertising topic ", topic, msgs::RBCMessage::msg());
+  rbc->log.log("Advertising topic ", topic, json);
 
-  rbc->send(msgs::RBCMessage::msg());
+  rbc->send(json);
+
+  reset();
 }
 
 template<typename T>
@@ -49,19 +51,24 @@ void RBCPublisher<T>::unadvertise()
 
   json[U("op")] = web::json::value::string("unadvertise");
 
-  rbc->log.log("Unadvertising topic ", topic, msgs::RBCMessage::msg());
+  rbc->log.log("Unadvertising topic ", topic, json);
 
-  rbc->send(msgs::RBCMessage::msg());
+  rbc->send(json);
+
+  reset();
 }
 
 template<typename T>
 void RBCPublisher<T>::publish(T &m) const
 {
-//  msg.setMode(mode);
   Message<T> msg(m);
   msg.setTopic(topic);
-
-//  if (rbc->connectionOk()) std::cout << "Sending: " << msg.toString() << "\n";
-
   rbc->send(msg.toString());
+}
+
+template<typename T>
+void RBCPublisher<T>::reset()
+{
+  json[U("op")] = web::json::value::string("publish");
+  json[U("type")] = web::json::value::string(msg_type);
 }

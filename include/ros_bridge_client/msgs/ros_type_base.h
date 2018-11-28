@@ -10,19 +10,18 @@
 namespace ros_bridge_client::msgs
 {
 
-struct MessageBase
+struct ROSTypeBase
 {
-  virtual ~MessageBase() = default;
+  virtual ~ROSTypeBase() = default;
 
   const std::string &rosMsgType() const;
 
 protected:
-  MessageBase() = default;
-  explicit MessageBase(std::string ros_msg_type);
+  ROSTypeBase() = default;
+  explicit ROSTypeBase(std::string ros_msg_type);
 
 private:
   std::string ros_msg_type;
-
 };
 
 } // namespace ros_bridge_client::msgs

@@ -3,7 +3,6 @@
 //
 
 #include <ros_bridge_client/utils/response_converter.h>
-#include <ros_bridge_client/msgs/rbc_message.h>
 
 using namespace ros_bridge_client::utils;
 using namespace ros_bridge_client::msgs;
@@ -90,4 +89,11 @@ const std::string &ResponseConverter::responseToString(const web::json::value &r
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
   const std::string &s = msg.at(U("data")).as_string();
   return s;
+}
+
+const std::string ResponseConverter::toString(const web::json::value &json)
+{
+  utility::stringstream_t stream;
+  json.serialize(stream);
+  return stream.str();
 }

@@ -8,25 +8,25 @@
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
 Pose::Pose()
-  : MessageBase("geometry_msgs/Pose"),
+  : ROSTypeBase("geometry_msgs/Pose"),
     point(),
     quaternion()
 {}
 
 Pose::Pose(double x, double y, double z, double xx, double yy, double zz, double ww)
-  : MessageBase("geometry_msgs/Pose"),
+  : ROSTypeBase("geometry_msgs/Pose"),
     point(x, y, z),
     quaternion(xx, yy, zz, ww)
 {}
 
 Pose::Pose(const Point &p, const Quaternion &q)
-  : MessageBase("geometry_msgs/Pose"),
+  : ROSTypeBase("geometry_msgs/Pose"),
     point(p),
     quaternion(q)
 {}
 
 Pose::Pose(const web::json::value &response)
-  : MessageBase("geometry_msgs/Pose"),
+  : ROSTypeBase("geometry_msgs/Pose"),
     point(),
     quaternion()
 {

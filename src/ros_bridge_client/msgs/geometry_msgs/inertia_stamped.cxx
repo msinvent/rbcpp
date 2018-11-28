@@ -9,32 +9,32 @@
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
 InertiaStamped::InertiaStamped()
-  : MessageBase("geometry_msgs/InertiaStamped"),
+  : ROSTypeBase("geometry_msgs/InertiaStamped"),
     header(),
     inertia()
 {}
 
 InertiaStamped::InertiaStamped(std::string frame_id)
-  : MessageBase("geometry_msgs/InertiaStamped"),
+  : ROSTypeBase("geometry_msgs/InertiaStamped"),
     header(frame_id),
     inertia()
 {}
 
 InertiaStamped::InertiaStamped(double m, const Vector3 &com, double ixx, double ixy, double ixz, double iyy, double iyz,
                                double izz, std::string frame_id)
-  : MessageBase("geometry_msgs/InertiaStamped"),
+  : ROSTypeBase("geometry_msgs/InertiaStamped"),
     header(frame_id),
     inertia(m, com, ixx, ixy, ixz, iyy, iyz, izz)
 {}
 
 InertiaStamped::InertiaStamped(const Inertia &inertia, std::string frame_id)
-  : MessageBase("geometry_msgs/InertiaStamped"),
+  : ROSTypeBase("geometry_msgs/InertiaStamped"),
     header(frame_id),
     inertia(inertia)
 {}
 
 InertiaStamped::InertiaStamped(const web::json::value &response)
-  : MessageBase("geometry_msgs/InertiaStamped"),
+  : ROSTypeBase("geometry_msgs/InertiaStamped"),
     header(),
     inertia()
 {

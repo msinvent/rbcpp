@@ -89,7 +89,7 @@ public:
   
   web::json::value &toJson(const msgs::geometry_msgs::TransformStamped &transform_stamped, bool sub_json = false);
 
-  web::json::value &completeJson(const msgs::MessageBase &msg, const web::json::value &sub_json);
+  web::json::value &completeJson(const msgs::ROSTypeBase &msg, const web::json::value &sub_json);
 };
 
 template<typename T>

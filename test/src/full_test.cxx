@@ -5,7 +5,6 @@
 #include <memory>
 #include <chrono>
 #include <ros_bridge_client/ros_bridge_client.h>
-#include <ros_bridge_client/msgs/rbc_message.h>
 #include <ros_bridge_client/publisher/rbc_publisher.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>

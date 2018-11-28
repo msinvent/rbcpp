@@ -9,13 +9,13 @@ using namespace ros_bridge_client::msgs::geometry_msgs;
 using namespace web;
 
 Vector3Stamped::Vector3Stamped(const double x, const double y, const double z, std::string frame_id)
-  : MessageBase("geometry_msgs/Vector3Stamped"),
+  : ROSTypeBase("geometry_msgs/Vector3Stamped"),
     header(frame_id),
     vector(x, y, z)
 {}
 
 Vector3Stamped::Vector3Stamped(const web::json::value &response)
-  : MessageBase("geometry_msgs/Vector3Stamped"),
+  : ROSTypeBase("geometry_msgs/Vector3Stamped"),
     header(),
     vector()
 {
@@ -27,7 +27,7 @@ Vector3Stamped::Vector3Stamped(const web::json::value &response)
 }
 
 Vector3Stamped::Vector3Stamped()
-  : MessageBase("geometry_msgs/Vector3Stamped"),
+  : ROSTypeBase("geometry_msgs/Vector3Stamped"),
     header(),
     vector()
 {}

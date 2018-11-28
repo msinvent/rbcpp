@@ -6,7 +6,7 @@
 #define ROSBRIDGECLIENT_ACCEL_HPP
 
 #include <cpprest/json.h>
-#include <ros_bridge_client/msgs/message_base.h>
+#include <ros_bridge_client/msgs/ros_type_base.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
 #include <memory>
 #include <iostream>
@@ -14,7 +14,7 @@
 namespace ros_bridge_client::msgs::geometry_msgs
 {
 
-struct Accel : public MessageBase
+struct Accel : public ROSTypeBase
 {
   explicit Accel(std::string ros_msg_type = "geometry_msgs/Accel");
 

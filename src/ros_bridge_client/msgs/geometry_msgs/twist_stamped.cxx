@@ -8,31 +8,31 @@
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
 TwistStamped::TwistStamped()
-  : MessageBase("geometry_msgs/TwistStamped"),
+  : ROSTypeBase("geometry_msgs/TwistStamped"),
     header(),
     twist()
 {}
 
 TwistStamped::TwistStamped(const Twist &twist, std::string frame_id)
-  : MessageBase("geometry_msgs/TwistStamped"),
+  : ROSTypeBase("geometry_msgs/TwistStamped"),
     header(frame_id),
     twist(twist)
 {}
 
 TwistStamped::TwistStamped(double lx, double ly, double lz, double ax, double ay, double az, std::string frame_id)
-  : MessageBase("geometry_msgs/TwistStamped"),
+  : ROSTypeBase("geometry_msgs/TwistStamped"),
     header(frame_id),
     twist(lx, ly, lz, ax,ay, az)
 {}
 
 TwistStamped::TwistStamped(const Vector3 &linear, const Vector3 &angular, std::string frame_id)
-  : MessageBase("geometry_msgs/TwistStamped"),
+  : ROSTypeBase("geometry_msgs/TwistStamped"),
     header(frame_id),
     twist(linear, angular)
 {}
 
 TwistStamped::TwistStamped(const web::json::value &response)
-  : MessageBase("geometry_msgs/TwistStamped"),
+  : ROSTypeBase("geometry_msgs/TwistStamped"),
     header(),
     twist()
 {

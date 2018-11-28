@@ -5,13 +5,13 @@
 #ifndef ROSBRIDGECLIENT_COLOR_RGBA_H
 #define ROSBRIDGECLIENT_COLOR_RGBA_H
 
-#include <ros_bridge_client/msgs/message_base.h>
+#include <ros_bridge_client/msgs/ros_type_base.h>
 #include <cpprest/json.h>
 
 namespace ros_bridge_client::msgs::std_msgs
 {
 
-struct ColorRGBA : public MessageBase
+struct ColorRGBA : public ROSTypeBase
 {
   ColorRGBA();
 

@@ -14,7 +14,7 @@
 namespace ros_bridge_client::msgs::geometry_msgs
 {
 
-struct TransformStamped : public MessageBase
+struct TransformStamped : public ROSTypeBase
 {
   TransformStamped(std::string frame_id = "world");
 

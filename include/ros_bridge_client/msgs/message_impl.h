@@ -6,6 +6,7 @@
 
 
 using namespace ros_bridge_client::msgs;
+using namespace web;
 
 template<typename T>
 Message<T>::Message(const T &data)

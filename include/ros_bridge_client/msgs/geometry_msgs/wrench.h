@@ -6,7 +6,7 @@
 #define ROSBRIDGECLIENT_WRENCH_HPP
 
 #include <cpprest/json.h>
-#include <ros_bridge_client/msgs/message_base.h>
+#include <ros_bridge_client/msgs/ros_type_base.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
 #include <memory>
 #include <iostream>
@@ -14,7 +14,7 @@
 namespace ros_bridge_client::msgs::geometry_msgs
 {
 
-struct Wrench : public MessageBase
+struct Wrench : public ROSTypeBase
 {
   Wrench();
 

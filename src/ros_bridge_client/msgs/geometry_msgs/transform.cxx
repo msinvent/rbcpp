@@ -8,19 +8,19 @@
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
 Transform::Transform()
-  : MessageBase("geometry_msgs/Transform"),
+  : ROSTypeBase("geometry_msgs/Transform"),
     translation(),
     rotation()
 {}
 
 Transform::Transform(const Vector3 &translation, const Quaternion &rotation)
-  : MessageBase("geometry_msgs/Transform"),
+  : ROSTypeBase("geometry_msgs/Transform"),
     translation(translation),
     rotation(rotation)
 {}
 
 Transform::Transform(const web::json::value &response)
-  : MessageBase("geometry_msgs/Transform"),
+  : ROSTypeBase("geometry_msgs/Transform"),
     translation(),
     rotation()
 {
@@ -34,7 +34,7 @@ Transform::Transform(const web::json::value &response)
 }
 
 Transform::Transform(double tx, double ty, double tz, double rx, double ry, double rz, double rw)
-  : MessageBase("geometry_msgs/Transform"),
+  : ROSTypeBase("geometry_msgs/Transform"),
     translation(tx, ty, tz),
     rotation(rx, ry, rz, rw)
 {}

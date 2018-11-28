@@ -14,7 +14,7 @@ RBCArrayMessage::RBCArrayMessage(std::string array_description)
 }
 
 RBCArrayMessage::RBCArrayMessage(const ServiceDef &service)
-  : RBCMessage(service.op)
+  : MessageBase(service.op)
 {
   json[U(service.json_descriptor)] = json::value::array();
 }

@@ -12,9 +12,7 @@
 #include <functional>
 #include <cpprest/ws_client.h>
 #include <ros_bridge_client/logging/logger.h>
-#include <ros_bridge_client/msgs/rbc_message.h>
 #include <ros_bridge_client/subscriber/rbc_subscriber_base.h>
-#include <ros_bridge_client/subscriber/response_to_message.h>
 
 namespace ros_bridge_client
 {
@@ -42,10 +40,6 @@ public:
 
   virtual ~ROSBridgeClient();
 
-  void send(const msgs::RBCMessage &msg);
-
-  void send(const msgs::RBCMessage *msg);
-
   void send(const web::json::value &msg);
 
   void send(const std::string msg);
@@ -67,10 +61,6 @@ private:
   void connect(const std::string addr);
 
   void callSubscriber(const web::json::value &response);
-
-  std::string toString(const RBCMessage &msg);
-
-  std::string toString(const web::json::value &input);
 
   WSClient ws_client;
 

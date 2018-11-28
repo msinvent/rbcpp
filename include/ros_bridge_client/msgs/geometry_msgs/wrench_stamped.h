@@ -8,12 +8,12 @@
 #include <cpprest/json.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
-#include <ros_bridge_client/msgs/message_base.h>
+#include <ros_bridge_client/msgs/ros_type_base.h>
 
 namespace ros_bridge_client::msgs::geometry_msgs
 {
 
-struct WrenchStamped : public MessageBase
+struct WrenchStamped : public ROSTypeBase
 {
   WrenchStamped();
 

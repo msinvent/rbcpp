@@ -8,13 +8,13 @@
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
 TransformStamped::TransformStamped(std::string frame_id)
-  : MessageBase("geometry_msgs/TransformStamped"),
+  : ROSTypeBase("geometry_msgs/TransformStamped"),
     header(frame_id),
     transform()
 {}
 
 TransformStamped::TransformStamped(const web::json::value &response)
-  : MessageBase("geometry_msgs/TransformStamped"),
+  : ROSTypeBase("geometry_msgs/TransformStamped"),
     header(),
     transform()
 {
@@ -32,13 +32,13 @@ TransformStamped::TransformStamped(const web::json::value &response)
 }
 
 TransformStamped::TransformStamped(const Vector3 &translation, const Quaternion &rotation, std::string frame_id)
-  : MessageBase("geometry_msgs/TransformStamped"),
+  : ROSTypeBase("geometry_msgs/TransformStamped"),
     header(frame_id),
     transform(translation, rotation)
 {}
 
 TransformStamped::TransformStamped(double tx, double ty, double tz, double rx, double ry, double rz, double rw, std::string frame_id)
-  : MessageBase("geometry_msgs/TransformStamped"),
+  : ROSTypeBase("geometry_msgs/TransformStamped"),
     header(frame_id),
     transform(tx, ty, tz, rx, ry, rz, rw)
 {}

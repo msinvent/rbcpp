@@ -5,14 +5,14 @@
 #ifndef ROSBRIDGECLIENT_HEADER_MESSAGE_H
 #define ROSBRIDGECLIENT_HEADER_MESSAGE_H
 
-#include <ros_bridge_client/msgs/message_base.h>
+#include <ros_bridge_client/msgs/ros_type_base.h>
 #include <memory>
 #include <cpprest/json.h>
 
 namespace ros_bridge_client::msgs::std_msgs
 {
 
-struct Header : public MessageBase
+struct Header : public ROSTypeBase
 {
   Header();
 

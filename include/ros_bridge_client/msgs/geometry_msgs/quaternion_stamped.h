@@ -7,12 +7,12 @@
 
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
-#include <ros_bridge_client/msgs/message_base.h>
+#include <ros_bridge_client/msgs/ros_type_base.h>
 
 namespace ros_bridge_client::msgs::geometry_msgs
 {
 
-struct QuaternionStamped : public MessageBase
+struct QuaternionStamped : public ROSTypeBase
 {
 public:
   QuaternionStamped();

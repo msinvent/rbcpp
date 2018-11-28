@@ -2,10 +2,12 @@
 // Created by Julian on 18.10.18.
 //
 
+#include <ros_bridge_client/msgs/message.h>
 #include <ros_bridge_client/ros_bridge_client.h>
 #include <ros_bridge_client/publisher/rbc_publisher.h>
 #include <ros_bridge_client/subscriber/rbc_subscriber.h>
 #include <ros_bridge_client/exceptions/connection_exception.h>
+#include <ros_bridge_client/utils/response_converter.h>
 
 using namespace web::web_sockets::client;
 using namespace ros_bridge_client;
@@ -54,6 +56,8 @@ ROSBridgeClient::~ROSBridgeClient()
   ws_client.close().then([]() {
     std::cout << "Closing Connection\n";
   }).wait();
+
+  std::cout << "Closed Connection\n";
 }
 
 void ROSBridgeClient::connect(const std::string addr)
@@ -72,39 +76,6 @@ void ROSBridgeClient::connect(const std::string addr)
   std::cout << "Successfully connect to " << addr << "\n";
 }
 
-void ROSBridgeClient::send(const msgs::RBCMessage &msg)
-{
-  json::value test;
-  try
-  {
-    test = msg.msg().at("op");
-  }
-  catch (std::exception &e)
-  {
-    std::cerr << "Message malformed. Key 'op' missing. Not sending.\n";
-    return;
-  }
-
-  // convert json to string and send
-  websocket_outgoing_message m;
-  m.set_utf8_message(RBCMessage::toString(msg.msg()));
-
-  try
-  {
-    ws_client.send(m).wait();
-  }
-  catch (const std::exception &e)
-  {
-    std::cerr << "Failed to send: " << RBCMessage::toString(msg.msg()) << e.what() << std::endl;
-  }
-}
-
-void ROSBridgeClient::send(const msgs::RBCMessage *msg)
-{
-  send(*msg);
-}
-
-
 void ROSBridgeClient::send(const web::json::value &msg)
 {
   json::value test;
@@ -120,7 +91,7 @@ void ROSBridgeClient::send(const web::json::value &msg)
 
   // convert json to string and send
   websocket_outgoing_message m;
-  m.set_utf8_message(RBCMessage::toString(msg));
+  m.set_utf8_message(utils::ResponseConverter::toString(msg));
 
   try
   {
@@ -128,7 +99,7 @@ void ROSBridgeClient::send(const web::json::value &msg)
   }
   catch (const std::exception &e)
   {
-    std::cerr << "Failed to send: " << RBCMessage::toString(msg) << ": " << e.what() << std::endl;
+    std::cerr << "Failed to send: " << utils::ResponseConverter::toString(msg) << ": " << e.what() << std::endl;
   }
 }
 
@@ -191,17 +162,4 @@ void ROSBridgeClient::callSubscriber(const web::json::value &response)
   {
     std::cout << "Topic '" << topic_received <<  "' doesn't seems to be subscribed to!\n";
   }
-
-}
-
-std::string ROSBridgeClient::toString(const RBCMessage &msg)
-{
-  return toString(msg.msg());
-}
-
-std::string ROSBridgeClient::toString(const json::value &input)
-{
-  utility::stringstream_t stream;
-  input.serialize(stream);
-  return stream.str();
 }

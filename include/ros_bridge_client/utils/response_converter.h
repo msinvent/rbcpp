@@ -24,6 +24,8 @@ using HeaderTuple = std::tuple<double, double, double, std::string>;
 
 struct ResponseConverter
 {
+  static const std::string toString(const web::json::value &json);
+
   static const std::string &responseToString(const web::json::value &response, bool is_sub_json = false);
 
   template <typename T>

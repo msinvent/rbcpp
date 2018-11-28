@@ -8,31 +8,31 @@
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
 WrenchStamped::WrenchStamped()
-  : MessageBase("geometry_msgs/WrenchStamped"),
+  : ROSTypeBase("geometry_msgs/WrenchStamped"),
     header(),
     wrench()
 {}
 
 WrenchStamped::WrenchStamped(const Wrench &wrench, std::string frame_id)
-  : MessageBase("geometry_msgs/WrenchStamped"),
+  : ROSTypeBase("geometry_msgs/WrenchStamped"),
     header(frame_id),
     wrench(wrench)
 {}
 
 WrenchStamped::WrenchStamped(double fx, double fy, double fz, double tx, double ty, double tz, std::string frame_id)
-  : MessageBase("geometry_msgs/WrenchStamped"),
+  : ROSTypeBase("geometry_msgs/WrenchStamped"),
     header(frame_id),
     wrench(fx, fy, fz, tx, ty, tz)
 {}
 
 WrenchStamped::WrenchStamped(const Vector3 &force, const Vector3 &torque, std::string frame_id)
-  : MessageBase("geometry_msgs/WrenchStamped"),
+  : ROSTypeBase("geometry_msgs/WrenchStamped"),
     header(frame_id),
     wrench(force, torque)
 {}
 
 WrenchStamped::WrenchStamped(const web::json::value &response)
-  : MessageBase("geometry_msgs/WrenchStamped"),
+  : ROSTypeBase("geometry_msgs/WrenchStamped"),
     header(),
     wrench()
 {

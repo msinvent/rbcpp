@@ -6,14 +6,14 @@
 #define ROSBRIDGECLIENT_POSE_H
 
 #include <cpprest/json.h>
-#include <ros_bridge_client/msgs/message_base.h>
+#include <ros_bridge_client/msgs/ros_type_base.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 
 namespace ros_bridge_client::msgs::geometry_msgs
 {
 
-struct Pose : public MessageBase
+struct Pose : public ROSTypeBase
 {
   Pose();
   Pose(double x, double y, double z, double xx, double yy, double zz, double ww);

@@ -1,7 +1,5 @@
 target_sources(librbc
         PRIVATE
-        "${CMAKE_CURRENT_LIST_DIR}/msgs/rbc_message.cpp"
-
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/point.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/accel.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/twist.cxx"
@@ -36,7 +34,7 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/color_rgba.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/float32.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/float64.cxx"
-        "${CMAKE_CURRENT_LIST_DIR}/msgs/message_base.cpp"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/ros_type_base.cpp"
 
         "${CMAKE_CURRENT_LIST_DIR}/utils/json_creator.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/utils/response_converter.cxx"

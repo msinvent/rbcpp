@@ -5,13 +5,13 @@
 #ifndef ROSBRIDGECLIENT_INERTIA_H
 #define ROSBRIDGECLIENT_INERTIA_H
 
-#include <ros_bridge_client/msgs/message_base.h>
+#include <ros_bridge_client/msgs/ros_type_base.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
 
 namespace ros_bridge_client::msgs::geometry_msgs
 {
 
-struct Inertia : public MessageBase
+struct Inertia : public ROSTypeBase
 {
   Inertia();
 

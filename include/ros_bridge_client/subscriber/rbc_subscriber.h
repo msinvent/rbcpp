@@ -11,10 +11,8 @@
 #include <memory>
 #include <functional>
 #include <ros_bridge_client/ros_bridge_client.h>
-#include <ros_bridge_client/msgs/message_base.h>
-#include <ros_bridge_client/subscriber/response_to_message.h>
+#include <ros_bridge_client/msgs/ros_type_base.h>
 #include <ros_bridge_client/subscriber/rbc_subscriber_base.h>
-#include <ros_bridge_client/msgs/rbc_subscribe_message.h>
 
 namespace ros_bridge_client::subscriber
 {
@@ -32,19 +30,12 @@ public:
 
   void addMessage(const web::json::value &json_msg) final;
 
-//  std::shared_ptr<RBCMessage> latest() const;
-//
-//  size_t queue_size() const;
-
-protected:
+private:
   const size_t buffer_size;
   std::shared_ptr<ROSBridgeClient> rbc;
-//  std::queue<std::shared_ptr<msgs::MessageBase>> messages;
   std::shared_ptr<T> received_msg;
   std::function<void(std::shared_ptr<T>)> callback;
-
   void subscribe();
-
   void unsubscribe();
 };
 

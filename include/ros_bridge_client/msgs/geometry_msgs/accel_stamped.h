@@ -8,12 +8,12 @@
 #include <cpprest/json.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
-#include <ros_bridge_client/msgs/message_base.h>
+#include <ros_bridge_client/msgs/ros_type_base.h>
 
 namespace ros_bridge_client::msgs::geometry_msgs
 {
 
-struct AccelStamped : public MessageBase
+struct AccelStamped : public ROSTypeBase
 {
   AccelStamped(std::string ros_msg_type = "geometry_msgs/AccelStamped");
 

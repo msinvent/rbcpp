@@ -9,13 +9,13 @@ using namespace ros_bridge_client::msgs::geometry_msgs;
 using namespace web;
 
 QuaternionStamped::QuaternionStamped(double x, double y, double z, double w, std::string frame_id)
-  : MessageBase("geometry_msgs/QuaternionStamped"),
+  : ROSTypeBase("geometry_msgs/QuaternionStamped"),
     header(frame_id),
     quaternion(x, y, z, w)
 {}
 
 QuaternionStamped::QuaternionStamped(const web::json::value &response)
-  : MessageBase("geometry_msgs/QuaternionStamped"),
+  : ROSTypeBase("geometry_msgs/QuaternionStamped"),
     header(),
     quaternion()
 {
@@ -27,7 +27,7 @@ QuaternionStamped::QuaternionStamped(const web::json::value &response)
 }
 
 QuaternionStamped::QuaternionStamped()
-  : MessageBase("geometry_msgs/QuaternionStamped"),
+  : ROSTypeBase("geometry_msgs/QuaternionStamped"),
     header(),
     quaternion()
 {}

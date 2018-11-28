@@ -9,32 +9,32 @@
 #include <cpprest/json.h>
 #include <ros_bridge_client/ros_bridge_client.h>
 #include <ros_bridge_client/publisher/publisher.h>
-#include <ros_bridge_client/msgs/rbc_message.h>
 
 namespace ros_bridge_client::publisher
 {
 
 template<class T>
-class RBCPublisher : public msgs::RBCMessage
+class RBCPublisher
 {
 public:
   RBCPublisher() = delete;
 
   RBCPublisher(std::shared_ptr<ROSBridgeClient> rbc, std::string topic, std::string msg_type);
 
-  ~RBCPublisher() final;
+  ~RBCPublisher();
 
   void publish(T &msg) const;
 
 private:
+  void reset();
+
   void advertise();
 
   void unadvertise();
 
-  const std::string mode;
-  const std::string topic;
-
+  const std::string topic, msg_type;
   std::shared_ptr<ROSBridgeClient> rbc;
+  web::json::value json;
 };
 
 } // namespace ros_bridge_client::publisher

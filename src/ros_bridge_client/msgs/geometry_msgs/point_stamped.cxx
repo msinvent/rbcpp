@@ -9,13 +9,13 @@ using namespace ros_bridge_client::msgs::geometry_msgs;
 using namespace web;
 
 PointStamped::PointStamped(double x, double y, double z, std::string frame_id)
-  : MessageBase("geometry_msgs/PointStamped"),
+  : ROSTypeBase("geometry_msgs/PointStamped"),
     header(frame_id),
     point(x, y, z)
 {}
 
 PointStamped::PointStamped(const web::json::value &response)
-  : MessageBase("geometry_msgs/PointStamped"),
+  : ROSTypeBase("geometry_msgs/PointStamped"),
     header(),
     point()
 {
@@ -27,7 +27,7 @@ PointStamped::PointStamped(const web::json::value &response)
 }
 
 PointStamped::PointStamped()
-  : MessageBase("geometry_msgs/PointStamped"),
+  : ROSTypeBase("geometry_msgs/PointStamped"),
     header(),
     point()
 {}

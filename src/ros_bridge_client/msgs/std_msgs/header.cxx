@@ -9,21 +9,21 @@ using namespace ros_bridge_client::msgs::std_msgs;
 using namespace web;
 
 Header::Header()
-  : MessageBase("std_msgs/Header"),
+  : ROSTypeBase("std_msgs/Header"),
     seq(0),
     stamp(0, 0),
     frame_id("world")
 {}
 
 Header::Header(std::string frame_id)
-  : MessageBase("std_msgs/Header"),
+  : ROSTypeBase("std_msgs/Header"),
     seq(0),
     stamp(0, 0),
     frame_id(frame_id)
 {}
 
 Header::Header(const web::json::value &response)
-  : MessageBase("std_msgs/Header"),
+  : ROSTypeBase("std_msgs/Header"),
     seq(0),
     stamp(0, 0),
     frame_id("world")

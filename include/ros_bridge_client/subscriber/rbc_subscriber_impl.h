@@ -3,7 +3,6 @@
 //
 
 #include <ros_bridge_client/subscriber/rbc_subscriber.h>
-#include <ros_bridge_client/msgs/rbc_message.h>
 
 using namespace ros_bridge_client::subscriber;
 using namespace ros_bridge_client::msgs;
@@ -18,7 +17,6 @@ RBCSubscriber<T>::RBCSubscriber(std::shared_ptr<ROSBridgeClient> rbc, std::strin
     received_msg(nullptr),
     callback(cb)
 {
-//  messages.push(std::make_shared<MessageBase>());
   subscribe();
 }
 
@@ -28,31 +26,11 @@ RBCSubscriber<T>::~RBCSubscriber()
   unsubscribe();
 }
 
-//template<typename T>
-//std::shared_ptr<RBCMessage> RBCSubscriber<T>::latest() const
-//{
-//  return messages.back();
-//}
-//
-//template<typename T>
-//size_t RBCSubscriber<T>::queue_size() const
-//{
-//  return messages.size();
-//}
-
 template<typename T>
 void RBCSubscriber<T>::addMessage(const web::json::value &json_msg)
 {
   received_msg = std::make_shared<T>(json_msg);
-//  std::cout << "Received: " << RBCMessage::toString(json_msg) << "\n";
   callback(received_msg);
-//  if (messages.size() >= buffer_size)
-//  {
-//    messages.pop();
-//    messages.push(received_msg);
-//    return;
-//  }
-//  messages.push(received_msg);
 }
 
 template<typename T>

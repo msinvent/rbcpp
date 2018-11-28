@@ -19,7 +19,7 @@ PoseArrayMessage::PoseArrayMessage(std::string frame_id)
 
 json::value PoseArrayMessage::createJsonMsg() const
 {
-  json::value pose_array_json = RBCMessage::getJsonAt("msg");
+  json::value pose_array_json = MessageBase::getJsonAt("msg");
 
   using namespace ros_bridge_client::msgs::std_msgs;
   Header header(frame_id);

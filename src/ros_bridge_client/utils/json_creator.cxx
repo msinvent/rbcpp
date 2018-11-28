@@ -39,7 +39,7 @@ web::json::value &JsonCreator::toJson(const std_msgs::Header &header, bool sub_j
   return not sub_json ? completeJson(header, header_json) : header_json;
 }
 
-json::value &JsonCreator::completeJson(const MessageBase &msg, const web::json::value &sub_json)
+json::value &JsonCreator::completeJson(const ROSTypeBase &msg, const web::json::value &sub_json)
 {
   json_[U("type")] = json::value::string(msg.rosMsgType());
   json_[U("msg")]  = sub_json;

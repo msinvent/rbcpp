@@ -36,7 +36,7 @@ json::value PolygonStampedMessage::createJsonMsg() const
   using namespace ros_bridge_client::msgs::std_msgs;
   Header header_message(frame_id);
   geometry_msgs_json[U("header")] = header_message.getJsonAt("msg");
-  geometry_msgs_json[U(array_descriptor)] = RBCMessage::getJsonAt("msg").array();
+  geometry_msgs_json[U(array_descriptor)] = MessageBase::getJsonAt("msg").array();
 
   return geometry_msgs_json;
 }

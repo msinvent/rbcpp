@@ -6,7 +6,7 @@
 #define ROSBRIDGECLIENT_TRANSFORM_HPP
 
 #include <cpprest/json.h>
-#include <ros_bridge_client/msgs/message_base.h>
+#include <ros_bridge_client/msgs/ros_type_base.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 #include <memory>
@@ -15,7 +15,7 @@
 namespace ros_bridge_client::msgs::geometry_msgs
 {
 
-struct Transform : public MessageBase
+struct Transform : public ROSTypeBase
 {
   Transform();
 

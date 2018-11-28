@@ -5,7 +5,7 @@
 #ifndef ROSBRIDGECLIENT_RBC_SERVICE_MESSAGE_HPP
 #define ROSBRIDGECLIENT_RBC_SERVICE_MESSAGE_HPP
 
-#include <ros_bridge_client/msgs/rbc_message.h>
+#include <ros_bridge_client/msgs/message_base.h>
 
 namespace ros_bridge_client::msgs::std_msgs
 {

@@ -8,13 +8,13 @@
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
 Wrench::Wrench()
-  : MessageBase("geometry_msgs/Wrench"),
+  : ROSTypeBase("geometry_msgs/Wrench"),
     force(0, 0, 0),
     torque(0, 0, 0)
 {}
 
 Wrench::Wrench(double lx, double ly, double lz, double ax, double ay, double az)
-  : MessageBase("geometry_msgs/Wrench"),
+  : ROSTypeBase("geometry_msgs/Wrench"),
     force(lx, ly, lz),
     torque(ax, ay, az)
 {
@@ -22,13 +22,13 @@ Wrench::Wrench(double lx, double ly, double lz, double ax, double ay, double az)
 }
 
 Wrench::Wrench(const Vector3 &force, const Vector3 &torque)
-  : MessageBase("geometry_msgs/Wrench"),
+  : ROSTypeBase("geometry_msgs/Wrench"),
     force(force),
     torque(torque)
 {}
 
 Wrench::Wrench(const web::json::value &response)
-  : MessageBase("geometry_msgs/Wrench"),
+  : ROSTypeBase("geometry_msgs/Wrench"),
     force(0, 0, 0),
     torque(0, 0, 0)
 {

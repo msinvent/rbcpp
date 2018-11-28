@@ -8,25 +8,25 @@
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
 PoseStamped::PoseStamped()
-  : MessageBase("geometry_msgs/PoseStamped"),
+  : ROSTypeBase("geometry_msgs/PoseStamped"),
     header(),
     pose()
 {}
 
 PoseStamped::PoseStamped(const Pose &pose, std::string frame_id)
-  : MessageBase("geometry_msgs/PoseStamped"),
+  : ROSTypeBase("geometry_msgs/PoseStamped"),
     header(frame_id),
     pose(pose)
 {}
 
 PoseStamped::PoseStamped(double x, double y, double z, double xx, double yy, double zz, double ww, std::string frame_id)
-  : MessageBase("geometry_msgs/PoseStamped"),
+  : ROSTypeBase("geometry_msgs/PoseStamped"),
     header(frame_id),
     pose(x, y, z, xx, yy, zz, ww)
 {}
 
 PoseStamped::PoseStamped(const web::json::value &response)
-  : MessageBase("geometry_msgs/PoseStamped"),
+  : ROSTypeBase("geometry_msgs/PoseStamped"),
     header(),
     pose()
 {

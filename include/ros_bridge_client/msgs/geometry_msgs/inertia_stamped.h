@@ -5,14 +5,14 @@
 #ifndef ROSBRIDGECLIENT_INERTIA_STAMPED_H
 #define ROSBRIDGECLIENT_INERTIA_STAMPED_H
 
-#include <ros_bridge_client/msgs/message_base.h>
+#include <ros_bridge_client/msgs/ros_type_base.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
 
 namespace ros_bridge_client::msgs::geometry_msgs
 {
 
-struct InertiaStamped : public MessageBase
+struct InertiaStamped : public ROSTypeBase
 {
   InertiaStamped();
 

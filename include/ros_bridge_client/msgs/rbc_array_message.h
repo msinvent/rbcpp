@@ -2,7 +2,7 @@
 // Created by Julian
 //
 
-#include <ros_bridge_client/msgs/rbc_message.h>
+#include <ros_bridge_client/msgs/message_base.h>
 
 #ifndef ROSBRIDGECLIENT_RBC_ARRAY_MESSAGE_HPP
 #define ROSBRIDGECLIENT_RBC_ARRAY_MESSAGE_HPP
@@ -26,7 +26,7 @@ namespace ros_bridge_client
 namespace msgs
 {
 
-class RBCArrayMessage : public RBCMessage
+class RBCArrayMessage : public MessageBase
 {
 public:
   RBCArrayMessage() = delete;

@@ -20,6 +20,7 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/inertia_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/transform_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/quaternion_stamped.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/twist_with_covariance.cxx"
 
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/header.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/string.cxx"

@@ -232,3 +232,13 @@ web::json::value &JsonCreator::toJson(const std_msgs::ColorRGBA &rgba, bool sub_
 
   return not sub_json ? completeJson(rgba, json_rgba) : json_rgba;
 }
+
+web::json::value &JsonCreator::toJson(const geometry_msgs::TwistWithCovariance &twist_cov, bool sub_json)
+{
+  static web::json::value json_twist_cov;
+
+  json_twist_cov[U("twist")] = toJson(twist_cov.twist, true);
+  json_twist_cov[U("covariance")] = web::json::value::array(toJsonArray<double, 36>(twist_cov.covariance));
+
+  return not sub_json ? completeJson(twist_cov, json_twist_cov) : json_twist_cov;
+}

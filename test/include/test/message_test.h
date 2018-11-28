@@ -673,6 +673,24 @@ struct TwistStampedTest : public Test
     return messageToString<geometry_msgs::TwistStamped>(msg);
   }
 };
+
+struct TwistWithCovTest : public Test
+{
+  TwistWithCovTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("TwistWithCov")[0]),
+        test2(dataframe.data.at("TwistWithCov")[1])
+  {}
+
+  ~TwistWithCovTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(const geometry_msgs::TwistWithCovariance &twist) const
+  {
+    return messageToString<geometry_msgs::TwistWithCovariance>(twist);
+  }
+};
 //
 //struct GridCellsTest : public Test
 //{

@@ -36,6 +36,7 @@ test::AccelStampedTest      accel_stamped_test(dataframe);
 test::WrenchStampedTest     wrench_stamped_test(dataframe);
 test::InertiaStampedTest    inertia_stamped_test(dataframe);
 test::TransformStampedTest  transform_stamped_test(dataframe);
+test::TwistWithCovTest      twist_with_cov_test(dataframe);
 test::QuaternionTest        quaternion_test(dataframe);
 test::QuaternionStampedTest quaternion_stamped_test(dataframe);
 test::Vector3StampedTest    vector3_stamped_test(dataframe);
@@ -394,6 +395,40 @@ TEST_CASE("Twist Stamped test", "[twist_stamped_test]")
     ts.linear = linear;
     ts.angular = angular;
     REQUIRE(twist_stamped_test.getMessage(ts, "a_frame") == twist_stamped_test.test2);
+  }
+}
+
+TEST_CASE("Twist With Covariance test", "[twist_with_covariance_test]")
+{
+  {
+    geometry_msgs::Vector3 vec3(.1, .2, .3);
+    geometry_msgs::Twist twist;
+    twist.angular = vec3;
+    twist.linear = vec3;
+    geometry_msgs::TwistWithCovariance twist_with_cov;
+    twist_with_cov.twist = twist;
+    twist_with_cov.covariance = std::array<double, 36>{.1, .2, 3., .4, .5, .6,
+                                                       .7, .8, .9, 1., 1.1, 1.2,
+                                                       1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                                       1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                                       2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                                       3.1, 3.2, 3.3, 3.4, 3.5, 3.6};
+    REQUIRE(twist_with_cov_test.getMessage(twist_with_cov) == twist_with_cov_test.test1);
+  }
+  {
+    geometry_msgs::Vector3 vec3(.3, .2, .1);
+    geometry_msgs::Twist twist;
+    twist.angular = vec3;
+    twist.linear = vec3;
+    geometry_msgs::TwistWithCovariance twist_with_cov;
+    twist_with_cov.twist = twist;
+    twist_with_cov.covariance = std::array<double, 36>{.1, .9, 3., .4, .5, .6,
+                                                       .7, .8, .9, 1., 1.1, 1.2,
+                                                       1.3, 1., 1.5, 1.6, 1., 1.8,
+                                                       1.9, 2., 2.1, .2, 2.3, 2.4,
+                                                       2.5, .6, 2.7, 2.8, .9, 3.,
+                                                       3.1, 3.2, 3.3, .4, 3.5, 3.6};
+    REQUIRE(twist_with_cov_test.getMessage(twist_with_cov) == twist_with_cov_test.test2);
   }
 }
 

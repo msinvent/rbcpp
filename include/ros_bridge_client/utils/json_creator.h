@@ -27,6 +27,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/transform_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
 
@@ -65,6 +66,8 @@ public:
 
   web::json::value &toJson(const msgs::geometry_msgs::TwistStamped &twist_stamped, bool sub_json = false);
 
+  web::json::value &toJson(const msgs::geometry_msgs::TwistWithCovariance &twist_cov, bool sub_json = false);
+
   web::json::value &toJson(const msgs::geometry_msgs::InertiaStamped &inertia_stamped, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::Wrench &wrench, bool sub_json = false);
@@ -91,8 +94,8 @@ public:
   template<typename T>
   web::json::value &toJson(const msgs::XYZMessage<T> &xyz, bool sub_json = false);
 
-  template <typename T>
-  web::json::value &toJson(const std::vector<T> &data);
+  template <typename T, unsigned int N>
+  std::vector<web::json::value> &toJsonArray(const std::array<T, N> &data);
 };
 
 template<typename T>
@@ -116,19 +119,19 @@ web::json::value &JsonCreator::toJson(const msgs::std_msgs::StdMsg<T> &msg, bool
   return not sub_json ? completeJson(msg, json_msg) : json_msg;
 }
 
-template<typename T>
-web::json::value &JsonCreator::toJson(const std::vector<T> &data)
+template<typename T, unsigned int N>
+std::vector<web::json::value> &JsonCreator::toJsonArray(const std::array<T, N> &data)
 {
-  static web::json::value json_arr;
-  std::vector<web::json::value> array;
+  static std::vector<web::json::value> array;
+  array.clear();
+  array.reserve(data.size());
 
   for (const auto& num: data)
   {
     array.push_back(web::json::value(num));
   }
 
-  json_arr[U("arr")] = web::json::value::array(array);
-  return json_arr;
+  return array;
 }
 
 } // namespace namespace ros_bridge_client::utils

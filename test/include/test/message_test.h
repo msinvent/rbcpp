@@ -690,6 +690,20 @@ struct TwistWithCovTest : public Test
   {
     return messageToString<geometry_msgs::TwistWithCovariance>(twist);
   }
+
+  inline std::string getMessage(const geometry_msgs::Twist &twist, const std::array<double, 36> &covariance) const
+  {
+    geometry_msgs::TwistWithCovariance twist_cov(twist, covariance);
+    return messageToString<geometry_msgs::TwistWithCovariance>(twist_cov);
+  }
+
+  inline std::string
+  getMessage(const geometry_msgs::Vector3 &vec1, const geometry_msgs::Vector3 &vec2,
+             const std::array<double, 36> &covariance) const
+  {
+    geometry_msgs::TwistWithCovariance twist_cov(vec1, vec2, covariance);
+    return messageToString<geometry_msgs::TwistWithCovariance>(twist_cov);
+  }
 };
 //
 //struct GridCellsTest : public Test

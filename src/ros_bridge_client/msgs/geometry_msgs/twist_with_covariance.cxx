@@ -11,3 +11,16 @@ TwistWithCovariance::TwistWithCovariance()
     twist(),
     covariance()
 {}
+
+TwistWithCovariance::TwistWithCovariance(const Vector3 &linear, const Vector3 &angular,
+                                         std::array<double, 36> covariance)
+  : ROSTypeBase("geometry_msgs/TwistWithCovariance"),
+    twist(linear, angular),
+    covariance(covariance)
+{}
+
+TwistWithCovariance::TwistWithCovariance(const Twist &twist, std::array<double, 36> covariance)
+  : ROSTypeBase("geometry_msgs/TwistWithCovariance"),
+    twist(twist),
+    covariance(covariance)
+{}

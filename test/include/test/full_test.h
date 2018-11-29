@@ -153,13 +153,19 @@ struct callbacks
   static inline void twcscallback(const std::shared_ptr<geometry_msgs::TwistWithCovarianceStamped> msg)
   {
     std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[TwistWithCovarianceStamped]\n";
+    assert((msg->header.frame_id == "a frame"));
     assert((msg->twist.twist.linear.x == .1));
     assert((msg->twist.twist.linear.y == .2));
     assert((msg->twist.twist.linear.z == .3));
     assert((msg->twist.twist.angular.x == .3));
     assert((msg->twist.twist.angular.y == .2));
     assert((msg->twist.twist.angular.z == .1));
-    assert((msg->twist.covariance.data == std::array<double, 36>{.1}));
+    assert((msg->twist.covariance.data == std::array<double, 36>{.1, .2, 3., .4, .5, .6,
+                                                           .7, .8, .9, 1., 1.1, 1.2,
+                                                           1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                                           1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                                           2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                                           3.1, 3.2, 3.3, 3.4, 3.5, 3.6}));
   }
 
   static inline void twscallback(const std::shared_ptr<geometry_msgs::TwistStamped> msg)

@@ -3,8 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance_stamped.h>
-#include "ros_bridge_client/msgs/geometry_msgs/twist_with_covariance_stamped.h"
-
+#include <ros_bridge_client/utils/response_converter.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
@@ -47,3 +46,25 @@ TwistWithCovarianceStamped::TwistWithCovarianceStamped(const Twist &twist, const
     twist(twist, covariance),
     header(frame_id)
 {}
+
+TwistWithCovarianceStamped::TwistWithCovarianceStamped(const web::json::value &response)
+    : ROSTypeBase("geometry_msgs/TwistWithCovariance"),
+      twist(),
+      header()
+{
+  const auto &msg = response.at(U("msg"));
+  const auto &twist_msg = msg.at(U("twist"));
+  const auto &twist_twist_msg = twist_msg.at(U("twist"));
+  const auto &cov_msg = twist_msg.at(U("covariance"));
+
+  std::tie(twist.twist.linear.x, twist.twist.linear.y, twist.twist.linear.z) =
+      utils::ResponseConverter::responseToVector3(twist_twist_msg.at(U("linear")), true);
+
+  std::tie(twist.twist.angular.x, twist.twist.angular.y, twist.twist.angular.z) =
+      utils::ResponseConverter::responseToVector3(twist_twist_msg.at(U("angular")), true);
+
+  twist.covariance.data = utils::ResponseConverter::responseToArray<double, 36>(cov_msg);
+
+  std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
+      utils::ResponseConverter::responseToHeader(response.at(U("msg")).at(U("header")), true);
+}

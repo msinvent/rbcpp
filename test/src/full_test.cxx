@@ -36,6 +36,7 @@ int main(void)
   auto accel_stamped_pub = rbc->addPublisher<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/");
   auto twist_stamped_pub = rbc->addPublisher<geometry_msgs::TwistStamped>("/rosbridge/twist_stamped/");
   auto twc_pub = rbc->addPublisher<geometry_msgs::TwistWithCovariance>("/rosbridge/twist_with_covariance/");
+  auto twcs_pub = rbc->addPublisher<geometry_msgs::TwistWithCovarianceStamped>("/rosbridge/twist_with_covariance_stamped/");
   auto wrench_stamped_pub = rbc->addPublisher<geometry_msgs::WrenchStamped>("/rosbridge/wrench_stamped/");
   auto pose_stamped_pub = rbc->addPublisher<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/");
   auto transform_stamped_pub = rbc->addPublisher<geometry_msgs::TransformStamped>("/rosbridge/transform_stamped/");
@@ -65,6 +66,7 @@ int main(void)
   auto accel_stamped_sub = rbc->addSubscriber<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/", 100, callbacks::ascallback);
   auto twist_stamped_sub = rbc->addSubscriber<geometry_msgs::TwistStamped>("/rosbridge/twist_stamped/", 100, callbacks::twscallback);
   auto twc_sub = rbc->addSubscriber<geometry_msgs::TwistWithCovariance>("/rosbridge/twist_with_covariance/", 100, callbacks::twccallback);
+  auto twcs_sub = rbc->addSubscriber<geometry_msgs::TwistWithCovarianceStamped>("/rosbridge/twist_with_covariance_stamped/", 100, callbacks::twcscallback);
   auto wrench_stamped_sub = rbc->addSubscriber<geometry_msgs::WrenchStamped>("/rosbridge/wrench_stamped/", 100, callbacks::wscallback);
   auto pose_stamped_sub = rbc->addSubscriber<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/", 100, callbacks::poscallback);
   auto vector3_sub = rbc->addSubscriber<geometry_msgs::Vector3>("/rosbridge/vector3/", 100, callbacks::vcallback);
@@ -114,6 +116,9 @@ int main(void)
 
     geometry_msgs::TwistWithCovariance twc(vec1, vec2, covariance);
     twc_pub->publish(twc);
+
+    geometry_msgs::TwistWithCovarianceStamped twcs(twc, "a frame");
+    twcs_pub->publish(twcs);
 
     geometry_msgs::Wrench w(0.1, 0.2, 0.3, 0.3, 0.2, 0.1);
     wrench_pub->publish(w);

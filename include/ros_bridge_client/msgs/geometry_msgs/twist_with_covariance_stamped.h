@@ -16,6 +16,7 @@ namespace ros_bridge_client::msgs::geometry_msgs
 struct TwistWithCovarianceStamped : public ROSTypeBase
 {
   explicit TwistWithCovarianceStamped(std::string frame_id = "world");
+  explicit TwistWithCovarianceStamped(const web::json::value &response);
   TwistWithCovarianceStamped(const Vector3 &linear, const Vector3& angular,
                              const std::array<double, 36> &covariance, std::string frame_id);
   TwistWithCovarianceStamped(const Twist &twist, const std::array<double, 36> &covariance, std::string frame_id);

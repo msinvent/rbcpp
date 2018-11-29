@@ -35,6 +35,7 @@ int main(void)
   auto point_stamped_pub = rbc->addPublisher<geometry_msgs::PointStamped>("/rosbridge/point_stamped/");
   auto accel_stamped_pub = rbc->addPublisher<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/");
   auto twist_stamped_pub = rbc->addPublisher<geometry_msgs::TwistStamped>("/rosbridge/twist_stamped/");
+  auto twc_pub = rbc->addPublisher<geometry_msgs::TwistWithCovariance>("/rosbridge/twist_with_covariance/");
   auto wrench_stamped_pub = rbc->addPublisher<geometry_msgs::WrenchStamped>("/rosbridge/wrench_stamped/");
   auto pose_stamped_pub = rbc->addPublisher<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/");
   auto transform_stamped_pub = rbc->addPublisher<geometry_msgs::TransformStamped>("/rosbridge/transform_stamped/");
@@ -63,6 +64,7 @@ int main(void)
   auto point_stamped_sub = rbc->addSubscriber<geometry_msgs::PointStamped>("/rosbridge/point_stamped/", 100, callbacks::pscallback);
   auto accel_stamped_sub = rbc->addSubscriber<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/", 100, callbacks::ascallback);
   auto twist_stamped_sub = rbc->addSubscriber<geometry_msgs::TwistStamped>("/rosbridge/twist_stamped/", 100, callbacks::twscallback);
+  auto twc_sub = rbc->addSubscriber<geometry_msgs::TwistWithCovariance>("/rosbridge/twist_with_covariance/", 100, callbacks::twccallback);
   auto wrench_stamped_sub = rbc->addSubscriber<geometry_msgs::WrenchStamped>("/rosbridge/wrench_stamped/", 100, callbacks::wscallback);
   auto pose_stamped_sub = rbc->addSubscriber<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/", 100, callbacks::poscallback);
   auto vector3_sub = rbc->addSubscriber<geometry_msgs::Vector3>("/rosbridge/vector3/", 100, callbacks::vcallback);
@@ -100,6 +102,18 @@ int main(void)
 
     geometry_msgs::TwistStamped tws(0.1, 0.2, 0.3, 0.3, 0.2, 0.1, "a frame");
     twist_stamped_pub->publish(tws);
+
+    geometry_msgs::Vector3 vec1(.1, .2, .3);
+    geometry_msgs::Vector3 vec2(.3, .2, .1);
+    geometry_msgs::Covariance<double, 36> covariance({.1, .2, 3., .4, .5, .6,
+                                                      .7, .8, .9, 1., 1.1, 1.2,
+                                                      1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                                      1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                                      2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                                      3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
+
+    geometry_msgs::TwistWithCovariance twc(vec1, vec2, covariance);
+    twc_pub->publish(twc);
 
     geometry_msgs::Wrench w(0.1, 0.2, 0.3, 0.3, 0.2, 0.1);
     wrench_pub->publish(w);

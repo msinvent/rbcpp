@@ -238,7 +238,7 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::TwistWithCovariance &
   static web::json::value json_twist_cov;
 
   json_twist_cov[U("twist")] = toJson(twist_cov.twist, true);
-  json_twist_cov[U("covariance")] = web::json::value::array(toJsonArray<double, 36>(twist_cov.covariance));
+  json_twist_cov[U("covariance")] = web::json::value::array(toJsonArray<double, 36>(twist_cov.covariance.data));
 
   return not sub_json ? completeJson(twist_cov, json_twist_cov) : json_twist_cov;
 }

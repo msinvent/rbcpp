@@ -40,6 +40,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/transform_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/utils/covariance.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance_stamped.h>
@@ -699,9 +700,24 @@ struct TwistWithCovTest : public Test
     return messageToString<geometry_msgs::TwistWithCovariance>(twist_cov);
   }
 
+  inline std::string getMessage(const geometry_msgs::Twist &twist,
+                                const geometry_msgs::Covariance<double, 36> &covariance) const
+  {
+    geometry_msgs::TwistWithCovariance twist_cov(twist, covariance);
+    return messageToString<geometry_msgs::TwistWithCovariance>(twist_cov);
+  }
+
   inline std::string
   getMessage(const geometry_msgs::Vector3 &vec1, const geometry_msgs::Vector3 &vec2,
              const std::array<double, 36> &covariance) const
+  {
+    geometry_msgs::TwistWithCovariance twist_cov(vec1, vec2, covariance);
+    return messageToString<geometry_msgs::TwistWithCovariance>(twist_cov);
+  }
+
+  inline std::string
+  getMessage(const geometry_msgs::Vector3 &vec1, const geometry_msgs::Vector3 &vec2,
+             const geometry_msgs::Covariance<double, 36> &covariance) const
   {
     geometry_msgs::TwistWithCovariance twist_cov(vec1, vec2, covariance);
     return messageToString<geometry_msgs::TwistWithCovariance>(twist_cov);
@@ -738,6 +754,22 @@ struct TwistWithCovarianceStampedTest : public Test
   inline std::string
   getMessage(const geometry_msgs::Vector3 &vec1, const geometry_msgs::Vector3 &vec2,
              const std::array<double, 36> &covariance, std::string frame_id = "world") const
+  {
+    geometry_msgs::TwistWithCovarianceStamped twist_cov(vec1, vec2, covariance, frame_id);
+    return messageToString<geometry_msgs::TwistWithCovarianceStamped>(twist_cov);
+  }
+
+  inline std::string getMessage(const geometry_msgs::Twist &twist,
+                                const geometry_msgs::Covariance<double, 36> &covariance,
+                                std::string frame_id = "world") const
+  {
+    geometry_msgs::TwistWithCovarianceStamped twist_cov(twist, covariance, frame_id);
+    return messageToString<geometry_msgs::TwistWithCovarianceStamped>(twist_cov);
+  }
+
+  inline std::string
+  getMessage(const geometry_msgs::Vector3 &vec1, const geometry_msgs::Vector3 &vec2,
+             const geometry_msgs::Covariance<double, 36> &covariance, std::string frame_id = "world") const
   {
     geometry_msgs::TwistWithCovarianceStamped twist_cov(vec1, vec2, covariance, frame_id);
     return messageToString<geometry_msgs::TwistWithCovarianceStamped>(twist_cov);

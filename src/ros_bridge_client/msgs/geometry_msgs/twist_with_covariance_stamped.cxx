@@ -33,3 +33,17 @@ TwistWithCovarianceStamped::TwistWithCovarianceStamped(const Vector3 &linear, co
     twist(linear, angular, covariance),
     header(frame_id)
 {}
+
+TwistWithCovarianceStamped::TwistWithCovarianceStamped(const Vector3 &linear, const Vector3 &angular,
+                                                       const Covariance<double, 36> &covariance, std::string frame_id)
+  : ROSTypeBase("geometry_msgs/TwistWithCovarianceStamped"),
+    twist(linear, angular, covariance),
+    header(frame_id)
+{}
+
+TwistWithCovarianceStamped::TwistWithCovarianceStamped(const Twist &twist, const Covariance<double, 36> &covariance,
+                                                       std::string frame_id)
+  : ROSTypeBase("geometry_msgs/TwistWithCovarianceStamped"),
+    twist(twist, covariance),
+    header(frame_id)
+{}

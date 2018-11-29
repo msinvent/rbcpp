@@ -35,6 +35,9 @@ struct ResponseConverter
   template <typename T>
   static void responseToArray(std::vector<T> &vec, const web::json::value &response);
 
+  template <typename T, unsigned int N>
+  static std::array<T, N>& responseToArray(const web::json::value &response);
+
   static ColorTuple responseToColor(const web::json::value &response, bool is_sub_json = false);
 
   static PointTuple responseToPoint(const web::json::value &response, bool is_sub_json = false);
@@ -70,6 +73,33 @@ void ResponseConverter::responseToArray(std::vector<T> &vec, const web::json::va
   {
     vec.push_back(static_cast<T>(val.as_double()));
   }
+}
+
+template<typename T, unsigned int N>
+std::array<T, N> &ResponseConverter::responseToArray(const web::json::value &response)
+{
+  static std::array<T, N> arr;
+  std::fill(std::begin(arr), std::end(arr), NAN);
+
+  const auto &json_arr = response.as_array();
+  auto arr_size = std::distance(json_arr.cbegin(), json_arr.cend());
+
+  if (arr_size > N)
+  {
+    std::cerr << "Json array too big\n";
+    return arr;
+  }
+
+  //std::vector<web::json::value> json_vec(json_arr.cbegin(), json_arr.cend());
+  auto it = json_arr.cbegin();
+  auto arr_it = std::begin(arr);
+
+  while (it != json_arr.cend())
+  {
+    *arr_it++ = static_cast<T>((*it++).as_double());
+  }
+
+  return arr;
 }
 
 } // namespace ros_bridge_client::utils

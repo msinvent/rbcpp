@@ -19,7 +19,7 @@ struct Pose : public ROSTypeBase
   Pose(double x, double y, double z, double xx, double yy, double zz, double ww);
   Pose(const Point &p, const Quaternion &q);
   Pose(const web::json::value &response);
-  ~Pose() override = default;
+  ~Pose() final = default;
 
   Point point;
   Quaternion quaternion;

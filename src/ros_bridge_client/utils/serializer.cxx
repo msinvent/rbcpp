@@ -252,3 +252,13 @@ web::json::value &Serializer::toJson(const geometry_msgs::TwistWithCovarianceSta
 
   return not sub_json ? completeJson(twist_st_cov, json_twist_cov) : json_twist_cov;
 }
+
+web::json::value &Serializer::toJson(const geometry_msgs::PoseWithCovariance &pose_cov, bool sub_json)
+{
+  static web::json::value json_pose_cov;
+
+  json_pose_cov[U("pose")] = toJson(pose_cov.pose, true);
+  json_pose_cov[U("covariance")] = web::json::value::array(toJsonArray<double, 36>(pose_cov.covariance.data));
+
+  return not sub_json ? completeJson(pose_cov, json_pose_cov) : json_pose_cov;
+}

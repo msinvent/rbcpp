@@ -120,40 +120,40 @@ struct StringTest : public Test
 
 struct Float32Test : public Test
 {
-    Float32Test(const DataFrame &dataframe)
-        : test1(dataframe.data.at("Float32Test")[0]),
-          test2(dataframe.data.at("Float32Test")[1])
-    {}
+  Float32Test(const DataFrame &dataframe)
+      : test1(dataframe.data.at("Float32Test")[0]),
+        test2(dataframe.data.at("Float32Test")[1])
+  {}
 
-    ~Float32Test() final = default;
+  ~Float32Test() final = default;
 
-    const std::string test1;
-    const std::string test2;
+  const std::string test1;
+  const std::string test2;
 
-    inline std::string getMessage(float message) const
-    {
-      std_msgs::Float32 msg(message);
-      return messageToString(msg);
-    }
+  inline std::string getMessage(float message) const
+  {
+    std_msgs::Float32 msg(message);
+    return messageToString(msg);
+  }
 };
 
 struct Float64Test : public Test
 {
-    Float64Test(const DataFrame &dataframe)
-        : test1(dataframe.data.at("Float64Test")[0]),
-          test2(dataframe.data.at("Float64Test")[1])
-    {}
+  Float64Test(const DataFrame &dataframe)
+      : test1(dataframe.data.at("Float64Test")[0]),
+        test2(dataframe.data.at("Float64Test")[1])
+  {}
 
-    ~Float64Test() final = default;
+  ~Float64Test() final = default;
 
-    const std::string test1;
-    const std::string test2;
+  const std::string test1;
+  const std::string test2;
 
-    inline std::string getMessage(double message) const
-    {
-      std_msgs::Float64 msg(message);
-      return messageToString(msg);
-    }
+  inline std::string getMessage(double message) const
+  {
+    std_msgs::Float64 msg(message);
+    return messageToString(msg);
+  }
 };
 
 struct UInt8Test : public Test
@@ -356,8 +356,8 @@ struct ColorRGBATest : public Test
 struct Point32Test : public Test
 {
   explicit Point32Test(const DataFrame &dataframe)
-    : test1(dataframe.data.at("Point32Test")[0]),
-      test2(dataframe.data.at("Point32Test")[1])
+      : test1(dataframe.data.at("Point32Test")[0]),
+        test2(dataframe.data.at("Point32Test")[1])
   {}
 
   ~Point32Test() final = default;
@@ -375,8 +375,8 @@ struct Point32Test : public Test
 struct PointTest : public Test
 {
   explicit PointTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("PointTest")[0]),
-      test2(dataframe.data.at("PointTest")[1])
+      : test1(dataframe.data.at("PointTest")[0]),
+        test2(dataframe.data.at("PointTest")[1])
   {}
 
   ~PointTest() final = default;
@@ -394,8 +394,8 @@ struct PointTest : public Test
 struct Pose2DTest : public Test
 {
   explicit Pose2DTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("Pose2DTest")[0]),
-      test2(dataframe.data.at("Pose2DTest")[1])
+      : test1(dataframe.data.at("Pose2DTest")[0]),
+        test2(dataframe.data.at("Pose2DTest")[1])
   {}
 
   ~Pose2DTest() final = default;
@@ -414,8 +414,8 @@ struct Pose2DTest : public Test
 struct PointStampedTest : public Test
 {
   explicit PointStampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("PointStampedTest")[0]),
-      test2(dataframe.data.at("PointStampedTest")[1])
+      : test1(dataframe.data.at("PointStampedTest")[0]),
+        test2(dataframe.data.at("PointStampedTest")[1])
   {}
 
   ~PointStampedTest() final = default;
@@ -433,8 +433,8 @@ struct PointStampedTest : public Test
 struct Vector3Test : public Test
 {
   explicit Vector3Test(const DataFrame &dataframe)
-    : test1(dataframe.data.at("Vector3Test")[0]),
-      test2(dataframe.data.at("Vector3Test")[1])
+      : test1(dataframe.data.at("Vector3Test")[0]),
+        test2(dataframe.data.at("Vector3Test")[1])
   {}
 
   ~Vector3Test() final = default;
@@ -452,8 +452,8 @@ struct Vector3Test : public Test
 struct Vector3StampedTest : public Test
 {
   explicit Vector3StampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("Vector3StampedTest")[0]),
-      test2(dataframe.data.at("Vector3StampedTest")[1])
+      : test1(dataframe.data.at("Vector3StampedTest")[0]),
+        test2(dataframe.data.at("Vector3StampedTest")[1])
   {}
 
   ~Vector3StampedTest() final = default;
@@ -471,8 +471,8 @@ struct Vector3StampedTest : public Test
 struct PoseTest : public Test
 {
   explicit PoseTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("PoseTest")[0]),
-      test2(dataframe.data.at("PoseTest")[1])
+      : test1(dataframe.data.at("PoseTest")[0]),
+        test2(dataframe.data.at("PoseTest")[1])
   {}
 
   ~PoseTest() final = default;
@@ -494,11 +494,39 @@ struct PoseTest : public Test
   }
 };
 
+struct PoseWithCovarianceTest : public Test
+{
+  explicit PoseWithCovarianceTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("PoseWithCovarianceTest")[0]),
+        test2(dataframe.data.at("PoseWithCovarianceTest")[1])
+  {}
+
+  ~PoseWithCovarianceTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(double x, double y, double z, double xx, double yy, double zz, double ww,
+                                const std::array<double, 36> &arr) const
+  {
+    geometry_msgs::PoseWithCovariance msg(x, y, z, xx, yy, zz, ww, arr);
+    return messageToString<geometry_msgs::PoseWithCovariance>(msg);
+  }
+
+  inline std::string
+  getMessage(const geometry_msgs::Point &point, const geometry_msgs::Quaternion &quaternion,
+             const std::array<double, 36> &arr) const
+  {
+    geometry_msgs::PoseWithCovariance msg(point, quaternion, arr);
+    return messageToString<geometry_msgs::PoseWithCovariance>(msg);
+  }
+};
+
 struct PoseStampedTest : public Test
 {
   explicit PoseStampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("PoseStampedTest")[0]),
-      test2(dataframe.data.at("PoseStampedTest")[1])
+      : test1(dataframe.data.at("PoseStampedTest")[0]),
+        test2(dataframe.data.at("PoseStampedTest")[1])
   {}
 
   ~PoseStampedTest() final = default;
@@ -523,8 +551,8 @@ struct PoseStampedTest : public Test
 struct QuaternionTest : public Test
 {
   explicit QuaternionTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("QuaternionTest")[0]),
-      test2(dataframe.data.at("QuaternionTest")[1])
+      : test1(dataframe.data.at("QuaternionTest")[0]),
+        test2(dataframe.data.at("QuaternionTest")[1])
   {}
 
   ~QuaternionTest() final = default;
@@ -542,8 +570,8 @@ struct QuaternionTest : public Test
 struct QuaternionStampedTest : public Test
 {
   explicit QuaternionStampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("QuaternionStampedTest")[0]),
-      test2(dataframe.data.at("QuaternionStampedTest")[1])
+      : test1(dataframe.data.at("QuaternionStampedTest")[0]),
+        test2(dataframe.data.at("QuaternionStampedTest")[1])
   {}
 
   ~QuaternionStampedTest() final = default;
@@ -561,8 +589,8 @@ struct QuaternionStampedTest : public Test
 struct AccelTest : public Test
 {
   explicit AccelTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("AccelTest")[0]),
-      test2(dataframe.data.at("AccelTest")[1])
+      : test1(dataframe.data.at("AccelTest")[0]),
+        test2(dataframe.data.at("AccelTest")[1])
   {}
 
   ~AccelTest() final = default;
@@ -587,8 +615,8 @@ struct AccelTest : public Test
 struct AccelStampedTest : public Test
 {
   AccelStampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("AccelStampedTest")[0]),
-      test2(dataframe.data.at("AccelStampedTest")[1])
+      : test1(dataframe.data.at("AccelStampedTest")[0]),
+        test2(dataframe.data.at("AccelStampedTest")[1])
   {}
 
   ~AccelStampedTest() final = default;
@@ -622,8 +650,8 @@ struct AccelStampedTest : public Test
 struct TwistTest : public Test
 {
   TwistTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("TwistTest")[0]),
-      test2(dataframe.data.at("TwistTest")[1])
+      : test1(dataframe.data.at("TwistTest")[0]),
+        test2(dataframe.data.at("TwistTest")[1])
   {}
 
   ~TwistTest() final = default;
@@ -647,8 +675,8 @@ struct TwistTest : public Test
 struct TwistStampedTest : public Test
 {
   TwistStampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("TwistStampedTest")[0]),
-      test2(dataframe.data.at("TwistStampedTest")[1])
+      : test1(dataframe.data.at("TwistStampedTest")[0]),
+        test2(dataframe.data.at("TwistStampedTest")[1])
   {}
 
   ~TwistStampedTest() final = default;
@@ -779,8 +807,8 @@ struct TwistWithCovarianceStampedTest : public Test
 struct TransformTest : public Test
 {
   TransformTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("TransformTest")[0]),
-      test2(dataframe.data.at("TransformTest")[1])
+      : test1(dataframe.data.at("TransformTest")[0]),
+        test2(dataframe.data.at("TransformTest")[1])
   {}
 
   ~TransformTest() final = default;
@@ -806,8 +834,8 @@ struct TransformTest : public Test
 struct TransformStampedTest : public Test
 {
   TransformStampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("TransformStampedTest")[0]),
-      test2(dataframe.data.at("TransformStampedTest")[1])
+      : test1(dataframe.data.at("TransformStampedTest")[0]),
+        test2(dataframe.data.at("TransformStampedTest")[1])
   {}
 
   ~TransformStampedTest() final = default;
@@ -834,8 +862,8 @@ struct TransformStampedTest : public Test
 struct WrenchTest : public Test
 {
   WrenchTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("WrenchTest")[0]),
-      test2(dataframe.data.at("WrenchTest")[1])
+      : test1(dataframe.data.at("WrenchTest")[0]),
+        test2(dataframe.data.at("WrenchTest")[1])
   {}
 
   ~WrenchTest() final = default;
@@ -860,8 +888,8 @@ struct WrenchTest : public Test
 struct WrenchStampedTest : public Test
 {
   WrenchStampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("WrenchStampedTest")[0]),
-      test2(dataframe.data.at("WrenchStampedTest")[1])
+      : test1(dataframe.data.at("WrenchStampedTest")[0]),
+        test2(dataframe.data.at("WrenchStampedTest")[1])
   {}
 
   ~WrenchStampedTest() final = default;
@@ -945,8 +973,8 @@ struct WrenchStampedTest : public Test
 struct InertiaTest : public Test
 {
   InertiaTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("InertiaTest")[0]),
-      test2(dataframe.data.at("InertiaTest")[1])
+      : test1(dataframe.data.at("InertiaTest")[0]),
+        test2(dataframe.data.at("InertiaTest")[1])
   {}
 
   ~InertiaTest() final = default;
@@ -972,8 +1000,8 @@ struct InertiaTest : public Test
 struct InertiaStampedTest : public Test
 {
   InertiaStampedTest(const DataFrame &dataframe)
-    : test1(dataframe.data.at("InertiaStampedTest")[0]),
-      test2(dataframe.data.at("InertiaStampedTest")[1])
+      : test1(dataframe.data.at("InertiaStampedTest")[0]),
+        test2(dataframe.data.at("InertiaStampedTest")[1])
   {}
 
   ~InertiaStampedTest() final = default;

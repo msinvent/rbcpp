@@ -79,13 +79,13 @@ template<typename T, unsigned int N>
 std::array<T, N> &Deserializer::toArray(const web::json::value &response)
 {
   static std::array<T, N> arr;
-  std::fill(std::begin(arr), std::end(arr), NAN);
 
   const auto &json_arr = response.as_array();
   auto arr_size = std::distance(json_arr.cbegin(), json_arr.cend());
 
   if (arr_size > N)
   {
+    std::fill(std::begin(arr), std::end(arr), NAN);
     std::cerr << "Json array too big\n";
     return arr;
   }
@@ -94,10 +94,14 @@ std::array<T, N> &Deserializer::toArray(const web::json::value &response)
   auto it = json_arr.cbegin();
   auto arr_it = std::begin(arr);
 
-  while (it != json_arr.cend())
-  {
-    *arr_it++ = static_cast<T>((*it++).as_double());
-  }
+  std::generate(std::begin(arr), std::end(arr), [&] {
+    return static_cast<T>((*it++).as_double());
+  });
+
+//  while (it != json_arr.cend())
+//  {
+//    *arr_it++ = static_cast<T>((*it++).as_double());
+//  }
 
   return arr;
 }

@@ -1,10 +1,10 @@
 target_sources(librbc
         PRIVATE
 #        geometry_msgs
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/point.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/accel.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/twist.cxx"
-        "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/point32.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose2d.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/wrench.cxx"
@@ -21,6 +21,7 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/inertia_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/transform_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/quaternion_stamped.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose_with_covariance.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/twist_with_covariance.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/twist_with_covariance_stamped.cxx"
 #       std_msgs

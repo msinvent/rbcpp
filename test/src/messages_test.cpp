@@ -2,47 +2,49 @@
 // Created by Julian on 15.09.18.
 //
 #define CATCH_CONFIG_MAIN
+
 #include <catch2/catch.hpp>
 #include <test/message_test.h>
 
-test::CSVReader                       reader("../../test/test_messages.csv", ";");
-test::DataFrame                       dataframe(reader);
-test::HeaderTest                      header_test(dataframe);
-test::StringTest                      string_test(dataframe);
+test::CSVReader reader("../../test/test_messages.csv", ";");
+test::DataFrame dataframe(reader);
+test::HeaderTest header_test(dataframe);
+test::StringTest string_test(dataframe);
 //test::ServiceMessage            service_messages(dataframe);
-test::Float32Test                     float32_test(dataframe);
-test::Float64Test                     float64_test(dataframe);
-test::Int8Test                        int8_test(dataframe);
-test::Int16Test                       int16_test(dataframe);
-test::Int32Test                       int32_test(dataframe);
-test::Int64Test                       int64_test(dataframe);
-test::UInt8Test                       uint8_test(dataframe);
-test::UInt16Test                      uint16_test(dataframe);
-test::UInt32Test                      uint32_test(dataframe);
-test::UInt64Test                      uint64_test(dataframe);
-test::ColorRGBATest                   color_rgba_test(dataframe);
-test::PointTest                       point_test(dataframe);
-test::PoseTest                        pose_test(dataframe);
-test::AccelTest                       accel_test(dataframe);
-test::Point32Test                     point32_test(dataframe);
-test::Vector3Test                     vector3_test(dataframe);
-test::WrenchTest                      wrench_test(dataframe);
-test::InertiaTest                     inertia_test(dataframe);
-test::TransformTest                   transform_test(dataframe);
-test::Pose2DTest                      pose2d_test(dataframe);
-test::PoseStampedTest                 pose_stamped_test(dataframe);
-test::PointStampedTest                point_stamped_test(dataframe);
-test::AccelStampedTest                accel_stamped_test(dataframe);
-test::WrenchStampedTest               wrench_stamped_test(dataframe);
-test::InertiaStampedTest              inertia_stamped_test(dataframe);
-test::TransformStampedTest            transform_stamped_test(dataframe);
-test::TwistWithCovTest                twist_with_cov_test(dataframe);
-test::TwistWithCovarianceStampedTest  twist_with_cov_stamped_test(dataframe);
-test::QuaternionTest                  quaternion_test(dataframe);
-test::QuaternionStampedTest           quaternion_stamped_test(dataframe);
-test::Vector3StampedTest              vector3_stamped_test(dataframe);
-test::TwistTest                       twist_test(dataframe);
-test::TwistStampedTest                twist_stamped_test(dataframe);
+test::Float32Test float32_test(dataframe);
+test::Float64Test float64_test(dataframe);
+test::Int8Test int8_test(dataframe);
+test::Int16Test int16_test(dataframe);
+test::Int32Test int32_test(dataframe);
+test::Int64Test int64_test(dataframe);
+test::UInt8Test uint8_test(dataframe);
+test::UInt16Test uint16_test(dataframe);
+test::UInt32Test uint32_test(dataframe);
+test::UInt64Test uint64_test(dataframe);
+test::ColorRGBATest color_rgba_test(dataframe);
+test::PointTest point_test(dataframe);
+test::PoseTest pose_test(dataframe);
+test::AccelTest accel_test(dataframe);
+test::Point32Test point32_test(dataframe);
+test::Vector3Test vector3_test(dataframe);
+test::WrenchTest wrench_test(dataframe);
+test::InertiaTest inertia_test(dataframe);
+test::TransformTest transform_test(dataframe);
+test::Pose2DTest pose2d_test(dataframe);
+test::PoseWithCovarianceTest pose_with_covariance_test(dataframe);
+test::PoseStampedTest pose_stamped_test(dataframe);
+test::PointStampedTest point_stamped_test(dataframe);
+test::AccelStampedTest accel_stamped_test(dataframe);
+test::WrenchStampedTest wrench_stamped_test(dataframe);
+test::InertiaStampedTest inertia_stamped_test(dataframe);
+test::TransformStampedTest transform_stamped_test(dataframe);
+test::TwistWithCovTest twist_with_cov_test(dataframe);
+test::TwistWithCovarianceStampedTest twist_with_cov_stamped_test(dataframe);
+test::QuaternionTest quaternion_test(dataframe);
+test::QuaternionStampedTest quaternion_stamped_test(dataframe);
+test::Vector3StampedTest vector3_stamped_test(dataframe);
+test::TwistTest twist_test(dataframe);
+test::TwistStampedTest twist_stamped_test(dataframe);
 
 TEST_CASE("Header test", "[header]")
 {
@@ -209,29 +211,47 @@ TEST_CASE("Pose test", "[pose_test]")
     REQUIRE(pose_test.getMessage(p, q) == pose_test.test2);
   }
 }
-//
-//TEST_CASE("Pose2D Messages test", "[pose_2d_messages]")
-//{
-//  {
-//    REQUIRE(pose_2d_messages.getMessage(0.1, 0.2, 0.3) == pose_2d_messages.test1);
-//
-//    Pose2D p;
-//    p.x = 0.1;
-//    p.y = 0.2;
-//    p.theta = 0.3;
-//    REQUIRE(pose_2d_messages.getMessage(p) == pose_2d_messages.test1);
-//  }
-//  {
-//    REQUIRE(pose_2d_messages.getMessage(.2, .0, .3) == pose_2d_messages.test2);
-//
-//    Pose2D p;
-//    p.x = .2;
-//    p.y = .0;
-//    p.theta = .3;
-//    REQUIRE(pose_2d_messages.getMessage(p) == pose_2d_messages.test2);
-//  }
-//}
-//
+
+TEST_CASE("Pose With Covariance test", "[pose_with_covariance_test]")
+{
+  geometry_msgs::Covariance<double, 36> covariance({.1, .2, 3., .4, .5, .6,
+                                                    .7, .8, .9, 1., 1.1, 1.2,
+                                                    1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                                    1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                                    2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                                    3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
+  {
+    REQUIRE(pose_with_covariance_test.getMessage(0.1, 0.2, 0.3, 0.1, 0., 0., 1.0, covariance.data) ==
+            pose_with_covariance_test.test1);
+
+    geometry_msgs::Point p;
+    p.x = 0.1;
+    p.y = 0.2;
+    p.z = 0.3;
+    geometry_msgs::Quaternion q;
+    q.x = 0.1;
+    q.y = 0.;
+    q.z = 0.;
+    q.w = 1.0;
+    REQUIRE(pose_with_covariance_test.getMessage(p, q, covariance.data) == pose_with_covariance_test.test1);
+  }
+  {
+    REQUIRE(pose_with_covariance_test.getMessage(0.1, 0.5, 0.3, 0.1, 0.9, 0., 1.0, covariance.data) ==
+            pose_with_covariance_test.test2);
+
+    geometry_msgs::Point p;
+    p.x = 0.1;
+    p.y = 0.5;
+    p.z = 0.3;
+    geometry_msgs::Quaternion q;
+    q.x = 0.1;
+    q.y = 0.9;
+    q.z = 0.;
+    q.w = 1.0;
+    REQUIRE(pose_with_covariance_test.getMessage(p, q, covariance.data) == pose_with_covariance_test.test2);
+  }
+}
+
 TEST_CASE("Pose Stamped test", "[pose_stamped_test]")
 {
   {
@@ -406,12 +426,12 @@ TEST_CASE("Twist With Covariance test", "[twist_with_covariance_test]")
     geometry_msgs::Twist twist;
     twist.angular = vec3;
     twist.linear = vec3;
-    geometry_msgs::Covariance<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
-                                                       .7, .8, .9, 1., 1.1, 1.2,
-                                                       1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
-                                                       1.9, 2., 2.1, 2.2, 2.3, 2.4,
-                                                       2.5, 2.6, 2.7, 2.8, 2.9, 3.,
-                                                       3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
+    geometry_msgs::Covariance<double, 36> covariance({.1, .2, 3., .4, .5, .6,
+                                                      .7, .8, .9, 1., 1.1, 1.2,
+                                                      1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                                      1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                                      2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                                      3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
     geometry_msgs::TwistWithCovariance twist_with_cov;
     twist_with_cov.twist = twist;
     twist_with_cov.covariance = covariance;
@@ -427,12 +447,12 @@ TEST_CASE("Twist With Covariance test", "[twist_with_covariance_test]")
     geometry_msgs::Twist twist;
     twist.angular = vec3;
     twist.linear = vec3;
-    geometry_msgs::Covariance<double, 36> covariance( {.1, .9, 3., .4, .5, .6,
-                                                       .7, .8, .9, 1., 1.1, 1.2,
-                                                       1.3, 1., 1.5, 1.6, 1., 1.8,
-                                                       1.9, 2., 2.1, .2, 2.3, 2.4,
-                                                       2.5, .6, 2.7, 2.8, .9, 3.,
-                                                       3.1, 3.2, 3.3, .4, 3.5, 3.6});
+    geometry_msgs::Covariance<double, 36> covariance({.1, .9, 3., .4, .5, .6,
+                                                      .7, .8, .9, 1., 1.1, 1.2,
+                                                      1.3, 1., 1.5, 1.6, 1., 1.8,
+                                                      1.9, 2., 2.1, .2, 2.3, 2.4,
+                                                      2.5, .6, 2.7, 2.8, .9, 3.,
+                                                      3.1, 3.2, 3.3, .4, 3.5, 3.6});
     geometry_msgs::TwistWithCovariance twist_with_cov;
     twist_with_cov.twist = twist;
     twist_with_cov.covariance = covariance;
@@ -452,12 +472,12 @@ TEST_CASE("Twist With Covariance Stamped test", "[twist_with_covariance_stamped_
     geometry_msgs::Twist twist;
     twist.angular = vec3;
     twist.linear = vec3;
-    geometry_msgs::Covariance<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
-                                                       .7, .8, .9, 1., 1.1, 1.2,
-                                                       1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
-                                                       1.9, 2., 2.1, 2.2, 2.3, 2.4,
-                                                       2.5, 2.6, 2.7, 2.8, 2.9, 3.,
-                                                       3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
+    geometry_msgs::Covariance<double, 36> covariance({.1, .2, 3., .4, .5, .6,
+                                                      .7, .8, .9, 1., 1.1, 1.2,
+                                                      1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                                      1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                                      2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                                      3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
     geometry_msgs::TwistWithCovariance twist_with_cov;
     twist_with_cov.twist = twist;
     twist_with_cov.covariance = covariance;
@@ -473,21 +493,24 @@ TEST_CASE("Twist With Covariance Stamped test", "[twist_with_covariance_stamped_
     geometry_msgs::Twist twist;
     twist.angular = vec3;
     twist.linear = vec3;
-    geometry_msgs::Covariance<double, 36> covariance( {.1, .9, 3., .4, .5, .6,
-                                                       .7, .8, .9, 1., 1.1, 1.2,
-                                                       1.3, 1., 1.5, 1.6, 1., 1.8,
-                                                       1.9, 2., 2.1, .2, 2.3, 2.4,
-                                                       2.5, .6, 2.7, 2.8, .9, 3.,
-                                                       3.1, 3.2, 3.3, .4, 3.5, 3.6});
+    geometry_msgs::Covariance<double, 36> covariance({.1, .9, 3., .4, .5, .6,
+                                                      .7, .8, .9, 1., 1.1, 1.2,
+                                                      1.3, 1., 1.5, 1.6, 1., 1.8,
+                                                      1.9, 2., 2.1, .2, 2.3, 2.4,
+                                                      2.5, .6, 2.7, 2.8, .9, 3.,
+                                                      3.1, 3.2, 3.3, .4, 3.5, 3.6});
     geometry_msgs::TwistWithCovariance twist_with_cov;
     twist_with_cov.twist = twist;
     twist_with_cov.covariance = covariance;
 
     REQUIRE(twist_with_cov_stamped_test.getMessage(twist_with_cov, "a_frame") == twist_with_cov_stamped_test.test2);
-    REQUIRE(twist_with_cov_stamped_test.getMessage(twist, covariance.data, "a_frame") == twist_with_cov_stamped_test.test2);
+    REQUIRE(
+        twist_with_cov_stamped_test.getMessage(twist, covariance.data, "a_frame") == twist_with_cov_stamped_test.test2);
     REQUIRE(twist_with_cov_stamped_test.getMessage(twist, covariance, "a_frame") == twist_with_cov_stamped_test.test2);
-    REQUIRE(twist_with_cov_stamped_test.getMessage(vec3, vec3, covariance.data, "a_frame") == twist_with_cov_stamped_test.test2);
-    REQUIRE(twist_with_cov_stamped_test.getMessage(vec3, vec3, covariance, "a_frame") == twist_with_cov_stamped_test.test2);
+    REQUIRE(twist_with_cov_stamped_test.getMessage(vec3, vec3, covariance.data, "a_frame") ==
+            twist_with_cov_stamped_test.test2);
+    REQUIRE(
+        twist_with_cov_stamped_test.getMessage(vec3, vec3, covariance, "a_frame") == twist_with_cov_stamped_test.test2);
   }
 }
 
@@ -531,34 +554,35 @@ TEST_CASE("Transform test", "[transform_test]")
 
 TEST_CASE("Transform Stamped test", "[transform_stamped_test]")
 {
- {
-   geometry_msgs::Vector3 translation;
-   translation.x = 0.10;
-   translation.y = 0.20;
-   translation.z = 0.30;
-   geometry_msgs::Quaternion rotation;
-   rotation.x = 0.1;
-   rotation.y = 0.2;
-   rotation.z = 0.3;
-   rotation.w = 1.0;
-   REQUIRE(transform_stamped_test.getMessage(translation, rotation) == transform_stamped_test.test1);
-   
-   REQUIRE(transform_stamped_test.getMessage(0.10, 0.20, 0.30, 0.1, 0.2, 0.3, 1.0) == transform_stamped_test.test1);
- }
- {
-   geometry_msgs::Vector3 translation;
-   translation.x = 0.1;
-   translation.y = 0.5;
-   translation.z = 0.3;
-   geometry_msgs::Quaternion rotation;
-   rotation.x = 0.1;
-   rotation.y = 0.2;
-   rotation.z = 0.3;
-   rotation.w = 1.0;
-   REQUIRE(transform_stamped_test.getMessage(translation, rotation, "a_frame") == transform_stamped_test.test2);
-   
-   REQUIRE(transform_stamped_test.getMessage(0.1, 0.5, 0.3, 0.1, 0.2, 0.3, 1.0, "a_frame") == transform_stamped_test.test2);
- }
+  {
+    geometry_msgs::Vector3 translation;
+    translation.x = 0.10;
+    translation.y = 0.20;
+    translation.z = 0.30;
+    geometry_msgs::Quaternion rotation;
+    rotation.x = 0.1;
+    rotation.y = 0.2;
+    rotation.z = 0.3;
+    rotation.w = 1.0;
+    REQUIRE(transform_stamped_test.getMessage(translation, rotation) == transform_stamped_test.test1);
+
+    REQUIRE(transform_stamped_test.getMessage(0.10, 0.20, 0.30, 0.1, 0.2, 0.3, 1.0) == transform_stamped_test.test1);
+  }
+  {
+    geometry_msgs::Vector3 translation;
+    translation.x = 0.1;
+    translation.y = 0.5;
+    translation.z = 0.3;
+    geometry_msgs::Quaternion rotation;
+    rotation.x = 0.1;
+    rotation.y = 0.2;
+    rotation.z = 0.3;
+    rotation.w = 1.0;
+    REQUIRE(transform_stamped_test.getMessage(translation, rotation, "a_frame") == transform_stamped_test.test2);
+
+    REQUIRE(transform_stamped_test.getMessage(0.1, 0.5, 0.3, 0.1, 0.2, 0.3, 1.0, "a_frame") ==
+            transform_stamped_test.test2);
+  }
 }
 
 TEST_CASE("Wrench Messages test", "[wrench_test]")

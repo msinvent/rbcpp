@@ -21,7 +21,7 @@ struct Pose2D : public XYZMessage<double>
 
   explicit Pose2D(const web::json::value &response);
 
-  ~Pose2D() override = default;
+  ~Pose2D() final = default;
   
   double theta;
 };

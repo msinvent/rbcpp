@@ -33,4 +33,8 @@ struct TwistWithCovarianceStamped : public ROSTypeBase
 
 } // namespace ros_bridge_client::msgs::geometry_msgs
 
+std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::TwistWithCovarianceStamped &t);
+
+std::ostream &operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::TwistWithCovarianceStamped> &t);
+
 #endif //ROSBRIDGECLIENT_TWIST_WITH_COVARIANCE_STAMPED_H

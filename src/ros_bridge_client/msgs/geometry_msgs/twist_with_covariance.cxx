@@ -67,6 +67,7 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
   os << "\nTwist With Covariance";
   os << t.twist;
   os << t.covariance;
+  os << "\n";
   return os;
 }
 

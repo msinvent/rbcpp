@@ -10,9 +10,14 @@
 #include <ros_bridge_client/utils/deserializer.h>
 #include <ros_bridge_client/msgs/geometry_msgs/utils/covariance.h>
 
+//std::ostream& operator<<(std::ostream& os, std::array<float, 2> &arr)
+//{
+//  return os << arr[1];
+//}
+
 int main(void)
 {
-  std::array<float, 1> arr{.1};
+  std::array<float, 2> arr{.1, .2};
   std::cout << arr;
   //  std::array<int, 2> x{1, 2};
 //  ros_bridge_client::utils::Serializer c;

@@ -1,318 +1,20 @@
-#include <iostream>
-#include <string>
-#include <atomic>
-#include <thread>
-#include <memory>
-#include <chrono>
-#include <ros_bridge_client/ros_bridge_client.h>
-#include <ros_bridge_client/publisher/rbc_publisher.h>
-#include <ros_bridge_client/msgs/geometry_msgs/pose.h>
-#include <ros_bridge_client/msgs/geometry_msgs/point.h>
-#include <ros_bridge_client/msgs/geometry_msgs/accel.h>
-#include <ros_bridge_client/msgs/geometry_msgs/twist.h>
-#include <ros_bridge_client/msgs/geometry_msgs/point32.h>
-#include <ros_bridge_client/msgs/geometry_msgs/pose2d.h>
-#include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
-#include <ros_bridge_client/msgs/geometry_msgs/transform.h>
-#include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
-#include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
-#include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
-#include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/wrench_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/transform_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/twist_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/vector3_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
-#include <ros_bridge_client/msgs/std_msgs/header.h>
-#include <ros_bridge_client/msgs/std_msgs/string.h>
-#include <ros_bridge_client/msgs/std_msgs/float32.h>
-#include <ros_bridge_client/msgs/std_msgs/float64.h>
-#include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
-#include <config_parser/config_parser.h>
-#include <cassert>
+#include <test/full_test.h>
 
 using namespace std::chrono;
 using namespace ros_bridge_client;
 using namespace ros_bridge_client::msgs;
+using namespace test;
 
-namespace test
-{
-
-struct TestException : public std::exception
-{
-    inline const char *what() const throw()
-    {
-      return "TestException\n  Test Error! \n  Didn't receive all messages! \n  Exiting.\n";
-    }
-};
-
-} // namespace exception
-
-std::atomic<size_t> messages_received;
-size_t num_publishers;
-
-void hcallback(const std::shared_ptr<std_msgs::Header> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Header]\n";
-  assert((msg->frame_id == "a frame"));
-}
-
-void scallback(const std::shared_ptr<std_msgs::String> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[String]\n";
-  assert((msg->data == "a string"));
-}
-
-void f32callback(const std::shared_ptr<std_msgs::Float32> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Float32]\n";
-  assert((msg->data == .1f));
-}
-
-void f64callback(const std::shared_ptr<std_msgs::Float64> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Float64]\n";
-  assert((msg->data == .1));
-}
-
-void pocallback(const std::shared_ptr<geometry_msgs::Pose> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Pose]\n";
-  assert((msg->point.x == .1));
-  assert((msg->point.y == .2));
-  assert((msg->point.z == .3));
-  assert((msg->quaternion.x == .1));
-  assert((msg->quaternion.y == .2));
-  assert((msg->quaternion.z == .3));
-  assert((msg->quaternion.w == .4));
-}
-
-void pcallback(const std::shared_ptr<geometry_msgs::Point> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Point]\n";
-  assert((msg->x == .1));
-  assert((msg->y == .2));
-  assert((msg->z == .3));
-}
-
-void p2dcallback(const std::shared_ptr<geometry_msgs::Pose2D> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Point2d]\n";
-  assert((msg->x == .1));
-  assert((msg->y == .2));
-  assert((msg->theta == .3));
-}
-
-void acallback(const std::shared_ptr<geometry_msgs::Accel> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Accel]\n";
-  assert((msg->linear.x == .1));
-  assert((msg->linear.y == .2));
-  assert((msg->linear.z == .3));
-  assert((msg->angular.x == .3));
-  assert((msg->angular.y == .2));
-  assert((msg->angular.z == .1));
-}
-
-void twcallback(const std::shared_ptr<geometry_msgs::Twist> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Twist]\n";
-  assert((msg->linear.x == .1));
-  assert((msg->linear.y == .2));
-  assert((msg->linear.z == .3));
-  assert((msg->angular.x == .3));
-  assert((msg->angular.y == .2));
-  assert((msg->angular.z == .1));
-}
-
-void twscallback(const std::shared_ptr<geometry_msgs::TwistStamped> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[TwistStamped]\n";
-  assert((msg->header.frame_id == "a frame"));
-  assert((msg->twist.linear.x == .1));
-  assert((msg->twist.linear.y == .2));
-  assert((msg->twist.linear.z == .3));
-  assert((msg->twist.angular.x == .3));
-  assert((msg->twist.angular.y == .2));
-  assert((msg->twist.angular.z == .1));
-}
-
-void tcallback(const std::shared_ptr<geometry_msgs::Transform> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Transform]\n";
-  assert((msg->translation.x == .1));
-  assert((msg->translation.y == .2));
-  assert((msg->translation.z == .3));
-  assert((msg->rotation.x == .4));
-  assert((msg->rotation.y == .3));
-  assert((msg->rotation.z == .2));
-  assert((msg->rotation.w == .1));
-}
-
-void tscallback(const std::shared_ptr<geometry_msgs::TransformStamped> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[TransformStamped]\n";
-  assert((msg->header.frame_id == "a frame"));
-  assert((msg->transform.translation.x == .1));
-  assert((msg->transform.translation.y == .2));
-  assert((msg->transform.translation.z == .3));
-  assert((msg->transform.rotation.x == .4));
-  assert((msg->transform.rotation.y == .3));
-  assert((msg->transform.rotation.z == .2));
-  assert((msg->transform.rotation.w == .1));
-}
-
-void p32callback(const std::shared_ptr<geometry_msgs::Point32> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Point32]\n";
-  assert((msg->x == .1f));
-  assert((msg->y == .2f));
-  assert((msg->z == .3f));
-}
-
-void ccallback(const std::shared_ptr<std_msgs::ColorRGBA> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[ColorRGBA]\n";
-  assert((msg->r == .1f));
-  assert((msg->g == .2f));
-  assert((msg->b == .3f));
-  assert((msg->a == .4f));
-}
-
-void pscallback(const std::shared_ptr<geometry_msgs::PointStamped> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[PointStamped]\n";
-  assert((msg->header.frame_id == "a frame"));
-  assert((msg->point.x == .1));
-  assert((msg->point.y == .2));
-  assert((msg->point.z == .3));
-}
-
-void poscallback(const std::shared_ptr<geometry_msgs::PoseStamped> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[PointStamped]\n";
-  assert((msg->header.frame_id == "a frame"));
-  assert((msg->pose.point.x == .1));
-  assert((msg->pose.point.y == .2));
-  assert((msg->pose.point.z == .3));
-  assert((msg->pose.quaternion.x == .1));
-  assert((msg->pose.quaternion.y == .2));
-  assert((msg->pose.quaternion.z == .3));
-  assert((msg->pose.quaternion.w == .4));
-}
-
-void vcallback(const std::shared_ptr<geometry_msgs::Vector3> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Vector3]\n";
-  assert((msg->x == .1));
-  assert((msg->y == .2));
-  assert((msg->z == .3));
-}
-
-void vscallback(const std::shared_ptr<geometry_msgs::Vector3Stamped> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Vector3Stamped]\n";
-  assert((msg->header.frame_id == "a frame"));
-  assert((msg->vector.x == .1));
-  assert((msg->vector.y == .2));
-  assert((msg->vector.z == .3));
-}
-
-void qcallback(const std::shared_ptr<geometry_msgs::Quaternion> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Quaternion]\n";
-  assert((msg->x == .1));
-  assert((msg->y == .2));
-  assert((msg->z == .3));
-  assert((msg->w == .4));
-}
-
-void qscallback(const std::shared_ptr<geometry_msgs::QuaternionStamped> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[QuaternionStamped]\n";
-  assert((msg->header.frame_id == "a frame"));
-  assert((msg->quaternion.x == .1));
-  assert((msg->quaternion.y == .2));
-  assert((msg->quaternion.z == .3));
-  assert((msg->quaternion.w == .4));
-}
-
-void ascallback(const std::shared_ptr<geometry_msgs::AccelStamped> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[AccelStamped]\n";
-  assert((msg->header.frame_id == "a frame"));
-  assert((msg->accel.linear.x == .1));
-  assert((msg->accel.linear.y == .2));
-  assert((msg->accel.linear.z == .3));
-  assert((msg->accel.angular.x == .3));
-  assert((msg->accel.angular.y == .2));
-  assert((msg->accel.angular.z == .1));
-}
-
-void wcallback(const std::shared_ptr<geometry_msgs::Wrench> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Wrench]\n";
-  assert((msg->force.x == .1));
-  assert((msg->force.y == .2));
-  assert((msg->force.z == .3));
-  assert((msg->torque.x == .3));
-  assert((msg->torque.y == .2));
-  assert((msg->torque.z == .1));
-}
-
-void wscallback(const std::shared_ptr<geometry_msgs::WrenchStamped> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[WrenchStamped]\n";
-  assert((msg->header.frame_id == "a frame"));
-  assert((msg->wrench.force.x == .1));
-  assert((msg->wrench.force.y == .2));
-  assert((msg->wrench.force.z == .3));
-  assert((msg->wrench.torque.x == .3));
-  assert((msg->wrench.torque.y == .2));
-  assert((msg->wrench.torque.z == .1));
-}
-
-void icallback(const std::shared_ptr<geometry_msgs::Inertia> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[Inertia]\n";
-  assert((msg->m == .1));
-  assert((msg->ixx == .2));
-  assert((msg->ixy == .3));
-  assert((msg->ixz == .4));
-  assert((msg->iyy == .5));
-  assert((msg->iyz == .6));
-  assert((msg->izz == .7));
-  assert((msg->com.x == .1));
-  assert((msg->com.y == .2));
-  assert((msg->com.z == .3));
-}
-
-void iscallback(const std::shared_ptr<geometry_msgs::InertiaStamped> msg)
-{
-  std::cout << "Received " << ++messages_received << " / " << (num_publishers*10) << " messages \t[InertiaStamped]\n";
-  assert((msg->header.frame_id == "a frame"));
-  assert((msg->inertia.m == .1));
-  assert((msg->inertia.ixx == .2));
-  assert((msg->inertia.ixy == .3));
-  assert((msg->inertia.ixz == .4));
-  assert((msg->inertia.iyy == .5));
-  assert((msg->inertia.iyz == .6));
-  assert((msg->inertia.izz == .7));
-  assert((msg->inertia.com.x == .1));
-  assert((msg->inertia.com.y == .2));
-  assert((msg->inertia.com.z == .3));
-}
+std::atomic<size_t> callbacks::messages_received = 0;
+size_t callbacks::num_publishers = 0;
 
 int main(void)
 {
   size_t messages = 0;
-
   auto& config = config_parser::ConfigParser::init("config.json");
   std::chrono::milliseconds pause(config.pause());
-  num_publishers = config.publishers();
+  callbacks::messages_received = 0;
+  callbacks::num_publishers = config.publishers();
   auto rbc = ROSBridgeClient::init(config.host());
 
   auto header_pub = rbc->addPublisher<std_msgs::Header>("/rosbridge/header/");
@@ -342,31 +44,31 @@ int main(void)
   auto quaternion_stamped_pub = rbc->addPublisher<geometry_msgs::QuaternionStamped>("/rosbridge/quaternion_stamped/");
 
 
-  auto header_sub = rbc->addSubscriber<std_msgs::Header>("/rosbridge/header/", 100, hcallback);
-  auto string_sub = rbc->addSubscriber<std_msgs::String>("/rosbridge/string/", 100, scallback);
-  auto f32_sub = rbc->addSubscriber<std_msgs::Float32>("/rosbridge/float32/", 100, f32callback);
-  auto f64_sub = rbc->addSubscriber<std_msgs::Float64>("/rosbridge/float64/", 100, f64callback);
-  auto color_sub = rbc->addSubscriber<std_msgs::ColorRGBA>("/rosbridge/color/", 100, ccallback);
-  auto point_sub = rbc->addSubscriber<geometry_msgs::Point>("/rosbridge/point/", 100, pcallback);
-  auto accel_sub = rbc->addSubscriber<geometry_msgs::Accel>("/rosbridge/accel/", 100, acallback);
-  auto twist_sub = rbc->addSubscriber<geometry_msgs::Twist>("/rosbridge/twist/", 100, twcallback);
-  auto wrench_sub = rbc->addSubscriber<geometry_msgs::Wrench>("/rosbridge/wrench/", 100, wcallback);
-  auto pose_sub = rbc->addSubscriber<geometry_msgs::Pose>("/rosbridge/pose/", 100, pocallback);
-  auto point32_sub = rbc->addSubscriber<geometry_msgs::Point32>("/rosbridge/point32/", 100, p32callback);
-  auto pose2d_sub = rbc->addSubscriber<geometry_msgs::Pose2D>("/rosbridge/pose2d/", 100, p2dcallback);
-  auto inertia_sub = rbc->addSubscriber<geometry_msgs::Inertia>("/rosbridge/inertia/", 100, icallback);
-  auto transform_sub = rbc->addSubscriber<geometry_msgs::Transform>("/rosbridge/transform/", 100, tcallback);
-  auto transform_stamped_sub = rbc->addSubscriber<geometry_msgs::TransformStamped>("/rosbridge/transform_stamped/", 100, tscallback);
-  auto inertia_stamped_sub = rbc->addSubscriber<geometry_msgs::InertiaStamped>("/rosbridge/inertia_stamped/", 100, iscallback);
-  auto point_stamped_sub = rbc->addSubscriber<geometry_msgs::PointStamped>("/rosbridge/point_stamped/", 100, pscallback);
-  auto accel_stamped_sub = rbc->addSubscriber<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/", 100, ascallback);
-  auto twist_stamped_sub = rbc->addSubscriber<geometry_msgs::TwistStamped>("/rosbridge/twist_stamped/", 100, twscallback);
-  auto wrench_stamped_sub = rbc->addSubscriber<geometry_msgs::WrenchStamped>("/rosbridge/wrench_stamped/", 100, wscallback);
-  auto pose_stamped_sub = rbc->addSubscriber<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/", 100, poscallback);
-  auto vector3_sub = rbc->addSubscriber<geometry_msgs::Vector3>("/rosbridge/vector3/", 100, vcallback);
-  auto vector3_stamped_sub = rbc->addSubscriber<geometry_msgs::Vector3Stamped>("/rosbridge/vector3_stamped/", 100, vscallback);
-  auto quaternion_sub = rbc->addSubscriber<geometry_msgs::Quaternion>("/rosbridge/quaternion/", 100, qcallback);
-  auto quaternion_stamped_sub = rbc->addSubscriber<geometry_msgs::QuaternionStamped>("/rosbridge/quaternion_stamped/", 100, qscallback);
+  auto header_sub = rbc->addSubscriber<std_msgs::Header>("/rosbridge/header/", 100, callbacks::hcallback);
+  auto string_sub = rbc->addSubscriber<std_msgs::String>("/rosbridge/string/", 100, callbacks::scallback);
+  auto f32_sub = rbc->addSubscriber<std_msgs::Float32>("/rosbridge/float32/", 100, callbacks::f32callback);
+  auto f64_sub = rbc->addSubscriber<std_msgs::Float64>("/rosbridge/float64/", 100, callbacks::f64callback);
+  auto color_sub = rbc->addSubscriber<std_msgs::ColorRGBA>("/rosbridge/color/", 100, callbacks::ccallback);
+  auto point_sub = rbc->addSubscriber<geometry_msgs::Point>("/rosbridge/point/", 100, callbacks::pcallback);
+  auto accel_sub = rbc->addSubscriber<geometry_msgs::Accel>("/rosbridge/accel/", 100, callbacks::acallback);
+  auto twist_sub = rbc->addSubscriber<geometry_msgs::Twist>("/rosbridge/twist/", 100, callbacks::twcallback);
+  auto wrench_sub = rbc->addSubscriber<geometry_msgs::Wrench>("/rosbridge/wrench/", 100, callbacks::wcallback);
+  auto pose_sub = rbc->addSubscriber<geometry_msgs::Pose>("/rosbridge/pose/", 100, callbacks::pocallback);
+  auto point32_sub = rbc->addSubscriber<geometry_msgs::Point32>("/rosbridge/point32/", 100, callbacks::p32callback);
+  auto pose2d_sub = rbc->addSubscriber<geometry_msgs::Pose2D>("/rosbridge/pose2d/", 100, callbacks::p2dcallback);
+  auto inertia_sub = rbc->addSubscriber<geometry_msgs::Inertia>("/rosbridge/inertia/", 100, callbacks::icallback);
+  auto transform_sub = rbc->addSubscriber<geometry_msgs::Transform>("/rosbridge/transform/", 100, callbacks::tcallback);
+  auto transform_stamped_sub = rbc->addSubscriber<geometry_msgs::TransformStamped>("/rosbridge/transform_stamped/", 100, callbacks::tscallback);
+  auto inertia_stamped_sub = rbc->addSubscriber<geometry_msgs::InertiaStamped>("/rosbridge/inertia_stamped/", 100, callbacks::iscallback);
+  auto point_stamped_sub = rbc->addSubscriber<geometry_msgs::PointStamped>("/rosbridge/point_stamped/", 100, callbacks::pscallback);
+  auto accel_stamped_sub = rbc->addSubscriber<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/", 100, callbacks::ascallback);
+  auto twist_stamped_sub = rbc->addSubscriber<geometry_msgs::TwistStamped>("/rosbridge/twist_stamped/", 100, callbacks::twscallback);
+  auto wrench_stamped_sub = rbc->addSubscriber<geometry_msgs::WrenchStamped>("/rosbridge/wrench_stamped/", 100, callbacks::wscallback);
+  auto pose_stamped_sub = rbc->addSubscriber<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/", 100, callbacks::poscallback);
+  auto vector3_sub = rbc->addSubscriber<geometry_msgs::Vector3>("/rosbridge/vector3/", 100, callbacks::vcallback);
+  auto vector3_stamped_sub = rbc->addSubscriber<geometry_msgs::Vector3Stamped>("/rosbridge/vector3_stamped/", 100, callbacks::vscallback);
+  auto quaternion_sub = rbc->addSubscriber<geometry_msgs::Quaternion>("/rosbridge/quaternion/", 100, callbacks::qcallback);
+  auto quaternion_stamped_sub = rbc->addSubscriber<geometry_msgs::QuaternionStamped>("/rosbridge/quaternion_stamped/", 100, callbacks::qscallback);
 
   while (messages++ < 10)
   {
@@ -450,7 +152,7 @@ int main(void)
 
   std::this_thread::sleep_for(std::chrono::seconds(1)); // for last incoming messages
 
-  if (messages_received != num_publishers*10)
+  if (callbacks::messages_received != callbacks::num_publishers*10)
   {
     throw test::TestException();
   }

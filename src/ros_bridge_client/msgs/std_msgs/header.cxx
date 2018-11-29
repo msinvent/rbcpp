@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/std_msgs/header.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::std_msgs;
 using namespace web;
@@ -28,7 +28,7 @@ Header::Header(const web::json::value &response)
     stamp(0, 0),
     frame_id("world")
 {
-  std::tie(seq, stamp.sec, stamp.nsec, frame_id) = utils::ResponseConverter::responseToHeader(response, false);
+  std::tie(seq, stamp.sec, stamp.nsec, frame_id) = utils::Deserializer::toHeader(response, false);
 }
 
 std::ostream &operator<<(std::ostream &os, const Header &h)

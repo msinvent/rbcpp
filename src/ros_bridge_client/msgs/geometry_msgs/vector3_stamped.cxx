@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/vector3_stamped.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 using namespace web;
@@ -20,10 +20,10 @@ Vector3Stamped::Vector3Stamped(const web::json::value &response)
     vector()
 {
   std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-    utils::ResponseConverter::responseToHeader(response.at(U("msg")).at(U("header")), true);
+      utils::Deserializer::toHeader(response.at(U("msg")).at(U("header")), true);
 
   std::tie(vector.x, vector.y, vector.z) =
-    utils::ResponseConverter::responseToVector3(response.at(U("msg")).at(U("vector")), true);
+      utils::Deserializer::toVector3(response.at(U("msg")).at(U("vector")), true);
 }
 
 Vector3Stamped::Vector3Stamped()

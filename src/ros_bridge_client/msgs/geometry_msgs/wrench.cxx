@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
@@ -35,10 +35,10 @@ Wrench::Wrench(const web::json::value &response)
   const auto &msg = response.at(U("msg"));
 
   std::tie(force.x, force.y, force.z) =
-    utils::ResponseConverter::responseToVector3(msg.at(U("force")), true);
+      utils::Deserializer::toVector3(msg.at(U("force")), true);
 
   std::tie(torque.x, torque.y, torque.z) =
-    utils::ResponseConverter::responseToVector3(msg.at(U("torque")), true);
+      utils::Deserializer::toVector3(msg.at(U("torque")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Wrench &w)

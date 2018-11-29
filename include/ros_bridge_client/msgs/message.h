@@ -6,7 +6,7 @@
 #define ROSBRIDGECLIENT_MESSAGE_H
 
 #include <cpprest/json.h>
-#include <ros_bridge_client/utils/json_creator.h>
+#include <ros_bridge_client/utils/serializer.h>
 
 namespace ros_bridge_client::msgs
 {
@@ -26,7 +26,7 @@ public:
   std::string toString() const;
 
 private:
-  utils::JsonCreator json_creator_;
+  utils::Serializer json_creator_;
   const T &data_;
   web::json::value &json_msg_;
 };

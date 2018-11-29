@@ -2,7 +2,7 @@
 // Created by julian on 01.11.18.
 //
 
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
@@ -42,13 +42,13 @@ AccelStamped::AccelStamped(const web::json::value &response, std::string ros_msg
   const auto &accel_msg = msg.at(U("accel"));
 
   std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-    utils::ResponseConverter::responseToHeader(msg.at(U("header")), true);
+      utils::Deserializer::toHeader(msg.at(U("header")), true);
 
   std::tie(accel.linear.x, accel.linear.y, accel.linear.z) =
-    utils::ResponseConverter::responseToVector3(accel_msg.at(U("linear")), true);
+      utils::Deserializer::toVector3(accel_msg.at(U("linear")), true);
 
   std::tie(accel.angular.x, accel.angular.y, accel.angular.z) =
-    utils::ResponseConverter::responseToVector3(accel_msg.at(U("angular")), true);
+      utils::Deserializer::toVector3(accel_msg.at(U("angular")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const AccelStamped &p)

@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 using namespace web;
@@ -20,10 +20,10 @@ PointStamped::PointStamped(const web::json::value &response)
     point()
 {
   std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-    utils::ResponseConverter::responseToHeader(response.at(U("msg")).at(U("header")), true);
+      utils::Deserializer::toHeader(response.at(U("msg")).at(U("header")), true);
 
   std::tie(point.x, point.y, point.z) =
-    utils::ResponseConverter::responseToPoint(response.at(U("msg")).at(U("point")), true);
+      utils::Deserializer::toPoint(response.at(U("msg")).at(U("point")), true);
 }
 
 PointStamped::PointStamped()

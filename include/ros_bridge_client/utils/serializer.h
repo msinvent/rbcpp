@@ -35,15 +35,15 @@
 namespace ros_bridge_client::utils
 {
 
-class JsonCreator
+class Serializer
 {
 private:
   web::json::value json_;
   
 public:
-  JsonCreator();
+  Serializer();
 
-  ~JsonCreator() = default;
+  ~Serializer() = default;
 
   const web::json::value &json() const;
 
@@ -102,7 +102,7 @@ public:
 };
 
 template<typename T>
-web::json::value &JsonCreator::toJson(const msgs::XYZMessage<T> &xyz, bool sub_json)
+web::json::value &Serializer::toJson(const msgs::XYZMessage<T> &xyz, bool sub_json)
 {
   static web::json::value json_xyz;
   json_xyz[U("x")] = xyz.x;
@@ -113,7 +113,7 @@ web::json::value &JsonCreator::toJson(const msgs::XYZMessage<T> &xyz, bool sub_j
 }
 
 template<typename T>
-web::json::value &JsonCreator::toJson(const msgs::std_msgs::StdMsg<T> &msg, bool sub_json)
+web::json::value &Serializer::toJson(const msgs::std_msgs::StdMsg<T> &msg, bool sub_json)
 {
   static web::json::value json_msg;
   
@@ -123,7 +123,7 @@ web::json::value &JsonCreator::toJson(const msgs::std_msgs::StdMsg<T> &msg, bool
 }
 
 template<typename T, unsigned int N>
-std::vector<web::json::value> &JsonCreator::toJsonArray(const std::array<T, N> &data)
+std::vector<web::json::value> &Serializer::toJsonArray(const std::array<T, N> &data)
 {
   static std::vector<web::json::value> array;
   array.clear();

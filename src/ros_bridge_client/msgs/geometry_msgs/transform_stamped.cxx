@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/transform_stamped.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
@@ -22,13 +22,13 @@ TransformStamped::TransformStamped(const web::json::value &response)
   const auto &transform_msg = msg.at(U("transform"));
 
   std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-    utils::ResponseConverter::responseToHeader(msg.at(U("header")), true);
+      utils::Deserializer::toHeader(msg.at(U("header")), true);
 
   std::tie(transform.translation.x, transform.translation.y, transform.translation.z) =
-    utils::ResponseConverter::responseToVector3(transform_msg.at(U("translation")), true);
+      utils::Deserializer::toVector3(transform_msg.at(U("translation")), true);
 
   std::tie(transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w) =
-    utils::ResponseConverter::responseToQuaternion(transform_msg.at(U("rotation")), true);
+      utils::Deserializer::toQuaternion(transform_msg.at(U("rotation")), true);
 }
 
 TransformStamped::TransformStamped(const Vector3 &translation, const Quaternion &rotation, std::string frame_id)

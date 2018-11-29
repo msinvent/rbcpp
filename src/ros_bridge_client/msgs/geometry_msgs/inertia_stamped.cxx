@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
@@ -42,13 +42,13 @@ InertiaStamped::InertiaStamped(const web::json::value &response)
   const auto &inertia_msg = msg.at(U("inertia"));
 
   std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-    utils::ResponseConverter::responseToHeader(msg.at(U("header")), true);
+      utils::Deserializer::toHeader(msg.at(U("header")), true);
 
   std::tie(inertia.m, inertia.ixx, inertia.ixy, inertia.ixz, inertia.iyy, inertia.iyz, inertia.izz) =
-    utils::ResponseConverter::responseToInertia(inertia_msg, true);
+      utils::Deserializer::toInertia(inertia_msg, true);
 
   std::tie(inertia.com.x, inertia.com.y, inertia.com.z) =
-    utils::ResponseConverter::responseToVector3(inertia_msg.at(U("com")), true);
+      utils::Deserializer::toVector3(inertia_msg.at(U("com")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::InertiaStamped &is)

@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
@@ -18,7 +18,7 @@ Point::Point(double x, double y, double z)
 Point::Point(const web::json::value &response)
   : XYZMessage<double>("geometry_msgs/Point")
 {
-  std::tie(x, y, z) = utils::ResponseConverter::responseToPoint(response, false);
+  std::tie(x, y, z) = utils::Deserializer::toPoint(response, false);
 }
 
 std::ostream &operator<<(std::ostream &os, const Point &p)

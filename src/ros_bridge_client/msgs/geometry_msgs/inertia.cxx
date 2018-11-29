@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
@@ -41,8 +41,8 @@ Inertia::Inertia(const web::json::value &response)
     com(0, 0, 0)
 {
   const auto &msg = response.at(U("msg"));
-  std::tie(m, ixx, ixy, ixz, iyy, iyz, izz) = utils::ResponseConverter::responseToInertia(msg, true);
-  std::tie(com.x, com.y, com.z) = utils::ResponseConverter::responseToVector3(msg.at(U("com")), true);
+  std::tie(m, ixx, ixy, ixz, iyy, iyz, izz) = utils::Deserializer::toInertia(msg, true);
+  std::tie(com.x, com.y, com.z) = utils::Deserializer::toVector3(msg.at(U("com")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Inertia &i)

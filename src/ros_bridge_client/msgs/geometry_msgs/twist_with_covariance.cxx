@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
@@ -54,12 +54,12 @@ TwistWithCovariance::TwistWithCovariance(const web::json::value &response)
   const auto &cov_msg = msg.at(U("covariance"));
 
   std::tie(twist.linear.x, twist.linear.y, twist.linear.z) =
-      utils::ResponseConverter::responseToVector3(twist_msg.at(U("linear")), true);
+      utils::Deserializer::toVector3(twist_msg.at(U("linear")), true);
 
   std::tie(twist.angular.x, twist.angular.y, twist.angular.z) =
-      utils::ResponseConverter::responseToVector3(twist_msg.at(U("angular")), true);
+      utils::Deserializer::toVector3(twist_msg.at(U("angular")), true);
 
-  covariance.data = utils::ResponseConverter::responseToArray<double, 36>(cov_msg);
+  covariance.data = utils::Deserializer::toArray<double, 36>(cov_msg);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::TwistWithCovariance &t)

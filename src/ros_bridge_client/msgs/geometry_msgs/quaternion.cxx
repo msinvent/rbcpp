@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
@@ -18,7 +18,7 @@ Quaternion::Quaternion(double x, double y, double z, double w)
 Quaternion::Quaternion(const web::json::value &response)
     : XYZMessage<double>("geometry_msgs/Quaternion"), w(0)
 {
-  std::tie(x, y, z, w) = utils::ResponseConverter::responseToQuaternion(response, false);
+  std::tie(x, y, z, w) = utils::Deserializer::toQuaternion(response, false);
 }
 
 std::ostream& operator <<(std::ostream &os, const Quaternion &q)

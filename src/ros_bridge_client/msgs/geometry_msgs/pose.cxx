@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/pose.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
@@ -31,10 +31,10 @@ Pose::Pose(const web::json::value &response)
     quaternion()
 {
   std::tie(point.x, point.y, point.z) =
-    utils::ResponseConverter::responseToPoint(response.at(U("msg")).at(U("position")), true);
+      utils::Deserializer::toPoint(response.at(U("msg")).at(U("position")), true);
 
   std::tie(quaternion.x, quaternion.y, quaternion.z, quaternion.w) =
-    utils::ResponseConverter::responseToQuaternion(response.at(U("msg")).at(U("orientation")), true);
+      utils::Deserializer::toQuaternion(response.at(U("msg")).at(U("orientation")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Pose &p)

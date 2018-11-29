@@ -39,6 +39,6 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/float64.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/ros_type_base.cpp"
 #       misellaneous
-        "${CMAKE_CURRENT_LIST_DIR}/utils/json_creator.cxx"
-        "${CMAKE_CURRENT_LIST_DIR}/utils/response_converter.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/utils/serializer.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/utils/deserializer.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/subscriber/rbc_subscriber_base.cxx")

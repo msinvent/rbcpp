@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 using namespace web;
@@ -20,10 +20,10 @@ QuaternionStamped::QuaternionStamped(const web::json::value &response)
     quaternion()
 {
   std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-    utils::ResponseConverter::responseToHeader(response.at(U("msg")).at(U("header")), true);
+      utils::Deserializer::toHeader(response.at(U("msg")).at(U("header")), true);
 
   std::tie(quaternion.x, quaternion.y, quaternion.z, quaternion.w) =
-    utils::ResponseConverter::responseToQuaternion(response.at(U("msg")).at(U("quaternion")), true);
+      utils::Deserializer::toQuaternion(response.at(U("msg")).at(U("quaternion")), true);
 }
 
 QuaternionStamped::QuaternionStamped()

@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/transform.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
@@ -27,10 +27,10 @@ Transform::Transform(const web::json::value &response)
   const auto &msg = response.at(U("msg"));
 
   std::tie(translation.x, translation.y, translation.z) =
-    utils::ResponseConverter::responseToVector3(msg.at(U("translation")), true);
+      utils::Deserializer::toVector3(msg.at(U("translation")), true);
 
   std::tie(rotation.x, rotation.y, rotation.z, rotation.w) =
-    utils::ResponseConverter::responseToQuaternion(msg.at(U("rotation")), true);
+      utils::Deserializer::toQuaternion(msg.at(U("rotation")), true);
 }
 
 Transform::Transform(double tx, double ty, double tz, double rx, double ry, double rz, double rw)

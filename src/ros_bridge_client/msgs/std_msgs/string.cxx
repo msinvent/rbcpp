@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/std_msgs/string.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::std_msgs;
 
@@ -18,7 +18,7 @@ String::String(std::string str)
 String::String(const web::json::value &response)
   : StdMsg<std::string>("std_msgs/String")
 {
-  data = utils::ResponseConverter::responseToString(response);
+  data = utils::Deserializer::toString(response);
 }
 
 

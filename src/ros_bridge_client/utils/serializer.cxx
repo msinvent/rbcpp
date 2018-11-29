@@ -2,20 +2,20 @@
 // Created by Julian on 20.10.18.
 //
 
-#include <ros_bridge_client/utils/json_creator.h>
+#include <ros_bridge_client/utils/serializer.h>
 
 using namespace ros_bridge_client::utils;
 using namespace ros_bridge_client::msgs;
 using namespace web;
 
-JsonCreator::JsonCreator()
+Serializer::Serializer()
   : json_()
 {
   json_[U("op")] = json::value::string("publish");
   json_[U("topic")] = json::value::string("/rosbridge/message");
 }
 
-web::json::value &JsonCreator::toJson(const std_msgs::String &string, bool sub_json)
+web::json::value &Serializer::toJson(const std_msgs::String &string, bool sub_json)
 {
   static web::json::value string_json;
 
@@ -24,7 +24,7 @@ web::json::value &JsonCreator::toJson(const std_msgs::String &string, bool sub_j
   return not sub_json ? completeJson(string, string_json) : string_json;
 }
 
-web::json::value &JsonCreator::toJson(const std_msgs::Header &header, bool sub_json)
+web::json::value &Serializer::toJson(const std_msgs::Header &header, bool sub_json)
 {
   static web::json::value header_json;
   header_json[U("seq")] = json::value(header.seq);
@@ -39,19 +39,19 @@ web::json::value &JsonCreator::toJson(const std_msgs::Header &header, bool sub_j
   return not sub_json ? completeJson(header, header_json) : header_json;
 }
 
-json::value &JsonCreator::completeJson(const ROSTypeBase &msg, const web::json::value &sub_json)
+json::value &Serializer::completeJson(const ROSTypeBase &msg, const web::json::value &sub_json)
 {
   json_[U("type")] = json::value::string(msg.rosMsgType());
-  json_[U("msg")]  = sub_json;
+  json_[U("msg")] = sub_json;
   return json_;
 }
 
-const json::value &JsonCreator::json() const
+const json::value &Serializer::json() const
 {
   return json_;
 }
 
-web::json::value &JsonCreator::toJson(const geometry_msgs::Quaternion &quaternion, bool sub_json)
+web::json::value &Serializer::toJson(const geometry_msgs::Quaternion &quaternion, bool sub_json)
 {
   static web::json::value json_quaternion;
   json_quaternion[U("x")] = json::value(quaternion.x);
@@ -62,7 +62,7 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::Quaternion &quaternio
   return not sub_json ? completeJson(quaternion, json_quaternion) : json_quaternion;
 }
 
-web::json::value &JsonCreator::toJson(const geometry_msgs::PointStamped &point_stamped, bool sub_json)
+web::json::value &Serializer::toJson(const geometry_msgs::PointStamped &point_stamped, bool sub_json)
 {
   static json::value point_stamped_json;
 
@@ -72,7 +72,7 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::PointStamped &point_s
   return not sub_json ? completeJson(point_stamped, point_stamped_json) : point_stamped_json;
 }
 
-web::json::value &JsonCreator::toJson(const geometry_msgs::Vector3Stamped &vector3_stamped, bool sub_json)
+web::json::value &Serializer::toJson(const geometry_msgs::Vector3Stamped &vector3_stamped, bool sub_json)
 {
   static json::value vector3_stamped_json;
 
@@ -82,7 +82,7 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::Vector3Stamped &vecto
   return not sub_json ? completeJson(vector3_stamped, vector3_stamped_json) : vector3_stamped_json;
 }
 
-web::json::value &JsonCreator::toJson(const geometry_msgs::QuaternionStamped &quaternion_stamped, bool sub_json)
+web::json::value &Serializer::toJson(const geometry_msgs::QuaternionStamped &quaternion_stamped, bool sub_json)
 {
   static json::value quaternion_stamped_json;
 
@@ -92,7 +92,7 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::QuaternionStamped &qu
   return not sub_json ? completeJson(quaternion_stamped, quaternion_stamped_json) : quaternion_stamped_json;
 }
 
-web::json::value &JsonCreator::toJson(const geometry_msgs::Pose &pose, bool sub_json)
+web::json::value &Serializer::toJson(const geometry_msgs::Pose &pose, bool sub_json)
 {
   static json::value pose_json;
 
@@ -102,7 +102,7 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::Pose &pose, bool sub_
   return not sub_json ? completeJson(pose, pose_json) : pose_json;
 }
 
-web::json::value &JsonCreator::toJson(const geometry_msgs::PoseStamped &pose_stamped, bool sub_json)
+web::json::value &Serializer::toJson(const geometry_msgs::PoseStamped &pose_stamped, bool sub_json)
 {
   static json::value pose_stamped_json;
 
@@ -112,7 +112,7 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::PoseStamped &pose_sta
   return not sub_json ? completeJson(pose_stamped, pose_stamped_json) : pose_stamped_json;
 }
 
-web::json::value &JsonCreator::toJson(const geometry_msgs::Accel &accel, bool sub_json)
+web::json::value &Serializer::toJson(const geometry_msgs::Accel &accel, bool sub_json)
 {
   static json::value accel_json;
 
@@ -123,7 +123,7 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::Accel &accel, bool su
 
 }
 
-web::json::value &JsonCreator::toJson(const geometry_msgs::AccelStamped &accel_stamped, bool sub_json)
+web::json::value &Serializer::toJson(const geometry_msgs::AccelStamped &accel_stamped, bool sub_json)
 {
   static json::value accel_stamped_json;
 
@@ -133,11 +133,11 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::AccelStamped &accel_s
   return not sub_json ? completeJson(accel_stamped, accel_stamped_json) : accel_stamped_json;
 }
 
-web::json::value &JsonCreator::toJson(const geometry_msgs::Inertia &inertia, bool sub_json)
+web::json::value &Serializer::toJson(const geometry_msgs::Inertia &inertia, bool sub_json)
 {
   static json::value inertia_json;
 
-  inertia_json[U("m")]   = json::value(inertia.m);
+  inertia_json[U("m")] = json::value(inertia.m);
   inertia_json[U("ixx")] = json::value(inertia.ixx);
   inertia_json[U("ixy")] = json::value(inertia.ixy);
   inertia_json[U("ixz")] = json::value(inertia.ixz);
@@ -150,27 +150,27 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::Inertia &inertia, boo
   return not sub_json ? completeJson(inertia, inertia_json) : inertia_json;
 }
 
-web::json::value &JsonCreator::toJson(const msgs::geometry_msgs::InertiaStamped &inertia_stamped, bool sub_json)
+web::json::value &Serializer::toJson(const msgs::geometry_msgs::InertiaStamped &inertia_stamped, bool sub_json)
 {
   static json::value inertia_stamped_json;
 
-  inertia_stamped_json[U("header")]  = toJson(inertia_stamped.header, true);
+  inertia_stamped_json[U("header")] = toJson(inertia_stamped.header, true);
   inertia_stamped_json[U("inertia")] = toJson(inertia_stamped.inertia, true);
 
   return not sub_json ? completeJson(inertia_stamped, inertia_stamped_json) : inertia_stamped_json;
 }
 
-web::json::value &JsonCreator::toJson(const geometry_msgs::Wrench &wrench, bool sub_json)
+web::json::value &Serializer::toJson(const geometry_msgs::Wrench &wrench, bool sub_json)
 {
   static json::value wrench_json;
 
-  wrench_json[U("force")]  = toJson(wrench.force, true);
+  wrench_json[U("force")] = toJson(wrench.force, true);
   wrench_json[U("torque")] = toJson(wrench.torque, true);
 
   return not sub_json ? completeJson(wrench, wrench_json) : wrench_json;
 }
 
-web::json::value &JsonCreator::toJson(const geometry_msgs::WrenchStamped &wrench_stamped, bool sub_json)
+web::json::value &Serializer::toJson(const geometry_msgs::WrenchStamped &wrench_stamped, bool sub_json)
 {
   static json::value wrench_stamped_json;
 
@@ -180,27 +180,27 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::WrenchStamped &wrench
   return not sub_json ? completeJson(wrench_stamped, wrench_stamped_json) : wrench_stamped_json;
 }
 
-web::json::value &JsonCreator::toJson(const geometry_msgs::Transform &transform, bool sub_json)
+web::json::value &Serializer::toJson(const geometry_msgs::Transform &transform, bool sub_json)
 {
   static json::value transform_json;
 
   transform_json[U("translation")] = toJson(transform.translation, true);
-  transform_json[U("rotation")]    = toJson(transform.rotation, true);
+  transform_json[U("rotation")] = toJson(transform.rotation, true);
 
   return not sub_json ? completeJson(transform, transform_json) : transform_json;
 }
 
-web::json::value &JsonCreator::toJson(const msgs::geometry_msgs::TransformStamped &transform_stamped, bool sub_json)
+web::json::value &Serializer::toJson(const msgs::geometry_msgs::TransformStamped &transform_stamped, bool sub_json)
 {
   static json::value transform_stamped_json;
 
   transform_stamped_json[U("header")] = toJson(transform_stamped.header, true);
-  transform_stamped_json[U("transform")]    = toJson(transform_stamped.transform, true);
+  transform_stamped_json[U("transform")] = toJson(transform_stamped.transform, true);
 
   return not sub_json ? completeJson(transform_stamped, transform_stamped_json) : transform_stamped_json;
 }
 
-web::json::value &JsonCreator::toJson(const geometry_msgs::TwistStamped &twist_stamped, bool sub_json)
+web::json::value &Serializer::toJson(const geometry_msgs::TwistStamped &twist_stamped, bool sub_json)
 {
   static json::value twist_stamped_json;
 
@@ -210,10 +210,10 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::TwistStamped &twist_s
   return not sub_json ? completeJson(twist_stamped, twist_stamped_json) : twist_stamped_json;
 }
 
-web::json::value &JsonCreator::toJson(const msgs::geometry_msgs::Pose2D &pose2d, bool sub_json)
+web::json::value &Serializer::toJson(const msgs::geometry_msgs::Pose2D &pose2d, bool sub_json)
 {
   static web::json::value json_pose2d;
-  
+
   json_pose2d[U("x")] = web::json::value(pose2d.x);
   json_pose2d[U("y")] = web::json::value(pose2d.y);
   json_pose2d[U("theta")] = web::json::value(pose2d.theta);
@@ -221,7 +221,7 @@ web::json::value &JsonCreator::toJson(const msgs::geometry_msgs::Pose2D &pose2d,
   return not sub_json ? completeJson(pose2d, json_pose2d) : json_pose2d;
 }
 
-web::json::value &JsonCreator::toJson(const std_msgs::ColorRGBA &rgba, bool sub_json)
+web::json::value &Serializer::toJson(const std_msgs::ColorRGBA &rgba, bool sub_json)
 {
   static web::json::value json_rgba;
 
@@ -233,7 +233,7 @@ web::json::value &JsonCreator::toJson(const std_msgs::ColorRGBA &rgba, bool sub_
   return not sub_json ? completeJson(rgba, json_rgba) : json_rgba;
 }
 
-web::json::value &JsonCreator::toJson(const geometry_msgs::TwistWithCovariance &twist_cov, bool sub_json)
+web::json::value &Serializer::toJson(const geometry_msgs::TwistWithCovariance &twist_cov, bool sub_json)
 {
   static web::json::value json_twist_cov;
 
@@ -243,7 +243,7 @@ web::json::value &JsonCreator::toJson(const geometry_msgs::TwistWithCovariance &
   return not sub_json ? completeJson(twist_cov, json_twist_cov) : json_twist_cov;
 }
 
-web::json::value &JsonCreator::toJson(const geometry_msgs::TwistWithCovarianceStamped &twist_st_cov, bool sub_json)
+web::json::value &Serializer::toJson(const geometry_msgs::TwistWithCovarianceStamped &twist_st_cov, bool sub_json)
 {
   static web::json::value json_twist_cov;
 

@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance_stamped.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
@@ -58,13 +58,13 @@ TwistWithCovarianceStamped::TwistWithCovarianceStamped(const web::json::value &r
   const auto &cov_msg = twist_msg.at(U("covariance"));
 
   std::tie(twist.twist.linear.x, twist.twist.linear.y, twist.twist.linear.z) =
-      utils::ResponseConverter::responseToVector3(twist_twist_msg.at(U("linear")), true);
+      utils::Deserializer::toVector3(twist_twist_msg.at(U("linear")), true);
 
   std::tie(twist.twist.angular.x, twist.twist.angular.y, twist.twist.angular.z) =
-      utils::ResponseConverter::responseToVector3(twist_twist_msg.at(U("angular")), true);
+      utils::Deserializer::toVector3(twist_twist_msg.at(U("angular")), true);
 
-  twist.covariance.data = utils::ResponseConverter::responseToArray<double, 36>(cov_msg);
+  twist.covariance.data = utils::Deserializer::toArray<double, 36>(cov_msg);
 
   std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-      utils::ResponseConverter::responseToHeader(response.at(U("msg")).at(U("header")), true);
+      utils::Deserializer::toHeader(response.at(U("msg")).at(U("header")), true);
 }

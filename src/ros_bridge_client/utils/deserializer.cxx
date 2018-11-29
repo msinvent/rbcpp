@@ -2,12 +2,12 @@
 // Created by Julian on 22.10.18.
 //
 
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::utils;
 using namespace ros_bridge_client::msgs;
 
-PointTuple ResponseConverter::responseToPoint(const web::json::value &response, bool is_sub_json)
+PointTuple Deserializer::toPoint(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
   const double &x = msg.at(U("x")).as_double();
@@ -16,7 +16,7 @@ PointTuple ResponseConverter::responseToPoint(const web::json::value &response, 
   return std::forward_as_tuple(x, y, z);
 }
 
-PointTuple ResponseConverter::responseToPose2D(const web::json::value &response, bool is_sub_json)
+PointTuple Deserializer::toPose2D(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
   const double &x = msg.at(U("x")).as_double();
@@ -25,7 +25,7 @@ PointTuple ResponseConverter::responseToPose2D(const web::json::value &response,
   return std::forward_as_tuple(x, y, theta);
 }
 
-Point32Tuple ResponseConverter::responseToPoint32(const web::json::value &response, bool is_sub_json)
+Point32Tuple Deserializer::toPoint32(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
   const double &x = static_cast<float>(msg.at(U("x")).as_double());
@@ -34,7 +34,7 @@ Point32Tuple ResponseConverter::responseToPoint32(const web::json::value &respon
   return std::forward_as_tuple(x, y, z);
 }
 
-HeaderTuple ResponseConverter::responseToHeader(const web::json::value &response, bool is_sub_json)
+HeaderTuple Deserializer::toHeader(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
   const double &seq = msg.at(U("seq")).as_double();
@@ -44,12 +44,12 @@ HeaderTuple ResponseConverter::responseToHeader(const web::json::value &response
   return std::forward_as_tuple(seq, stamp_sec, stamp_nsec, frame);
 }
 
-PointTuple ResponseConverter::responseToVector3(const web::json::value &response, bool is_sub_json)
+PointTuple Deserializer::toVector3(const web::json::value &response, bool is_sub_json)
 {
-  return responseToPoint(response, is_sub_json);
+  return toPoint(response, is_sub_json);
 }
 
-QuaternionTuple ResponseConverter::responseToQuaternion(const web::json::value &response, bool is_sub_json)
+QuaternionTuple Deserializer::toQuaternion(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
   const double &x = msg.at(U("x")).as_double();
@@ -59,7 +59,7 @@ QuaternionTuple ResponseConverter::responseToQuaternion(const web::json::value &
   return std::forward_as_tuple(x, y, z, w);
 }
 
-InertiaTuple ResponseConverter::responseToInertia(const web::json::value &response, bool is_sub_json)
+InertiaTuple Deserializer::toInertia(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
 
@@ -74,7 +74,7 @@ InertiaTuple ResponseConverter::responseToInertia(const web::json::value &respon
   return std::forward_as_tuple(m, ixx, ixy, ixz, iyy, iyz, izz);
 }
 
-ColorTuple ResponseConverter::responseToColor(const web::json::value &response, bool is_sub_json)
+ColorTuple Deserializer::toColor(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
   const float &r = static_cast<float>(msg.at(U("r")).as_double());
@@ -84,14 +84,14 @@ ColorTuple ResponseConverter::responseToColor(const web::json::value &response, 
   return std::forward_as_tuple(r, g, b, a);
 }
 
-const std::string &ResponseConverter::responseToString(const web::json::value &response, bool is_sub_json)
+const std::string &Deserializer::toString(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
   const std::string &s = msg.at(U("data")).as_string();
   return s;
 }
 
-const std::string ResponseConverter::toString(const web::json::value &json)
+const std::string Deserializer::convToString(const web::json::value &json)
 {
   utility::stringstream_t stream;
   json.serialize(stream);

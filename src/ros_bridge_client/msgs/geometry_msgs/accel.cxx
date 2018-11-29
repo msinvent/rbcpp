@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
@@ -33,10 +33,10 @@ Accel::Accel(const web::json::value &response, std::string frame_id)
   const auto &msg = response.at(U("msg"));
 
   std::tie(linear.x, linear.y, linear.z) =
-    utils::ResponseConverter::responseToVector3(msg.at(U("linear")), true);
+      utils::Deserializer::toVector3(msg.at(U("linear")), true);
 
   std::tie(angular.x, angular.y, angular.z) =
-    utils::ResponseConverter::responseToVector3(msg.at(U("angular")), true);
+      utils::Deserializer::toVector3(msg.at(U("angular")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Accel &p)

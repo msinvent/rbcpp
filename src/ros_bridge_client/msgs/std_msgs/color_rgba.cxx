@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 #include <tuple>
 
 using namespace ros_bridge_client::msgs::std_msgs;
@@ -22,7 +22,7 @@ ColorRGBA::ColorRGBA(const web::json::value &response)
   : ROSTypeBase("std_msgs/ColorRGBA"),
     r(0), g(0), b(0), a(0)
 {
-  std::tie(r, g, b, a) = utils::ResponseConverter::responseToColor(response);
+  std::tie(r, g, b, a) = utils::Deserializer::toColor(response);
 }
 
 std::ostream &ros_bridge_client::msgs::std_msgs::operator<<(std::ostream &os, const ColorRGBA &c)

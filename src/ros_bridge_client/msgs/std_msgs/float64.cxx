@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/std_msgs/float64.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::std_msgs;
 
@@ -18,6 +18,6 @@ Float64::Float64(double data)
 Float64::Float64(const web::json::value &response)
     : StdMsg("std_msgs/Float64")
 {
-  data = utils::ResponseConverter::responseToStdMsg<double>(response);
+  data = utils::Deserializer::toStdMsg<double>(response);
 }
 

@@ -2,7 +2,7 @@
 // Created by Julian on 27.10.18.
 //
 
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
@@ -34,13 +34,13 @@ PoseStamped::PoseStamped(const web::json::value &response)
   const auto &pose_msg = msg.at(U("pose"));
 
   std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-    utils::ResponseConverter::responseToHeader(msg.at(U("header")), true);
+      utils::Deserializer::toHeader(msg.at(U("header")), true);
 
   std::tie(pose.point.x, pose.point.y, pose.point.z) =
-    utils::ResponseConverter::responseToPoint(pose_msg.at(U("position")), true);
+      utils::Deserializer::toPoint(pose_msg.at(U("position")), true);
 
   std::tie(pose.quaternion.x, pose.quaternion.y, pose.quaternion.z, pose.quaternion.w) =
-    utils::ResponseConverter::responseToQuaternion(pose_msg.at(U("orientation")), true);
+      utils::Deserializer::toQuaternion(pose_msg.at(U("orientation")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const PoseStamped &p)

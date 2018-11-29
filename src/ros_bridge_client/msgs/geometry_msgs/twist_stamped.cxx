@@ -2,7 +2,7 @@
 // Created by julian on 01.11.18.
 //
 
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_stamped.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
@@ -40,13 +40,13 @@ TwistStamped::TwistStamped(const web::json::value &response)
   const auto &twist_msg = msg.at(U("twist"));
 
   std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-    utils::ResponseConverter::responseToHeader(msg.at(U("header")), true);
+      utils::Deserializer::toHeader(msg.at(U("header")), true);
 
   std::tie(twist.linear.x, twist.linear.y, twist.linear.z) =
-    utils::ResponseConverter::responseToVector3(twist_msg.at(U("linear")), true);
+      utils::Deserializer::toVector3(twist_msg.at(U("linear")), true);
 
   std::tie(twist.angular.x, twist.angular.y, twist.angular.z) =
-    utils::ResponseConverter::responseToVector3(twist_msg.at(U("angular")), true);
+      utils::Deserializer::toVector3(twist_msg.at(U("angular")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const TwistStamped &p)

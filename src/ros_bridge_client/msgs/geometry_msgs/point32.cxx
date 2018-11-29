@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
@@ -18,7 +18,7 @@ Point32::Point32(float x, float y, float z)
 Point32::Point32(const web::json::value &response)
   : XYZMessage<float>("geometry_msgs/Point32")
 {
-  std::tie(x, y, z) = utils::ResponseConverter::responseToPoint32(response, false);
+  std::tie(x, y, z) = utils::Deserializer::toPoint32(response, false);
 }
 
 std::ostream &operator<<(std::ostream &os, const Point32 &p)

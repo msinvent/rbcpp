@@ -2,7 +2,7 @@
 // Created by julian on 01.11.18.
 //
 
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench_stamped.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
@@ -40,13 +40,13 @@ WrenchStamped::WrenchStamped(const web::json::value &response)
   const auto &wrench_msg = msg.at(U("wrench"));
 
   std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-    utils::ResponseConverter::responseToHeader(msg.at(U("header")), true);
+      utils::Deserializer::toHeader(msg.at(U("header")), true);
 
   std::tie(wrench.force.x, wrench.force.y, wrench.force.z) =
-    utils::ResponseConverter::responseToVector3(wrench_msg.at(U("force")), true);
+      utils::Deserializer::toVector3(wrench_msg.at(U("force")), true);
 
   std::tie(wrench.torque.x, wrench.torque.y, wrench.torque.z) =
-    utils::ResponseConverter::responseToVector3(wrench_msg.at(U("torque")), true);
+      utils::Deserializer::toVector3(wrench_msg.at(U("torque")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const WrenchStamped &ws)

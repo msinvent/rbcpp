@@ -3,7 +3,7 @@
 //
 
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
-#include <ros_bridge_client/utils/response_converter.h>
+#include <ros_bridge_client/utils/deserializer.h>
 
 using namespace ros_bridge_client::msgs::geometry_msgs;
 
@@ -22,7 +22,7 @@ Vector3::Vector3(const Vector3 &vec)
 Vector3::Vector3(const web::json::value &response)
   : XYZMessage<double>("geometry_msgs/Vector3")
 {
-  std::tie(x, y, z) = utils::ResponseConverter::responseToVector3(response, false);
+  std::tie(x, y, z) = utils::Deserializer::toVector3(response, false);
 }
 
 std::ostream &operator<<(std::ostream &os, const Vector3 &v)

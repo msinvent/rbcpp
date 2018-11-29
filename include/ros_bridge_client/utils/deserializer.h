@@ -23,40 +23,40 @@ using Point32Tuple = std::tuple<float, float, float>;
 using QuaternionTuple = std::tuple<double, double, double, double>;
 using HeaderTuple = std::tuple<double, double, double, std::string>;
 
-struct ResponseConverter
+struct Deserializer
 {
-  static const std::string toString(const web::json::value &json);
+  static const std::string convToString(const web::json::value &json);
 
-  static const std::string &responseToString(const web::json::value &response, bool is_sub_json = false);
-
-  template <typename T>
-  static T responseToStdMsg(const web::json::value &response, bool is_sub_json = false);
+  static const std::string &toString(const web::json::value &response, bool is_sub_json = false);
 
   template <typename T>
-  static void responseToArray(std::vector<T> &vec, const web::json::value &response);
+  static T toStdMsg(const web::json::value &response, bool is_sub_json = false);
+
+  template <typename T>
+  static void toArray(std::vector<T> &vec, const web::json::value &response);
 
   template <typename T, unsigned int N>
-  static std::array<T, N>& responseToArray(const web::json::value &response);
+  static std::array<T, N>& toArray(const web::json::value &response);
 
-  static ColorTuple responseToColor(const web::json::value &response, bool is_sub_json = false);
+  static ColorTuple toColor(const web::json::value &response, bool is_sub_json = false);
 
-  static PointTuple responseToPoint(const web::json::value &response, bool is_sub_json = false);
+  static PointTuple toPoint(const web::json::value &response, bool is_sub_json = false);
   
-  static PointTuple responseToPose2D(const web::json::value &response, bool is_sub_json = false);
+  static PointTuple toPose2D(const web::json::value &response, bool is_sub_json = false);
 
-  static InertiaTuple responseToInertia(const web::json::value &response, bool is_sub_json = false);
+  static InertiaTuple toInertia(const web::json::value &response, bool is_sub_json = false);
 
-  static Point32Tuple responseToPoint32(const web::json::value &response, bool is_sub_json = false);
+  static Point32Tuple toPoint32(const web::json::value &response, bool is_sub_json = false);
 
-  static QuaternionTuple responseToQuaternion(const web::json::value &response, bool is_sub_json = false);
+  static QuaternionTuple toQuaternion(const web::json::value &response, bool is_sub_json = false);
 
-  static PointTuple responseToVector3(const web::json::value &response, bool is_sub_json = false);
+  static PointTuple toVector3(const web::json::value &response, bool is_sub_json = false);
 
-  static HeaderTuple responseToHeader(const web::json::value &response, bool is_sub_json = false);
+  static HeaderTuple toHeader(const web::json::value &response, bool is_sub_json = false);
 };
 
 template <typename T>
-T ResponseConverter::responseToStdMsg(const web::json::value &response, bool is_sub_json)
+T Deserializer::toStdMsg(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
 
@@ -65,7 +65,7 @@ T ResponseConverter::responseToStdMsg(const web::json::value &response, bool is_
 }
 
 template<typename T>
-void ResponseConverter::responseToArray(std::vector<T> &vec, const web::json::value &response)
+void Deserializer::toArray(std::vector<T> &vec, const web::json::value &response)
 {
   const auto& msg = response.at(U("arr")).as_array();
   std::vector<web::json::value> json_vec(msg.cbegin(), msg.cend());
@@ -76,7 +76,7 @@ void ResponseConverter::responseToArray(std::vector<T> &vec, const web::json::va
 }
 
 template<typename T, unsigned int N>
-std::array<T, N> &ResponseConverter::responseToArray(const web::json::value &response)
+std::array<T, N> &Deserializer::toArray(const web::json::value &response)
 {
   static std::array<T, N> arr;
   std::fill(std::begin(arr), std::end(arr), NAN);

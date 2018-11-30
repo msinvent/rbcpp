@@ -27,7 +27,7 @@ struct PoseWithCovariance : public ROSTypeBase
   ~PoseWithCovariance() final = default;
 
   Pose pose;
-  Covariance<double, 36> covariance;
+  std::array<double, 36> covariance;
 };
 
 } // namespace ros_bridge_client::msgs::geometry_msgs

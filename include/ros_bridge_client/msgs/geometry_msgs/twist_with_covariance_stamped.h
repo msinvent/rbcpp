@@ -20,10 +20,6 @@ struct TwistWithCovarianceStamped : public ROSTypeBase
   TwistWithCovarianceStamped(const Vector3 &linear, const Vector3& angular,
                              const std::array<double, 36> &covariance, std::string frame_id);
   TwistWithCovarianceStamped(const Twist &twist, const std::array<double, 36> &covariance, std::string frame_id);
-  TwistWithCovarianceStamped(const Vector3 &linear, const Vector3& angular,
-                             const geometry_msgs::Covariance<double, 36> &covariance, std::string frame_id);
-  TwistWithCovarianceStamped(const Twist &twist, const geometry_msgs::Covariance<double, 36> &covariance,
-                             std::string frame_id);
   TwistWithCovarianceStamped(const TwistWithCovariance &twist_cov, std::string frame_id);
   ~TwistWithCovarianceStamped() final = default;
 

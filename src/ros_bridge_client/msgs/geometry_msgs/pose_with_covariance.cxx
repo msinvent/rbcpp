@@ -34,21 +34,21 @@ PoseWithCovariance::PoseWithCovariance(const web::json::value &response)
   const auto &msg = response.at(U("msg"));
   const auto &pose_msg = msg.at(U("pose"));
   const auto &cov_msg = msg.at(U("covariance"));
-  
+
   std::tie(pose.point.x, pose.point.y, pose.point.z) =
       utils::Deserializer::toPoint(pose_msg.at(U("position")), true);
 
   std::tie(pose.quaternion.x, pose.quaternion.y, pose.quaternion.z, pose.quaternion.w) =
       utils::Deserializer::toQuaternion(pose_msg.at(U("orientation")), true);
-  
-  covariance.data = utils::Deserializer::toArray<double, 36>(cov_msg);
+
+  covariance = utils::Deserializer::toArray<double, 36>(cov_msg);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::PoseWithCovariance &p)
 {
   os << "\nPose With Covariance:";
   os << p.pose;
-  os << p.covariance;
+  os << util::Covariance<double, 36>(p.covariance);
   os << "\n";
   return os;
 }

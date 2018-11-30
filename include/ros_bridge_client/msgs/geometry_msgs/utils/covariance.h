@@ -10,7 +10,7 @@
 #include <cmath>
 #include <iterator>
 
-namespace ros_bridge_client::msgs::geometry_msgs
+namespace ros_bridge_client::msgs::geometry_msgs::util
 {
 
 template<typename T, unsigned int N>
@@ -28,13 +28,13 @@ struct Covariance
     return *this;
   }
 
-  std::array<T, N> data;
+  const std::array<T, N> &data;
 };
 
 } // namespace ros_bridge_client::msgs::geometry_msgs
 
 template <typename T, unsigned int N>
-std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Covariance<T, N> &cov)
+std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::util::Covariance<T, N> &cov)
 {
   os << "\nCovariance:";
   if (std::pow(std::sqrt(N), 2) != N)
@@ -55,7 +55,7 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
 
 template <typename T, unsigned int N>
 std::ostream &
-operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::Covariance<T, N>> &cov)
+operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::util::Covariance<T, N>> &cov)
 {
   return os << *cov.get();
 }

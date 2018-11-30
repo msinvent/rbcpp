@@ -95,7 +95,7 @@ int main(void)
 
     geometry_msgs::Pose po(0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 0.4);
     pose_pub->publish(po);
-    
+
     geometry_msgs::Accel a(0.1, 0.2, 0.3, 0.3, 0.2, 0.1);
     accel_pub->publish(a);
 
@@ -107,12 +107,12 @@ int main(void)
 
     geometry_msgs::Vector3 vec1(.1, .2, .3);
     geometry_msgs::Vector3 vec2(.3, .2, .1);
-    geometry_msgs::Covariance<double, 36> covariance({.1, .2, 3., .4, .5, .6,
-                                                      .7, .8, .9, 1., 1.1, 1.2,
-                                                      1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
-                                                      1.9, 2., 2.1, 2.2, 2.3, 2.4,
-                                                      2.5, 2.6, 2.7, 2.8, 2.9, 3.,
-                                                      3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
+    std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
+                                        .7, .8, .9, 1., 1.1, 1.2,
+                                        1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                        1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                        2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                        3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
 
     geometry_msgs::TwistWithCovariance twc(vec1, vec2, covariance);
     twc_pub->publish(twc);

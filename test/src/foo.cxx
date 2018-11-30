@@ -20,10 +20,10 @@ int main(void)
   std::array<float, 2> arr{.1, .2};
   std::cout << arr;
   //  std::array<int, 2> x{1, 2};
-//  ros_bridge_client::utils::Serializer c;
+//  ros_bridge_client::util::Serializer c;
 //  const auto &j = web::json::value::array(c.toJson<int, 2>(x));
 //  std::cout << j;
 //  std::vector<int> response;
-//  ros_bridge_client::utils::Deserializer::toArray(response, j);
+//  ros_bridge_client::util::Deserializer::toArray(response, j);
 //  std::copy(std::begin(response), std::end(response), std::ostream_iterator<int>(std::cout, " "));
 }

@@ -141,6 +141,6 @@ std::vector<web::json::value> &Serializer::toJsonArray(const std::array<T, N> &d
   return array;
 }
 
-} // namespace namespace ros_bridge_client::utils
+} // namespace namespace ros_bridge_client::util
 
 #endif //ROSBRIDGECLIENT_JSON_CREATER_H

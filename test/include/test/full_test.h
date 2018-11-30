@@ -142,7 +142,7 @@ struct callbacks
     assert((msg->twist.angular.x == .3));
     assert((msg->twist.angular.y == .2));
     assert((msg->twist.angular.z == .1));
-    assert((msg->covariance.data == std::array<double, 36>{.1, .2, 3., .4, .5, .6,
+    assert((msg->covariance == std::array<double, 36>{.1, .2, 3., .4, .5, .6,
                                                            .7, .8, .9, 1., 1.1, 1.2,
                                                            1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
                                                            1.9, 2., 2.1, 2.2, 2.3, 2.4,
@@ -160,7 +160,7 @@ struct callbacks
     assert((msg->twist.twist.angular.x == .3));
     assert((msg->twist.twist.angular.y == .2));
     assert((msg->twist.twist.angular.z == .1));
-    assert((msg->twist.covariance.data == std::array<double, 36>{.1, .2, 3., .4, .5, .6,
+    assert((msg->twist.covariance == std::array<double, 36>{.1, .2, 3., .4, .5, .6,
                                                            .7, .8, .9, 1., 1.1, 1.2,
                                                            1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
                                                            1.9, 2., 2.1, 2.2, 2.3, 2.4,

@@ -90,23 +90,16 @@ std::array<T, N> &Deserializer::toArray(const web::json::value &response)
     return arr;
   }
 
-  //std::vector<web::json::value> json_vec(json_arr.cbegin(), json_arr.cend());
   auto it = json_arr.cbegin();
-  auto arr_it = std::begin(arr);
 
   std::generate(std::begin(arr), std::end(arr), [&] {
     return static_cast<T>((*it++).as_double());
   });
 
-//  while (it != json_arr.cend())
-//  {
-//    *arr_it++ = static_cast<T>((*it++).as_double());
-//  }
-
   return arr;
 }
 
-} // namespace ros_bridge_client::utils
+} // namespace ros_bridge_client::util
 
 
 #endif //ROSBRIDGECLIENT_RESPONSE_CONVERTER_H

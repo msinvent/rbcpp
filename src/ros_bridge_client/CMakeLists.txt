@@ -25,6 +25,7 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/quaternion_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose_with_covariance.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/twist_with_covariance.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/accel_with_covariance.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose_with_covariance_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/twist_with_covariance_stamped.cxx"
         

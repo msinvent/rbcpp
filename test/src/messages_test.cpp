@@ -40,6 +40,7 @@ test::WrenchStampedTest wrench_stamped_test(dataframe);
 test::InertiaStampedTest inertia_stamped_test(dataframe);
 test::TransformStampedTest transform_stamped_test(dataframe);
 test::TwistWithCovTest twist_with_cov_test(dataframe);
+test::AccelWithCovarianceTest accel_with_cov_test(dataframe);
 test::TwistWithCovarianceStampedTest twist_cov_stamp_test(dataframe);
 test::QuaternionTest quaternion_test(dataframe);
 test::QuaternionStampedTest quaternion_stamped_test(dataframe);
@@ -354,6 +355,42 @@ TEST_CASE("Accel test", "[accel_test]")
     angular.y = 0.9;
     angular.z = 1.0;
     REQUIRE(accel_test.getMessage(linear, angular) == accel_test.test2);
+  }
+}
+
+TEST_CASE("Accel With Covariance test", "[accel_test]")
+{
+  std::array<double, 36> covariance({.1, .2, 3., .4, .5, .6,
+                                     .7, .8, .9, 1., 1.1, 1.2,
+                                     1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                     1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                     2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                     3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
+  {
+    REQUIRE(accel_with_cov_test.getMessage(0.1, 0.2, 0.3, 0.1, 0.2, 0.3, covariance) == accel_with_cov_test.test1);
+
+    geometry_msgs::Vector3 linear;
+    linear.x = 0.1;
+    linear.y = 0.2;
+    linear.z = 0.3;
+    geometry_msgs::Vector3 angular;
+    angular.x = 0.1;
+    angular.y = 0.2;
+    angular.z = 0.3;
+    REQUIRE(accel_with_cov_test.getMessage(linear, angular, covariance) == accel_with_cov_test.test1);
+  }
+  {
+    REQUIRE(accel_with_cov_test.getMessage(0.1, 0.5, 0.3, 0.1, 0.9, 1.0, covariance) == accel_with_cov_test.test2);
+
+    geometry_msgs::Vector3 linear;
+    linear.x = 0.1;
+    linear.y = 0.5;
+    linear.z = 0.3;
+    geometry_msgs::Vector3 angular;
+    angular.x = 0.1;
+    angular.y = 0.9;
+    angular.z = 1.0;
+    REQUIRE(accel_with_cov_test.getMessage(linear, angular, covariance) == accel_with_cov_test.test2);
   }
 }
 

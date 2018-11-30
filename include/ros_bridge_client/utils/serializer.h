@@ -31,6 +31,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance.h>
+#include <ros_bridge_client/msgs/geometry_msgs/accel_with_covariance.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance.h>
@@ -75,6 +76,8 @@ public:
   web::json::value &toJson(const msgs::geometry_msgs::TwistStamped &twist_stamped, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::TwistWithCovariance &twist_cov, bool sub_json = false);
+
+  web::json::value &toJson(const msgs::geometry_msgs::AccelWithCovariance &accel_cov, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::TwistWithCovarianceStamped &twist_st_cov, bool sub_json = false);
 

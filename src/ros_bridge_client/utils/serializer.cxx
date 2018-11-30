@@ -272,3 +272,13 @@ web::json::value &Serializer::toJson(const geometry_msgs::PoseWithCovarianceStam
 
   return not sub_json ? completeJson(pose_cov_stamp, json_pose_stamp_cov) : json_pose_stamp_cov;
 }
+
+web::json::value &Serializer::toJson(const geometry_msgs::AccelWithCovariance &accel_cov, bool sub_json)
+{
+  static web::json::value json_accel_cov;
+
+  json_accel_cov[U("accel")] = toJson(accel_cov.accel, true);
+  json_accel_cov[U("covariance")] = web::json::value::array(toJsonArray<double, 36>(accel_cov.covariance));
+
+  return not sub_json ? completeJson(accel_cov, json_accel_cov) : json_accel_cov;
+}

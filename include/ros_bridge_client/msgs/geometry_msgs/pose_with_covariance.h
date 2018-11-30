@@ -8,7 +8,7 @@
 #include <cpprest/json.h>
 #include <ros_bridge_client/msgs/ros_type_base.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose.h>
-#include <ros_bridge_client/msgs/geometry_msgs/utils/covariance.h>
+#include <ros_bridge_client/msgs/geometry_msgs/util/covariance.h>
 
 namespace ros_bridge_client::msgs::geometry_msgs
 {

@@ -7,7 +7,7 @@
 
 #include <ros_bridge_client/msgs/ros_type_base.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance.h>
-#include <ros_bridge_client/msgs/geometry_msgs/utils/covariance.h>
+#include <ros_bridge_client/msgs/geometry_msgs/util/covariance.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 
 namespace ros_bridge_client::msgs::geometry_msgs

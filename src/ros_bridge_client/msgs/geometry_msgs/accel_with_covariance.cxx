@@ -45,6 +45,12 @@ AccelWithCovariance::AccelWithCovariance(const web::json::value &response)
   covariance = utils::Deserializer::toArray<double, 36>(cov_msg);
 }
 
+AccelWithCovariance::AccelWithCovariance(const Accel &accel, const std::array<double, 36> &covariance)
+    : ROSTypeBase("geometry_msgs/AccelWithCovariance"),
+      accel(accel),
+      covariance(covariance)
+{}
+
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::AccelWithCovariance &a)
 {
   os << "\nAccel With Covariance";

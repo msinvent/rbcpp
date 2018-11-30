@@ -23,6 +23,8 @@ struct AccelWithCovariance : public ROSTypeBase
                       const std::array<double, 36> &covariance);
 
   AccelWithCovariance(const Vector3 &linear, const Vector3 &angular, const std::array<double, 36> &covariance);
+  
+  AccelWithCovariance(const Accel &accel, const std::array<double, 36> &covariance);
 
   explicit AccelWithCovariance(const web::json::value &response);
 

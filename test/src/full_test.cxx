@@ -38,6 +38,7 @@ int main(void)
   auto accel_stamped_pub = rbc->addPublisher<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/");
   auto twist_stamped_pub = rbc->addPublisher<geometry_msgs::TwistStamped>("/rosbridge/twist_stamped/");
   auto twc_pub = rbc->addPublisher<geometry_msgs::TwistWithCovariance>("/rosbridge/twist_with_covariance/");
+  auto accelwc_pub = rbc->addPublisher<geometry_msgs::AccelWithCovariance>("/rosbridge/accel_with_covariance/");
   auto twcs_pub = rbc->addPublisher<geometry_msgs::TwistWithCovarianceStamped>("/rosbridge/twist_with_covariance_stamped/");
   auto wrench_stamped_pub = rbc->addPublisher<geometry_msgs::WrenchStamped>("/rosbridge/wrench_stamped/");
   auto pose_stamped_pub = rbc->addPublisher<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/");
@@ -70,6 +71,7 @@ int main(void)
   auto accel_stamped_sub = rbc->addSubscriber<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/", 100, callbacks::ascallback);
   auto twist_stamped_sub = rbc->addSubscriber<geometry_msgs::TwistStamped>("/rosbridge/twist_stamped/", 100, callbacks::twscallback);
   auto twc_sub = rbc->addSubscriber<geometry_msgs::TwistWithCovariance>("/rosbridge/twist_with_covariance/", 100, callbacks::twccallback);
+  auto accel_cov_sub = rbc->addSubscriber<geometry_msgs::AccelWithCovariance>("/rosbridge/accel_with_covariance/", 100, callbacks::acovcallback);
   auto twcs_sub = rbc->addSubscriber<geometry_msgs::TwistWithCovarianceStamped>("/rosbridge/twist_with_covariance_stamped/", 100, callbacks::twcscallback);
   auto wrench_stamped_sub = rbc->addSubscriber<geometry_msgs::WrenchStamped>("/rosbridge/wrench_stamped/", 100, callbacks::wscallback);
   auto pose_stamped_sub = rbc->addSubscriber<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/", 100, callbacks::poscallback);
@@ -78,6 +80,12 @@ int main(void)
   auto quaternion_sub = rbc->addSubscriber<geometry_msgs::Quaternion>("/rosbridge/quaternion/", 100, callbacks::qcallback);
   auto quaternion_stamped_sub = rbc->addSubscriber<geometry_msgs::QuaternionStamped>("/rosbridge/quaternion_stamped/", 100, callbacks::qscallback);
 
+  std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
+                                      .7, .8, .9, 1., 1.1, 1.2,
+                                      1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                      1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                      2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                      3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
   while (messages++ < 10)
   {
     std::this_thread::sleep_for(pause);
@@ -102,6 +110,9 @@ int main(void)
 
     geometry_msgs::Accel a(0.1, 0.2, 0.3, 0.3, 0.2, 0.1);
     accel_pub->publish(a);
+    
+    geometry_msgs::AccelWithCovariance acov(a, covariance);
+    accelwc_pub->publish(acov);
 
     geometry_msgs::Twist tw(0.1, 0.2, 0.3, 0.3, 0.2, 0.1);
     twist_pub->publish(tw);
@@ -111,12 +122,7 @@ int main(void)
 
     geometry_msgs::Vector3 vec1(.1, .2, .3);
     geometry_msgs::Vector3 vec2(.3, .2, .1);
-    std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
-                                        .7, .8, .9, 1., 1.1, 1.2,
-                                        1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
-                                        1.9, 2., 2.1, 2.2, 2.3, 2.4,
-                                        2.5, 2.6, 2.7, 2.8, 2.9, 3.,
-                                        3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
+
 
     geometry_msgs::TwistWithCovariance twc(vec1, vec2, covariance);
     twc_pub->publish(twc);

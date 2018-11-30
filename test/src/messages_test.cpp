@@ -233,6 +233,9 @@ TEST_CASE("Pose With Covariance test", "[pose_with_cov_test]")
     q.z = 0.;
     q.w = 1.0;
     REQUIRE(pose_with_cov_test.getMessage(p, q, covariance) == pose_with_cov_test.test1);
+    
+    geometry_msgs::Pose pose(p, q);
+    REQUIRE(pose_with_cov_test.getMessage(pose, covariance) == pose_with_cov_test.test1);
   }
   {
     REQUIRE(pose_with_cov_test.getMessage(0.1, 0.5, 0.3, 0.1, 0.9, 0., 1.0, covariance) == pose_with_cov_test.test2);
@@ -247,6 +250,9 @@ TEST_CASE("Pose With Covariance test", "[pose_with_cov_test]")
     q.z = 0.;
     q.w = 1.0;
     REQUIRE(pose_with_cov_test.getMessage(p, q, covariance) == pose_with_cov_test.test2);
+
+    geometry_msgs::Pose pose(p, q);
+    REQUIRE(pose_with_cov_test.getMessage(pose, covariance) == pose_with_cov_test.test2);
   }
 }
 

@@ -520,6 +520,13 @@ struct PoseWithCovarianceTest : public Test
     geometry_msgs::PoseWithCovariance msg(point, quaternion, arr);
     return messageToString<geometry_msgs::PoseWithCovariance>(msg);
   }
+
+  inline std::string
+  getMessage(const geometry_msgs::Pose &pose, const std::array<double, 36> &arr) const
+  {
+    geometry_msgs::PoseWithCovariance msg(pose, arr);
+    return messageToString<geometry_msgs::PoseWithCovariance>(msg);
+  }
 };
 
 struct PoseStampedTest : public Test

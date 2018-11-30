@@ -26,6 +26,12 @@ PoseWithCovariance::PoseWithCovariance(const Point &p, const Quaternion &q, cons
     covariance(arr)
 {}
 
+PoseWithCovariance::PoseWithCovariance(const Pose &pose, const std::array<double, 36> &arr)
+  : ROSTypeBase("geometry_msgs/PoseWithCovariance"),
+    pose(pose),
+    covariance(arr)
+{}
+
 PoseWithCovariance::PoseWithCovariance(const web::json::value &response)
   : ROSTypeBase("geometry_msgs/PoseWithCovariance"),
     pose(),

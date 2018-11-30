@@ -22,6 +22,8 @@ struct PoseWithCovariance : public ROSTypeBase
 
   PoseWithCovariance(const Point &p, const Quaternion &q, const std::array<double, 36> &arr);
 
+  PoseWithCovariance(const Pose &pose, const std::array<double, 36> &arr);
+
   explicit PoseWithCovariance(const web::json::value &response);
 
   ~PoseWithCovariance() final = default;

@@ -39,21 +39,27 @@ PoseWithCovarianceStamped::PoseWithCovarianceStamped(const web::json::value &res
       pose(),
       header()
 {
-  const auto &msg = response.at(U("msg"));
-  const auto &pose_msg = msg.at(U("pose"));
-  const auto &cov_msg = pose_msg.at(U("covariance"));
-  const auto &header_msg = msg.at(U("header"));
+  try
+  {
+    const auto &msg = response.at(U("msg"));
+    const auto &pose_base_msg = msg.at(U("pose"));
+    const auto &pose_msg = pose_base_msg.at(U("pose"));
+    const auto &cov_msg = pose_base_msg.at(U("covariance"));
+    const auto &header_msg = msg.at(U("header"));
 
-  std::tie(pose.pose.point.x, pose.pose.point.y, pose.pose.point.z) =
-      utils::Deserializer::toPoint(pose_msg.at(U("position")), true);
+    std::tie(pose.pose.point.x, pose.pose.point.y, pose.pose.point.z) =
+        utils::Deserializer::toPoint(pose_msg.at(U("position")), true);
 
-  std::tie(pose.pose.quaternion.x, pose.pose.quaternion.y, pose.pose.quaternion.z, pose.pose.quaternion.w) =
-      utils::Deserializer::toQuaternion(pose_msg.at(U("orientation")), true);
+    std::tie(pose.pose.quaternion.x, pose.pose.quaternion.y, pose.pose.quaternion.z, pose.pose.quaternion.w) =
+        utils::Deserializer::toQuaternion(pose_msg.at(U("orientation")), true);
 
-  pose.covariance = utils::Deserializer::toArray<double, 36>(cov_msg);
+    pose.covariance = utils::Deserializer::toArray<double, 36>(cov_msg);
 
-  std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-      utils::Deserializer::toHeader(header_msg, true);
+    std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
+        utils::Deserializer::toHeader(header_msg, true);
+  } catch(const std::exception &e) {
+    std::cerr << "Can't deserialize response (PoseWithCovarianceStamped). May be malformed. \n" << e.what() << "\n";
+  }
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::PoseWithCovarianceStamped &p)

@@ -31,6 +31,7 @@ int main(void)
   auto pose2d_pub = rbc->addPublisher<geometry_msgs::Pose2D>("/rosbridge/pose2d/");
   auto inertia_pub = rbc->addPublisher<geometry_msgs::Inertia>("/rosbridge/inertia/");
   auto pose_cov_pub = rbc->addPublisher<geometry_msgs::PoseWithCovariance>("/rosbridge/pose_with_covariance/");
+  auto pose_cov_stamp_pub = rbc->addPublisher<geometry_msgs::PoseWithCovarianceStamped>("/rosbridge/pose_with_covariance_stamped/");
   auto transform_pub = rbc->addPublisher<geometry_msgs::Transform>("/rosbridge/transform/");
   auto inertia_stamped_pub = rbc->addPublisher<geometry_msgs::InertiaStamped>("/rosbridge/inertia_stamped/");
   auto point_stamped_pub = rbc->addPublisher<geometry_msgs::PointStamped>("/rosbridge/point_stamped/");
@@ -58,6 +59,7 @@ int main(void)
   auto wrench_sub = rbc->addSubscriber<geometry_msgs::Wrench>("/rosbridge/wrench/", 100, callbacks::wcallback);
   auto pose_sub = rbc->addSubscriber<geometry_msgs::Pose>("/rosbridge/pose/", 100, callbacks::pocallback);
   auto pose_cov_sub = rbc->addSubscriber<geometry_msgs::PoseWithCovariance>("/rosbridge/pose_with_covariance/", 100, callbacks::pocovcallback);
+  auto pose_cov_stamp_sub = rbc->addSubscriber<geometry_msgs::PoseWithCovarianceStamped>("/rosbridge/pose_with_covariance_stamped/", 100, callbacks::pocovscallback);
   auto point32_sub = rbc->addSubscriber<geometry_msgs::Point32>("/rosbridge/point32/", 100, callbacks::p32callback);
   auto pose2d_sub = rbc->addSubscriber<geometry_msgs::Pose2D>("/rosbridge/pose2d/", 100, callbacks::p2dcallback);
   auto inertia_sub = rbc->addSubscriber<geometry_msgs::Inertia>("/rosbridge/inertia/", 100, callbacks::icallback);
@@ -125,6 +127,9 @@ int main(void)
     geometry_msgs::PoseWithCovariance pocov(po, covariance);
     pose_cov_pub->publish(pocov);
 
+    geometry_msgs::PoseWithCovarianceStamped pocovs(pocov, "a frame");
+    pose_cov_stamp_pub->publish(pocovs);
+    
     geometry_msgs::Wrench w(0.1, 0.2, 0.3, 0.3, 0.2, 0.1);
     wrench_pub->publish(w);
 

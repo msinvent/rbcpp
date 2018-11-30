@@ -6,9 +6,9 @@
 #define ROSBRIDGECLIENT_Test_TEST_HPP
 
 #include <test/csv_reader.h>
-
 #include <cpprest/ws_client.h>
 #include <ros_bridge_client/ros_bridge_client.h>
+
 #include <ros_bridge_client/msgs/message.h>
 #include <ros_bridge_client/msgs/std_msgs/int8.h>
 #include <ros_bridge_client/msgs/std_msgs/int16.h>
@@ -23,6 +23,7 @@
 #include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 #include <ros_bridge_client/msgs/std_msgs/float32.h>
 #include <ros_bridge_client/msgs/std_msgs/float64.h>
+
 #include <ros_bridge_client/msgs/geometry_msgs/pose.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
@@ -42,7 +43,9 @@
 #include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/utils/covariance.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance.h>
+#include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance_stamped.h>
 
 using namespace ros_bridge_client::msgs;
@@ -526,6 +529,41 @@ struct PoseWithCovarianceTest : public Test
   {
     geometry_msgs::PoseWithCovariance msg(pose, arr);
     return messageToString<geometry_msgs::PoseWithCovariance>(msg);
+  }
+};
+
+struct PoseWithCovarianceStampedTest : public Test
+{
+  explicit PoseWithCovarianceStampedTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("PoseWithCovarianceStampedTest")[0]),
+        test2(dataframe.data.at("PoseWithCovarianceStampedTest")[1])
+  {}
+
+  ~PoseWithCovarianceStampedTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string
+  getMessage(const geometry_msgs::Point &point, const geometry_msgs::Quaternion &quaternion,
+             const std::array<double, 36> &arr, std::string frame_id = "world") const
+  {
+    geometry_msgs::PoseWithCovarianceStamped msg(point, quaternion, arr, frame_id);
+    return messageToString<geometry_msgs::PoseWithCovarianceStamped>(msg);
+  }
+
+  inline std::string
+  getMessage(const geometry_msgs::Pose &pose, const std::array<double, 36> &arr, std::string frame_id = "world") const
+  {
+    geometry_msgs::PoseWithCovarianceStamped msg(pose, arr, frame_id);
+    return messageToString<geometry_msgs::PoseWithCovarianceStamped>(msg);
+  }
+
+  inline std::string
+  getMessage(const geometry_msgs::PoseWithCovariance &pose, std::string frame_id = "world") const
+  {
+    geometry_msgs::PoseWithCovarianceStamped msg(pose, frame_id);
+    return messageToString<geometry_msgs::PoseWithCovarianceStamped>(msg);
   }
 };
 

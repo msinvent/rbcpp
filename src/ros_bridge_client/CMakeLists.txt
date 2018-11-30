@@ -1,6 +1,8 @@
 target_sources(librbc
         PRIVATE
-#        geometry_msgs
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/ros_type_base.cpp"
+
+        #        geometry_msgs
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/point.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/accel.cxx"
@@ -23,10 +25,10 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/quaternion_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose_with_covariance.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/twist_with_covariance.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose_with_covariance_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/twist_with_covariance_stamped.cxx"
+        
 #       std_msgs
-        "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/header.cxx"
-        "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/string.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/int8.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/int16.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/int32.cxx"
@@ -35,11 +37,13 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/uint16.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/uint32.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/uint64.cxx"
-        "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/color_rgba.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/header.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/string.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/float32.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/float64.cxx"
-        "${CMAKE_CURRENT_LIST_DIR}/msgs/ros_type_base.cpp"
-#       misellaneous
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/color_rgba.cxx"
+
+        #       misellaneous
         "${CMAKE_CURRENT_LIST_DIR}/utils/serializer.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/utils/deserializer.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/subscriber/rbc_subscriber_base.cxx")

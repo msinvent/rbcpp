@@ -22,9 +22,9 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | pose  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | pose 2d   | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | pose array  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | pose with covariance stamped | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | pose stamped | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | pose with covariance  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | pose with covariance stamped | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | point  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | point32  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | point stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |

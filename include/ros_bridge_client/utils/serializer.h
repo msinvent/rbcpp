@@ -32,6 +32,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance.h>
 
 namespace ros_bridge_client::utils
@@ -62,6 +63,8 @@ public:
   web::json::value &toJson(const msgs::geometry_msgs::Pose &pose, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::PoseWithCovariance &pose_cov, bool sub_json = false);
+
+  web::json::value &toJson(const msgs::geometry_msgs::PoseWithCovarianceStamped &pose_cov, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::Accel &accel, bool sub_json = false);
 

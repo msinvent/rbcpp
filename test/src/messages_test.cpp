@@ -32,6 +32,7 @@ test::InertiaTest inertia_test(dataframe);
 test::TransformTest transform_test(dataframe);
 test::Pose2DTest pose2d_test(dataframe);
 test::PoseWithCovarianceTest pose_with_cov_test(dataframe);
+test::PoseWithCovarianceStampedTest pose_with_cov_stamp_test(dataframe);
 test::PoseStampedTest pose_stamped_test(dataframe);
 test::PointStampedTest point_stamped_test(dataframe);
 test::AccelStampedTest accel_stamped_test(dataframe);
@@ -253,6 +254,46 @@ TEST_CASE("Pose With Covariance test", "[pose_with_cov_test]")
 
     geometry_msgs::Pose pose(p, q);
     REQUIRE(pose_with_cov_test.getMessage(pose, covariance) == pose_with_cov_test.test2);
+  }
+}
+
+TEST_CASE("Pose With Covariance Stamped test", "[pose_with_cov_test]")
+{
+  std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
+                                      .7, .8, .9, 1., 1.1, 1.2,
+                                      1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                      1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                      2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                      3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
+  {
+    geometry_msgs::Point p;
+    p.x = 0.1;
+    p.y = 0.2;
+    p.z = 0.3;
+    geometry_msgs::Quaternion q;
+    q.x = 0.1;
+    q.y = 0.;
+    q.z = 0.;
+    q.w = 1.0;
+    REQUIRE(pose_with_cov_stamp_test.getMessage(p, q, covariance, "a frame") == pose_with_cov_stamp_test.test1);
+
+    geometry_msgs::Pose pose(p, q);
+    REQUIRE(pose_with_cov_stamp_test.getMessage(pose, covariance, "a frame") == pose_with_cov_stamp_test.test1);
+  }
+  {
+    geometry_msgs::Point p;
+    p.x = 0.1;
+    p.y = 0.5;
+    p.z = 0.3;
+    geometry_msgs::Quaternion q;
+    q.x = 0.1;
+    q.y = 0.9;
+    q.z = 0.;
+    q.w = 1.0;
+    REQUIRE(pose_with_cov_stamp_test.getMessage(p, q, covariance) == pose_with_cov_stamp_test.test2);
+
+    geometry_msgs::Pose pose(p, q);
+    REQUIRE(pose_with_cov_stamp_test.getMessage(pose, covariance) == pose_with_cov_stamp_test.test2);
   }
 }
 

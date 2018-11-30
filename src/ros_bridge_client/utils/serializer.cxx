@@ -262,3 +262,13 @@ web::json::value &Serializer::toJson(const geometry_msgs::PoseWithCovariance &po
 
   return not sub_json ? completeJson(pose_cov, json_pose_cov) : json_pose_cov;
 }
+
+web::json::value &Serializer::toJson(const geometry_msgs::PoseWithCovarianceStamped &pose_cov_stamp, bool sub_json)
+{
+  static web::json::value json_pose_stamp_cov;
+
+  json_pose_stamp_cov[U("pose")] = toJson(pose_cov_stamp.pose, true);
+  json_pose_stamp_cov[U("header")] = toJson(pose_cov_stamp.header, true);
+
+  return not sub_json ? completeJson(pose_cov_stamp, json_pose_stamp_cov) : json_pose_stamp_cov;
+}

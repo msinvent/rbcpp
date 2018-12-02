@@ -30,11 +30,12 @@
 #include <ros_bridge_client/msgs/geometry_msgs/transform_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance.h>
+#include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel_with_covariance.h>
-#include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance.h>
+#include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/accel_with_covariance_stamped.h>
 
 namespace ros_bridge_client::utils
 {
@@ -68,6 +69,8 @@ public:
   web::json::value &toJson(const msgs::geometry_msgs::PoseWithCovarianceStamped &pose_cov, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::Accel &accel, bool sub_json = false);
+
+  web::json::value &toJson(const msgs::geometry_msgs::AccelWithCovarianceStamped &accel_cov, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::Inertia &inertia, bool sub_json = false);
 

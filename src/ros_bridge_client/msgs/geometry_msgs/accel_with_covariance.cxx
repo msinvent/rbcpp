@@ -51,7 +51,7 @@ AccelWithCovariance::AccelWithCovariance(const Accel &accel, const std::array<do
       covariance(covariance)
 {}
 
-std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::AccelWithCovariance &a)
+std::ostream &operator<<(std::ostream &os, const AccelWithCovariance &a)
 {
   os << "\nAccel With Covariance";
   os << a.accel;
@@ -60,7 +60,7 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
 }
 
 std::ostream &
-operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::AccelWithCovariance> &a)
+operator<<(std::ostream &os, const std::shared_ptr<AccelWithCovariance> &a)
 {
   return os << *a.get();
 }

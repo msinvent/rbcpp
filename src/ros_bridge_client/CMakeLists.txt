@@ -28,8 +28,9 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/accel_with_covariance.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose_with_covariance_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/twist_with_covariance_stamped.cxx"
-        
-#       std_msgs
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/accel_with_covariance_stamped.cxx"
+
+        #       std_msgs
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/int8.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/int16.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/std_msgs/int32.cxx"

@@ -282,3 +282,13 @@ web::json::value &Serializer::toJson(const geometry_msgs::AccelWithCovariance &a
 
   return not sub_json ? completeJson(accel_cov, json_accel_cov) : json_accel_cov;
 }
+
+web::json::value &Serializer::toJson(const geometry_msgs::AccelWithCovarianceStamped &accel_cov, bool sub_json)
+{
+  static web::json::value json_accel_cov;
+
+  json_accel_cov[U("accel")] = toJson(accel_cov, true);
+  json_accel_cov[U("header")] = toJson(accel_cov.header, true);
+
+  return not sub_json ? completeJson(accel_cov, json_accel_cov) : json_accel_cov;
+}

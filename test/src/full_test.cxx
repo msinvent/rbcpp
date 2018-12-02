@@ -39,6 +39,7 @@ int main(void)
   auto twist_stamped_pub = rbc->addPublisher<geometry_msgs::TwistStamped>("/rosbridge/twist_stamped/");
   auto twc_pub = rbc->addPublisher<geometry_msgs::TwistWithCovariance>("/rosbridge/twist_with_covariance/");
   auto accelwc_pub = rbc->addPublisher<geometry_msgs::AccelWithCovariance>("/rosbridge/accel_with_covariance/");
+  auto accelwcs_pub = rbc->addPublisher<geometry_msgs::AccelWithCovarianceStamped>("/rosbridge/accel_with_covariance_stamped/");
   auto twcs_pub = rbc->addPublisher<geometry_msgs::TwistWithCovarianceStamped>("/rosbridge/twist_with_covariance_stamped/");
   auto wrench_stamped_pub = rbc->addPublisher<geometry_msgs::WrenchStamped>("/rosbridge/wrench_stamped/");
   auto pose_stamped_pub = rbc->addPublisher<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/");
@@ -72,6 +73,7 @@ int main(void)
   auto twist_stamped_sub = rbc->addSubscriber<geometry_msgs::TwistStamped>("/rosbridge/twist_stamped/", 100, callbacks::twscallback);
   auto twc_sub = rbc->addSubscriber<geometry_msgs::TwistWithCovariance>("/rosbridge/twist_with_covariance/", 100, callbacks::twccallback);
   auto accel_cov_sub = rbc->addSubscriber<geometry_msgs::AccelWithCovariance>("/rosbridge/accel_with_covariance/", 100, callbacks::acovcallback);
+  auto accel_cov_stamp_sub = rbc->addSubscriber<geometry_msgs::AccelWithCovarianceStamped>("/rosbridge/accel_with_covariance_stamped/", 100, callbacks::acovscallback);
   auto twcs_sub = rbc->addSubscriber<geometry_msgs::TwistWithCovarianceStamped>("/rosbridge/twist_with_covariance_stamped/", 100, callbacks::twcscallback);
   auto wrench_stamped_sub = rbc->addSubscriber<geometry_msgs::WrenchStamped>("/rosbridge/wrench_stamped/", 100, callbacks::wscallback);
   auto pose_stamped_sub = rbc->addSubscriber<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/", 100, callbacks::poscallback);
@@ -113,6 +115,9 @@ int main(void)
     
     geometry_msgs::AccelWithCovariance acov(a, covariance);
     accelwc_pub->publish(acov);
+
+    geometry_msgs::AccelWithCovarianceStamped acovs(acov, "a frame");
+    accelwcs_pub->publish(acovs);
 
     geometry_msgs::Twist tw(0.1, 0.2, 0.3, 0.3, 0.2, 0.1);
     twist_pub->publish(tw);

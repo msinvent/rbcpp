@@ -285,10 +285,10 @@ web::json::value &Serializer::toJson(const geometry_msgs::AccelWithCovariance &a
 
 web::json::value &Serializer::toJson(const geometry_msgs::AccelWithCovarianceStamped &accel_cov, bool sub_json)
 {
-  static web::json::value json_accel_cov;
+  static web::json::value json_accel_stamped_cov;
 
-  json_accel_cov[U("accel")] = toJson(accel_cov, true);
-  json_accel_cov[U("header")] = toJson(accel_cov.header, true);
+  json_accel_stamped_cov[U("accel")] = toJson(accel_cov.accel, true);
+  json_accel_stamped_cov[U("header")] = toJson(accel_cov.header, true);
 
-  return not sub_json ? completeJson(accel_cov, json_accel_cov) : json_accel_cov;
+  return not sub_json ? completeJson(accel_cov, json_accel_stamped_cov) : json_accel_stamped_cov;
 }

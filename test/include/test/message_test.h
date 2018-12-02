@@ -48,6 +48,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/accel_with_covariance.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/accel_with_covariance_stamped.h>
 
 using namespace ros_bridge_client::msgs;
 
@@ -720,6 +721,41 @@ struct AccelStampedTest : public Test
   }
 };
 
+struct AccelWithCovarianceStampedTest : public Test
+{
+  explicit AccelWithCovarianceStampedTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("AccelWithCovarianceStampedTest")[0]),
+        test2(dataframe.data.at("AccelWithCovarianceStampedTest")[1])
+  {}
+
+  ~AccelWithCovarianceStampedTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string
+  getMessage(const geometry_msgs::Vector3 &linear, const geometry_msgs::Vector3 &angular,
+             const std::array<double, 36> &covariance, std::string frame_id = "world") const
+  {
+    geometry_msgs::AccelWithCovarianceStamped msg(linear, angular, covariance, frame_id);
+    return messageToString<geometry_msgs::AccelWithCovarianceStamped>(msg);
+  }
+
+  inline std::string
+  getMessage(const geometry_msgs::Accel &accel, const std::array<double, 36> &covariance,
+             std::string frame_id = "world") const
+  {
+    geometry_msgs::AccelWithCovarianceStamped msg(accel, covariance, frame_id);
+    return messageToString<geometry_msgs::AccelWithCovarianceStamped>(msg);
+  }
+
+  inline std::string
+  getMessage(const geometry_msgs::AccelWithCovariance &accel, std::string frame_id = "world") const
+  {
+    geometry_msgs::AccelWithCovarianceStamped msg(accel, frame_id);
+    return messageToString<geometry_msgs::AccelWithCovarianceStamped>(msg);
+  }
+};
 
 struct TwistTest : public Test
 {

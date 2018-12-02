@@ -31,7 +31,7 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | accel  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | accel stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | accel with covariance | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
-|                 | accel with covariance stamped  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | accel with covariance stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | inertia  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | inertia stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | wrench  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |

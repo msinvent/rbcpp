@@ -292,3 +292,26 @@ web::json::value &Serializer::toJson(const geometry_msgs::AccelWithCovarianceSta
 
   return not sub_json ? completeJson(accel_cov, json_accel_stamped_cov) : json_accel_stamped_cov;
 }
+
+web::json::value &Serializer::toJson(const geometry_msgs::Polygon &polygon, bool sub_json)
+{
+  static web::json::value json_polygon;
+
+  json_polygon[U("points")] = web::json::value::array(toJson(polygon.points));
+
+  return not sub_json ? completeJson(polygon, json_polygon) : json_polygon;
+}
+
+std::vector<web::json::value> &Serializer::toJson(const std::vector<geometry_msgs::Point32> &vec)
+{
+  static std::vector<web::json::value> array;
+  array.clear();
+  array.reserve(vec.size());
+
+  for (const auto& point: vec)
+  {
+    array.push_back(toJson(point, true));
+  }
+
+  return array;
+}

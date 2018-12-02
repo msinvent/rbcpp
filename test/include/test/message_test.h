@@ -32,6 +32,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/pose2d.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
+#include <ros_bridge_client/msgs/geometry_msgs/polygon.h>
 #include <ros_bridge_client/msgs/geometry_msgs/transform.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
@@ -992,35 +993,36 @@ struct WrenchStampedTest : public Test
   }
 };
 
-//
-//struct PolygonTest : public Test
-//{
-//  PolygonTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("PolygonTest")[0]),
-//        test2(dataframe.data.at("PolygonTest")[1])
-//  {}
-//
-//  ~PolygonTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(const Point32 &point) const
-//  {
-//    geometry_msgs::PolygonTest msg(point);
-//    msg.add(point);
-//    return messageToString(msg);
-//  }
-//
-//  inline std::string getMessageWithAdd(const Point32 &point) const
-//  {
-//    geometry_msgs::PolygonTest msg;
-//    msg.add(point);
-//    msg.add(point);
-//    return messageToString(msg);
-//  }
-//};
-//
+
+struct PolygonTest : public Test
+{
+  PolygonTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("PolygonTest")[0]),
+        test2(dataframe.data.at("PolygonTest")[1])
+  {}
+
+  ~PolygonTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(const geometry_msgs::Point32 &point) const
+  {
+    geometry_msgs::Polygon msg;
+    msg.add(point);
+    msg.add(point);
+    return messageToString(msg);
+  }
+
+  inline std::string getMessageWithAdd(const geometry_msgs::Point32 &point) const
+  {
+    geometry_msgs::Polygon msg;
+    msg.add(point);
+    msg.add(point);
+    return messageToString(msg);
+  }
+};
+
 //struct PolygonStampedTest : public Test
 //{
 //  PolygonStampedTest(const DataFrame &dataframe)

@@ -18,6 +18,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
+#include <ros_bridge_client/msgs/geometry_msgs/polygon.h>
 #include <ros_bridge_client/msgs/geometry_msgs/transform.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
@@ -63,6 +64,8 @@ public:
   web::json::value &toJson(const msgs::geometry_msgs::PointStamped &point_stamped, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::Pose &pose, bool sub_json = false);
+
+  web::json::value &toJson(const msgs::geometry_msgs::Polygon &polygon, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::PoseWithCovariance &pose_cov, bool sub_json = false);
 
@@ -110,8 +113,11 @@ public:
   template<typename T>
   web::json::value &toJson(const msgs::XYZMessage<T> &xyz, bool sub_json = false);
 
+private:
   template <typename T, unsigned int N>
   std::vector<web::json::value> &toJsonArray(const std::array<T, N> &data);
+
+  std::vector<web::json::value> &toJson(const std::vector<msgs::geometry_msgs::Point32> &vec);
 };
 
 template<typename T>

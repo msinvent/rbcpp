@@ -74,31 +74,17 @@ const std::string Deserializer::convToString(const web::json::value &json)
   return stream.str();
 }
 
-std::vector<geometry_msgs::Point32> &Deserializer::toPolygon(const web::json::value &response)
+void Deserializer::toPolygon(msgs::geometry_msgs::Polygon &polygon, const web::json::value &response, bool is_sub_json)
 {
-  static std::vector<geometry_msgs::Point32> points;
-  points.clear();
-  const auto &json_arr = response.as_array();
-  auto arr_size = std::distance(json_arr.cbegin(), json_arr.cend());
-  points.reserve(arr_size);
+  const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
+  const auto &json_arr = msg.at(U("points")).as_array();
 
   auto it = json_arr.cbegin();
-  std::generate(std::begin(points), std::end(points), [&]
+  std::generate(std::begin(polygon.points), std::end(polygon.points), [&]
   {
       geometry_msgs::Point32 p;
       Deserializer::toXYZ<float>(p, *it++);
       return p;
   });
-
-  return points;
-}
-
-void Deserializer::toPolygonStamped(std::vector<geometry_msgs::Point32> &points, std_msgs::Header &header,
-                                    const web::json::value &response)
-{
-  const auto &msg = response.at(U("msg"));
-  points = toPolygon(msg.at(U("polygon")).at(U("points")));
-
-  toHeader(header, msg.at(U("header")), true);
 }
 

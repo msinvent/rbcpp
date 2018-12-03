@@ -24,7 +24,11 @@ PolygonStamped::PolygonStamped(const web::json::value &response)
       polygon(),
       header()
 {
-  utils::Deserializer::toPolygonStamped(polygon.points, header, response);
+  const auto &msg = response.at(U("msg"));
+
+  utils::Deserializer::toPolygon(polygon, msg, true);
+
+  utils::Deserializer::toHeader(header, msg, true);
 }
 
 void PolygonStamped::add(const Point32 &p32)

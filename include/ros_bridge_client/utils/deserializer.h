@@ -48,10 +48,7 @@ struct Deserializer
   template <typename T, unsigned int N>
   static std::array<T, N>& toArray(const web::json::value &response);
 
-  static std::vector<msgs::geometry_msgs::Point32> &toPolygon(const web::json::value &response);
-
-  static void toPolygonStamped(std::vector<msgs::geometry_msgs::Point32> &points, msgs::std_msgs::Header &header,
-                                 const web::json::value &response);
+  static void toPolygon(msgs::geometry_msgs::Polygon &polygon, const web::json::value &response, bool is_sub_json = false);
 
   static void toColor(msgs::std_msgs::ColorRGBA &color, const web::json::value &response, bool is_sub_json = false);
 

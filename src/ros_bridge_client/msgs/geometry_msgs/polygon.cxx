@@ -23,8 +23,7 @@ Polygon::Polygon(const web::json::value &response)
     : ROSTypeBase("geometry_msgs/Polygon"),
       points()
 {
-  points = utils::Deserializer::toPolygon(response.at(U("msg")).at(U("points")));
-
+  utils::Deserializer::toPolygon(*this, response);
 }
 
 void Polygon::add(const Point32 &p32)

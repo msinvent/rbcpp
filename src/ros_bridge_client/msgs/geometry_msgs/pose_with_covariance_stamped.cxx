@@ -51,10 +51,12 @@ PoseWithCovarianceStamped::PoseWithCovarianceStamped(const web::json::value &res
 
     utils::Deserializer::toQuaternion(pose.pose.orientation, pose_msg.at(U("orientation")), true);
 
-    pose.covariance = utils::Deserializer::toArray<double, 36>(cov_msg);
+    utils::Deserializer::toArray<double, 36>(pose.covariance, cov_msg);
 
     utils::Deserializer::toHeader(header, header_msg, true);
-  } catch(const std::exception &e) {
+  }
+  catch (const std::exception &e)
+  {
     std::cerr << "Can't deserialize response (PoseWithCovarianceStamped). May be malformed. \n" << e.what() << "\n";
   }
 }

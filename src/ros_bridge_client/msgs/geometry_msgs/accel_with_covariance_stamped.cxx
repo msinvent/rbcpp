@@ -48,7 +48,7 @@ AccelWithCovarianceStamped::AccelWithCovarianceStamped(const web::json::value &r
 
   utils::Deserializer::toXYZ<double>(accel.accel.angular, accel_msg.at(U("angular")), true);
 
-  accel.covariance = utils::Deserializer::toArray<double, 36>(cov_msg);
+  utils::Deserializer::toArray<double, 36>(accel.covariance, cov_msg);
 
   utils::Deserializer::toHeader(header, header_msg, true);
 }

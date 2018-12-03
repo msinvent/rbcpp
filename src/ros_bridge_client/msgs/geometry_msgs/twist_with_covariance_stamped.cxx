@@ -47,7 +47,7 @@ TwistWithCovarianceStamped::TwistWithCovarianceStamped(const web::json::value &r
 
   utils::Deserializer::toXYZ<double>(twist.twist.angular, twist_twist_msg.at(U("angular")), true);
 
-  twist.covariance = utils::Deserializer::toArray<double, 36>(cov_msg);
+  utils::Deserializer::toArray<double, 36>(twist.covariance, cov_msg);
 
   utils::Deserializer::toHeader(header, response.at(U("msg")).at(U("header")), true);
 }

@@ -40,7 +40,7 @@ AccelWithCovariance::AccelWithCovariance(const web::json::value &response)
 
   utils::Deserializer::toXYZ<double>(accel.angular, accel_msg.at(U("angular")), true);
   
-  covariance = utils::Deserializer::toArray<double, 36>(cov_msg);
+  utils::Deserializer::toArray<double, 36>(covariance, cov_msg);
 }
 
 AccelWithCovariance::AccelWithCovariance(const Accel &accel, const std::array<double, 36> &covariance)

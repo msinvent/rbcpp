@@ -60,7 +60,7 @@ struct Deserializer
 
   static PointTuple toVector3(const web::json::value &response, bool is_sub_json = false);
 
-  static HeaderTuple toHeader(const web::json::value &response, bool is_sub_json = false);
+  static void toHeader(msgs::std_msgs::Header &header, const web::json::value &response, bool is_sub_json = false);
 };
 
 template <typename T>

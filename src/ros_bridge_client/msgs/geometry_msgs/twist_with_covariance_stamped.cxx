@@ -51,8 +51,7 @@ TwistWithCovarianceStamped::TwistWithCovarianceStamped(const web::json::value &r
 
   twist.covariance = utils::Deserializer::toArray<double, 36>(cov_msg);
 
-  std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-      utils::Deserializer::toHeader(response.at(U("msg")).at(U("header")), true);
+  utils::Deserializer::toHeader(header, response.at(U("msg")).at(U("header")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::TwistWithCovarianceStamped &t)

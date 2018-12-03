@@ -55,8 +55,7 @@ PoseWithCovarianceStamped::PoseWithCovarianceStamped(const web::json::value &res
 
     pose.covariance = utils::Deserializer::toArray<double, 36>(cov_msg);
 
-    std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-        utils::Deserializer::toHeader(header_msg, true);
+    utils::Deserializer::toHeader(header, header_msg, true);
   } catch(const std::exception &e) {
     std::cerr << "Can't deserialize response (PoseWithCovarianceStamped). May be malformed. \n" << e.what() << "\n";
   }

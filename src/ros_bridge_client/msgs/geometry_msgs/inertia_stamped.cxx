@@ -41,8 +41,7 @@ InertiaStamped::InertiaStamped(const web::json::value &response)
   const auto &msg = response.at(U("msg"));
   const auto &inertia_msg = msg.at(U("inertia"));
 
-  std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-      utils::Deserializer::toHeader(msg.at(U("header")), true);
+  utils::Deserializer::toHeader(header, msg.at(U("header")), true);
 
   std::tie(inertia.m, inertia.ixx, inertia.ixy, inertia.ixz, inertia.iyy, inertia.iyz, inertia.izz) =
       utils::Deserializer::toInertia(inertia_msg, true);

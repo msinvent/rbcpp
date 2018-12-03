@@ -33,8 +33,7 @@ PoseStamped::PoseStamped(const web::json::value &response)
   const auto &msg = response.at(U("msg"));
   const auto &pose_msg = msg.at(U("pose"));
 
-  std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-      utils::Deserializer::toHeader(msg.at(U("header")), true);
+  utils::Deserializer::toHeader(header, msg.at(U("header")), true);
 
   std::tie(pose.point.x, pose.point.y, pose.point.z) =
       utils::Deserializer::toPoint(pose_msg.at(U("position")), true);

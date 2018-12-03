@@ -21,8 +21,7 @@ TransformStamped::TransformStamped(const web::json::value &response)
   const auto &msg = response.at(U("msg"));
   const auto &transform_msg = msg.at(U("transform"));
 
-  std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-      utils::Deserializer::toHeader(msg.at(U("header")), true);
+  utils::Deserializer::toHeader(header, msg.at(U("header")), true);
 
   std::tie(transform.translation.x, transform.translation.y, transform.translation.z) =
       utils::Deserializer::toVector3(transform_msg.at(U("translation")), true);

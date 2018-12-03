@@ -39,8 +39,7 @@ TwistStamped::TwistStamped(const web::json::value &response)
   const auto &msg = response.at(U("msg"));
   const auto &twist_msg = msg.at(U("twist"));
 
-  std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-      utils::Deserializer::toHeader(msg.at(U("header")), true);
+  utils::Deserializer::toHeader(header, msg.at(U("header")), true);
 
   std::tie(twist.linear.x, twist.linear.y, twist.linear.z) =
       utils::Deserializer::toVector3(twist_msg.at(U("linear")), true);

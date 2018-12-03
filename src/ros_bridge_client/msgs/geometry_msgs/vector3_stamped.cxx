@@ -19,8 +19,7 @@ Vector3Stamped::Vector3Stamped(const web::json::value &response)
     header(),
     vector()
 {
-  std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-      utils::Deserializer::toHeader(response.at(U("msg")).at(U("header")), true);
+  utils::Deserializer::toHeader(header, response.at(U("msg")).at(U("header")), true);
 
   std::tie(vector.x, vector.y, vector.z) =
       utils::Deserializer::toVector3(response.at(U("msg")).at(U("vector")), true);

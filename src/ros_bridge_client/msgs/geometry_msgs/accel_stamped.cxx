@@ -41,8 +41,7 @@ AccelStamped::AccelStamped(const web::json::value &response, std::string ros_msg
   const auto &msg = response.at(U("msg"));
   const auto &accel_msg = msg.at(U("accel"));
 
-  std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-      utils::Deserializer::toHeader(msg.at(U("header")), true);
+  utils::Deserializer::toHeader(header, msg.at(U("header")), true);
 
   std::tie(accel.linear.x, accel.linear.y, accel.linear.z) =
       utils::Deserializer::toVector3(accel_msg.at(U("linear")), true);

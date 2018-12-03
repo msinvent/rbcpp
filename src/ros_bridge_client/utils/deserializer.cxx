@@ -34,14 +34,14 @@ Point32Tuple Deserializer::toPoint32(const web::json::value &response, bool is_s
   return std::forward_as_tuple(x, y, z);
 }
 
-HeaderTuple Deserializer::toHeader(const web::json::value &response, bool is_sub_json)
+void Deserializer::toHeader(ros_bridge_client::msgs::std_msgs::Header &header, const web::json::value &response,
+                            bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  const double &seq = msg.at(U("seq")).as_double();
-  const double &stamp_sec = msg.at(U("stamp")).at(U("secs")).as_double();
-  const double &stamp_nsec = msg.at(U("stamp")).at(U("nsecs")).as_double();
-  const std::string &frame = msg.at(U("frame_id")).as_string();
-  return std::forward_as_tuple(seq, stamp_sec, stamp_nsec, frame);
+  header.seq = msg.at(U("seq")).as_double();
+  header.stamp.sec = msg.at(U("stamp")).at(U("secs")).as_double();
+  header.stamp.nsec = msg.at(U("stamp")).at(U("nsecs")).as_double();
+  header.frame_id = msg.at(U("frame_id")).as_string();
 }
 
 PointTuple Deserializer::toVector3(const web::json::value &response, bool is_sub_json)
@@ -107,21 +107,21 @@ std::vector<geometry_msgs::Point32> &Deserializer::toPolygon(const web::json::va
   points.reserve(arr_size);
 
   auto it = json_arr.cbegin();
-  std::generate(std::begin(points), std::end(points), [&] {
-    auto [x, y, z] = Deserializer::toPoint32(*it++);
-    return geometry_msgs::Point32(x, y, z);
+  std::generate(std::begin(points), std::end(points), [&]
+  {
+      auto[x, y, z] = Deserializer::toPoint32(*it++);
+      return geometry_msgs::Point32(x, y, z);
   });
 
   return points;
 }
 
 void Deserializer::toPolygonStamped(std::vector<geometry_msgs::Point32> &points, std_msgs::Header &header,
-                                   const web::json::value &response)
+                                    const web::json::value &response)
 {
   const auto &msg = response.at(U("msg"));
   points = toPolygon(msg.at(U("polygon")).at(U("points")));
 
-  std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-      utils::Deserializer::toHeader(msg.at(U("header")), true);
+  toHeader(header, msg.at(U("header")), true);
 }
 

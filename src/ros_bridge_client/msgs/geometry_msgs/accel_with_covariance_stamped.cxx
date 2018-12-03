@@ -52,8 +52,7 @@ AccelWithCovarianceStamped::AccelWithCovarianceStamped(const web::json::value &r
 
   accel.covariance = utils::Deserializer::toArray<double, 36>(cov_msg);
 
-  std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
-      utils::Deserializer::toHeader(header_msg, true);
+  utils::Deserializer::toHeader(header, header_msg, true);
 }
 
 std::ostream &operator<<(std::ostream &os, const AccelWithCovarianceStamped &a)

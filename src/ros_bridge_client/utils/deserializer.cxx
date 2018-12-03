@@ -3,6 +3,7 @@
 //
 
 #include <ros_bridge_client/utils/deserializer.h>
+#include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 
 using namespace ros_bridge_client::utils;
 using namespace ros_bridge_client::msgs;
@@ -74,14 +75,14 @@ InertiaTuple Deserializer::toInertia(const web::json::value &response, bool is_s
   return std::forward_as_tuple(m, ixx, ixy, ixz, iyy, iyz, izz);
 }
 
-ColorTuple Deserializer::toColor(const web::json::value &response, bool is_sub_json)
+void Deserializer::toColor(ros_bridge_client::msgs::std_msgs::ColorRGBA &color, const web::json::value &response,
+                          bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  const float &r = static_cast<float>(msg.at(U("r")).as_double());
-  const float &g = static_cast<float>(msg.at(U("g")).as_double());
-  const float &b = static_cast<float>(msg.at(U("b")).as_double());
-  const float &a = static_cast<float>(msg.at(U("a")).as_double());
-  return std::forward_as_tuple(r, g, b, a);
+  color.r = static_cast<float>(msg.at(U("r")).as_double());
+  color.g = static_cast<float>(msg.at(U("g")).as_double());
+  color.b = static_cast<float>(msg.at(U("b")).as_double());
+  color.a = static_cast<float>(msg.at(U("a")).as_double());
 }
 
 const std::string &Deserializer::toString(const web::json::value &response, bool is_sub_json)

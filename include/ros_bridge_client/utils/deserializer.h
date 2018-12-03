@@ -9,6 +9,7 @@
 #include <tuple>
 #include <vector>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
+#include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
 #include <ros_bridge_client/msgs/geometry_msgs/polygon.h>
@@ -46,7 +47,7 @@ struct Deserializer
   static void toPolygonStamped(std::vector<msgs::geometry_msgs::Point32> &points, msgs::std_msgs::Header &header,
                                  const web::json::value &response);
 
-  static ColorTuple toColor(const web::json::value &response, bool is_sub_json = false);
+  static void toColor(msgs::std_msgs::ColorRGBA &color, const web::json::value &response, bool is_sub_json = false);
 
   static PointTuple toPoint(const web::json::value &response, bool is_sub_json = false);
   

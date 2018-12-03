@@ -30,6 +30,8 @@ int main(void)
   auto point32_pub = rbc->addPublisher<geometry_msgs::Point32>("/rosbridge/point32/");
   auto pose2d_pub = rbc->addPublisher<geometry_msgs::Pose2D>("/rosbridge/pose2d/");
   auto inertia_pub = rbc->addPublisher<geometry_msgs::Inertia>("/rosbridge/inertia/");
+  auto polygon_pub = rbc->addPublisher<geometry_msgs::Polygon>("/rosbridge/polygon/");
+  auto polygon_stamped_pub = rbc->addPublisher<geometry_msgs::PolygonStamped>("/rosbridge/polygon_stamped/");
   auto pose_cov_pub = rbc->addPublisher<geometry_msgs::PoseWithCovariance>("/rosbridge/pose_with_covariance/");
   auto pose_cov_stamp_pub = rbc->addPublisher<geometry_msgs::PoseWithCovarianceStamped>("/rosbridge/pose_with_covariance_stamped/");
   auto transform_pub = rbc->addPublisher<geometry_msgs::Transform>("/rosbridge/transform/");
@@ -69,6 +71,8 @@ int main(void)
   auto transform_stamped_sub = rbc->addSubscriber<geometry_msgs::TransformStamped>("/rosbridge/transform_stamped/", 100, callbacks::tscallback);
   auto inertia_stamped_sub = rbc->addSubscriber<geometry_msgs::InertiaStamped>("/rosbridge/inertia_stamped/", 100, callbacks::iscallback);
   auto point_stamped_sub = rbc->addSubscriber<geometry_msgs::PointStamped>("/rosbridge/point_stamped/", 100, callbacks::pscallback);
+  auto polygon_sub = rbc->addSubscriber<geometry_msgs::Polygon>("/rosbridge/polygon/", 100, callbacks::polycallback);
+  auto polygon_stamp_sub = rbc->addSubscriber<geometry_msgs::PolygonStamped>("/rosbridge/polygon_stamped/", 100, callbacks::polyscallback);
   auto accel_stamped_sub = rbc->addSubscriber<geometry_msgs::AccelStamped>("/rosbridge/accel_stamped/", 100, callbacks::ascallback);
   auto twist_stamped_sub = rbc->addSubscriber<geometry_msgs::TwistStamped>("/rosbridge/twist_stamped/", 100, callbacks::twscallback);
   auto twc_sub = rbc->addSubscriber<geometry_msgs::TwistWithCovariance>("/rosbridge/twist_with_covariance/", 100, callbacks::twccallback);
@@ -127,8 +131,6 @@ int main(void)
 
     geometry_msgs::Vector3 vec1(.1, .2, .3);
     geometry_msgs::Vector3 vec2(.3, .2, .1);
-
-
     geometry_msgs::TwistWithCovariance twc(vec1, vec2, covariance);
     twc_pub->publish(twc);
 
@@ -158,7 +160,17 @@ int main(void)
 
     geometry_msgs::Point32 p32(0.1f, 0.2f, 0.3f);
     point32_pub->publish(p32);
-
+    
+    geometry_msgs::Polygon poly;
+    poly.add(p32);
+    poly.add(p32);
+    polygon_pub->publish(poly);
+    
+    geometry_msgs::PolygonStamped polys("a frame");
+    polys.add(p32);
+    polys.add(p32);
+    polygon_stamped_pub->publish(polys);
+    
     geometry_msgs::PointStamped ps(0.1, 0.2, 0.3, "a frame");
     point_stamped_pub->publish(ps);
 

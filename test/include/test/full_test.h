@@ -23,11 +23,13 @@
 #include <ros_bridge_client/msgs/geometry_msgs/transform.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
+#include <ros_bridge_client/msgs/geometry_msgs/polygon.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/transform_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/polygon_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3_stamped.h>
@@ -141,6 +143,18 @@ struct callbacks
     assert((msg->y == .2));
     assert((msg->z == .3));
   }
+
+  static inline void polycallback(const std::shared_ptr<geometry_msgs::Polygon> msg)
+  {
+    std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[Polygon]\n";
+  }
+
+  static inline void polyscallback(const std::shared_ptr<geometry_msgs::PolygonStamped> msg)
+  {
+    std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[PolygonStamped]\n";
+    assert((msg->header.frame_id == "a frame"));
+  }
+
 
   static inline void p2dcallback(const std::shared_ptr<geometry_msgs::Pose2D> msg)
   {

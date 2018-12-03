@@ -30,6 +30,7 @@ test::Vector3Test vector3_test(dataframe);
 test::WrenchTest wrench_test(dataframe);
 test::InertiaTest inertia_test(dataframe);
 test::PolygonTest polygon_test(dataframe);
+test::PolygonStampedTest polygon_stamped_test(dataframe);
 test::TransformTest transform_test(dataframe);
 test::Pose2DTest pose2d_test(dataframe);
 test::PoseWithCovarianceTest pose_with_cov_test(dataframe);
@@ -776,25 +777,25 @@ TEST_CASE("Polygon test", "[polygon_test]")
   }
 }
 
-//TEST_CASE("Polygon Stamped Messages test", "[polygon_stamped_messages]")
-//{
-//  {
-//    Point32 point;
-//    point.x = 0.10;
-//    point.y = 0.20;
-//    point.z = 0.30;
-//    REQUIRE(polygon_stamped_messages.getMessage(point) == polygon_stamped_messages.test1);
-//    REQUIRE(polygon_stamped_messages.getMessageWithAdd(point) == polygon_stamped_messages.test1);
-//  }
-//  {
-//    Point32 point;
-//    point.x = 0.1;
-//    point.y = 0.5;
-//    point.z = 0.3;
-//    REQUIRE(polygon_stamped_messages.getMessageWithAdd(point) == polygon_stamped_messages.test2);
-//  }
-//}
-//
+TEST_CASE("Polygon Stamped test", "[polygon_stamped_test]")
+{
+  {
+    geometry_msgs::Point32 point;
+    point.x = 0.10;
+    point.y = 0.20;
+    point.z = 0.30;
+    REQUIRE(polygon_stamped_test.getMessage(point) == polygon_stamped_test.test1);
+    REQUIRE(polygon_stamped_test.getMessageWithAdd(point) == polygon_stamped_test.test1);
+  }
+  {
+    geometry_msgs::Point32 point;
+    point.x = 0.1;
+    point.y = 0.5;
+    point.z = 0.3;
+    REQUIRE(polygon_stamped_test.getMessageWithAdd(point) == polygon_stamped_test.test2);
+  }
+}
+
 TEST_CASE("Inertia test", "[inertia_test]")
 {
   {

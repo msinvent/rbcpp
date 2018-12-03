@@ -27,6 +27,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/polygon_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/transform_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
@@ -66,6 +67,8 @@ public:
   web::json::value &toJson(const msgs::geometry_msgs::Pose &pose, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::Polygon &polygon, bool sub_json = false);
+
+  web::json::value &toJson(const msgs::geometry_msgs::PolygonStamped &polygon_stamp, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::PoseWithCovariance &pose_cov, bool sub_json = false);
 

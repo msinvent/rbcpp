@@ -13,7 +13,7 @@ If your connection is dropped at the fist send attempt, check your tornado versi
 ## Status: very early development
 All messages that are checked below can be used already. Examples can be found [here](test/full_test.cpp)
 
-| Type           | Message Status | Subscriber Status | Publisher Status |
+| Type           | Messages | Subscriber Status | Publisher Status |
 |----------------|----------------|----------------|----------------|
 |**geometry_msgs**| quaternion  | <ul><li>-[x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | quaternion stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
@@ -36,8 +36,8 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | inertia stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | wrench  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | wrench stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
-|                 | polygon | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | polygon stamped  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | polygon | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | polygon stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | transform  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | transform stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | twist  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |

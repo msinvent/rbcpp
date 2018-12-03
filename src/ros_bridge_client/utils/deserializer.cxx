@@ -97,3 +97,31 @@ const std::string Deserializer::convToString(const web::json::value &json)
   json.serialize(stream);
   return stream.str();
 }
+
+std::vector<geometry_msgs::Point32> &Deserializer::toPolygon(const web::json::value &response)
+{
+  static std::vector<geometry_msgs::Point32> points;
+  points.clear();
+  const auto &json_arr = response.as_array();
+  auto arr_size = std::distance(json_arr.cbegin(), json_arr.cend());
+  points.reserve(arr_size);
+
+  auto it = json_arr.cbegin();
+  std::generate(std::begin(points), std::end(points), [&] {
+    auto [x, y, z] = Deserializer::toPoint32(*it++);
+    return geometry_msgs::Point32(x, y, z);
+  });
+
+  return points;
+}
+
+void Deserializer::toPolygonStamped(std::vector<geometry_msgs::Point32> &points, std_msgs::Header &header,
+                                   const web::json::value &response)
+{
+  const auto &msg = response.at(U("msg"));
+  points = toPolygon(msg.at(U("polygon")).at(U("points")));
+
+  std::tie(header.seq, header.stamp.sec, header.stamp.nsec, header.frame_id) =
+      utils::Deserializer::toHeader(msg.at(U("header")), true);
+}
+

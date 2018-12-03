@@ -21,6 +21,7 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/twist_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/wrench_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/vector3_stamped.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/polygon_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/inertia_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/transform_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/quaternion_stamped.cxx"

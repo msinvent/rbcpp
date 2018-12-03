@@ -302,6 +302,16 @@ web::json::value &Serializer::toJson(const geometry_msgs::Polygon &polygon, bool
   return not sub_json ? completeJson(polygon, json_polygon) : json_polygon;
 }
 
+web::json::value &Serializer::toJson(const geometry_msgs::PolygonStamped &polygon_stamp, bool sub_json)
+{
+  static web::json::value json_polygon_stamp;
+
+  json_polygon_stamp[U("polygon")] = toJson(polygon_stamp.polygon, true);
+  json_polygon_stamp[U("header")] = toJson(polygon_stamp.header, true);
+
+  return not sub_json ? completeJson(polygon_stamp, json_polygon_stamp) : json_polygon_stamp;
+}
+
 std::vector<web::json::value> &Serializer::toJson(const std::vector<geometry_msgs::Point32> &vec)
 {
   static std::vector<web::json::value> array;

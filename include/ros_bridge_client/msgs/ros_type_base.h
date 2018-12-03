@@ -17,7 +17,7 @@ struct ROSTypeBase
   const std::string &rosMsgType() const;
 
 protected:
-  ROSTypeBase() = default;
+  ROSTypeBase() = delete;
   explicit ROSTypeBase(std::string ros_msg_type);
 
 private:

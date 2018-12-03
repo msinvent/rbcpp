@@ -20,29 +20,30 @@
 #include <ros_bridge_client/msgs/std_msgs/uint64.h>
 #include <ros_bridge_client/msgs/std_msgs/string.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
-#include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 #include <ros_bridge_client/msgs/std_msgs/float32.h>
 #include <ros_bridge_client/msgs/std_msgs/float64.h>
+#include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 
 #include <ros_bridge_client/msgs/geometry_msgs/pose.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist.h>
-#include <ros_bridge_client/msgs/geometry_msgs/point32.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose2d.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
+#include <ros_bridge_client/msgs/geometry_msgs/point32.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
 #include <ros_bridge_client/msgs/geometry_msgs/polygon.h>
 #include <ros_bridge_client/msgs/geometry_msgs/transform.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/transform_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
+#include <ros_bridge_client/msgs/geometry_msgs/polygon_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/util/covariance.h>
+#include <ros_bridge_client/msgs/geometry_msgs/transform_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance.h>
@@ -1023,34 +1024,35 @@ struct PolygonTest : public Test
   }
 };
 
-//struct PolygonStampedTest : public Test
-//{
-//  PolygonStampedTest(const DataFrame &dataframe)
-//      : test1(dataframe.data.at("PolygonStampedTest")[0]),
-//        test2(dataframe.data.at("PolygonStampedTest")[1])
-//  {}
-//
-//  ~PolygonStampedTest() final = default;
-//
-//  const std::string test1;
-//  const std::string test2;
-//
-//  inline std::string getMessage(const Point32 &point, std::string frame_id = "world") const
-//  {
-//    geometry_msgs::PolygonStampedTest msg(point, frame_id);
-//    msg.add(point);
-//    return messageToString(msg);
-//  }
-//
-//  inline std::string getMessageWithAdd(const Point32 &point, std::string frame_id = "world") const
-//  {
-//    geometry_msgs::PolygonStampedTest msg(frame_id);
-//    msg.add(point);
-//    msg.add(point);
-//    return messageToString(msg);
-//  }
-//};
-//
+struct PolygonStampedTest : public Test
+{
+  PolygonStampedTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("PolygonStampedTest")[0]),
+        test2(dataframe.data.at("PolygonStampedTest")[1])
+  {}
+
+  ~PolygonStampedTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(const geometry_msgs::Point32 &point, std::string frame_id = "world") const
+  {
+    geometry_msgs::PolygonStamped msg(frame_id);
+    msg.add(point);
+    msg.add(point);
+    return messageToString(msg);
+  }
+
+  inline std::string getMessageWithAdd(const geometry_msgs::Point32 &point, std::string frame_id = "world") const
+  {
+    geometry_msgs::PolygonStamped msg(frame_id);
+    msg.add(point);
+    msg.add(point);
+    return messageToString(msg);
+  }
+};
+
 struct InertiaTest : public Test
 {
   InertiaTest(const DataFrame &dataframe)

@@ -12,6 +12,7 @@
 #include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
+#include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
 #include <ros_bridge_client/msgs/geometry_msgs/polygon.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
 
@@ -31,7 +32,7 @@ struct Deserializer
 {
   static const std::string convToString(const web::json::value &json);
 
-  static const std::string &toString(const web::json::value &response, bool is_sub_json = false);
+  static void toString(std::string &str, const web::json::value &response, bool is_sub_json = false);
 
   template <typename T>
   static T toStdMsg(const web::json::value &response, bool is_sub_json = false);
@@ -53,7 +54,7 @@ struct Deserializer
   
   static PointTuple toPose2D(const web::json::value &response, bool is_sub_json = false);
 
-  static InertiaTuple toInertia(const web::json::value &response, bool is_sub_json = false);
+  static void toInertia(msgs::geometry_msgs::Inertia &inertia, const web::json::value &response, bool is_sub_json = false);
 
   static Point32Tuple toPoint32(const web::json::value &response, bool is_sub_json = false);
 

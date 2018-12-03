@@ -4,6 +4,7 @@
 
 #include <ros_bridge_client/utils/deserializer.h>
 #include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
+#include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
 
 using namespace ros_bridge_client::utils;
 using namespace ros_bridge_client::msgs;
@@ -60,19 +61,17 @@ void Deserializer::toQuaternion(msgs::geometry_msgs::Quaternion &quaternion, con
   quaternion.w = msg.at(U("w")).as_double();
 }
 
-InertiaTuple Deserializer::toInertia(const web::json::value &response, bool is_sub_json)
+void Deserializer::toInertia(msgs::geometry_msgs::Inertia &inertia, const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
 
-  const double &m = msg.at(U("m")).as_double();
-  const double &ixx = msg.at(U("ixx")).as_double();
-  const double &ixy = msg.at(U("ixy")).as_double();
-  const double &ixz = msg.at(U("ixz")).as_double();
-  const double &iyy = msg.at(U("iyy")).as_double();
-  const double &iyz = msg.at(U("iyz")).as_double();
-  const double &izz = msg.at(U("izz")).as_double();
-
-  return std::forward_as_tuple(m, ixx, ixy, ixz, iyy, iyz, izz);
+  inertia.m = msg.at(U("m")).as_double();
+  inertia.ixx = msg.at(U("ixx")).as_double();
+  inertia.ixy = msg.at(U("ixy")).as_double();
+  inertia.ixz = msg.at(U("ixz")).as_double();
+  inertia.iyy = msg.at(U("iyy")).as_double();
+  inertia.iyz = msg.at(U("iyz")).as_double();
+  inertia.izz = msg.at(U("izz")).as_double();
 }
 
 void Deserializer::toColor(ros_bridge_client::msgs::std_msgs::ColorRGBA &color, const web::json::value &response,
@@ -85,11 +84,10 @@ void Deserializer::toColor(ros_bridge_client::msgs::std_msgs::ColorRGBA &color, 
   color.a = static_cast<float>(msg.at(U("a")).as_double());
 }
 
-const std::string &Deserializer::toString(const web::json::value &response, bool is_sub_json)
+void Deserializer::toString(std::string &str, const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  const std::string &s = msg.at(U("data")).as_string();
-  return s;
+  str = msg.at(U("data")).as_string();
 }
 
 const std::string Deserializer::convToString(const web::json::value &json)

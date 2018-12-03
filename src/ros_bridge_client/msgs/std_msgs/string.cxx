@@ -18,7 +18,7 @@ String::String(std::string str)
 String::String(const web::json::value &response)
   : StdMsg<std::string>("std_msgs/String")
 {
-  data = utils::Deserializer::toString(response);
+  utils::Deserializer::toString(data, response, false);
 }
 
 

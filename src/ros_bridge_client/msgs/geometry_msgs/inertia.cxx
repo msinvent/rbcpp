@@ -41,7 +41,7 @@ Inertia::Inertia(const web::json::value &response)
     com(0, 0, 0)
 {
   const auto &msg = response.at(U("msg"));
-  std::tie(m, ixx, ixy, ixz, iyy, iyz, izz) = utils::Deserializer::toInertia(msg, true);
+  utils::Deserializer::toInertia(*this, msg, true);
   std::tie(com.x, com.y, com.z) = utils::Deserializer::toVector3(msg.at(U("com")), true);
 }
 

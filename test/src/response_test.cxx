@@ -29,8 +29,8 @@ TEST_CASE("Header test", "[header]")
 //Received {"topic": "/rosbridge/point_stamped/", "msg": {"header": {"stamp": {"secs": 1542491695, "nsecs": 842492103}, "frame_id": "a frame", "seq": 1}, "point": {"y": 0.2, "x": 0.1, "z": 0.3}}, "op": "publish"}
 //Received {"topic": "/rosbridge/vector3/", "msg": {"y": 0.2, "x": 0.1, "z": 0.3}, "op": "publish"}
 //Received {"topic": "/rosbridge/vector3_stamped/", "msg": {"header": {"stamp": {"secs": 1542491695, "nsecs": 843651056}, "frame_id": "a frame", "seq": 1}, "vector": {"y": 0.2, "x": 0.1, "z": 0.3}}, "op": "publish"}
-//Received {"topic": "/rosbridge/quaternion/", "msg": {"y": 0.2, "x": 0.1, "z": 0.3, "w": 0.4}, "op": "publish"}
-//Received {"topic": "/rosbridge/quaternion_stamped/", "msg": {"header": {"stamp": {"secs": 1542491695, "nsecs": 844316005}, "frame_id": "a frame", "seq": 1}, "quaternion": {"y": 0.2, "x": 0.1, "z": 0.3, "w": 0.4}}, "op": "publish"}
+//Received {"topic": "/rosbridge/orientation/", "msg": {"y": 0.2, "x": 0.1, "z": 0.3, "w": 0.4}, "op": "publish"}
+//Received {"topic": "/rosbridge/quaternion_stamped/", "msg": {"header": {"stamp": {"secs": 1542491695, "nsecs": 844316005}, "frame_id": "a frame", "seq": 1}, "orientation": {"y": 0.2, "x": 0.1, "z": 0.3, "w": 0.4}}, "op": "publish"}
 //Received {"topic": "/rosbridge/transform/", "msg": {"translation": {"y": 0.2, "x": 0.1, "z": 0.3}, "rotation": {"y": 0.3, "x": 0.4, "z": 0.2, "w": 0.1}}, "op": "publish"}
 //Received {"topic": "/rosbridge/transform_stamped/", "msg": {"header": {"stamp": {"secs": 1542491695, "nsecs": 845418930}, "frame_id": "a frame", "seq": 1}, "transform": {"translation": {"y": 0.2, "x": 0.1, "z": 0.3}, "rotation": {"y": 0.3, "x": 0.4, "z": 0.2, "w": 0.1}}, "child_frame_id": ""}, "op": "publish"}
 //Received {"topic": "/rosbridge/accel_stamped/", "msg": {"header": {"stamp": {"secs": 1542491695, "nsecs": 846146106}, "frame_id": "a frame", "seq": 1}, "accel": {"linear": {"y": 0.2, "x": 0.1, "z": 0.3}, "angular": {"y": 0.2, "x": 0.3, "z": 0.1}}}, "op": "publish"}

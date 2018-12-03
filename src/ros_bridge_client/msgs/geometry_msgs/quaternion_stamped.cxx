@@ -21,8 +21,7 @@ QuaternionStamped::QuaternionStamped(const web::json::value &response)
 {
   utils::Deserializer::toHeader(header, response.at(U("msg")).at(U("header")), true);
 
-  std::tie(quaternion.x, quaternion.y, quaternion.z, quaternion.w) =
-      utils::Deserializer::toQuaternion(response.at(U("msg")).at(U("quaternion")), true);
+  utils::Deserializer::toQuaternion(quaternion, response.at(U("msg")).at(U("orientation")), true);
 }
 
 QuaternionStamped::QuaternionStamped()

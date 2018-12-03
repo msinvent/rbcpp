@@ -310,10 +310,10 @@ TEST_CASE("Pose Stamped test", "[pose_stamped_test]")
     p.point.x = 0.1;
     p.point.y = 0.2;
     p.point.z = 0.3;
-    p.quaternion.x = 0.1;
-    p.quaternion.y = 0.;
-    p.quaternion.z = 0.;
-    p.quaternion.w = 1.0;
+    p.orientation.x = 0.1;
+    p.orientation.y = 0.;
+    p.orientation.z = 0.;
+    p.orientation.w = 1.0;
     REQUIRE(pose_stamped_test.getMessage(p) == pose_stamped_test.test1);
   }
   {
@@ -323,10 +323,10 @@ TEST_CASE("Pose Stamped test", "[pose_stamped_test]")
     p.point.x = 0.1;
     p.point.y = 0.5;
     p.point.z = 0.3;
-    p.quaternion.x = 0.1;
-    p.quaternion.y = 0.9;
-    p.quaternion.z = 0.;
-    p.quaternion.w = 1.0;
+    p.orientation.x = 0.1;
+    p.orientation.y = 0.9;
+    p.orientation.z = 0.;
+    p.orientation.w = 1.0;
     REQUIRE(pose_stamped_test.getMessage(p, "a_frame") == pose_stamped_test.test2);
   }
 }

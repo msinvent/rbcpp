@@ -50,14 +50,14 @@ PointTuple Deserializer::toVector3(const web::json::value &response, bool is_sub
   return toPoint(response, is_sub_json);
 }
 
-QuaternionTuple Deserializer::toQuaternion(const web::json::value &response, bool is_sub_json)
+void Deserializer::toQuaternion(msgs::geometry_msgs::Quaternion &quaternion, const web::json::value &response,
+                                bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  const double &x = msg.at(U("x")).as_double();
-  const double &y = msg.at(U("y")).as_double();
-  const double &z = msg.at(U("z")).as_double();
-  const double &w = msg.at(U("w")).as_double();
-  return std::forward_as_tuple(x, y, z, w);
+  quaternion.x = msg.at(U("x")).as_double();
+  quaternion.y = msg.at(U("y")).as_double();
+  quaternion.z = msg.at(U("z")).as_double();
+  quaternion.w = msg.at(U("w")).as_double();
 }
 
 InertiaTuple Deserializer::toInertia(const web::json::value &response, bool is_sub_json)
@@ -76,7 +76,7 @@ InertiaTuple Deserializer::toInertia(const web::json::value &response, bool is_s
 }
 
 void Deserializer::toColor(ros_bridge_client::msgs::std_msgs::ColorRGBA &color, const web::json::value &response,
-                          bool is_sub_json)
+                           bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
   color.r = static_cast<float>(msg.at(U("r")).as_double());

@@ -57,7 +57,8 @@ struct Deserializer
 
   static Point32Tuple toPoint32(const web::json::value &response, bool is_sub_json = false);
 
-  static QuaternionTuple toQuaternion(const web::json::value &response, bool is_sub_json = false);
+  static void
+  toQuaternion(msgs::geometry_msgs::Quaternion &quaternion, const web::json::value &response, bool is_sub_json = false);
 
   static PointTuple toVector3(const web::json::value &response, bool is_sub_json = false);
 

@@ -95,10 +95,10 @@ struct callbacks
     assert((msg->point.x == .1));
     assert((msg->point.y == .2));
     assert((msg->point.z == .3));
-    assert((msg->quaternion.x == .1));
-    assert((msg->quaternion.y == .2));
-    assert((msg->quaternion.z == .3));
-    assert((msg->quaternion.w == .4));
+    assert((msg->orientation.x == .1));
+    assert((msg->orientation.y == .2));
+    assert((msg->orientation.z == .3));
+    assert((msg->orientation.w == .4));
   }
 
   static inline void pocovcallback(const std::shared_ptr<geometry_msgs::PoseWithCovariance> msg)
@@ -106,10 +106,10 @@ struct callbacks
     std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[PoseWithCov]\n";
     assert((msg->pose.point.x == .1));
     assert((msg->pose.point.z == .3));
-    assert((msg->pose.quaternion.x == .1));
-    assert((msg->pose.quaternion.y == .2));
-    assert((msg->pose.quaternion.z == .3));
-    assert((msg->pose.quaternion.w == .4));
+    assert((msg->pose.orientation.x == .1));
+    assert((msg->pose.orientation.y == .2));
+    assert((msg->pose.orientation.z == .3));
+    assert((msg->pose.orientation.w == .4));
     assert((msg->covariance == std::array<double, 36>{.1, .2, 3., .4, .5, .6,
                                                       .7, .8, .9, 1., 1.1, 1.2,
                                                       1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
@@ -124,10 +124,10 @@ struct callbacks
     assert((msg->header.frame_id == "a frame"));
     assert((msg->pose.pose.point.x == .1));
     assert((msg->pose.pose.point.z == .3));
-    assert((msg->pose.pose.quaternion.x == .1));
-    assert((msg->pose.pose.quaternion.y == .2));
-    assert((msg->pose.pose.quaternion.z == .3));
-    assert((msg->pose.pose.quaternion.w == .4));
+    assert((msg->pose.pose.orientation.x == .1));
+    assert((msg->pose.pose.orientation.y == .2));
+    assert((msg->pose.pose.orientation.z == .3));
+    assert((msg->pose.pose.orientation.w == .4));
     assert((msg->pose.covariance == std::array<double, 36>{.1, .2, 3., .4, .5, .6,
                                                       .7, .8, .9, 1., 1.1, 1.2,
                                                       1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
@@ -327,10 +327,10 @@ struct callbacks
     assert((msg->pose.point.x == .1));
     assert((msg->pose.point.y == .2));
     assert((msg->pose.point.z == .3));
-    assert((msg->pose.quaternion.x == .1));
-    assert((msg->pose.quaternion.y == .2));
-    assert((msg->pose.quaternion.z == .3));
-    assert((msg->pose.quaternion.w == .4));
+    assert((msg->pose.orientation.x == .1));
+    assert((msg->pose.orientation.y == .2));
+    assert((msg->pose.orientation.z == .3));
+    assert((msg->pose.orientation.w == .4));
   }
 
   static inline void vcallback(const std::shared_ptr<geometry_msgs::Vector3> msg)

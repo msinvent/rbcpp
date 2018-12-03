@@ -29,8 +29,7 @@ Transform::Transform(const web::json::value &response)
   std::tie(translation.x, translation.y, translation.z) =
       utils::Deserializer::toVector3(msg.at(U("translation")), true);
 
-  std::tie(rotation.x, rotation.y, rotation.z, rotation.w) =
-      utils::Deserializer::toQuaternion(msg.at(U("rotation")), true);
+  utils::Deserializer::toQuaternion(rotation, msg.at(U("rotation")), true);
 }
 
 Transform::Transform(double tx, double ty, double tz, double rx, double ry, double rz, double rw)

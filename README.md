@@ -15,8 +15,8 @@ All messages that are checked below can be used already. Examples can be found [
 
 | Type           | Messages | Subscriber Status | Publisher Status |
 |----------------|----------------|----------------|----------------|
-|**geometry_msgs**| quaternion  | <ul><li>-[x]  </li></ul> | <ul><li>- [x]  </li></ul> |
-|                 | quaternion stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|**geometry_msgs**| orientation  | <ul><li>-[x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | orientation stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | vector3  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | vector3 stamped | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | pose  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |

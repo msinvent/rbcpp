@@ -48,7 +48,7 @@ int main(void)
   auto transform_stamped_pub = rbc->addPublisher<geometry_msgs::TransformStamped>("/rosbridge/transform_stamped/");
   auto vector3_pub = rbc->addPublisher<geometry_msgs::Vector3>("/rosbridge/vector3/");
   auto vector3_stamped_pub = rbc->addPublisher<geometry_msgs::Vector3Stamped>("/rosbridge/vector3_stamped/");
-  auto quaternion_pub = rbc->addPublisher<geometry_msgs::Quaternion>("/rosbridge/quaternion/");
+  auto quaternion_pub = rbc->addPublisher<geometry_msgs::Quaternion>("/rosbridge/orientation/");
   auto quaternion_stamped_pub = rbc->addPublisher<geometry_msgs::QuaternionStamped>("/rosbridge/quaternion_stamped/");
 
 
@@ -83,7 +83,7 @@ int main(void)
   auto pose_stamped_sub = rbc->addSubscriber<geometry_msgs::PoseStamped>("/rosbridge/pose_stamped/", 100, callbacks::poscallback);
   auto vector3_sub = rbc->addSubscriber<geometry_msgs::Vector3>("/rosbridge/vector3/", 100, callbacks::vcallback);
   auto vector3_stamped_sub = rbc->addSubscriber<geometry_msgs::Vector3Stamped>("/rosbridge/vector3_stamped/", 100, callbacks::vscallback);
-  auto quaternion_sub = rbc->addSubscriber<geometry_msgs::Quaternion>("/rosbridge/quaternion/", 100, callbacks::qcallback);
+  auto quaternion_sub = rbc->addSubscriber<geometry_msgs::Quaternion>("/rosbridge/orientation/", 100, callbacks::qcallback);
   auto quaternion_stamped_sub = rbc->addSubscriber<geometry_msgs::QuaternionStamped>("/rosbridge/quaternion_stamped/", 100, callbacks::qscallback);
 
   std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,

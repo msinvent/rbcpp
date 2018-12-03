@@ -22,7 +22,7 @@ struct Pose : public ROSTypeBase
   ~Pose() final = default;
 
   Point point;
-  Quaternion quaternion;
+  Quaternion orientation;
 };
 
 } // namespace ros_bridge_client::msgs::geometry_msgs

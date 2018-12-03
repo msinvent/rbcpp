@@ -21,7 +21,7 @@ Pose2D::Pose2D(const web::json::value &response)
   : XYZMessage<double>("geometry_msgs/Pose2D"),
     theta(0)
 {
-  std::tie(x, y, theta) = utils::Deserializer::toPose2D(response, false);
+  utils::Deserializer::toPose2D(*this, response, false);
 }
 
 std::ostream &operator<<(std::ostream &os, const Pose2D &p)

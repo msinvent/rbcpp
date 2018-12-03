@@ -6,6 +6,7 @@
 #define ROSBRIDGECLIENT_INT32_H
 
 #include <ros_bridge_client/msgs/std_msgs/std_msg.h>
+#include <cpprest/json.h>
 
 namespace ros_bridge_client::msgs::std_msgs
 {
@@ -15,6 +16,8 @@ struct Int32 : public StdMsg<int32_t>
   Int32();
 
   explicit Int32(int32_t data);
+
+  explicit Int32(const web::json::value &response);
 
   ~Int32() final = default;
 };

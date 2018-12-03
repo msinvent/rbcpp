@@ -45,7 +45,7 @@ PoseWithCovariance::PoseWithCovariance(const web::json::value &response)
 
   utils::Deserializer::toQuaternion(pose.orientation, pose_msg.at(U("orientation")), true);
 
-  covariance = utils::Deserializer::toArray<double, 36>(cov_msg);
+  utils::Deserializer::toArray<double, 36>(covariance, cov_msg);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::PoseWithCovariance &p)

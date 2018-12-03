@@ -28,7 +28,7 @@ PolygonStamped::PolygonStamped(const web::json::value &response)
 
   utils::Deserializer::toPolygon(polygon, msg, true);
 
-  utils::Deserializer::toHeader(header, msg, true);
+  utils::Deserializer::toHeader(header, msg.at(U("header")), true);
 }
 
 void PolygonStamped::add(const Point32 &p32)

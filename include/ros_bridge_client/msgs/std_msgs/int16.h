@@ -6,6 +6,7 @@
 #define ROSBRIDGECLIENT_INT16_H
 
 #include <ros_bridge_client/msgs/std_msgs/std_msg.h>
+#include <cpprest/json.h>
 
 namespace ros_bridge_client::msgs::std_msgs
 {
@@ -15,6 +16,8 @@ struct Int16 : public StdMsg<int16_t>
   Int16();
 
   explicit Int16(int16_t data);
+
+  explicit Int16(const web::json::value &response);
 
   ~Int16() final = default;
 };

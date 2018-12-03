@@ -91,7 +91,7 @@ void ROSBridgeClient::send(const web::json::value &msg)
 
   // convert json to string and send
   websocket_outgoing_message m;
-  m.set_utf8_message(utils::Deserializer::convToString(msg));
+  m.set_utf8_message(utils::Deserializer::toString(msg));
 
   try
   {
@@ -99,7 +99,7 @@ void ROSBridgeClient::send(const web::json::value &msg)
   }
   catch (const std::exception &e)
   {
-    std::cerr << "Failed to send: " << utils::Deserializer::convToString(msg) << ": " << e.what() << std::endl;
+    std::cerr << "Failed to send: " << utils::Deserializer::toString(msg) << ": " << e.what() << std::endl;
   }
 }
 

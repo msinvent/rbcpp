@@ -5,17 +5,18 @@
 #include <ros_bridge_client/utils/deserializer.h>
 #include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
+#include <ros_bridge_client/msgs/geometry_msgs/pose2d.h>
 
 using namespace ros_bridge_client::utils;
 using namespace ros_bridge_client::msgs;
 
-PointTuple Deserializer::toPose2D(const web::json::value &response, bool is_sub_json)
+void Deserializer::toPose2D(ros_bridge_client::msgs::geometry_msgs::Pose2D &pose, const web::json::value &response,
+                           bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  const double &x = msg.at(U("x")).as_double();
-  const double &y = msg.at(U("y")).as_double();
-  const double &theta = msg.at(U("theta")).as_double();
-  return std::forward_as_tuple(x, y, theta);
+  pose.x = msg.at(U("x")).as_double();
+  pose.y = msg.at(U("y")).as_double();
+  pose.theta = msg.at(U("theta")).as_double();
 }
 
 void Deserializer::toHeader(ros_bridge_client::msgs::std_msgs::Header &header, const web::json::value &response,
@@ -67,17 +68,22 @@ void Deserializer::toString(std::string &str, const web::json::value &response, 
   str = msg.at(U("data")).as_string();
 }
 
-const std::string Deserializer::convToString(const web::json::value &json)
+std::string Deserializer::toString(const web::json::value &json)
 {
   utility::stringstream_t stream;
   json.serialize(stream);
   return stream.str();
 }
 
-void Deserializer::toPolygon(msgs::geometry_msgs::Polygon &polygon, const web::json::value &response, bool is_sub_json)
+void Deserializer::toPolygon(geometry_msgs::Polygon &polygon, const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  const auto &json_arr = msg.at(U("points")).as_array();
+  const auto &points_json = msg.at(U("points"));
+
+  auto &points = polygon.points;
+  const auto &json_arr = points_json.as_array();
+  auto arr_size = std::distance(json_arr.cbegin(), json_arr.cend());
+  points.reserve(arr_size);
 
   auto it = json_arr.cbegin();
   std::generate(std::begin(polygon.points), std::end(polygon.points), [&]
@@ -87,4 +93,3 @@ void Deserializer::toPolygon(msgs::geometry_msgs::Polygon &polygon, const web::j
       return p;
   });
 }
-

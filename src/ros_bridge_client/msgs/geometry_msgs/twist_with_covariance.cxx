@@ -45,7 +45,7 @@ TwistWithCovariance::TwistWithCovariance(const web::json::value &response)
 
   utils::Deserializer::toXYZ<double>(twist.angular, twist_msg.at(U("angular")), true);
 
-  covariance = utils::Deserializer::toArray<double, 36>(cov_msg);
+  utils::Deserializer::toArray<double, 36>(covariance, cov_msg);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::TwistWithCovariance &t)

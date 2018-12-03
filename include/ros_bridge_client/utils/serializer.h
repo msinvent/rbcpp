@@ -138,7 +138,7 @@ template<typename T>
 web::json::value &Serializer::toJson(const msgs::std_msgs::StdMsg<T> &msg, bool sub_json)
 {
   static web::json::value json_msg;
-  
+
   json_msg[U("data")] = web::json::value(msg.data);
 
   return not sub_json ? completeJson(msg, json_msg) : json_msg;

@@ -47,8 +47,7 @@ PoseWithCovarianceStamped::PoseWithCovarianceStamped(const web::json::value &res
     const auto &cov_msg = pose_base_msg.at(U("covariance"));
     const auto &header_msg = msg.at(U("header"));
 
-    std::tie(pose.pose.point.x, pose.pose.point.y, pose.pose.point.z) =
-        utils::Deserializer::toPoint(pose_msg.at(U("position")), true);
+    utils::Deserializer::toXYZ<double>(pose.pose.point, pose_msg.at(U("position")), true);
 
     utils::Deserializer::toQuaternion(pose.pose.orientation, pose_msg.at(U("orientation")), true);
 

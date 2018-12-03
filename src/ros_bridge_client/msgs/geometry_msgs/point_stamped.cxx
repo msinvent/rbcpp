@@ -21,8 +21,7 @@ PointStamped::PointStamped(const web::json::value &response)
 {
   utils::Deserializer::toHeader(header, response.at(U("msg")).at(U("header")), true);
 
-  std::tie(point.x, point.y, point.z) =
-      utils::Deserializer::toPoint(response.at(U("msg")).at(U("point")), true);
+  utils::Deserializer::toXYZ<double>(point, response.at(U("msg")).at(U("point")), true);
 }
 
 PointStamped::PointStamped()

@@ -30,8 +30,7 @@ Pose::Pose(const web::json::value &response)
     point(),
     orientation()
 {
-  std::tie(point.x, point.y, point.z) =
-      utils::Deserializer::toPoint(response.at(U("msg")).at(U("position")), true);
+  utils::Deserializer::toXYZ<double>(point, response.at(U("msg")).at(U("position")), true);
 
   utils::Deserializer::toQuaternion(orientation, response.at(U("msg")).at(U("orientation")), true);
 }

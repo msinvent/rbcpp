@@ -23,8 +23,7 @@ TransformStamped::TransformStamped(const web::json::value &response)
 
   utils::Deserializer::toHeader(header, msg.at(U("header")), true);
 
-  std::tie(transform.translation.x, transform.translation.y, transform.translation.z) =
-      utils::Deserializer::toVector3(transform_msg.at(U("translation")), true);
+  utils::Deserializer::toXYZ<double>(transform.translation, transform_msg.at(U("translation")), true);
 
   utils::Deserializer::toQuaternion(transform.rotation, transform_msg.at(U("rotation")), true);
 }

@@ -41,8 +41,7 @@ PoseWithCovariance::PoseWithCovariance(const web::json::value &response)
   const auto &pose_msg = msg.at(U("pose"));
   const auto &cov_msg = msg.at(U("covariance"));
 
-  std::tie(pose.point.x, pose.point.y, pose.point.z) =
-      utils::Deserializer::toPoint(pose_msg.at(U("position")), true);
+  utils::Deserializer::toXYZ<double>(pose.point, pose_msg.at(U("position")), true);
 
   utils::Deserializer::toQuaternion(pose.orientation, pose_msg.at(U("orientation")), true);
 

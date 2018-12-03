@@ -18,7 +18,7 @@ Point::Point(double x, double y, double z)
 Point::Point(const web::json::value &response)
   : XYZMessage<double>("geometry_msgs/Point")
 {
-  std::tie(x, y, z) = utils::Deserializer::toPoint(response, false);
+  utils::Deserializer::toXYZ<double>(*this, response, false);
 }
 
 std::ostream &operator<<(std::ostream &os, const Point &p)

@@ -41,11 +41,9 @@ TwistWithCovariance::TwistWithCovariance(const web::json::value &response)
   const auto &twist_msg = msg.at(U("twist"));
   const auto &cov_msg = msg.at(U("covariance"));
 
-  std::tie(twist.linear.x, twist.linear.y, twist.linear.z) =
-      utils::Deserializer::toVector3(twist_msg.at(U("linear")), true);
+  utils::Deserializer::toXYZ<double>(twist.linear, twist_msg.at(U("linear")), true);
 
-  std::tie(twist.angular.x, twist.angular.y, twist.angular.z) =
-      utils::Deserializer::toVector3(twist_msg.at(U("angular")), true);
+  utils::Deserializer::toXYZ<double>(twist.angular, twist_msg.at(U("angular")), true);
 
   covariance = utils::Deserializer::toArray<double, 36>(cov_msg);
 }

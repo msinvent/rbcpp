@@ -32,11 +32,9 @@ Accel::Accel(const web::json::value &response, std::string ros_msg_type)
 {
   const auto &msg = response.at(U("msg"));
 
-  std::tie(linear.x, linear.y, linear.z) =
-      utils::Deserializer::toVector3(msg.at(U("linear")), true);
+  utils::Deserializer::toXYZ<double>(linear, msg.at(U("linear")), true);
 
-  std::tie(angular.x, angular.y, angular.z) =
-      utils::Deserializer::toVector3(msg.at(U("angular")), true);
+  utils::Deserializer::toXYZ<double>(angular, msg.at(U("angular")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Accel &p)

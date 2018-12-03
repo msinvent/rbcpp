@@ -44,9 +44,6 @@ InertiaStamped::InertiaStamped(const web::json::value &response)
   utils::Deserializer::toHeader(header, msg.at(U("header")), true);
 
   utils::Deserializer::toInertia(inertia, inertia_msg, true);
-
-  std::tie(inertia.com.x, inertia.com.y, inertia.com.z) =
-      utils::Deserializer::toVector3(inertia_msg.at(U("com")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::InertiaStamped &is)

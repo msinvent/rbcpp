@@ -26,8 +26,7 @@ Transform::Transform(const web::json::value &response)
 {
   const auto &msg = response.at(U("msg"));
 
-  std::tie(translation.x, translation.y, translation.z) =
-      utils::Deserializer::toVector3(msg.at(U("translation")), true);
+  utils::Deserializer::toXYZ<double>(translation, msg.at(U("translation")), true);
 
   utils::Deserializer::toQuaternion(rotation, msg.at(U("rotation")), true);
 }

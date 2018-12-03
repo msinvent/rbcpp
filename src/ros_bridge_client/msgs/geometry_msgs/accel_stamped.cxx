@@ -43,11 +43,9 @@ AccelStamped::AccelStamped(const web::json::value &response, std::string ros_msg
 
   utils::Deserializer::toHeader(header, msg.at(U("header")), true);
 
-  std::tie(accel.linear.x, accel.linear.y, accel.linear.z) =
-      utils::Deserializer::toVector3(accel_msg.at(U("linear")), true);
+  utils::Deserializer::toXYZ<double>(accel.linear, accel_msg.at(U("linear")), true);
 
-  std::tie(accel.angular.x, accel.angular.y, accel.angular.z) =
-      utils::Deserializer::toVector3(accel_msg.at(U("angular")), true);
+  utils::Deserializer::toXYZ<double>(accel.angular, accel_msg.at(U("angular")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const AccelStamped &p)

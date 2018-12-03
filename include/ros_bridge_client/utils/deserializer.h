@@ -11,6 +11,8 @@
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
+#include <ros_bridge_client/msgs/xyzmessage.h>
+#include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point32.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
 #include <ros_bridge_client/msgs/geometry_msgs/polygon.h>
@@ -30,6 +32,9 @@ using HeaderTuple = std::tuple<double, double, double, std::string>;
 
 struct Deserializer
 {
+  template <typename T>
+  static void toXYZ(msgs::XYZMessage<T> &xyz, const web::json::value &response, bool is_sub_json = false);
+
   static const std::string convToString(const web::json::value &json);
 
   static void toString(std::string &str, const web::json::value &response, bool is_sub_json = false);
@@ -50,21 +55,24 @@ struct Deserializer
 
   static void toColor(msgs::std_msgs::ColorRGBA &color, const web::json::value &response, bool is_sub_json = false);
 
-  static PointTuple toPoint(const web::json::value &response, bool is_sub_json = false);
-  
   static PointTuple toPose2D(const web::json::value &response, bool is_sub_json = false);
 
   static void toInertia(msgs::geometry_msgs::Inertia &inertia, const web::json::value &response, bool is_sub_json = false);
 
-  static Point32Tuple toPoint32(const web::json::value &response, bool is_sub_json = false);
-
   static void
   toQuaternion(msgs::geometry_msgs::Quaternion &quaternion, const web::json::value &response, bool is_sub_json = false);
 
-  static PointTuple toVector3(const web::json::value &response, bool is_sub_json = false);
-
   static void toHeader(msgs::std_msgs::Header &header, const web::json::value &response, bool is_sub_json = false);
 };
+
+template<typename T>
+void Deserializer::toXYZ(msgs::XYZMessage<T> &xyz, const web::json::value &response, bool is_sub_json)
+{
+  const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
+  xyz.x = static_cast<T>(msg.at(U("x")).as_double());
+  xyz.y = static_cast<T>(msg.at(U("y")).as_double());
+  xyz.z = static_cast<T>(msg.at(U("z")).as_double());
+}
 
 template <typename T>
 T Deserializer::toStdMsg(const web::json::value &response, bool is_sub_json)

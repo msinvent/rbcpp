@@ -41,8 +41,10 @@ Inertia::Inertia(const web::json::value &response)
     com(0, 0, 0)
 {
   const auto &msg = response.at(U("msg"));
+
   utils::Deserializer::toInertia(*this, msg, true);
-  std::tie(com.x, com.y, com.z) = utils::Deserializer::toVector3(msg.at(U("com")), true);
+
+  utils::Deserializer::toXYZ<double>(com, msg.at(U("com")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Inertia &i)

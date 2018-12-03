@@ -9,15 +9,6 @@
 using namespace ros_bridge_client::utils;
 using namespace ros_bridge_client::msgs;
 
-PointTuple Deserializer::toPoint(const web::json::value &response, bool is_sub_json)
-{
-  const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  const double &x = msg.at(U("x")).as_double();
-  const double &y = msg.at(U("y")).as_double();
-  const double &z = msg.at(U("z")).as_double();
-  return std::forward_as_tuple(x, y, z);
-}
-
 PointTuple Deserializer::toPose2D(const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
@@ -25,15 +16,6 @@ PointTuple Deserializer::toPose2D(const web::json::value &response, bool is_sub_
   const double &y = msg.at(U("y")).as_double();
   const double &theta = msg.at(U("theta")).as_double();
   return std::forward_as_tuple(x, y, theta);
-}
-
-Point32Tuple Deserializer::toPoint32(const web::json::value &response, bool is_sub_json)
-{
-  const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  const double &x = static_cast<float>(msg.at(U("x")).as_double());
-  const double &y = static_cast<float>(msg.at(U("y")).as_double());
-  const double &z = static_cast<float>(msg.at(U("z")).as_double());
-  return std::forward_as_tuple(x, y, z);
 }
 
 void Deserializer::toHeader(ros_bridge_client::msgs::std_msgs::Header &header, const web::json::value &response,
@@ -44,11 +26,6 @@ void Deserializer::toHeader(ros_bridge_client::msgs::std_msgs::Header &header, c
   header.stamp.sec = msg.at(U("stamp")).at(U("secs")).as_double();
   header.stamp.nsec = msg.at(U("stamp")).at(U("nsecs")).as_double();
   header.frame_id = msg.at(U("frame_id")).as_string();
-}
-
-PointTuple Deserializer::toVector3(const web::json::value &response, bool is_sub_json)
-{
-  return toPoint(response, is_sub_json);
 }
 
 void Deserializer::toQuaternion(msgs::geometry_msgs::Quaternion &quaternion, const web::json::value &response,
@@ -108,8 +85,9 @@ std::vector<geometry_msgs::Point32> &Deserializer::toPolygon(const web::json::va
   auto it = json_arr.cbegin();
   std::generate(std::begin(points), std::end(points), [&]
   {
-      auto[x, y, z] = Deserializer::toPoint32(*it++);
-      return geometry_msgs::Point32(x, y, z);
+      geometry_msgs::Point32 p;
+      Deserializer::toXYZ<float>(p, *it++);
+      return p;
   });
 
   return points;

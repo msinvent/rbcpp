@@ -34,11 +34,9 @@ Wrench::Wrench(const web::json::value &response)
 {
   const auto &msg = response.at(U("msg"));
 
-  std::tie(force.x, force.y, force.z) =
-      utils::Deserializer::toVector3(msg.at(U("force")), true);
+  utils::Deserializer::toXYZ<double>(force, msg.at(U("force")), true);
 
-  std::tie(torque.x, torque.y, torque.z) =
-      utils::Deserializer::toVector3(msg.at(U("torque")), true);
+  utils::Deserializer::toXYZ<double>(torque, msg.at(U("torque")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Wrench &w)

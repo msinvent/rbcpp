@@ -6,6 +6,7 @@
 #include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose2d.h>
+#include <thread>
 
 using namespace ros_bridge_client::utils;
 using namespace ros_bridge_client::msgs;

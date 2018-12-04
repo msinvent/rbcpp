@@ -5,14 +5,12 @@ using namespace ros_bridge_client;
 using namespace ros_bridge_client::msgs;
 using namespace test;
 
-std::atomic<size_t> callbacks::messages_received = 0;
-size_t callbacks::num_publishers = 0;
-
 int main(void)
 {
   size_t messages = 0;
   auto& config = config_parser::ConfigParser::init("config.json");
   std::chrono::milliseconds pause(config.pause());
+  callbacks::init();
   callbacks::messages_received = 0;
   callbacks::num_publishers = config.publishers();
   auto rbc = ROSBridgeClient::init(config.host());
@@ -65,7 +63,7 @@ int main(void)
   auto f32_sub = rbc->addSubscriber<std_msgs::Float32>("/rosbridge/float32/", 100, callbacks::f32callback);
   auto f64_sub = rbc->addSubscriber<std_msgs::Float64>("/rosbridge/float64/", 100, callbacks::f64callback);
   auto int8_sub = rbc->addSubscriber<std_msgs::Int8>("/rosbridge/int8/", 100, callbacks::int8callback);
-  auto int16_sub = rbc->addSubscriber<std_msgs::Int16>("/rosbridge/int18/", 100, callbacks::int16callback);
+  auto int16_sub = rbc->addSubscriber<std_msgs::Int16>("/rosbridge/int16/", 100, callbacks::int16callback);
   auto int32_sub = rbc->addSubscriber<std_msgs::Int32>("/rosbridge/int32/", 100, callbacks::int32callback);
   auto int64_sub = rbc->addSubscriber<std_msgs::Int64>("/rosbridge/int64/", 100, callbacks::int64callback);
   auto uint8_sub = rbc->addSubscriber<std_msgs::UInt8>("/rosbridge/uint8/", 100, callbacks::uint8callback);
@@ -121,29 +119,29 @@ int main(void)
     std_msgs::ColorRGBA c(.1, .2, .3, .4);
     color_pub->publish(c);
 
-//    std_msgs::Int8 i8(1);
-//    int8_pub->publish(i8);
-//
-//    std_msgs::Int16 i16(1);
-//    int16_pub->publish(i16);
-//
-//    std_msgs::Int32 i32(1);
-//    int32_pub->publish(i32);
-//
-//    std_msgs::Int64 i64(1);
-//    int64_pub->publish(i64);
-//
-//    std_msgs::UInt8 ui8(1);
-//    uint8_pub->publish(ui8);
-//
-//    std_msgs::UInt16 ui16(1);
-//    uint16_pub->publish(ui16);
-//
-//    std_msgs::UInt32 ui32(1);
-//    uint32_pub->publish(ui32);
-//
-//    std_msgs::UInt64 ui64(1);
-//    uint64_pub->publish(ui64);
+    std_msgs::Int8 i8(1);
+    int8_pub->publish(i8);
+
+    std_msgs::Int16 i16(1);
+    int16_pub->publish(i16);
+
+    std_msgs::Int32 i32(1);
+    int32_pub->publish(i32);
+
+    std_msgs::Int64 i64(1);
+    int64_pub->publish(i64);
+
+    std_msgs::UInt8 ui8(1);
+    uint8_pub->publish(ui8);
+
+    std_msgs::UInt16 ui16(1);
+    uint16_pub->publish(ui16);
+
+    std_msgs::UInt32 ui32(1);
+    uint32_pub->publish(ui32);
+
+    std_msgs::UInt64 ui64(1);
+    uint64_pub->publish(ui64);
 
     std_msgs::Float32 f32(.1);
     float32_pub->publish(f32);
@@ -246,7 +244,12 @@ int main(void)
 
   if (callbacks::messages_received != callbacks::num_publishers*10)
   {
+    callbacks::results();
     throw test::TestException();
+  }
+  else
+  {
+    std::cout << "Success: all messages received\n";
   }
 
   return 0;

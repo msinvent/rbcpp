@@ -87,7 +87,7 @@ web::json::value &Serializer::toJson(const geometry_msgs::QuaternionStamped &qua
   static json::value quaternion_stamped_json;
 
   quaternion_stamped_json[U("header")] = toJson(quaternion_stamped.header, true);
-  quaternion_stamped_json[U("orientation")] = toJson(quaternion_stamped.quaternion, true);
+  quaternion_stamped_json[U("quaternion")] = toJson(quaternion_stamped.quaternion, true);
 
   return not sub_json ? completeJson(quaternion_stamped, quaternion_stamped_json) : quaternion_stamped_json;
 }

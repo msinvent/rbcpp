@@ -35,6 +35,9 @@ void Polygon::add(const Point32 &p32)
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Polygon &p)
 {
   os << "\nPolygon";
+  if (p.points.empty())
+    return os << "\n\t<empty>\n";
+
   for (const auto &po: p.points)
   {
     os << "\n\t-";
@@ -42,7 +45,7 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
     os << "\n\t" << po.y;
     os << "\n\t" << po.z;
   }
-  return os;
+  return os << "\n";
 }
 
 std::ostream &operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::Polygon> &p)

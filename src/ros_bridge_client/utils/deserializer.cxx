@@ -81,13 +81,13 @@ void Deserializer::toPolygon(geometry_msgs::Polygon &polygon, const web::json::v
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
   const auto &points_json = msg.at(U("points"));
 
-  auto &points = polygon.points;
   const auto &json_arr = points_json.as_array();
   auto arr_size = std::distance(json_arr.cbegin(), json_arr.cend());
-  points.reserve(arr_size);
+  polygon.points.reserve(arr_size);
+  std::fill(polygon.points.begin(), polygon.points.end(), geometry_msgs::Point32());
 
   auto it = json_arr.cbegin();
-  std::generate(std::begin(polygon.points), std::end(polygon.points), [&]
+  std::generate(polygon.points.begin(), polygon.points.end(), [&]
   {
       geometry_msgs::Point32 p;
       Deserializer::toXYZ<float>(p, *it++);

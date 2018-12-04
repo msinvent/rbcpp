@@ -25,7 +25,7 @@ PolygonStamped::PolygonStamped(const web::json::value &response)
       header()
 {
   const auto &msg = response.at(U("msg"));
-  utils::Deserializer::toPolygon(polygon, msg, true);
+  utils::Deserializer::toPolygon(polygon, msg.at(U("polygon")), true);
   utils::Deserializer::toHeader(header, msg.at(U("header")), true);
 }
 

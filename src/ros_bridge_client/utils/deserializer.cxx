@@ -6,6 +6,7 @@
 #include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose2d.h>
+#include <thread>
 
 using namespace ros_bridge_client::utils;
 using namespace ros_bridge_client::msgs;
@@ -78,7 +79,7 @@ std::string Deserializer::toString(const web::json::value &json)
 void Deserializer::toPolygon(geometry_msgs::Polygon &polygon, const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  const auto &points_json = msg.at(U("polygon")).at(U("points"));
+  const auto &points_json = msg.at(U("points"));
 
   auto& points = polygon.points;
   const auto &json_arr = points_json.as_array();

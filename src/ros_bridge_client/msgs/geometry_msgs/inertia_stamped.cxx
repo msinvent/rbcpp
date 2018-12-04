@@ -44,6 +44,8 @@ InertiaStamped::InertiaStamped(const web::json::value &response)
   utils::Deserializer::toHeader(header, msg.at(U("header")), true);
 
   utils::Deserializer::toInertia(inertia, inertia_msg, true);
+
+  utils::Deserializer::toXYZ<double>(inertia.com, inertia_msg.at(U("com")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::InertiaStamped &is)
@@ -58,5 +60,5 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
 std::ostream &
 operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::InertiaStamped> &is)
 {
-  return os << is.get();
+  return os << *is.get();
 }

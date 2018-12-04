@@ -41,5 +41,5 @@ std::ostream &operator<<(std::ostream &os, const QuaternionStamped &q)
 
 std::ostream &operator<<(std::ostream &os, const std::shared_ptr<QuaternionStamped> &q)
 {
-  return os << q.get();
+  return os << *q.get();
 }

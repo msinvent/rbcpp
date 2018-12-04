@@ -51,5 +51,5 @@ std::ostream &operator<<(std::ostream &os, const PoseStamped &p)
 
 std::ostream &operator<<(std::ostream &os, const std::shared_ptr<PoseStamped> &p)
 {
-  return os << p.get();
+  return os << *p.get();
 }

@@ -33,5 +33,5 @@ std::ostream& operator <<(std::ostream &os, const Quaternion &q)
 
 std::ostream& operator<<(std::ostream &os, const std::shared_ptr<Quaternion> &q)
 {
-  return os << q.get();
+  return os << *q.get();
 }

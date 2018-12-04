@@ -49,6 +49,6 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
 
 std::ostream & operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::Wrench> &w)
 {
-  return os << w.get();
+  return os << *w.get();
 }
 

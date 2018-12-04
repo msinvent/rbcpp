@@ -35,3 +35,17 @@ void PolygonStamped::add(const Point32 &p32)
 {
   polygon.add(p32);
 }
+
+std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::PolygonStamped &p)
+{
+  os << "\nPolygon Stamped";
+  os << p.header;
+  os << p.polygon;
+  return os;
+}
+
+std::ostream &
+operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::PolygonStamped> &p)
+{
+  return os << *p.get();
+}

@@ -35,5 +35,5 @@ std::ostream &operator<<(std::ostream &os, const Pose2D &p)
 
 std::ostream &operator<<(std::ostream &os, const std::shared_ptr<Pose2D> &p)
 {
-  return os << p.get();
+  return os << *p.get();
 }

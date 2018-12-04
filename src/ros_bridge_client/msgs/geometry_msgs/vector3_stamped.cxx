@@ -40,5 +40,5 @@ std::ostream &operator<<(std::ostream &os, const Vector3Stamped &p)
 
 std::ostream &operator<<(std::ostream &os, const std::shared_ptr<Vector3Stamped> &p)
 {
-  return os << p.get();
+  return os << *p.get();
 }

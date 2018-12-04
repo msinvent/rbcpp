@@ -57,5 +57,5 @@ std::ostream &operator<<(std::ostream &os, const WrenchStamped &ws)
 
 std::ostream &operator<<(std::ostream &os, const std::shared_ptr<WrenchStamped> &ws)
 {
-  return os << ws.get();
+  return os << *ws.get();
 }

@@ -47,5 +47,5 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
 std::ostream &
 operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::Pose> &p)
 {
-  return os << p.get();
+  return os << *p.get();
 }

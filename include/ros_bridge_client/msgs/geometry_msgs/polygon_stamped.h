@@ -30,4 +30,9 @@ struct PolygonStamped : public ROSTypeBase
 
 } // namespace ros_bridge_client::msgs::geometry_msgs
 
+std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::PolygonStamped &p);
+
+std::ostream &
+operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::PolygonStamped> &p);
+
 #endif //ROSBRIDGECLIENT_POLYGON_STAMPED_H

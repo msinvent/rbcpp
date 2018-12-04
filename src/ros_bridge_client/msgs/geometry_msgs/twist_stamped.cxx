@@ -57,5 +57,5 @@ std::ostream &operator<<(std::ostream &os, const TwistStamped &p)
 
 std::ostream &operator<<(std::ostream &os, const std::shared_ptr<TwistStamped> &p)
 {
-  return os << p.get();
+  return os << *p.get();
 }

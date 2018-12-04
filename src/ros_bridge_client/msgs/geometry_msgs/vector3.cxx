@@ -36,5 +36,5 @@ std::ostream &operator<<(std::ostream &os, const Vector3 &v)
 
 std::ostream &operator<<(std::ostream &os, const std::shared_ptr<Vector3> &v)
 {
-  return os << v.get();
+  return os << *v.get();
 }

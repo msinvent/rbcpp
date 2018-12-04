@@ -43,6 +43,14 @@
 #include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance_stamped.h>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/std_msgs/string.h>
+#include <ros_bridge_client/msgs/std_msgs/int8.h>
+#include <ros_bridge_client/msgs/std_msgs/int16.h>
+#include <ros_bridge_client/msgs/std_msgs/int32.h>
+#include <ros_bridge_client/msgs/std_msgs/int64.h>
+#include <ros_bridge_client/msgs/std_msgs/uint8.h>
+#include <ros_bridge_client/msgs/std_msgs/uint16.h>
+#include <ros_bridge_client/msgs/std_msgs/uint32.h>
+#include <ros_bridge_client/msgs/std_msgs/uint64.h>
 #include <ros_bridge_client/msgs/std_msgs/float32.h>
 #include <ros_bridge_client/msgs/std_msgs/float64.h>
 #include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
@@ -87,6 +95,54 @@ struct callbacks
   {
     std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[Float64]\n";
     assert((msg->data == .1));
+  }
+
+  static inline void int8callback(const std::shared_ptr<std_msgs::Int8> msg)
+  {
+    std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[Int8]\n";
+    assert((msg->data == 1));
+  }
+
+  static inline void int16callback(const std::shared_ptr<std_msgs::Int16> msg)
+  {
+    std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[Int16]\n";
+    assert((msg->data == 1));
+  }
+
+  static inline void int32callback(const std::shared_ptr<std_msgs::Int32> msg)
+  {
+    std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[Int32]\n";
+    assert((msg->data == 1));
+  }
+
+  static inline void int64callback(const std::shared_ptr<std_msgs::Int64> msg)
+  {
+    std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[Int64]\n";
+    assert((msg->data == 1));
+  }
+
+  static inline void uint8callback(const std::shared_ptr<std_msgs::UInt8> msg)
+  {
+    std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[UInt8]\n";
+    assert((msg->data == 1));
+  }
+
+  static inline void uint16callback(const std::shared_ptr<std_msgs::UInt16> msg)
+  {
+    std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[Int16]\n";
+    assert((msg->data == 1));
+  }
+
+  static inline void uint32callback(const std::shared_ptr<std_msgs::UInt32> msg)
+  {
+    std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[UInt32]\n";
+    assert((msg->data == 1));
+  }
+
+  static inline void uint64callback(const std::shared_ptr<std_msgs::UInt64> msg)
+  {
+    std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[UInt64]\n";
+    assert((msg->data == 1));
   }
 
   static inline void pocallback(const std::shared_ptr<geometry_msgs::Pose> msg)

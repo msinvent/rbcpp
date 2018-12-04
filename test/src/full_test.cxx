@@ -21,6 +21,14 @@ int main(void)
   auto string_pub = rbc->addPublisher<std_msgs::String>("/rosbridge/string/");
   auto float32_pub = rbc->addPublisher<std_msgs::Float32>("/rosbridge/float32/");
   auto float64_pub = rbc->addPublisher<std_msgs::Float64>("/rosbridge/float64/");
+  auto int8_pub = rbc->addPublisher<std_msgs::Int8>("/rosbridge/int8/");
+  auto int16_pub = rbc->addPublisher<std_msgs::Int16>("/rosbridge/int16/");
+  auto int32_pub = rbc->addPublisher<std_msgs::Int32>("/rosbridge/int32/");
+  auto int64_pub = rbc->addPublisher<std_msgs::Int64>("/rosbridge/int64/");
+  auto uint8_pub = rbc->addPublisher<std_msgs::UInt8>("/rosbridge/uint8/");
+  auto uint16_pub = rbc->addPublisher<std_msgs::UInt16>("/rosbridge/uint16/");
+  auto uint32_pub = rbc->addPublisher<std_msgs::UInt32>("/rosbridge/uint32/");
+  auto uint64_pub = rbc->addPublisher<std_msgs::UInt64>("/rosbridge/uint64/");
   auto color_pub = rbc->addPublisher<std_msgs::ColorRGBA>("/rosbridge/color/");
   auto point_pub = rbc->addPublisher<geometry_msgs::Point>("/rosbridge/point/");
   auto accel_pub = rbc->addPublisher<geometry_msgs::Accel>("/rosbridge/accel/");
@@ -56,6 +64,14 @@ int main(void)
   auto string_sub = rbc->addSubscriber<std_msgs::String>("/rosbridge/string/", 100, callbacks::scallback);
   auto f32_sub = rbc->addSubscriber<std_msgs::Float32>("/rosbridge/float32/", 100, callbacks::f32callback);
   auto f64_sub = rbc->addSubscriber<std_msgs::Float64>("/rosbridge/float64/", 100, callbacks::f64callback);
+  auto int8_sub = rbc->addSubscriber<std_msgs::Int8>("/rosbridge/int8/", 100, callbacks::int8callback);
+  auto int16_sub = rbc->addSubscriber<std_msgs::Int16>("/rosbridge/int18/", 100, callbacks::int16callback);
+  auto int32_sub = rbc->addSubscriber<std_msgs::Int32>("/rosbridge/int32/", 100, callbacks::int32callback);
+  auto int64_sub = rbc->addSubscriber<std_msgs::Int64>("/rosbridge/int64/", 100, callbacks::int64callback);
+  auto uint8_sub = rbc->addSubscriber<std_msgs::UInt8>("/rosbridge/uint8/", 100, callbacks::uint8callback);
+  auto uint16_sub = rbc->addSubscriber<std_msgs::UInt16>("/rosbridge/uint16/", 100, callbacks::uint16callback);
+  auto uint32_sub = rbc->addSubscriber<std_msgs::UInt32>("/rosbridge/uint32/", 100, callbacks::uint32callback);
+  auto uint64_sub = rbc->addSubscriber<std_msgs::UInt64>("/rosbridge/uint64/", 100, callbacks::uint64callback);
   auto color_sub = rbc->addSubscriber<std_msgs::ColorRGBA>("/rosbridge/color/", 100, callbacks::ccallback);
   auto point_sub = rbc->addSubscriber<geometry_msgs::Point>("/rosbridge/point/", 100, callbacks::pcallback);
   auto accel_sub = rbc->addSubscriber<geometry_msgs::Accel>("/rosbridge/accel/", 100, callbacks::acallback);
@@ -104,6 +120,30 @@ int main(void)
 
     std_msgs::ColorRGBA c(.1, .2, .3, .4);
     color_pub->publish(c);
+
+//    std_msgs::Int8 i8(1);
+//    int8_pub->publish(i8);
+//
+//    std_msgs::Int16 i16(1);
+//    int16_pub->publish(i16);
+//
+//    std_msgs::Int32 i32(1);
+//    int32_pub->publish(i32);
+//
+//    std_msgs::Int64 i64(1);
+//    int64_pub->publish(i64);
+//
+//    std_msgs::UInt8 ui8(1);
+//    uint8_pub->publish(ui8);
+//
+//    std_msgs::UInt16 ui16(1);
+//    uint16_pub->publish(ui16);
+//
+//    std_msgs::UInt32 ui32(1);
+//    uint32_pub->publish(ui32);
+//
+//    std_msgs::UInt64 ui64(1);
+//    uint64_pub->publish(ui64);
 
     std_msgs::Float32 f32(.1);
     float32_pub->publish(f32);

@@ -8,7 +8,7 @@ target_include_directories(full_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_compile_options(full_test PRIVATE -Wall -Wextra -Wpedantic)
 target_link_libraries(full_test PRIVATE librbc config_parser)
 
-add_executable(messages_test src/messages_test.cpp)
+add_executable(messages_test src/messages_test.cxx)
 target_include_directories(messages_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 target_compile_options(messages_test PRIVATE -Wall -Wextra -Wpedantic)
 target_link_libraries(messages_test PRIVATE librbc csv_reader)

@@ -33,6 +33,7 @@ test::PolygonTest polygon_test(dataframe);
 test::PolygonStampedTest polygon_stamped_test(dataframe);
 test::TransformTest transform_test(dataframe);
 test::Pose2DTest pose2d_test(dataframe);
+test::PoseArrayTest pose_array_test(dataframe);
 test::PoseWithCovarianceTest pose_with_cov_test(dataframe);
 test::PoseWithCovarianceStampedTest pose_with_cov_stamp_test(dataframe);
 test::PoseStampedTest pose_stamped_test(dataframe);
@@ -215,6 +216,12 @@ TEST_CASE("Pose test", "[pose_test]")
     q.w = 1.0;
     REQUIRE(pose_test.getMessage(p, q) == pose_test.test2);
   }
+}
+
+TEST_CASE("PoseArray test", "[pose_array_test]")
+{
+  REQUIRE(pose_array_test.getMessage() == pose_array_test.test1);
+  REQUIRE(pose_array_test.getMessage("test_frame") == pose_array_test.test2);
 }
 
 TEST_CASE("Pose With Covariance test", "[pose_with_cov_test]")

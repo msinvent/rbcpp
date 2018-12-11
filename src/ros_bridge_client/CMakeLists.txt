@@ -14,6 +14,7 @@ target_sources(librbc
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/inertia.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/polygon.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/transform.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose_array.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/quaternion.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose_stamped.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/point_stamped.cxx"

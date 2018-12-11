@@ -26,6 +26,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
 #include <ros_bridge_client/msgs/geometry_msgs/polygon.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
+#include <ros_bridge_client/msgs/geometry_msgs/pose_array.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/wrench_stamped.h>

@@ -32,7 +32,7 @@ struct Deserializer
   static void toStdMsg(msgs::std_msgs::StdMsg<T> &std, const web::json::value &response, bool is_sub_json = false);
 
   template<typename T>
-  static void toArray(std::vector<T> &vec, const web::json::value &response);
+  static void toVector(std::vector<T> &vec, const web::json::value &response, std::string key = "arr");
 
   template<typename T, unsigned int N>
   static void toArray(std::array<T, N> &array, const web::json::value &response);
@@ -73,9 +73,9 @@ void Deserializer::toStdMsg(msgs::std_msgs::StdMsg<T> &std, const web::json::val
 }
 
 template<typename T>
-void Deserializer::toArray(std::vector<T> &vec, const web::json::value &response)
+void Deserializer::toVector(std::vector<T> &vec, const web::json::value &response, std::string key)
 {
-  const auto &msg = response.at(U("arr")).as_array();
+  const auto &msg = response.at(U(key)).as_array();
   std::vector<web::json::value> json_vec(msg.cbegin(), msg.cend());
   for (const auto &val: json_vec)
   {

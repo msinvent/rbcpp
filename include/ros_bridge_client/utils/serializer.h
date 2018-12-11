@@ -21,6 +21,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/polygon.h>
 #include <ros_bridge_client/msgs/geometry_msgs/transform.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
+#include <ros_bridge_client/msgs/geometry_msgs/pose_array.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/twist_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
@@ -65,6 +66,8 @@ public:
   web::json::value &toJson(const msgs::geometry_msgs::PointStamped &point_stamped, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::Pose &pose, bool sub_json = false);
+
+  web::json::value &toJson(const msgs::geometry_msgs::PoseArray &pose_arr, bool sub_json = false);
 
   web::json::value &toJson(const msgs::geometry_msgs::Polygon &polygon, bool sub_json = false);
 
@@ -120,7 +123,8 @@ private:
   template <typename T, unsigned int N>
   std::vector<web::json::value> &toJsonArray(const std::array<T, N> &data);
 
-  std::vector<web::json::value> &toJson(const std::vector<msgs::geometry_msgs::Point32> &vec);
+  template <typename T>
+  std::vector<web::json::value> &toJson(const std::vector<T> &vec);
 };
 
 template<typename T>
@@ -154,6 +158,21 @@ std::vector<web::json::value> &Serializer::toJsonArray(const std::array<T, N> &d
   for (const auto& num: data)
   {
     array.push_back(web::json::value(num));
+  }
+
+  return array;
+}
+
+template <typename T>
+std::vector<web::json::value> &Serializer::toJson(const std::vector<T> &vec)
+{
+  static std::vector<web::json::value> array;
+  array.clear();
+  array.reserve(vec.size());
+
+  for (const auto& point: vec)
+  {
+    array.push_back(toJson(point, true));
   }
 
   return array;

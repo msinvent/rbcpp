@@ -33,6 +33,7 @@ int main(void)
   auto twist_pub = rbc->addPublisher<geometry_msgs::Twist>("/rosbridge/twist/");
   auto wrench_pub = rbc->addPublisher<geometry_msgs::Wrench>("/rosbridge/wrench/");
   auto pose_pub = rbc->addPublisher<geometry_msgs::Pose>("/rosbridge/pose/");
+  auto pose_array_pub = rbc->addPublisher<geometry_msgs::PoseArray>("/rosbridge/pose_array/");
   auto point32_pub = rbc->addPublisher<geometry_msgs::Point32>("/rosbridge/point32/");
   auto pose2d_pub = rbc->addPublisher<geometry_msgs::Pose2D>("/rosbridge/pose2d/");
   auto inertia_pub = rbc->addPublisher<geometry_msgs::Inertia>("/rosbridge/inertia/");
@@ -151,6 +152,11 @@ int main(void)
 
     geometry_msgs::Pose po(0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 0.4);
     pose_pub->publish(po);
+
+    geometry_msgs::PoseArray poa;
+    poa.add(po);
+    poa.add(po);
+    pose_array_pub->publish(poa);
 
     geometry_msgs::Accel a(0.1, 0.2, 0.3, 0.3, 0.2, 0.1);
     accel_pub->publish(a);

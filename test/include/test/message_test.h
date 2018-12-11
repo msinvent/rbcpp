@@ -35,6 +35,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/polygon.h>
 #include <ros_bridge_client/msgs/geometry_msgs/transform.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
+#include <ros_bridge_client/msgs/geometry_msgs/pose_array.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
@@ -498,6 +499,34 @@ struct PoseTest : public Test
   {
     geometry_msgs::Pose msg(point, quaternion);
     return messageToString<geometry_msgs::Pose>(msg);
+  }
+};
+
+struct PoseArrayTest : public Test
+{
+  explicit PoseArrayTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("PoseArrayTest")[0]),
+        test2(dataframe.data.at("PoseArrayTest")[1])
+  {}
+
+  ~PoseArrayTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage() const
+  {
+    geometry_msgs::PoseArray msg;
+    msg.add(geometry_msgs::Pose(.1, .2, .3, .1, .2, .3, .4));
+    return messageToString<geometry_msgs::PoseArray>(msg);
+  }
+
+  inline std::string getMessage(std::string frame_id) const
+  {
+    geometry_msgs::PoseArray msg(frame_id);
+    msg.add(geometry_msgs::Pose(.1, .2, .3, .1, .2, .3, .4));
+    msg.add(geometry_msgs::Pose(.1, .2, .3, .1, .2, .3, .4));
+    return messageToString<geometry_msgs::PoseArray>(msg);
   }
 };
 

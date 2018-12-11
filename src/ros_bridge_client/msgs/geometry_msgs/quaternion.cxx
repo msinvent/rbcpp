@@ -18,7 +18,7 @@ Quaternion::Quaternion(double x, double y, double z, double w)
 Quaternion::Quaternion(const web::json::value &response)
     : XYZMessage<double>("geometry_msgs/Quaternion"), w(0)
 {
-  utils::Deserializer::toQuaternion(*this, response, false);
+  utils::Deserializer::deserialize(*this, response, false);
 }
 
 std::ostream& operator <<(std::ostream &os, const Quaternion &q)

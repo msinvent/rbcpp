@@ -18,6 +18,6 @@ UInt8::UInt8(uint8_t data)
 UInt8::UInt8(const web::json::value &response)
     : StdMsg(data, "std_msgs/UInt8")
 {
-  utils::Deserializer::toStdMsg<uint8_t>(*this, response);
+  utils::Deserializer::deserialize<uint8_t>(*this, response);
 }
 

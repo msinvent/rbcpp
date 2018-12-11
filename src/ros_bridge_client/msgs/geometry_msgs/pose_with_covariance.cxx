@@ -41,9 +41,9 @@ PoseWithCovariance::PoseWithCovariance(const web::json::value &response)
   const auto &pose_msg = msg.at(U("pose"));
   const auto &cov_msg = msg.at(U("covariance"));
 
-  utils::Deserializer::toXYZ<double>(pose.point, pose_msg.at(U("position")), true);
+  utils::Deserializer::deserialize<double>(pose.point, pose_msg.at(U("position")), true);
 
-  utils::Deserializer::toQuaternion(pose.orientation, pose_msg.at(U("orientation")), true);
+  utils::Deserializer::deserialize(pose.orientation, pose_msg.at(U("orientation")), true);
 
   utils::Deserializer::toArray<double, 36>(covariance, cov_msg);
 }

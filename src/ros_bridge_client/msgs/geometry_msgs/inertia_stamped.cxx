@@ -41,11 +41,11 @@ InertiaStamped::InertiaStamped(const web::json::value &response)
   const auto &msg = response.at(U("msg"));
   const auto &inertia_msg = msg.at(U("inertia"));
 
-  utils::Deserializer::toHeader(header, msg.at(U("header")), true);
+  utils::Deserializer::deserialize(header, msg.at(U("header")), true);
 
-  utils::Deserializer::toInertia(inertia, inertia_msg, true);
+  utils::Deserializer::deserialize(inertia, inertia_msg, true);
 
-  utils::Deserializer::toXYZ<double>(inertia.com, inertia_msg.at(U("com")), true);
+  utils::Deserializer::deserialize<double>(inertia.com, inertia_msg.at(U("com")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::InertiaStamped &is)

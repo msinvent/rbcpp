@@ -22,7 +22,7 @@ Vector3::Vector3(const Vector3 &vec)
 Vector3::Vector3(const web::json::value &response)
   : XYZMessage<double>("geometry_msgs/Vector3")
 {
-  utils::Deserializer::toXYZ<double>(*this, response, false);
+  utils::Deserializer::deserialize<double>(*this, response, false);
 }
 
 std::ostream &operator<<(std::ostream &os, const Vector3 &v)

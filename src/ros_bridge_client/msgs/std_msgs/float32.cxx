@@ -18,6 +18,6 @@ Float32::Float32(float data)
 Float32::Float32(const web::json::value &response)
     : StdMsg("std_msgs/Float32")
 {
-  utils::Deserializer::toStdMsg<float>(*this, response, false);
+  utils::Deserializer::deserialize<float>(*this, response, false);
 }
 

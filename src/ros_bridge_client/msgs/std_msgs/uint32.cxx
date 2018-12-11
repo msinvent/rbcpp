@@ -18,6 +18,6 @@ UInt32::UInt32(uint32_t data)
 UInt32::UInt32(const web::json::value &response)
     : StdMsg(data, "std_msgs/UInt32")
 {
-  utils::Deserializer::toStdMsg<uint32_t>(*this, response);
+  utils::Deserializer::deserialize<uint32_t>(*this, response);
 }
 

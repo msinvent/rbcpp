@@ -295,26 +295,25 @@ static inline void pcallback(const std::shared_ptr<geometry_msgs::Point> msg)
 static inline void polycallback(const std::shared_ptr<geometry_msgs::Polygon> msg)
 {
   std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[Polygon]\n";
-  std::cout << msg;
-//  assert((msg->points[0].x == .1f));
-//  assert((msg->points[0].y == .2f));
-//  assert((msg->points[0].z == .3f));
-//  assert((msg->points[1].x == .1f));
-//  assert((msg->points[1].y == .2f));
-//  assert((msg->points[1].z == .3f));
+  assert((msg->points[0].x == .1f));
+  assert((msg->points[0].y == .2f));
+  assert((msg->points[0].z == .3f));
+  assert((msg->points[1].x == .1f));
+  assert((msg->points[1].y == .2f));
+  assert((msg->points[1].z == .3f));
   update("polygon");
 }
 
 static inline void polyscallback(const std::shared_ptr<geometry_msgs::PolygonStamped> msg)
 {
   std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[PolygonStamped]\n";
-//  assert((msg->header.frame_id == "a frame"));
-//  assert((msg->polygon.points[0].x == .1f));
-//  assert((msg->polygon.points[0].y == .2f));
-//  assert((msg->polygon.points[0].z == .3f));
-//  assert((msg->polygon.points[1].x == .1f));
-//  assert((msg->polygon.points[1].y == .2f));
-//  assert((msg->polygon.points[1].z == .3f));
+  assert((msg->header.frame_id == "a frame"));
+  assert((msg->polygon.points[0].x == .1f));
+  assert((msg->polygon.points[0].y == .2f));
+  assert((msg->polygon.points[0].z == .3f));
+  assert((msg->polygon.points[1].x == .1f));
+  assert((msg->polygon.points[1].y == .2f));
+  assert((msg->polygon.points[1].z == .3f));
   update("polygon_stamp");
 }
 

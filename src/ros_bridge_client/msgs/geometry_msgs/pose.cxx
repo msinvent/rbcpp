@@ -30,9 +30,9 @@ Pose::Pose(const web::json::value &response)
     point(),
     orientation()
 {
-  utils::Deserializer::toXYZ<double>(point, response.at(U("msg")).at(U("position")), true);
+  utils::Deserializer::deserialize<double>(point, response.at(U("msg")).at(U("position")), true);
 
-  utils::Deserializer::toQuaternion(orientation, response.at(U("msg")).at(U("orientation")), true);
+  utils::Deserializer::deserialize(orientation, response.at(U("msg")).at(U("orientation")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Pose &p)

@@ -28,7 +28,7 @@ Header::Header(const web::json::value &response)
     stamp(0, 0),
     frame_id("world")
 {
-  utils::Deserializer::toHeader(*this, response, false);
+  utils::Deserializer::deserialize(*this, response, false);
 }
 
 std::ostream &operator<<(std::ostream &os, const Header &h)

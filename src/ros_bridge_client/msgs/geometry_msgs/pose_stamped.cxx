@@ -33,11 +33,11 @@ PoseStamped::PoseStamped(const web::json::value &response)
   const auto &msg = response.at(U("msg"));
   const auto &pose_msg = msg.at(U("pose"));
 
-  utils::Deserializer::toHeader(header, msg.at(U("header")), true);
+  utils::Deserializer::deserialize(header, msg.at(U("header")), true);
 
-  utils::Deserializer::toXYZ<double>(pose.point, pose_msg.at(U("position")), true);
+  utils::Deserializer::deserialize<double>(pose.point, pose_msg.at(U("position")), true);
 
-  utils::Deserializer::toQuaternion(pose.orientation, pose_msg.at(U("orientation")), true);
+  utils::Deserializer::deserialize(pose.orientation, pose_msg.at(U("orientation")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const PoseStamped &p)

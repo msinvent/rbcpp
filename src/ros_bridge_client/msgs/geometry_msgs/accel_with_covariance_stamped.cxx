@@ -44,13 +44,13 @@ AccelWithCovarianceStamped::AccelWithCovarianceStamped(const web::json::value &r
   const auto &cov_msg = accel_base_msg.at(U("covariance"));
   const auto &header_msg = msg.at(U("header"));
 
-  utils::Deserializer::toXYZ<double>(accel.accel.linear, accel_msg.at(U("linear")), true);
+  utils::Deserializer::deserialize<double>(accel.accel.linear, accel_msg.at(U("linear")), true);
 
-  utils::Deserializer::toXYZ<double>(accel.accel.angular, accel_msg.at(U("angular")), true);
+  utils::Deserializer::deserialize<double>(accel.accel.angular, accel_msg.at(U("angular")), true);
 
   utils::Deserializer::toArray<double, 36>(accel.covariance, cov_msg);
 
-  utils::Deserializer::toHeader(header, header_msg, true);
+  utils::Deserializer::deserialize(header, header_msg, true);
 }
 
 std::ostream &operator<<(std::ostream &os, const AccelWithCovarianceStamped &a)

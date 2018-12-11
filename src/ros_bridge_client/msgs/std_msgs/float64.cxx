@@ -18,6 +18,6 @@ Float64::Float64(double data)
 Float64::Float64(const web::json::value &response)
     : StdMsg("std_msgs/Float64")
 {
-  utils::Deserializer::toStdMsg<double>(*this, response);
+  utils::Deserializer::deserialize<double>(*this, response);
 }
 

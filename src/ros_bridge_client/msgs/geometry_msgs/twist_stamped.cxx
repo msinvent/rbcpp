@@ -39,11 +39,11 @@ TwistStamped::TwistStamped(const web::json::value &response)
   const auto &msg = response.at(U("msg"));
   const auto &twist_msg = msg.at(U("twist"));
 
-  utils::Deserializer::toHeader(header, msg.at(U("header")), true);
+  utils::Deserializer::deserialize(header, msg.at(U("header")), true);
 
-  utils::Deserializer::toXYZ<double>(twist.linear, twist_msg.at(U("linear")), true);
+  utils::Deserializer::deserialize<double>(twist.linear, twist_msg.at(U("linear")), true);
 
-  utils::Deserializer::toXYZ<double>(twist.angular, twist_msg.at(U("angular")), true);
+  utils::Deserializer::deserialize<double>(twist.angular, twist_msg.at(U("angular")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const TwistStamped &p)

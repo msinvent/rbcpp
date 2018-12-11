@@ -18,6 +18,6 @@ Int64::Int64(int64_t data)
 Int64::Int64(const web::json::value &response)
     : StdMsg(data, "std_msgs/Int64")
 {
-  utils::Deserializer::toStdMsg<int64_t>(*this, response);
+  utils::Deserializer::deserialize<int64_t>(*this, response);
 }
 

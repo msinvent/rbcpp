@@ -18,6 +18,6 @@ Int16::Int16(int16_t data)
 Int16::Int16(const web::json::value &response)
     : StdMsg(data, "std_msgs/Int16")
 {
-  utils::Deserializer::toStdMsg<int16_t>(*this, response);
+  utils::Deserializer::deserialize<int16_t>(*this, response);
 }
 

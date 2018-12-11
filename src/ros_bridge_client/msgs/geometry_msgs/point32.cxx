@@ -18,7 +18,7 @@ Point32::Point32(float x, float y, float z)
 Point32::Point32(const web::json::value &response)
   : XYZMessage<float>("geometry_msgs/Point32")
 {
-  utils::Deserializer::toXYZ<float>(*this, response, false);
+  utils::Deserializer::deserialize<float>(*this, response, false);
 }
 
 std::ostream &operator<<(std::ostream &os, const Point32 &p)

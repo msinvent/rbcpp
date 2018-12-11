@@ -26,38 +26,45 @@ namespace ros_bridge_client::utils
 struct Deserializer
 {
   template<typename T>
-  static void toXYZ(msgs::XYZMessage<T> &xyz, const web::json::value &response, bool is_sub_json = false);
+  static void deserialize(msgs::XYZMessage<T> &xyz, const web::json::value &response, bool is_sub_json = false);
 
   template<typename T>
-  static void toStdMsg(msgs::std_msgs::StdMsg<T> &std, const web::json::value &response, bool is_sub_json = false);
+  static void deserialize(msgs::std_msgs::StdMsg<T> &std, const web::json::value &response, bool is_sub_json = false);
 
   template<typename T>
-  static void toVector(std::vector<T> &vec, const web::json::value &response, std::string key = "arr");
+  static void deserialize(std::vector<T> &vec, const web::json::value &response);
 
   template<typename T, unsigned int N>
   static void toArray(std::array<T, N> &array, const web::json::value &response);
 
   static std::string toString(const web::json::value &response);
 
-  static void toString(std::string &str, const web::json::value &response, bool is_sub_json = false);
+  static void deserialize(std::string &str, const web::json::value &response, bool is_sub_json = false);
 
-  static void toPolygon(msgs::geometry_msgs::Polygon &polygon, const web::json::value &response, bool is_sub_json = false);
+  static void deserialize(msgs::geometry_msgs::Polygon &polygon, const web::json::value &response, bool is_sub_json = false);
 
-  static void toColor(msgs::std_msgs::ColorRGBA &color, const web::json::value &response, bool is_sub_json = false);
+  static void deserialize(msgs::std_msgs::ColorRGBA &color, const web::json::value &response, bool is_sub_json = false);
 
-  static void toPose2D(msgs::geometry_msgs::Pose2D &pose, const web::json::value &response, bool is_sub_json = false);
-
-  static void
-  toInertia(msgs::geometry_msgs::Inertia &inertia, const web::json::value &response, bool is_sub_json = false);
+  static void deserialize(msgs::geometry_msgs::Pose2D &pose, const web::json::value &response, bool is_sub_json = false);
 
   static void
-  toQuaternion(msgs::geometry_msgs::Quaternion &quaternion, const web::json::value &response, bool is_sub_json = false);
+  deserialize(msgs::geometry_msgs::Inertia &inertia, const web::json::value &response, bool is_sub_json = false);
 
-  static void toHeader(msgs::std_msgs::Header &header, const web::json::value &response, bool is_sub_json = false);
+  static void
+  deserialize(msgs::geometry_msgs::Quaternion &quaternion, const web::json::value &response, bool is_sub_json = false);
+
+  static void deserialize(msgs::std_msgs::Header &header, const web::json::value &response, bool is_sub_json = false);
+
+private:
+  template <typename T>
+  static void fillVector(std::vector<T> &vector, const web::json::array &value);
+
+  template <typename T>
+  static void deserialize(std::vector<T> &vec, const web::json::value &response, std::string key);
 };
 
 template<typename T>
-void Deserializer::toXYZ(msgs::XYZMessage<T> &xyz, const web::json::value &response, bool is_sub_json)
+void Deserializer::deserialize(msgs::XYZMessage<T> &xyz, const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
   xyz.x = static_cast<T>(msg.at(U("x")).as_double());
@@ -66,16 +73,16 @@ void Deserializer::toXYZ(msgs::XYZMessage<T> &xyz, const web::json::value &respo
 }
 
 template<typename T>
-void Deserializer::toStdMsg(msgs::std_msgs::StdMsg<T> &std, const web::json::value &response, bool is_sub_json)
+void Deserializer::deserialize(msgs::std_msgs::StdMsg<T> &std, const web::json::value &response, bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
   std.data = static_cast<T>(msg.at("data").as_double());
 }
 
 template<typename T>
-void Deserializer::toVector(std::vector<T> &vec, const web::json::value &response, std::string key)
+void Deserializer::deserialize(std::vector<T> &vec, const web::json::value &response)
 {
-  const auto &msg = response.at(U(key)).as_array();
+  const auto &msg = response.at(U("arr")).as_array();
   std::vector<web::json::value> json_vec(msg.cbegin(), msg.cend());
   for (const auto &val: json_vec)
   {
@@ -102,6 +109,31 @@ void Deserializer::toArray(std::array<T, N> &arr, const web::json::value &respon
   {
     return static_cast<T>((*it++).as_double());
   });
+}
+
+template <typename T>
+void Deserializer::deserialize(std::vector<T> &vec, const web::json::value &response, std::string key)
+{
+  const auto &points_json = response.at(U(key));
+
+  const auto &json_arr = points_json.as_array();
+  auto arr_size = std::distance(json_arr.cbegin(), json_arr.cend());
+
+  vec.reserve(arr_size);
+
+  fillVector(vec, json_arr);
+}
+
+template<typename T>
+void Deserializer::fillVector(std::vector<T> &vector, const web::json::array &json_arr)
+{
+  auto it = json_arr.cbegin();
+  while (it != json_arr.cend())
+  {
+    T t;
+    Deserializer::deserialize(t, *it++, true);
+    vector.push_back(t);
+  }
 }
 
 } // namespace ros_bridge_client::util

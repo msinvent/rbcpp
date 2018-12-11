@@ -47,13 +47,13 @@ PoseWithCovarianceStamped::PoseWithCovarianceStamped(const web::json::value &res
     const auto &cov_msg = pose_base_msg.at(U("covariance"));
     const auto &header_msg = msg.at(U("header"));
 
-    utils::Deserializer::toXYZ<double>(pose.pose.point, pose_msg.at(U("position")), true);
+    utils::Deserializer::deserialize<double>(pose.pose.point, pose_msg.at(U("position")), true);
 
-    utils::Deserializer::toQuaternion(pose.pose.orientation, pose_msg.at(U("orientation")), true);
+    utils::Deserializer::deserialize(pose.pose.orientation, pose_msg.at(U("orientation")), true);
 
     utils::Deserializer::toArray<double, 36>(pose.covariance, cov_msg);
 
-    utils::Deserializer::toHeader(header, header_msg, true);
+    utils::Deserializer::deserialize(header, header_msg, true);
   }
   catch (const std::exception &e)
   {

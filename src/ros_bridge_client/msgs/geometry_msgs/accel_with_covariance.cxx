@@ -36,9 +36,9 @@ AccelWithCovariance::AccelWithCovariance(const web::json::value &response)
   const auto &accel_msg = msg.at(U("accel"));
   const auto &cov_msg = msg.at(U("covariance"));
 
-  utils::Deserializer::toXYZ<double>(accel.linear, accel_msg.at(U("linear")), true);
+  utils::Deserializer::deserialize<double>(accel.linear, accel_msg.at(U("linear")), true);
 
-  utils::Deserializer::toXYZ<double>(accel.angular, accel_msg.at(U("angular")), true);
+  utils::Deserializer::deserialize<double>(accel.angular, accel_msg.at(U("angular")), true);
   
   utils::Deserializer::toArray<double, 36>(covariance, cov_msg);
 }

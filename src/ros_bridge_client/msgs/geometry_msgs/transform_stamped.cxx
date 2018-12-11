@@ -21,11 +21,11 @@ TransformStamped::TransformStamped(const web::json::value &response)
   const auto &msg = response.at(U("msg"));
   const auto &transform_msg = msg.at(U("transform"));
 
-  utils::Deserializer::toHeader(header, msg.at(U("header")), true);
+  utils::Deserializer::deserialize(header, msg.at(U("header")), true);
 
-  utils::Deserializer::toXYZ<double>(transform.translation, transform_msg.at(U("translation")), true);
+  utils::Deserializer::deserialize<double>(transform.translation, transform_msg.at(U("translation")), true);
 
-  utils::Deserializer::toQuaternion(transform.rotation, transform_msg.at(U("rotation")), true);
+  utils::Deserializer::deserialize(transform.rotation, transform_msg.at(U("rotation")), true);
 }
 
 TransformStamped::TransformStamped(const Vector3 &translation, const Quaternion &rotation, std::string frame_id)

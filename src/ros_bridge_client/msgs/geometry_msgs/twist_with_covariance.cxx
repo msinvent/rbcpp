@@ -41,9 +41,9 @@ TwistWithCovariance::TwistWithCovariance(const web::json::value &response)
   const auto &twist_msg = msg.at(U("twist"));
   const auto &cov_msg = msg.at(U("covariance"));
 
-  utils::Deserializer::toXYZ<double>(twist.linear, twist_msg.at(U("linear")), true);
+  utils::Deserializer::deserialize<double>(twist.linear, twist_msg.at(U("linear")), true);
 
-  utils::Deserializer::toXYZ<double>(twist.angular, twist_msg.at(U("angular")), true);
+  utils::Deserializer::deserialize<double>(twist.angular, twist_msg.at(U("angular")), true);
 
   utils::Deserializer::toArray<double, 36>(covariance, cov_msg);
 }

@@ -43,13 +43,13 @@ TwistWithCovarianceStamped::TwistWithCovarianceStamped(const web::json::value &r
   const auto &twist_twist_msg = twist_msg.at(U("twist"));
   const auto &cov_msg = twist_msg.at(U("covariance"));
 
-  utils::Deserializer::toXYZ<double>(twist.twist.linear, twist_twist_msg.at(U("linear")), true);
+  utils::Deserializer::deserialize<double>(twist.twist.linear, twist_twist_msg.at(U("linear")), true);
 
-  utils::Deserializer::toXYZ<double>(twist.twist.angular, twist_twist_msg.at(U("angular")), true);
+  utils::Deserializer::deserialize<double>(twist.twist.angular, twist_twist_msg.at(U("angular")), true);
 
   utils::Deserializer::toArray<double, 36>(twist.covariance, cov_msg);
 
-  utils::Deserializer::toHeader(header, response.at(U("msg")).at(U("header")), true);
+  utils::Deserializer::deserialize(header, response.at(U("msg")).at(U("header")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::TwistWithCovarianceStamped &t)

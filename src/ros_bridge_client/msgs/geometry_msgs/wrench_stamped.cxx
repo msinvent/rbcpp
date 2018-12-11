@@ -39,11 +39,11 @@ WrenchStamped::WrenchStamped(const web::json::value &response)
   const auto &msg = response.at(U("msg"));
   const auto &wrench_msg = msg.at(U("wrench"));
 
-  utils::Deserializer::toHeader(header, msg.at(U("header")), true);
+  utils::Deserializer::deserialize(header, msg.at(U("header")), true);
 
-  utils::Deserializer::toXYZ<double>(wrench.force, wrench_msg.at(U("force")), true);
+  utils::Deserializer::deserialize<double>(wrench.force, wrench_msg.at(U("force")), true);
 
-  utils::Deserializer::toXYZ<double>(wrench.torque, wrench_msg.at(U("torque")), true);
+  utils::Deserializer::deserialize<double>(wrench.torque, wrench_msg.at(U("torque")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const WrenchStamped &ws)

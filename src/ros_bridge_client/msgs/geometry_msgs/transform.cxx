@@ -26,9 +26,9 @@ Transform::Transform(const web::json::value &response)
 {
   const auto &msg = response.at(U("msg"));
 
-  utils::Deserializer::toXYZ<double>(translation, msg.at(U("translation")), true);
+  utils::Deserializer::deserialize<double>(translation, msg.at(U("translation")), true);
 
-  utils::Deserializer::toQuaternion(rotation, msg.at(U("rotation")), true);
+  utils::Deserializer::deserialize(rotation, msg.at(U("rotation")), true);
 }
 
 Transform::Transform(double tx, double ty, double tz, double rx, double ry, double rz, double rw)

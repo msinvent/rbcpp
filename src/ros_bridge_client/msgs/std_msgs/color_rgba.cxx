@@ -22,7 +22,7 @@ ColorRGBA::ColorRGBA(const web::json::value &response)
   : ROSTypeBase("std_msgs/ColorRGBA"),
     r(0), g(0), b(0), a(0)
 {
-  utils::Deserializer::toColor(*this, response, false);
+  utils::Deserializer::deserialize(*this, response, false);
 }
 
 std::ostream &ros_bridge_client::msgs::std_msgs::operator<<(std::ostream &os, const ColorRGBA &c)

@@ -30,10 +30,9 @@ elseif ("${COMPILER}" STREQUAL "Clang")
     message(FATAL_ERROR "Invalid Compiler: Clang (WIP). Use G++ >= 7.0.")
 endif ()
 
-
 if (CMAKE_COMPILER_IS_GNUCXX AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7.0)
     message(FATAL_ERROR "Invalid Compiler: gcc >= 7.0 is needed")
-endif()
+endif ()
 
 message(STATUS "${COMPILER}++ Version: " ${CMAKE_CXX_COMPILER_VERSION})
 

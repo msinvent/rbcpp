@@ -23,6 +23,8 @@ struct Point : public XYZMessage<double>
   explicit Point(const web::json::value &response);
 
   ~Point() override = default;
+
+  bool operator==(const Point &point);
 };
 
 } // namespace ros_bridge_client::msgs::geometry_msgs

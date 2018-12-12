@@ -9,6 +9,7 @@
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/ros_type_base.h>
 #include <ros_bridge_client/msgs/array_base.h>
+#include <cpprest/json.h>
 #include <vector>
 
 namespace ros_bridge_client::msgs::geometry_msgs
@@ -17,6 +18,8 @@ namespace ros_bridge_client::msgs::geometry_msgs
 struct PoseArray : public ROSTypeBase
 {
   explicit PoseArray(std::string frame_id = "world");
+
+  explicit PoseArray(const web::json::value &response);
 
   ~PoseArray() final = default;
 

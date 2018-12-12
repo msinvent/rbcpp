@@ -35,6 +35,11 @@ Pose::Pose(const web::json::value &response)
   utils::Deserializer::deserialize(orientation, response.at(U("msg")).at(U("orientation")), true);
 }
 
+bool Pose::operator==(const Pose &pose)
+{
+  return point == pose.point && orientation == pose.orientation;
+}
+
 std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Pose &p)
 {
   os << "\nPose:";

@@ -82,3 +82,9 @@ void Deserializer::deserialize(geometry_msgs::Polygon &polygon, const web::json:
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
   deserialize(polygon.points, msg, "points");
 }
+
+void Deserializer::deserialize(geometry_msgs::Pose &pose, const web::json::value &response, bool is_sub_json)
+{
+  deserialize(pose.point, response.at("position"), true);
+  deserialize(pose.orientation, response.at("orientation"), true);
+}

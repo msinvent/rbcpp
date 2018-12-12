@@ -246,6 +246,16 @@ static inline void pocallback(const std::shared_ptr<geometry_msgs::Pose> msg)
   update("pose");
 }
 
+static inline void posacallback(const std::shared_ptr<geometry_msgs::PoseArray> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[PoseArray]\n";
+  assert((msg->header.frame_id == "a frame"));
+
+  geometry_msgs::Pose po(.1, .2, .3, .1, .2, .3, .4);
+  assert((msg->poses[0] == po));
+  assert((msg->poses[1] == po));
+}
+
 static inline void pocovcallback(const std::shared_ptr<geometry_msgs::PoseWithCovariance> msg)
 {
   std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[PoseWithCov]\n";

@@ -77,6 +77,7 @@ int main(void)
   auto twist_sub = rbc->addSubscriber<geometry_msgs::Twist>("/rosbridge/twist/", 100, callbacks::twcallback);
   auto wrench_sub = rbc->addSubscriber<geometry_msgs::Wrench>("/rosbridge/wrench/", 100, callbacks::wcallback);
   auto pose_sub = rbc->addSubscriber<geometry_msgs::Pose>("/rosbridge/pose/", 100, callbacks::pocallback);
+  auto pose_arr_sub = rbc->addSubscriber<geometry_msgs::PoseArray>("/rosbridge/pose_array/", 100, callbacks::posacallback);
   auto pose_cov_sub = rbc->addSubscriber<geometry_msgs::PoseWithCovariance>("/rosbridge/pose_with_covariance/", 100, callbacks::pocovcallback);
   auto pose_cov_stamp_sub = rbc->addSubscriber<geometry_msgs::PoseWithCovarianceStamped>("/rosbridge/pose_with_covariance_stamped/", 100, callbacks::pocovscallback);
   auto point32_sub = rbc->addSubscriber<geometry_msgs::Point32>("/rosbridge/point32/", 100, callbacks::p32callback);
@@ -153,7 +154,7 @@ int main(void)
     geometry_msgs::Pose po(0.1, 0.2, 0.3, 0.1, 0.2, 0.3, 0.4);
     pose_pub->publish(po);
 
-    geometry_msgs::PoseArray poa;
+    geometry_msgs::PoseArray poa("a frame");
     poa.add(po);
     poa.add(po);
     pose_array_pub->publish(poa);

@@ -21,12 +21,17 @@ Quaternion::Quaternion(const web::json::value &response)
   utils::Deserializer::deserialize(*this, response, false);
 }
 
+bool Quaternion::operator==(const Quaternion &q)
+{
+  return x == q.x && y == q.y && z == q.z && w == q.w;
+}
+
 std::ostream& operator <<(std::ostream &os, const Quaternion &q)
 {
   os << "\nQuaternion:";
   os << "\n\tx: " << q.x;
   os << "\n\ty: " << q.y;
-  os << "\n\tz: " << q.x;
+  os << "\n\tz: " << q.z;
   os << "\n\tw: " << q.w;
   return os;
 }

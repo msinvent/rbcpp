@@ -24,6 +24,8 @@ struct Quaternion : public XYZMessage<double>
   ~Quaternion() override = default;
 
   double w;
+
+  bool operator==(const Quaternion &q);
 };
 
 } // namespace ros_bridge_client::msgs::geometry_msgs

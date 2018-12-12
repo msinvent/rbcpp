@@ -21,6 +21,11 @@ Point::Point(const web::json::value &response)
   utils::Deserializer::deserialize<double>(*this, response, false);
 }
 
+bool Point::operator==(const Point &point)
+{
+  return x == point.x && y == point.y && z == point.z;
+}
+
 std::ostream &operator<<(std::ostream &os, const Point &p)
 {
   os << "\nPoint:";

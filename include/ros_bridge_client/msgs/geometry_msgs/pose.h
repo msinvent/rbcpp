@@ -23,6 +23,8 @@ struct Pose : public ROSTypeBase
 
   Point point;
   Quaternion orientation;
+
+  bool operator==(const Pose &pose);
 };
 
 } // namespace ros_bridge_client::msgs::geometry_msgs

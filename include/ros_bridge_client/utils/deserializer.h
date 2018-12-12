@@ -8,10 +8,12 @@
 #include <cpprest/json.h>
 #include <tuple>
 #include <vector>
+#include <thread>
 #include <ros_bridge_client/msgs/std_msgs/header.h>
 #include <ros_bridge_client/msgs/std_msgs/std_msg.h>
 #include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
 #include <ros_bridge_client/msgs/geometry_msgs/point.h>
+#include <ros_bridge_client/msgs/geometry_msgs/pose.h>
 #include <ros_bridge_client/msgs/geometry_msgs/pose2d.h>
 #include <ros_bridge_client/msgs/xyzmessage.h>
 #include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
@@ -19,6 +21,7 @@
 #include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
 #include <ros_bridge_client/msgs/geometry_msgs/polygon.h>
 #include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
+#include <ros_bridge_client/msgs/geometry_msgs/pose_array.h>
 
 namespace ros_bridge_client::utils
 {
@@ -55,12 +58,13 @@ struct Deserializer
 
   static void deserialize(msgs::std_msgs::Header &header, const web::json::value &response, bool is_sub_json = false);
 
-private:
   template <typename T>
-  static void fillVector(std::vector<T> &vector, const web::json::array &value);
+  static void deserialize(std::vector<T> &vector, const web::json::array &value);
 
   template <typename T>
   static void deserialize(std::vector<T> &vec, const web::json::value &response, std::string key);
+
+  static void deserialize(msgs::geometry_msgs::Pose &pose, const web::json::value &response, bool is_sub_json);
 };
 
 template<typename T>
@@ -114,18 +118,15 @@ void Deserializer::toArray(std::array<T, N> &arr, const web::json::value &respon
 template <typename T>
 void Deserializer::deserialize(std::vector<T> &vec, const web::json::value &response, std::string key)
 {
-  const auto &points_json = response.at(U(key));
-
-  const auto &json_arr = points_json.as_array();
+  const auto &json_arr = response.at(U(key)).as_array();
   auto arr_size = std::distance(json_arr.cbegin(), json_arr.cend());
-
   vec.reserve(arr_size);
 
-  fillVector(vec, json_arr);
+  deserialize<T>(vec, json_arr);
 }
 
 template<typename T>
-void Deserializer::fillVector(std::vector<T> &vector, const web::json::array &json_arr)
+void Deserializer::deserialize(std::vector<T> &vector, const web::json::array &json_arr)
 {
   auto it = json_arr.cbegin();
   while (it != json_arr.cend())

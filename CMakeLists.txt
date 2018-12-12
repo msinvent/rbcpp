@@ -19,13 +19,21 @@ if (CMAKE_COMPILER_IS_GNUCXX)
     set(COMPILER "G")
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "AppleClang")
     set(COMPILER "Apple Clang")
-elseif (CMAKE_CXX_COMPILER_ID MATCHES "AppleClang")
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
     set(COMPILER "Clang")
 endif ()
 
 if ("${COMPILER}" STREQUAL "UNKNOWN")
     message(FATAL_ERROR "Invalid Compiler")
+elseif ("${COMPILER}" STREQUAL "Clang")
+    message(FATAL_ERROR "Invalid Compiler: Clang (WIP). Use G++ >= 7.0.")
 endif ()
+
+
+if (CMAKE_COMPILER_IS_GNUCXX AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7.0)
+    message(FATAL_ERROR "Invalid Compiler: gcc >= 7.0 is needed")
+endif()
 
 message(STATUS "${COMPILER}++ Version: " ${CMAKE_CXX_COMPILER_VERSION})
 

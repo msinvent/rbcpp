@@ -2,10 +2,10 @@
 // Created by Julian on 27.10.18.
 //
 
-#include <ros_bridge_client/utils/deserializer.h>
-#include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance.h>
+#include <rbc/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/pose_with_covariance.h>
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 
 PoseWithCovariance::PoseWithCovariance()
   : ROSTypeBase("geometry_msgs/PoseWithCovariance"),
@@ -48,7 +48,7 @@ PoseWithCovariance::PoseWithCovariance(const web::json::value &response)
   utils::Deserializer::toArray<double, 36>(covariance, cov_msg);
 }
 
-std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::PoseWithCovariance &p)
+std::ostream &operator<<(std::ostream &os, const rbc::msgs::geometry_msgs::PoseWithCovariance &p)
 {
   os << "\nPose With Covariance:";
   os << p.pose;
@@ -58,7 +58,7 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
 }
 
 std::ostream &
-operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::PoseWithCovariance> &p)
+operator<<(std::ostream &os, const std::shared_ptr<rbc::msgs::geometry_msgs::PoseWithCovariance> &p)
 {
   return os << *p.get();
 }

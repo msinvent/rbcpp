@@ -2,16 +2,16 @@
 // Created by Julian on 22.10.18.
 //
 
-#include <ros_bridge_client/utils/deserializer.h>
-#include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
-#include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
-#include <ros_bridge_client/msgs/geometry_msgs/pose2d.h>
+#include <rbc/utils/deserializer.h>
+#include <rbc/msgs/std_msgs/color_rgba.h>
+#include <rbc/msgs/geometry_msgs/inertia.h>
+#include <rbc/msgs/geometry_msgs/pose2d.h>
 #include <thread>
 
-using namespace ros_bridge_client::utils;
-using namespace ros_bridge_client::msgs;
+using namespace rbc::utils;
+using namespace rbc::msgs;
 
-void Deserializer::deserialize(ros_bridge_client::msgs::geometry_msgs::Pose2D &pose, const web::json::value &response,
+void Deserializer::deserialize(rbc::msgs::geometry_msgs::Pose2D &pose, const web::json::value &response,
                                bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
@@ -20,7 +20,7 @@ void Deserializer::deserialize(ros_bridge_client::msgs::geometry_msgs::Pose2D &p
   pose.theta = msg.at(U("theta")).as_double();
 }
 
-void Deserializer::deserialize(ros_bridge_client::msgs::std_msgs::Header &header, const web::json::value &response,
+void Deserializer::deserialize(rbc::msgs::std_msgs::Header &header, const web::json::value &response,
                                bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
@@ -54,7 +54,7 @@ void Deserializer::deserialize(msgs::geometry_msgs::Inertia &inertia, const web:
   inertia.izz = msg.at(U("izz")).as_double();
 }
 
-void Deserializer::deserialize(ros_bridge_client::msgs::std_msgs::ColorRGBA &color, const web::json::value &response,
+void Deserializer::deserialize(rbc::msgs::std_msgs::ColorRGBA &color, const web::json::value &response,
                                bool is_sub_json)
 {
   const auto &msg = not is_sub_json ? response.at(U("msg")) : response;

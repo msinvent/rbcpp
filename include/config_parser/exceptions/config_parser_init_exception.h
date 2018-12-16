@@ -22,6 +22,6 @@ struct ConfigParserInitException : public std::exception
 };
 
 } // namespace exception
-} // namespace ros_bridge_client
+} // namespace rbc
 
 #endif //ROSBRIDGECLIENT_LOGGER_INIT_EXCEPTION_H

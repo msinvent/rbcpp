@@ -2,10 +2,10 @@
 // Created by Julian on 29.10.18.
 //
 
-#include <ros_bridge_client/msgs/geometry_msgs/accel.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/accel.h>
+#include <rbc/utils/deserializer.h>
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 
 Accel::Accel(std::string ros_msg_type)
   : ROSTypeBase(ros_msg_type),
@@ -37,7 +37,7 @@ Accel::Accel(const web::json::value &response, std::string ros_msg_type)
   utils::Deserializer::deserialize<double>(angular, msg.at(U("angular")), true);
 }
 
-std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Accel &p)
+std::ostream &operator<<(std::ostream &os, const rbc::msgs::geometry_msgs::Accel &p)
 {
   os << "\nAccel: linear/angular";
   os << p.linear;
@@ -45,7 +45,7 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
   return os;
 }
 
-std::ostream & operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::Accel> &p)
+std::ostream & operator<<(std::ostream &os, const std::shared_ptr<rbc::msgs::geometry_msgs::Accel> &p)
 {
   return os << *p.get();
 }

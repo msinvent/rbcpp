@@ -2,10 +2,10 @@
 // Created by Julian on 29.10.18.
 //
 
-#include <ros_bridge_client/msgs/geometry_msgs/transform.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/transform.h>
+#include <rbc/utils/deserializer.h>
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 
 Transform::Transform()
   : ROSTypeBase("geometry_msgs/Transform"),
@@ -37,7 +37,7 @@ Transform::Transform(double tx, double ty, double tz, double rx, double ry, doub
     rotation(rx, ry, rz, rw)
 {}
 
-std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Transform &p)
+std::ostream &operator<<(std::ostream &os, const rbc::msgs::geometry_msgs::Transform &p)
 {
   os << "\nTransform: translation/rotation";
   os << p.translation;
@@ -45,7 +45,7 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
   return os;
 }
 
-std::ostream & operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::Transform> &p)
+std::ostream & operator<<(std::ostream &os, const std::shared_ptr<rbc::msgs::geometry_msgs::Transform> &p)
 {
   return os << *p.get();
 }

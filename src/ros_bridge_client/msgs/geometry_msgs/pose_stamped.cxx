@@ -2,10 +2,10 @@
 // Created by Julian on 27.10.18.
 //
 
-#include <ros_bridge_client/utils/deserializer.h>
-#include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
+#include <rbc/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/pose_stamped.h>
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 
 PoseStamped::PoseStamped()
   : ROSTypeBase("geometry_msgs/PoseStamped"),

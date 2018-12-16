@@ -2,9 +2,9 @@
 // Created by Julian
 //
 
-#include <ros_bridge_client/msgs/std_msgs/color_rgba_message.h>
+#include <rbc/msgs/std_msgs/color_rgba_message.h>
 
-using namespace ros_bridge_client::msgs::std_msgs;
+using namespace rbc::msgs::std_msgs;
 using namespace web;
 
 ColorRGBAMessage::ColorRGBAMessage(float r, float g, float b, float a)
@@ -20,7 +20,7 @@ ColorRGBAMessage::ColorRGBAMessage(float r, float g, float b, float a)
 }
 
 
-ColorRGBAMessage::ColorRGBAMessage(const ros_bridge_client::ros_types::ColorRGBA &r)
+ColorRGBAMessage::ColorRGBAMessage(const rbc::ros_types::ColorRGBA &r)
   : ros_msg_type("std_msgs/ColorRGBA")
 {
   rgba = r;

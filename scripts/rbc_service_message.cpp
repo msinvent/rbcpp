@@ -2,9 +2,9 @@
 // Created by Julian
 //
 
-#include <ros_bridge_client/msgs/std_msgs/rbc_service_message.h>
+#include <rbc/msgs/std_msgs/rbc_service_message.h>
 
-using namespace ros_bridge_client::msgs::std_msgs;
+using namespace rbc::msgs::std_msgs;
 using namespace web;
 
 RBCServiceMessage::RBCServiceMessage()

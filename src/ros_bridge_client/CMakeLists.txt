@@ -1,6 +1,9 @@
 target_sources(librbc
         PRIVATE
-        "${CMAKE_CURRENT_LIST_DIR}/msgs/ros_type_base.cpp"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/ros_type_base.cxx"
+
+        #        nav_msgs
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/nav_msgs/odometry.cxx"
 
         #        geometry_msgs
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose.cxx"

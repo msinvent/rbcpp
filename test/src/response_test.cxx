@@ -4,7 +4,7 @@
 
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/utils/deserializer.h>
 #include <cpprest/json.h>
 
 TEST_CASE("Header test", "[header]")

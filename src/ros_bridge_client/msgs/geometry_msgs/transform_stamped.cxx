@@ -2,10 +2,10 @@
 // Created by Julian on 29.10.18.
 //
 
-#include <ros_bridge_client/msgs/geometry_msgs/transform_stamped.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/transform_stamped.h>
+#include <rbc/utils/deserializer.h>
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 
 TransformStamped::TransformStamped(std::string frame_id)
   : ROSTypeBase("geometry_msgs/TransformStamped"),
@@ -40,7 +40,7 @@ TransformStamped::TransformStamped(double tx, double ty, double tz, double rx, d
     transform(tx, ty, tz, rx, ry, rz, rw)
 {}
 
-std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::TransformStamped &p)
+std::ostream &operator<<(std::ostream &os, const rbc::msgs::geometry_msgs::TransformStamped &p)
 {
   os << "\nTransformStamped: header/transform";
   os << p.header;
@@ -48,7 +48,7 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
   return os;
 }
 
-std::ostream &operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::TransformStamped> &p)
+std::ostream &operator<<(std::ostream &os, const std::shared_ptr<rbc::msgs::geometry_msgs::TransformStamped> &p)
 {
   return os << *p.get();
 }

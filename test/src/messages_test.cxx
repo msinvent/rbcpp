@@ -8,9 +8,9 @@
 
 test::CSVReader reader("../../test/test_messages.csv", ";");
 test::DataFrame dataframe(reader);
+
 test::HeaderTest header_test(dataframe);
 test::StringTest string_test(dataframe);
-//test::ServiceMessage            service_messages(dataframe);
 test::Float32Test float32_test(dataframe);
 test::Float64Test float64_test(dataframe);
 test::Int8Test int8_test(dataframe);
@@ -22,6 +22,7 @@ test::UInt16Test uint16_test(dataframe);
 test::UInt32Test uint32_test(dataframe);
 test::UInt64Test uint64_test(dataframe);
 test::ColorRGBATest color_rgba_test(dataframe);
+
 test::PointTest point_test(dataframe);
 test::PoseTest pose_test(dataframe);
 test::AccelTest accel_test(dataframe);
@@ -51,6 +52,8 @@ test::QuaternionStampedTest quaternion_stamped_test(dataframe);
 test::Vector3StampedTest vector3_stamped_test(dataframe);
 test::TwistTest twist_test(dataframe);
 test::TwistStampedTest twist_stamped_test(dataframe);
+
+test::OdometryTest odometry_test(dataframe);
 
 TEST_CASE("Header test", "[header]")
 {
@@ -888,5 +891,32 @@ TEST_CASE("Inertia Stamped test", "[inertia_stamped_test]")
     inertia.com.y = vec.y;
     inertia.com.z = vec.z;
     REQUIRE(inertia_stamped_test.getMessage(inertia, "a_frame") == inertia_stamped_test.test2);
+  }
+}
+
+TEST_CASE("Odometry test", "[odometry_test]")
+{
+  std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
+                                      .7, .8, .9, 1., 1.1, 1.2,
+                                      1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                      1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                      2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                      3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
+  {
+    nav_msgs::Odometry o;
+    o.header.frame_id = "a frame";
+    o.child_frame_id = "a child frame";
+    REQUIRE(odometry_test.getMessage(o) == odometry_test.test1);
+    REQUIRE(odometry_test.getMessage("a frame", "a child frame") == odometry_test.test1);
+  }
+  {
+    nav_msgs::Odometry o;
+    o.child_frame_id = "a child frame";
+    o.header.frame_id = "a frame";
+    o.pose.pose = geometry_msgs::Pose(.1, .2, .3, .1, .2, .3, .4);
+    o.pose.covariance = covariance;
+    o.twist.twist = geometry_msgs::Twist(geometry_msgs::Vector3(.1, .2, .3), geometry_msgs::Vector3(.4, .5, .6));
+    o.twist.covariance = covariance;
+    REQUIRE(odometry_test.getMessage(o) == odometry_test.test2);
   }
 }

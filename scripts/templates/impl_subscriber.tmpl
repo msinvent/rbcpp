@@ -2,10 +2,10 @@
 // Created by Julian on 14.10.18.
 //
 
-#include <ros_bridge_client/subscriber/{header_name}.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/subscriber/{header_name}.h>
+#include <rbc/utils/deserializer.h>
 
-using namespace ros_bridge_client::subscriber;
+using namespace rbc::subscriber;
 
 {class_name}::{class_name}(ROSBridgeClient &wsc, std::string topic, size_t buffer_size)
   : RBCSubscriber<{type}>(wsc, topic, "{ros_msg_type}/{ros_msg_name}", buffer_size)

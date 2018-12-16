@@ -2,10 +2,10 @@
 // Created by Julian
 //
 
-#include <ros_bridge_client/msgs/{ros_msg_type}/{header_name}.h>
-#include <ros_bridge_client/msgs/std_msgs/header_message.h>
+#include <rbc/msgs/{ros_msg_type}/{header_name}.h>
+#include <rbc/msgs/std_msgs/header_message.h>
 
-using namespace ros_bridge_client::msgs::{ros_msg_type};
+using namespace rbc::msgs::{ros_msg_type};
 using namespace web;
 
 {class_name}::{class_name}(std::string frame_id)
@@ -20,7 +20,7 @@ json::value {class_name}::createJsonMsg() const
 {{
   json::value {header_name}_json;
 
-  using namespace ros_bridge_client::msgs::std_msgs;
+  using namespace rbc::msgs::std_msgs;
   HeaderMessage header_message(frame_id);
   {header_name}_json[U("header")] = header_message.getJsonAt("msg");
   {header_name}_json[U("TODO")] = RBCMessage::getJsonAt("msg");

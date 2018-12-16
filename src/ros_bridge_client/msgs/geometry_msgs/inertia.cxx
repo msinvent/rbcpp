@@ -2,11 +2,11 @@
 // Created by julian on 02.11.18.
 //
 
-#include <ros_bridge_client/msgs/geometry_msgs/inertia.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/inertia.h>
+#include <rbc/utils/deserializer.h>
 
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 
 
 Inertia::Inertia()
@@ -47,7 +47,7 @@ Inertia::Inertia(const web::json::value &response)
   utils::Deserializer::deserialize<double>(com, msg.at(U("com")), true);
 }
 
-std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Inertia &i)
+std::ostream &operator<<(std::ostream &os, const rbc::msgs::geometry_msgs::Inertia &i)
 {
   os << "\nInertia:";
   os << "\n\tixx: " << i.ixx;
@@ -62,7 +62,7 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
 }
 
 std::ostream &
-operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::Inertia> &i)
+operator<<(std::ostream &os, const std::shared_ptr<rbc::msgs::geometry_msgs::Inertia> &i)
 {
   return os << *i.get();
 }

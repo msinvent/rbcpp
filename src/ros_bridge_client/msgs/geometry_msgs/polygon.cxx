@@ -2,11 +2,11 @@
 // Created by julian on 03.12.18.
 //
 
-#include <ros_bridge_client/msgs/geometry_msgs/polygon.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/polygon.h>
+#include <rbc/utils/deserializer.h>
 #include <iterator>
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 
 Polygon::Polygon()
     : ROSTypeBase("geometry_msgs/Polygon"),
@@ -32,7 +32,7 @@ void Polygon::add(const Point32 &p32)
   points.push_back(p32);
 }
 
-std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Polygon &p)
+std::ostream &operator<<(std::ostream &os, const rbc::msgs::geometry_msgs::Polygon &p)
 {
   os << "\nPolygon";
   if (p.points.empty())
@@ -48,7 +48,7 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
   return os << "\n";
 }
 
-std::ostream &operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::Polygon> &p)
+std::ostream &operator<<(std::ostream &os, const std::shared_ptr<rbc::msgs::geometry_msgs::Polygon> &p)
 {
   return os << *p.get();
 }

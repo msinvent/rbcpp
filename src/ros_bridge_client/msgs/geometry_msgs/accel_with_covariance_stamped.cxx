@@ -2,10 +2,10 @@
 // Created by Julian on 29.10.18.
 //
 
-#include <ros_bridge_client/msgs/geometry_msgs/accel_with_covariance_stamped.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/accel_with_covariance_stamped.h>
+#include <rbc/utils/deserializer.h>
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 
 AccelWithCovarianceStamped::AccelWithCovarianceStamped()
     : ROSTypeBase("geometry_msgs/AccelWithCovarianceStamped"),

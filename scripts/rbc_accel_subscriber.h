@@ -5,10 +5,10 @@
 #ifndef ROSBRIDGECLIENT_RBC_ACCEL_SUBSCRIBER_H
 #define ROSBRIDGECLIENT_RBC_ACCEL_SUBSCRIBER_H
 
-#include <ros_bridge_client/subscriber/private/rbc_subscriber.h>
-#include <ros_bridge_client/msgs/geometry_msgs/accel_message.h>
+#include <rbc/subscriber/private/rbc_subscriber.h>
+#include <rbc/msgs/geometry_msgs/accel_message.h>
 
-namespace ros_bridge_client::subscriber
+namespace rbc::subscriber
 {
 
 class RBCAccelSubscriber : public RBCSubscriber<geometry_msgs::AccelMessage>
@@ -20,6 +20,6 @@ public:
 
   void addMessage(const web::json::value &json_msg) final;
 };
-} // namespace ros_bridge_client::subscriber
+} // namespace rbc::subscriber
 
 #endif //ROSBRIDGECLIENT_RBC_ACCEL_SUBSCRIBER_H

@@ -2,10 +2,10 @@
 // Created by julian on 11.12.18.
 //
 
-#include <ros_bridge_client/msgs/geometry_msgs/pose_array.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/pose_array.h>
+#include <rbc/utils/deserializer.h>
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 
 PoseArray::PoseArray(std::string frame_id)
   : ROSTypeBase("geometry_msgs/PoseArray"),

@@ -2,9 +2,9 @@
 // Created by Julian
 //
 
-#include <ros_bridge_client/msgs/service/service_message.h>
+#include <rbc/msgs/service/service_message.h>
 
-using namespace ros_bridge_client::msgs::service;
+using namespace rbc::msgs::service;
 using namespace web;
 
 ServiceMessage::ServiceMessage()

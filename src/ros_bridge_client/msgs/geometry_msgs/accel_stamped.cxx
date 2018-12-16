@@ -2,10 +2,10 @@
 // Created by julian on 01.11.18.
 //
 
-#include <ros_bridge_client/utils/deserializer.h>
-#include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
+#include <rbc/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/accel_stamped.h>
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 
 AccelStamped::AccelStamped(std::string ros_msg_type)
   : ROSTypeBase(ros_msg_type),

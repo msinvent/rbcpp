@@ -44,6 +44,8 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | twist stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | twist with covariance  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | twist with covariance stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|**nav_msgs**     | GridCells  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | Odometry  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |**std_msgs**     | String  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | Header  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | Int8  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
@@ -76,7 +78,6 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | Float64  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | Float64MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | UInt8MultiArray  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|**nav_msgs**     | GridCells  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 
 <a name="usage"></a>
 

@@ -1,8 +1,8 @@
 #include <test/full_test.h>
 
 using namespace std::chrono;
-using namespace ros_bridge_client;
-using namespace ros_bridge_client::msgs;
+using namespace rbc;
+using namespace rbc::msgs;
 using namespace test;
 
 int main(void)

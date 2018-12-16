@@ -2,10 +2,10 @@
 // Created by Julian on 14.09.18.
 //
 
-#include <ros_bridge_client/subscriber/rbc_subscriber_base.h>
+#include <rbc/subscriber/rbc_subscriber_base.h>
 #include <cpprest/ws_client.h>
 
-using namespace ros_bridge_client::subscriber;
+using namespace rbc::subscriber;
 using namespace web;
 
 SubscriberBase::SubscriberBase(std::string topic, std::string msg_type)

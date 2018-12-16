@@ -2,9 +2,9 @@
 // Created by Julian on 14.10.18.
 //
 
-#include <ros_bridge_client/msgs/{ros_msg_type}/{header_name}.h>
+#include <rbc/msgs/{ros_msg_type}/{header_name}.h>
 
-using namespace ros_bridge_client::msgs::std_msgs;
+using namespace rbc::msgs::std_msgs;
 
 {class_name}::{class_name}({type} data)
   : StdMessage<{type}>(data, "{ros_msg_type}/{ros_msg_name}")

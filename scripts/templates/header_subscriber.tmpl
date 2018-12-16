@@ -5,10 +5,10 @@
 #ifndef ROSBRIDGECLIENT_{guard}_H
 #define ROSBRIDGECLIENT_{guard}_H
 
-#include <ros_bridge_client/subscriber/private/rbc_subscriber.h>
-#include <ros_bridge_client/msgs/{ros_msg_type}/{ros_msg_name_lower}_message.h>
+#include <rbc/subscriber/private/rbc_subscriber.h>
+#include <rbc/msgs/{ros_msg_type}/{ros_msg_name_lower}_message.h>
 
-namespace ros_bridge_client::subscriber
+namespace rbc::subscriber
 {{
 
 class {class_name} : public RBCSubscriber<{type}>
@@ -20,6 +20,6 @@ public:
 
   void addMessage(const web::json::value &json_msg) final;
 }};
-}} // namespace ros_bridge_client::subscriber
+}} // namespace rbc::subscriber
 
 #endif //ROSBRIDGECLIENT_{guard}_H

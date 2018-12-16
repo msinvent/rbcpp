@@ -2,11 +2,11 @@
 // Created by julian on 02.11.18.
 //
 
-#include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/inertia_stamped.h>
+#include <rbc/utils/deserializer.h>
 
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 
 InertiaStamped::InertiaStamped()
   : ROSTypeBase("geometry_msgs/InertiaStamped"),
@@ -48,7 +48,7 @@ InertiaStamped::InertiaStamped(const web::json::value &response)
   utils::Deserializer::deserialize<double>(inertia.com, inertia_msg.at(U("com")), true);
 }
 
-std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::InertiaStamped &is)
+std::ostream &operator<<(std::ostream &os, const rbc::msgs::geometry_msgs::InertiaStamped &is)
 {
   os << "\nInertiaStamped";
   os << is.header;
@@ -58,7 +58,7 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
 }
 
 std::ostream &
-operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::InertiaStamped> &is)
+operator<<(std::ostream &os, const std::shared_ptr<rbc::msgs::geometry_msgs::InertiaStamped> &is)
 {
   return os << *is.get();
 }

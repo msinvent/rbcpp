@@ -2,10 +2,10 @@
 // Created by Julian on 05.10.18.
 //
 
-#include <ros_bridge_client/msgs/std_msgs/header.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/std_msgs/header.h>
+#include <rbc/utils/deserializer.h>
 
-using namespace ros_bridge_client::msgs::std_msgs;
+using namespace rbc::msgs::std_msgs;
 using namespace web;
 
 Header::Header()

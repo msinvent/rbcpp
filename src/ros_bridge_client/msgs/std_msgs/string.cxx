@@ -2,10 +2,10 @@
 // Created by julian on 17.11.18.
 //
 
-#include <ros_bridge_client/msgs/std_msgs/string.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/std_msgs/string.h>
+#include <rbc/utils/deserializer.h>
 
-using namespace ros_bridge_client::msgs::std_msgs;
+using namespace rbc::msgs::std_msgs;
 
 String::String()
   : StdMsg<std::string>("std_msgs/String")

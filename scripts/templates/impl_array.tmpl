@@ -2,10 +2,10 @@
 // Created by Julian
 //
 
-#include <ros_bridge_client/msgs/{ros_msg_type}/{header_name}.h>
-#include <ros_bridge_client/msgs/{ros_msg_type}/{array_ros_type_lower}_message.h>
+#include <rbc/msgs/{ros_msg_type}/{header_name}.h>
+#include <rbc/msgs/{ros_msg_type}/{array_ros_type_lower}_message.h>
 
-using namespace ros_bridge_client::msgs::{ros_msg_type};
+using namespace rbc::msgs::{ros_msg_type};
 using namespace web;
 
 {class_name}::{class_name}()
@@ -23,9 +23,9 @@ json::value {class_name}::createJsonMsg() const
   return {ros_msg_type}_json;
 }}
 
-void {class_name}::add(const ros_bridge_client::ros_types::{array_ros_type} &{array_ros_type_lower})
+void {class_name}::add(const rbc::ros_types::{array_ros_type} &{array_ros_type_lower})
 {{
-  using namespace ros_bridge_client::msgs::geometry_msgs;
+  using namespace rbc::msgs::geometry_msgs;
   {array_ros_type}Message {array_ros_type_lower}_message({array_ros_type_lower});
 
   auto &current_cells = json.at(U("msg")).at(U(array_descriptor)).as_array();

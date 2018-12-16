@@ -2,10 +2,10 @@
 // Created by Julian on 27.10.18.
 //
 
-#include <ros_bridge_client/utils/deserializer.h>
-#include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance_stamped.h>
+#include <rbc/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/pose_with_covariance_stamped.h>
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 
 PoseWithCovarianceStamped::PoseWithCovarianceStamped()
     : ROSTypeBase("geometry_msgs/PoseWithCovarianceStamped"),
@@ -61,7 +61,7 @@ PoseWithCovarianceStamped::PoseWithCovarianceStamped(const web::json::value &res
   }
 }
 
-std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::PoseWithCovarianceStamped &p)
+std::ostream &operator<<(std::ostream &os, const rbc::msgs::geometry_msgs::PoseWithCovarianceStamped &p)
 {
   os << "\nPose With Covariance Stamped:";
   os << p.header;
@@ -73,7 +73,7 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
 
 std::ostream &
 operator<<(std::ostream &os,
-           const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::PoseWithCovarianceStamped> &p)
+           const std::shared_ptr<rbc::msgs::geometry_msgs::PoseWithCovarianceStamped> &p)
 {
   return os << *p.get();
 }

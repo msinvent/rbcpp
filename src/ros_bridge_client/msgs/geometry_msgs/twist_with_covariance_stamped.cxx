@@ -2,10 +2,10 @@
 // Created by julian on 29.11.18.
 //
 
-#include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance_stamped.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/twist_with_covariance_stamped.h>
+#include <rbc/utils/deserializer.h>
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 
 TwistWithCovarianceStamped::TwistWithCovarianceStamped(std::string frame_id)
   : ROSTypeBase("geometry_msgs/TwistWithCovarianceStamped"),
@@ -52,7 +52,7 @@ TwistWithCovarianceStamped::TwistWithCovarianceStamped(const web::json::value &r
   utils::Deserializer::deserialize(header, response.at(U("msg")).at(U("header")), true);
 }
 
-std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::TwistWithCovarianceStamped &t)
+std::ostream &operator<<(std::ostream &os, const rbc::msgs::geometry_msgs::TwistWithCovarianceStamped &t)
 {
   os << "\nTwist With Covariance Stamped";
   os << t.twist;
@@ -62,7 +62,7 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
 }
 
 std::ostream &
-operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::TwistWithCovarianceStamped> &t)
+operator<<(std::ostream &os, const std::shared_ptr<rbc::msgs::geometry_msgs::TwistWithCovarianceStamped> &t)
 {
   return os << *t.get();
 }

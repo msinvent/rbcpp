@@ -3,9 +3,9 @@
 //
 
 #include <cpprest/ws_client.h>
-#include <ros_bridge_client/msgs/std_msgs/string_message.h>
+#include <rbc/msgs/std_msgs/string_message.h>
 
-using namespace ros_bridge_client::msgs::std_msgs;
+using namespace rbc::msgs::std_msgs;
 using namespace web;
 using namespace web::web_sockets::client;
 

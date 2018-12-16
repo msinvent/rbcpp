@@ -5,9 +5,9 @@
 #ifndef ROSBRIDGECLIENT_{guard}_HPP
 #define ROSBRIDGECLIENT_{guard}_HPP
 
-#include <ros_bridge_client/msgs/message_base.h>
+#include <rbc/msgs/message_base.h>
 
-namespace ros_bridge_client::msgs::{ros_msg_type}
+namespace rbc::msgs::{ros_msg_type}
 {{
 
 class {class_name} : public RBCMessage
@@ -20,7 +20,7 @@ private:
   const std::string ros_msg_type;
   web::json::value createJsonMsg() const {inher};
 }};
-}} // namespace ros_bridge_client::msgs::{ros_msg_type}
+}} // namespace rbc::msgs::{ros_msg_type}
 
 
 #endif //ROSBRIDGECLIENT_{guard}_HPP

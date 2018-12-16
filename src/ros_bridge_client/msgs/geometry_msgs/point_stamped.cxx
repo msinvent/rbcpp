@@ -2,10 +2,10 @@
 // Created by Julian on 18.09.18.
 //
 
-#include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/point_stamped.h>
+#include <rbc/utils/deserializer.h>
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 using namespace web;
 
 PointStamped::PointStamped(double x, double y, double z, std::string frame_id)

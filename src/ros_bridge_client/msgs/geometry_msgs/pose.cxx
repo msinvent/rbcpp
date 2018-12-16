@@ -2,10 +2,10 @@
 // Created by Julian on 27.10.18.
 //
 
-#include <ros_bridge_client/msgs/geometry_msgs/pose.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/pose.h>
+#include <rbc/utils/deserializer.h>
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 
 Pose::Pose()
   : ROSTypeBase("geometry_msgs/Pose"),
@@ -40,7 +40,7 @@ bool Pose::operator==(const Pose &pose)
   return point == pose.point && orientation == pose.orientation;
 }
 
-std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Pose &p)
+std::ostream &operator<<(std::ostream &os, const rbc::msgs::geometry_msgs::Pose &p)
 {
   os << "\nPose:";
   os << p.point;
@@ -50,7 +50,7 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
 }
 
 std::ostream &
-operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::Pose> &p)
+operator<<(std::ostream &os, const std::shared_ptr<rbc::msgs::geometry_msgs::Pose> &p)
 {
   return os << *p.get();
 }

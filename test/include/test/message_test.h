@@ -7,53 +7,55 @@
 
 #include <test/csv_reader.h>
 #include <cpprest/ws_client.h>
-#include <ros_bridge_client/ros_bridge_client.h>
+#include <rbc/ros_bridge_client.h>
+#include <rbc/msgs/message.h>
 
-#include <ros_bridge_client/msgs/message.h>
-#include <ros_bridge_client/msgs/std_msgs/int8.h>
-#include <ros_bridge_client/msgs/std_msgs/int16.h>
-#include <ros_bridge_client/msgs/std_msgs/int32.h>
-#include <ros_bridge_client/msgs/std_msgs/int64.h>
-#include <ros_bridge_client/msgs/std_msgs/uint8.h>
-#include <ros_bridge_client/msgs/std_msgs/uint16.h>
-#include <ros_bridge_client/msgs/std_msgs/uint32.h>
-#include <ros_bridge_client/msgs/std_msgs/uint64.h>
-#include <ros_bridge_client/msgs/std_msgs/string.h>
-#include <ros_bridge_client/msgs/std_msgs/header.h>
-#include <ros_bridge_client/msgs/std_msgs/float32.h>
-#include <ros_bridge_client/msgs/std_msgs/float64.h>
-#include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
+#include <rbc/msgs/std_msgs/int8.h>
+#include <rbc/msgs/std_msgs/int16.h>
+#include <rbc/msgs/std_msgs/int32.h>
+#include <rbc/msgs/std_msgs/int64.h>
+#include <rbc/msgs/std_msgs/uint8.h>
+#include <rbc/msgs/std_msgs/uint16.h>
+#include <rbc/msgs/std_msgs/uint32.h>
+#include <rbc/msgs/std_msgs/uint64.h>
+#include <rbc/msgs/std_msgs/string.h>
+#include <rbc/msgs/std_msgs/header.h>
+#include <rbc/msgs/std_msgs/float32.h>
+#include <rbc/msgs/std_msgs/float64.h>
+#include <rbc/msgs/std_msgs/color_rgba.h>
 
-#include <ros_bridge_client/msgs/geometry_msgs/pose.h>
-#include <ros_bridge_client/msgs/geometry_msgs/point.h>
-#include <ros_bridge_client/msgs/geometry_msgs/accel.h>
-#include <ros_bridge_client/msgs/geometry_msgs/twist.h>
-#include <ros_bridge_client/msgs/geometry_msgs/pose2d.h>
-#include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
-#include <ros_bridge_client/msgs/geometry_msgs/point32.h>
-#include <ros_bridge_client/msgs/geometry_msgs/vector3.h>
-#include <ros_bridge_client/msgs/geometry_msgs/polygon.h>
-#include <ros_bridge_client/msgs/geometry_msgs/transform.h>
-#include <ros_bridge_client/msgs/geometry_msgs/quaternion.h>
-#include <ros_bridge_client/msgs/geometry_msgs/pose_array.h>
-#include <ros_bridge_client/msgs/geometry_msgs/pose_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/accel_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/point_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/twist_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/wrench_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/inertia_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/polygon_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/util/covariance.h>
-#include <ros_bridge_client/msgs/geometry_msgs/transform_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance.h>
-#include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance.h>
-#include <ros_bridge_client/msgs/geometry_msgs/accel_with_covariance.h>
-#include <ros_bridge_client/msgs/geometry_msgs/pose_with_covariance_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/twist_with_covariance_stamped.h>
-#include <ros_bridge_client/msgs/geometry_msgs/accel_with_covariance_stamped.h>
+#include <rbc/msgs/nav_msgs/odometry.h>
 
-using namespace ros_bridge_client::msgs;
+#include <rbc/msgs/geometry_msgs/pose.h>
+#include <rbc/msgs/geometry_msgs/point.h>
+#include <rbc/msgs/geometry_msgs/accel.h>
+#include <rbc/msgs/geometry_msgs/twist.h>
+#include <rbc/msgs/geometry_msgs/pose2d.h>
+#include <rbc/msgs/geometry_msgs/wrench.h>
+#include <rbc/msgs/geometry_msgs/point32.h>
+#include <rbc/msgs/geometry_msgs/vector3.h>
+#include <rbc/msgs/geometry_msgs/polygon.h>
+#include <rbc/msgs/geometry_msgs/transform.h>
+#include <rbc/msgs/geometry_msgs/quaternion.h>
+#include <rbc/msgs/geometry_msgs/pose_array.h>
+#include <rbc/msgs/geometry_msgs/pose_stamped.h>
+#include <rbc/msgs/geometry_msgs/accel_stamped.h>
+#include <rbc/msgs/geometry_msgs/point_stamped.h>
+#include <rbc/msgs/geometry_msgs/twist_stamped.h>
+#include <rbc/msgs/geometry_msgs/wrench_stamped.h>
+#include <rbc/msgs/geometry_msgs/inertia_stamped.h>
+#include <rbc/msgs/geometry_msgs/polygon_stamped.h>
+#include <rbc/msgs/geometry_msgs/util/covariance.h>
+#include <rbc/msgs/geometry_msgs/transform_stamped.h>
+#include <rbc/msgs/geometry_msgs/quaternion_stamped.h>
+#include <rbc/msgs/geometry_msgs/pose_with_covariance.h>
+#include <rbc/msgs/geometry_msgs/twist_with_covariance.h>
+#include <rbc/msgs/geometry_msgs/accel_with_covariance.h>
+#include <rbc/msgs/geometry_msgs/pose_with_covariance_stamped.h>
+#include <rbc/msgs/geometry_msgs/twist_with_covariance_stamped.h>
+#include <rbc/msgs/geometry_msgs/accel_with_covariance_stamped.h>
+
+using namespace rbc::msgs;
 
 namespace test
 {
@@ -1133,6 +1135,38 @@ struct InertiaStampedTest : public Test
   {
     geometry_msgs::InertiaStamped msg(m, com, ixx, ixy, ixz, iyy, iyz, izz, frame_id);
     return messageToString(msg);
+  }
+};
+
+struct OdometryTest : public Test
+{
+  OdometryTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("OdometryTest")[0]),
+        test2(dataframe.data.at("OdometryTest")[1])
+  {}
+
+  ~OdometryTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string
+  getMessage(std::string child_frame_id, const std_msgs::Header &h, const geometry_msgs::PoseWithCovariance &p,
+             const geometry_msgs::TwistWithCovariance &t) const
+  {
+    nav_msgs::Odometry msg(child_frame_id, h, p, t);
+    return messageToString(msg);
+  }
+
+  inline std::string getMessage(const std::string frame_id, const std::string child_frame_id)
+  {
+    nav_msgs::Odometry msg(frame_id, child_frame_id);
+    return messageToString(msg);
+  }
+
+  inline std::string getMessage(const nav_msgs::Odometry &o) const
+  {
+    return messageToString(o);
   }
 };
 

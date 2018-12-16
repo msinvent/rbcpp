@@ -2,10 +2,10 @@
 // Created by Julian on 15.10.18.
 //
 
-#include <ros_bridge_client/service/rbc_service.h>
+#include <rbc/service/rbc_service.h>
 
-using namespace ros_bridge_client::service;
-using namespace ros_bridge_client::msgs::service;
+using namespace rbc::service;
+using namespace rbc::msgs::service;
 using namespace web;
 
 RBCService::RBCService(ROSBridgeClient &client, std::string service_name)

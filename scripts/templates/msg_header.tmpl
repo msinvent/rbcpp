@@ -6,11 +6,11 @@
 #define ROSBRIDGECLIENT_{guard}_HPP
 
 #include <cpprest/json.h>
-#include <ros_bridge_client/msgs/ros_type_base.h>
+#include <rbc/msgs/ros_type_base.h>
 #include <memory>
 #include <iostream>
 
-namespace ros_bridge_client
+namespace rbc
 {{
 namespace msgs
 {{
@@ -27,9 +27,9 @@ struct {class_name} : public MessageBase
 
 }} // namespace {ros_msg_type}
 }} // namespace msgs
-}} // namespace ros_bridge_client
+}} // namespace rbc
 
-std::ostream& operator<<(std::ostream &os, const ros_bridge_client::msgs::{ros_msg_type}::{class_name} &p);
-std::ostream& operator<<(std::ostream &os, std::shared_ptr<ros_bridge_client::msgs::{ros_msg_type}::{class_name}> p);
+std::ostream& operator<<(std::ostream &os, const rbc::msgs::{ros_msg_type}::{class_name} &p);
+std::ostream& operator<<(std::ostream &os, std::shared_ptr<rbc::msgs::{ros_msg_type}::{class_name}> p);
 
 #endif //ROSBRIDGECLIENT_{guard}_HPP

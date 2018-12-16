@@ -2,10 +2,10 @@
 // Created by Julian on 18.09.18.
 //
 
-#include <ros_bridge_client/msgs/geometry_msgs/quaternion_stamped.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/quaternion_stamped.h>
+#include <rbc/utils/deserializer.h>
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 using namespace web;
 
 QuaternionStamped::QuaternionStamped(double x, double y, double z, double w, std::string frame_id)

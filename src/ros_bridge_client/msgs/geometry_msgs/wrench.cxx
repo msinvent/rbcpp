@@ -2,10 +2,10 @@
 // Created by Julian on 29.10.18.
 //
 
-#include <ros_bridge_client/msgs/geometry_msgs/wrench.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/geometry_msgs/wrench.h>
+#include <rbc/utils/deserializer.h>
 
-using namespace ros_bridge_client::msgs::geometry_msgs;
+using namespace rbc::msgs::geometry_msgs;
 
 Wrench::Wrench()
   : ROSTypeBase("geometry_msgs/Wrench"),
@@ -39,7 +39,7 @@ Wrench::Wrench(const web::json::value &response)
   utils::Deserializer::deserialize<double>(torque, msg.at(U("torque")), true);
 }
 
-std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geometry_msgs::Wrench &w)
+std::ostream &operator<<(std::ostream &os, const rbc::msgs::geometry_msgs::Wrench &w)
 {
   os << "\nWrench: force/torque";
   os << w.force;
@@ -47,7 +47,7 @@ std::ostream &operator<<(std::ostream &os, const ros_bridge_client::msgs::geomet
   return os;
 }
 
-std::ostream & operator<<(std::ostream &os, const std::shared_ptr<ros_bridge_client::msgs::geometry_msgs::Wrench> &w)
+std::ostream & operator<<(std::ostream &os, const std::shared_ptr<rbc::msgs::geometry_msgs::Wrench> &w)
 {
   return os << *w.get();
 }

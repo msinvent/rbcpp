@@ -2,11 +2,11 @@
 // Created by julian on 22.11.18.
 //
 
-#include <ros_bridge_client/msgs/std_msgs/color_rgba.h>
-#include <ros_bridge_client/utils/deserializer.h>
+#include <rbc/msgs/std_msgs/color_rgba.h>
+#include <rbc/utils/deserializer.h>
 #include <tuple>
 
-using namespace ros_bridge_client::msgs::std_msgs;
+using namespace rbc::msgs::std_msgs;
 
 ColorRGBA::ColorRGBA()
   : ROSTypeBase("std_msgs/ColorRGBA"),
@@ -25,7 +25,7 @@ ColorRGBA::ColorRGBA(const web::json::value &response)
   utils::Deserializer::deserialize(*this, response, false);
 }
 
-std::ostream &ros_bridge_client::msgs::std_msgs::operator<<(std::ostream &os, const ColorRGBA &c)
+std::ostream &rbc::msgs::std_msgs::operator<<(std::ostream &os, const ColorRGBA &c)
 {
   os << "\nColorRGBA:";
   os << "\n\tr: " << c.r;
@@ -35,7 +35,7 @@ std::ostream &ros_bridge_client::msgs::std_msgs::operator<<(std::ostream &os, co
   return os;
 }
 
-std::ostream &ros_bridge_client::msgs::std_msgs::operator<<(std::ostream &os, const std::shared_ptr<ColorRGBA> &c)
+std::ostream &rbc::msgs::std_msgs::operator<<(std::ostream &os, const std::shared_ptr<ColorRGBA> &c)
 {
   return os << *c.get();
 }

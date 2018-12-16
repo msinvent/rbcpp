@@ -17,6 +17,8 @@
 
 #include <rbc/msgs/nav_msgs/odometry.h>
 
+#include <rbc/msgs/sensor_msgs/imu.h>
+
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/point.h>
 #include <rbc/msgs/geometry_msgs/accel.h>
@@ -122,7 +124,8 @@ const std::vector<std::string> messages = {"header",
                                            "wrench_stamp",
                                            "inertia",
                                            "inertia_stamp",
-                                           "odometry"};
+                                           "odometry",
+                                           "imu"};
 
 static void init()
 {
@@ -670,6 +673,28 @@ static inline void odomcallback(const std::shared_ptr<nav_msgs::Odometry> msg)
                                                     2.5, 2.6, 2.7, 2.8, 2.9, 3.,
                                                     3.1, 3.2, 3.3, 3.4, 3.5, 3.6}));
   update("odometry");
+}
+
+static inline void imucallback(const std::shared_ptr<sensor_msgs::Imu> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[Imu]\n";
+  std::array<float, 9> covariance( {.1, .2, 3., .4, .5, .6, .7, .8, .9} );
+
+  assert((msg->linear_acceleration_covariance == covariance));
+  assert((msg->angular_velocity_covariance == covariance));
+  assert((msg->orientation_covariance == covariance));
+  assert((msg->linear_acceleration.x == 0.1));
+  assert((msg->linear_acceleration.y == 0.2));
+  assert((msg->linear_acceleration.z == 0.3));
+  assert((msg->angular_velocity.x == 0.1));
+  assert((msg->angular_velocity.y == 0.2));
+  assert((msg->angular_velocity.z == 0.3));
+  assert((msg->orientation.x == 0.1));
+  assert((msg->orientation.y == 0.2));
+  assert((msg->orientation.z == 0.3));
+  assert((msg->orientation.w == 0.4));
+
+  update("imu");
 }
 
 } // namespace callbacks

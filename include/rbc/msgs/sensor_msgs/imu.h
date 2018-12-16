@@ -38,4 +38,8 @@ struct Imu : public ROSTypeBase
 
 } // namespace rbc::msgs::sensor_msgs
 
+std::ostream &operator<<(std::ostream &os, const rbc::msgs::sensor_msgs::Imu &imu);
+
+std::ostream &operator<<(std::ostream &os, const std::shared_ptr<rbc::msgs::sensor_msgs::Imu> &imu);
+
 #endif //ROSBRIDGECLIENT_IMU_H

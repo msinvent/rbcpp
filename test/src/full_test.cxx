@@ -58,6 +58,7 @@ int main(void)
   auto quaternion_pub = rbc->addPublisher<geometry_msgs::Quaternion>("/rosbridge/orientation/");
   auto quaternion_stamped_pub = rbc->addPublisher<geometry_msgs::QuaternionStamped>("/rosbridge/quaternion_stamped/");
   auto odom_pub = rbc->addPublisher<nav_msgs::Odometry>("/rosbridge/odometry");
+  auto imu_pub = rbc->addPublisher<sensor_msgs::Imu>("/rosbridge/imu");
 
   auto header_sub = rbc->addSubscriber<std_msgs::Header>("/rosbridge/header/", 100, callbacks::hcallback);
   auto string_sub = rbc->addSubscriber<std_msgs::String>("/rosbridge/string/", 100, callbacks::scallback);
@@ -102,13 +103,16 @@ int main(void)
   auto quaternion_sub = rbc->addSubscriber<geometry_msgs::Quaternion>("/rosbridge/orientation/", 100, callbacks::qcallback);
   auto quaternion_stamped_sub = rbc->addSubscriber<geometry_msgs::QuaternionStamped>("/rosbridge/quaternion_stamped/", 100, callbacks::qscallback);
   auto odom_sub = rbc->addSubscriber<nav_msgs::Odometry>("/rosbridge/odometry", 100, callbacks::odomcallback);
+  auto imu_sub = rbc->addSubscriber<sensor_msgs::Imu>("/rosbridge/imu", 100, callbacks::imucallback);
 
   std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
                                       .7, .8, .9, 1., 1.1, 1.2,
                                       1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
                                       1.9, 2., 2.1, 2.2, 2.3, 2.4,
                                       2.5, 2.6, 2.7, 2.8, 2.9, 3.,
-                                      3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
+                                      3.1, 3.2, 3.3, 3.4, 3.5, 3.6} );
+  std::array<float, 9> covariance2( {.1, .2, 3., .4, .5, .6, .7, .8, .9} );
+
   while (messages++ < 10)
   {
     std::this_thread::sleep_for(pause);
@@ -249,6 +253,15 @@ int main(void)
 
     nav_msgs::Odometry o("a child frame", h, pocov, twc);
     odom_pub->publish(o);
+
+    sensor_msgs::Imu imu;
+    imu.angular_velocity_covariance = covariance2;
+    imu.linear_acceleration_covariance = covariance2;
+    imu.orientation_covariance = covariance2;
+    imu.orientation = q;
+    imu.linear_acceleration = v;
+    imu.angular_velocity = v;
+    imu_pub->publish(imu);
   }
 
   std::this_thread::sleep_for(std::chrono::seconds(1)); // for last incoming messages

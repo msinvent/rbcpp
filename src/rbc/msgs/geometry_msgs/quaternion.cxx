@@ -33,6 +33,7 @@ std::ostream& operator <<(std::ostream &os, const Quaternion &q)
   os << "\n\ty: " << q.y;
   os << "\n\tz: " << q.z;
   os << "\n\tw: " << q.w;
+  os << "\n";
   return os;
 }
 

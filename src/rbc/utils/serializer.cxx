@@ -9,7 +9,7 @@ using namespace rbc::msgs;
 using namespace web;
 
 Serializer::Serializer()
-  : json_()
+    : json_()
 {
   json_[U("op")] = json::value::string("publish");
   json_[U("topic")] = json::value::string("/rosbridge/message");
@@ -332,4 +332,20 @@ web::json::value &Serializer::serialize(const nav_msgs::Odometry &odometry, bool
   odometry_stamp[U("twist")] = serialize(odometry.twist, true);
 
   return not sub_json ? completeJson(odometry, odometry_stamp) : odometry_stamp;
+}
+
+web::json::value &Serializer::serialize(const sensor_msgs::Imu &imu, bool sub_json)
+{
+  static web::json::value imu_json;
+
+  imu_json[U("orientation")] = serialize(imu.orientation, true);
+  imu_json[U("angular_velocity")] = serialize(imu.angular_velocity, true);
+  imu_json[U("linear_acceleration")] = serialize(imu.linear_acceleration, true);
+  imu_json[U("linear_acceleration_covariance")] = web::json::value::array(
+      serializeArray<float, 9>(imu.linear_acceleration_covariance));
+  imu_json[U("angular_velocity_covariance")] = web::json::value::array(
+      serializeArray<float, 9>(imu.angular_velocity_covariance));
+  imu_json[U("orientation_covariance")] = web::json::value::array(serializeArray<float, 9>(imu.orientation_covariance));
+
+  return not sub_json ? completeJson(imu, imu_json) : imu_json;
 }

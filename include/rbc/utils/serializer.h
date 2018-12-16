@@ -14,6 +14,8 @@
 
 #include <rbc/msgs/nav_msgs/odometry.h>
 
+#include <rbc/msgs/sensor_msgs/imu.h>
+
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/accel.h>
 #include <rbc/msgs/geometry_msgs/point.h>
@@ -66,6 +68,8 @@ public:
   web::json::value &serialize(const msgs::std_msgs::ColorRGBA &rgba, bool sub_json = false);
 
   web::json::value &serialize(const msgs::nav_msgs::Odometry &o, bool sub_json = false);
+
+  web::json::value &serialize(const msgs::sensor_msgs::Imu &i, bool sub_json = false);
 
   web::json::value &serialize(const msgs::geometry_msgs::Pose2D &pose2d, bool sub_json = false);
   

@@ -55,6 +55,8 @@ test::TwistStampedTest twist_stamped_test(dataframe);
 
 test::OdometryTest odometry_test(dataframe);
 
+test::ImuTest imu_test(dataframe);
+
 TEST_CASE("Header test", "[header]")
 {
   REQUIRE(header_test.getMessage() == header_test.test1);
@@ -918,5 +920,28 @@ TEST_CASE("Odometry test", "[odometry_test]")
     o.twist.twist = geometry_msgs::Twist(geometry_msgs::Vector3(.1, .2, .3), geometry_msgs::Vector3(.4, .5, .6));
     o.twist.covariance = covariance;
     REQUIRE(odometry_test.getMessage(o) == odometry_test.test2);
+  }
+}
+
+TEST_CASE("Imu test", "[imu_test]")
+{
+  std::array<float, 9> covariance({.1, .2, .3, .4, .5, .6, .7, .8, .9});
+
+  {
+    sensor_msgs::Imu imu;
+    imu.orientation_covariance = covariance;
+    imu.linear_acceleration_covariance = covariance;
+    imu.angular_velocity_covariance = covariance;
+    imu.orientation = geometry_msgs::Quaternion(.1, .2, .3, .4);
+    imu.angular_velocity = geometry_msgs::Vector3(.1, .2, .3);
+    imu.linear_acceleration = geometry_msgs::Vector3(.1, .2, .3);
+    REQUIRE(imu_test.getMessage(imu) == imu_test.test1);
+  }
+  {
+    sensor_msgs::Imu imu;
+    imu.orientation = geometry_msgs::Quaternion(.1, .2, .3, .4);
+    imu.angular_velocity = geometry_msgs::Vector3(.1, .2, .3);
+    imu.linear_acceleration = geometry_msgs::Vector3(.1, .2, .3);
+    REQUIRE(imu_test.getMessage(imu) == imu_test.test2);
   }
 }

@@ -57,7 +57,7 @@ int main(void)
   auto vector3_stamped_pub = rbc->addPublisher<geometry_msgs::Vector3Stamped>("/rosbridge/vector3_stamped/");
   auto quaternion_pub = rbc->addPublisher<geometry_msgs::Quaternion>("/rosbridge/orientation/");
   auto quaternion_stamped_pub = rbc->addPublisher<geometry_msgs::QuaternionStamped>("/rosbridge/quaternion_stamped/");
-
+  auto odom_pub = rbc->addPublisher<nav_msgs::Odometry>("/rosbridge/odometry");
 
   auto header_sub = rbc->addSubscriber<std_msgs::Header>("/rosbridge/header/", 100, callbacks::hcallback);
   auto string_sub = rbc->addSubscriber<std_msgs::String>("/rosbridge/string/", 100, callbacks::scallback);
@@ -101,6 +101,7 @@ int main(void)
   auto vector3_stamped_sub = rbc->addSubscriber<geometry_msgs::Vector3Stamped>("/rosbridge/vector3_stamped/", 100, callbacks::vscallback);
   auto quaternion_sub = rbc->addSubscriber<geometry_msgs::Quaternion>("/rosbridge/orientation/", 100, callbacks::qcallback);
   auto quaternion_stamped_sub = rbc->addSubscriber<geometry_msgs::QuaternionStamped>("/rosbridge/quaternion_stamped/", 100, callbacks::qscallback);
+  auto odom_sub = rbc->addSubscriber<nav_msgs::Odometry>("/rosbridge/odometry", 100, callbacks::odomcallback);
 
   std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
                                       .7, .8, .9, 1., 1.1, 1.2,
@@ -245,6 +246,9 @@ int main(void)
 
     geometry_msgs::InertiaStamped is(0.1, geometry_msgs::Vector3(.1, .2, .3), 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, "a frame");
     inertia_stamped_pub->publish(is);
+
+    nav_msgs::Odometry o("a child frame", h, pocov, twc);
+    odom_pub->publish(o);
   }
 
   std::this_thread::sleep_for(std::chrono::seconds(1)); // for last incoming messages

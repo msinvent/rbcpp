@@ -14,6 +14,9 @@
 #include <chrono>
 #include <rbc/ros_bridge_client.h>
 #include <rbc/publisher/rbc_publisher.h>
+
+#include <rbc/msgs/nav_msgs/odometry.h>
+
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/point.h>
 #include <rbc/msgs/geometry_msgs/accel.h>
@@ -118,7 +121,8 @@ const std::vector<std::string> messages = {"header",
                                            "wrench",
                                            "wrench_stamp",
                                            "inertia",
-                                           "inertia_stamp"};
+                                           "inertia_stamp",
+                                           "odometry"};
 
 static void init()
 {
@@ -632,6 +636,40 @@ static inline void iscallback(const std::shared_ptr<geometry_msgs::InertiaStampe
   assert((msg->inertia.com.y == .2));
   assert((msg->inertia.com.z == .3));
   update("inertia_stamp");
+}
+
+static inline void odomcallback(const std::shared_ptr<nav_msgs::Odometry> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[Odometry]\n";
+  assert((msg->header.frame_id == "a frame"));
+  assert((msg->child_frame_id == "a child frame"));
+
+  assert((msg->pose.pose.point.x == .1));
+  assert((msg->pose.pose.point.z == .3));
+  assert((msg->pose.pose.orientation.x == .1));
+  assert((msg->pose.pose.orientation.y == .2));
+  assert((msg->pose.pose.orientation.z == .3));
+  assert((msg->pose.pose.orientation.w == .4));
+  assert((msg->pose.covariance == std::array<double, 36>{.1, .2, 3., .4, .5, .6,
+                                                    .7, .8, .9, 1., 1.1, 1.2,
+                                                    1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                                    1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                                    2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                                    3.1, 3.2, 3.3, 3.4, 3.5, 3.6}));
+
+  assert((msg->twist.twist.linear.x == .1));
+  assert((msg->twist.twist.linear.y == .2));
+  assert((msg->twist.twist.linear.z == .3));
+  assert((msg->twist.twist.angular.x == .3));
+  assert((msg->twist.twist.angular.y == .2));
+  assert((msg->twist.twist.angular.z == .1));
+  assert((msg->twist.covariance == std::array<double, 36>{.1, .2, 3., .4, .5, .6,
+                                                    .7, .8, .9, 1., 1.1, 1.2,
+                                                    1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                                    1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                                    2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                                    3.1, 3.2, 3.3, 3.4, 3.5, 3.6}));
+  update("odometry");
 }
 
 } // namespace callbacks

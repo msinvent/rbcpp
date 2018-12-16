@@ -3,6 +3,7 @@
 //
 
 #include <rbc/msgs/nav_msgs/odometry.h>
+#include <rbc/utils/deserializer.h>
 
 using namespace rbc::msgs::nav_msgs;
 
@@ -38,7 +39,28 @@ Odometry::Odometry(const web::json::value &response)
       header(),
       pose(),
       twist()
-{}
+{
+  const auto &msg = response.at(U("msg"));
+  const auto &header_msg = msg.at(U("header"));
+
+  const auto &twist_msg = msg.at(U("twist"));
+  const auto &twist_twist_msg = twist_msg.at(U("twist"));
+
+  const auto &pose_msg = msg.at(U("pose"));
+  const auto &pose_pose_msg = pose_msg.at(U("pose"));
+
+  child_frame_id = msg.at("child_frame_id").as_string();
+
+  utils::Deserializer::deserialize(header, header_msg, true);
+
+  utils::Deserializer::deserialize<double>(pose.pose.point, pose_pose_msg.at(U("position")), true);
+  utils::Deserializer::deserialize(pose.pose.orientation, pose_pose_msg.at(U("orientation")), true);
+  utils::Deserializer::toArray<double, 36>(pose.covariance, pose_msg.at(U("covariance")));
+
+  utils::Deserializer::deserialize<double>(twist.twist.linear, twist_twist_msg.at(U("linear")), true);
+  utils::Deserializer::deserialize<double>(twist.twist.angular, twist_twist_msg.at(U("angular")), true);
+  utils::Deserializer::toArray<double, 36>(twist.covariance, twist_msg.at(U("covariance")));
+}
 
 std::ostream &operator<<(std::ostream &os, const rbc::msgs::nav_msgs::Odometry &o)
 {

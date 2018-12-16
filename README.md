@@ -45,7 +45,7 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | twist with covariance  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | twist with covariance stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |**nav_msgs**     | GridCells  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
-|                 | Odometry  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | Odometry  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |**std_msgs**     | String  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | Header  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | Int8  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |

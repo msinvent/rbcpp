@@ -40,7 +40,7 @@ target_link_libraries(config_parser
         ${Boost_CHRONO_LIBRARY})
 
 add_library(librbc "")
-add_subdirectory(src/ros_bridge_client)
+add_subdirectory(src/rbc)
 target_include_directories(librbc PUBLIC include)
 target_compile_options(librbc PRIVATE -Wall -Wextra -Weffc++ -Wconversion -Wredundant-decls -Wunreachable-code -pedantic -Wcomment -Wcast-qual)
 target_link_libraries(librbc

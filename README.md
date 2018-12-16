@@ -46,6 +46,37 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | twist with covariance stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |**nav_msgs**     | GridCells  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | Odometry  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
+|                 | Path      | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | OccupancyGrid | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | MapMetaData  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|**sensor_msgs**  | BatteryState | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | CameraInfo | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | ChannelFloat32 | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | CompressedImage | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | FluidPressure | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | Illuminance | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | Image | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | Imu | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | JointState | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | Joy | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | JoyFeedback | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | JoyFeedbackArray | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | LaserEcho | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | LaserScan | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | MagneticField | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | MultiDOFJointState | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | MultiEchoLaserScan | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | NavSatFix | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | NavSatStatus | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | PointCloud | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | PointCloud2 | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | PointField | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | Range | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | RegionOfInterest | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | RelativeHumidity | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | Temperature | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | TimeReference | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | SetCameraInfo | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
 |**std_msgs**     | String  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | Header  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | Int8  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |

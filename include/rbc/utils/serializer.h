@@ -15,6 +15,7 @@
 #include <rbc/msgs/nav_msgs/odometry.h>
 
 #include <rbc/msgs/sensor_msgs/imu.h>
+#include <rbc/msgs/sensor_msgs/joy.h>
 
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/accel.h>
@@ -69,7 +70,9 @@ public:
 
   web::json::value &serialize(const msgs::nav_msgs::Odometry &o, bool sub_json = false);
 
-  web::json::value &serialize(const msgs::sensor_msgs::Imu &i, bool sub_json = false);
+  web::json::value &serialize(const msgs::sensor_msgs::Imu &imu, bool sub_json = false);
+
+  web::json::value &serialize(const msgs::sensor_msgs::Joy &joy, bool sub_json = false);
 
   web::json::value &serialize(const msgs::geometry_msgs::Pose2D &pose2d, bool sub_json = false);
   
@@ -135,6 +138,9 @@ private:
 
   template <typename T>
   std::vector<web::json::value> &serialize(const std::vector<T> &vec);
+
+  template <typename T>
+  std::vector<web::json::value> &serialize_singles(const std::vector<T> &vec);
 };
 
 template<typename T>
@@ -183,6 +189,21 @@ std::vector<web::json::value> &Serializer::serialize(const std::vector<T> &vec)
   for (const auto& point: vec)
   {
     array.push_back(serialize(point, true));
+  }
+
+  return array;
+}
+
+template <typename T>
+std::vector<web::json::value> &Serializer::serialize_singles(const std::vector<T> &vec)
+{
+  static std::vector<web::json::value> array;
+  array.clear();
+  array.reserve(vec.size());
+
+  for (const auto& v: vec)
+  {
+    array.push_back(web::json::value(v));
   }
 
   return array;

@@ -56,6 +56,7 @@ test::TwistStampedTest twist_stamped_test(dataframe);
 test::OdometryTest odometry_test(dataframe);
 
 test::ImuTest imu_test(dataframe);
+test::JoyTest joy_test(dataframe);
 
 TEST_CASE("Header test", "[header]")
 {
@@ -68,12 +69,6 @@ TEST_CASE("String test", "[string_messages]")
   REQUIRE(string_test.getMessage("A Test") == string_test.test1);
   REQUIRE(string_test.getMessage("Test 2") == string_test.test2);
 }
-//
-//TEST_CASE("Service Messages test", "[service_messages]")
-//{
-//  REQUIRE(service_messages.getMessage() == service_messages.test1);
-//  REQUIRE(service_messages.getMessage({"this", "is", "a", "test"}) == service_messages.test2);
-//}
 
 TEST_CASE("Float32 test", "[float32_test]")
 {
@@ -944,4 +939,17 @@ TEST_CASE("Imu test", "[imu_test]")
     imu.linear_acceleration = geometry_msgs::Vector3(.1, .2, .3);
     REQUIRE(imu_test.getMessage(imu) == imu_test.test2);
   }
+}
+
+TEST_CASE("Joy test", "[joy_test]")
+{
+  std::vector<float> axes({.1, .2, .3, .4, .5, .6, .7, .8, .9});
+  std::vector<int32_t> buttons({1, 2, 3, 4, 5, 6, 7, 8, 9});
+
+  REQUIRE(joy_test.getMessage("a frame") == joy_test.test1);
+
+  sensor_msgs::Joy joy("a frame");
+  joy.axes = axes;
+  joy.buttons = buttons;
+  REQUIRE(joy_test.getMessage(joy) == joy_test.test2);
 }

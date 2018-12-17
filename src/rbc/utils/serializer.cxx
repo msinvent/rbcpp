@@ -349,3 +349,14 @@ web::json::value &Serializer::serialize(const sensor_msgs::Imu &imu, bool sub_js
 
   return not sub_json ? completeJson(imu, imu_json) : imu_json;
 }
+
+web::json::value &Serializer::serialize(const sensor_msgs::Joy &joy, bool sub_json)
+{
+  static web::json::value joy_json;
+
+  joy_json[U("header")] = serialize(joy.header, true);
+  joy_json[U("axes")] = web::json::value::array(serialize_singles(joy.axes));
+  joy_json[U("buttons")] = web::json::value::array(serialize_singles(joy.buttons));
+
+  return not sub_json ? completeJson(joy, joy_json) : joy_json;
+}

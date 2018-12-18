@@ -19,6 +19,7 @@
 
 #include <rbc/msgs/sensor_msgs/imu.h>
 #include <rbc/msgs/sensor_msgs/joy.h>
+#include <rbc/msgs/sensor_msgs/image.h>
 
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/point.h>
@@ -127,7 +128,8 @@ const std::vector<std::string> messages = {"header",
                                            "inertia_stamp",
                                            "odometry",
                                            "imu",
-                                           "joy"};
+                                           "joy",
+                                           "image"};
 
 static void init()
 {
@@ -708,7 +710,27 @@ static inline void joycallback(const std::shared_ptr<sensor_msgs::Joy> msg)
   assert((msg->header.frame_id == "a frame"));
   assert((msg->axes == axes));
   assert((msg->buttons == buttons));
+
   update("joy");
+}
+
+template <std::int32_t H, std::int32_t W>
+static inline void imgcallback(const std::shared_ptr<sensor_msgs::Image<H,W>> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[Image]\n";
+  std::array<std::uint8_t, 25> data{1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                                    11, 12, 13, 14, 15, 16, 17,
+                                    18, 19, 20, 21, 22, 23, 24, 25};
+
+//  assert((msg->header.frame_id == "a frame"));
+//  assert((msg->height == 10));
+//  assert((msg->width == 10));
+//  assert((msg->encoding == "utf-8"));
+//  //assert((msg->is_bigendian == 0));
+//  //assert((msg->step == 5));
+//  //assert((msg->data == data));
+
+  update("image");
 }
 
 } // namespace callbacks

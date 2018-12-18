@@ -55,7 +55,7 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | CompressedImage | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
 |                 | FluidPressure | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
 |                 | Illuminance | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
-|                 | Image | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | Image | <ul><li>- [ ] (rosbrigde error?)</li></ul> | <ul><li>- [x] </li></ul> |
 |                 | Imu | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |
 |                 | JointState | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
 |                 | Joy | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |

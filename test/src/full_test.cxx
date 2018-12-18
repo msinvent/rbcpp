@@ -60,6 +60,7 @@ int main(void)
   auto odom_pub = rbc->addPublisher<nav_msgs::Odometry>("/rosbridge/odometry");
   auto imu_pub = rbc->addPublisher<sensor_msgs::Imu>("/rosbridge/imu");
   auto joy_pub = rbc->addPublisher<sensor_msgs::Joy>("/rosbridge/joy");
+  auto img_pub = rbc->addPublisher<sensor_msgs::Image<5, 5>>("/rosbridge/image");
 
   auto header_sub = rbc->addSubscriber<std_msgs::Header>("/rosbridge/header/", 100, callbacks::hcallback);
   auto string_sub = rbc->addSubscriber<std_msgs::String>("/rosbridge/string/", 100, callbacks::scallback);
@@ -106,6 +107,7 @@ int main(void)
   auto odom_sub = rbc->addSubscriber<nav_msgs::Odometry>("/rosbridge/odometry", 100, callbacks::odomcallback);
   auto imu_sub = rbc->addSubscriber<sensor_msgs::Imu>("/rosbridge/imu", 100, callbacks::imucallback);
   auto joy_sub = rbc->addSubscriber<sensor_msgs::Joy>("/rosbridge/joy", 100, callbacks::joycallback);
+  //auto img_sub = rbc->addSubscriber<sensor_msgs::Image<5,5>>("/camera/rgb/image_rect_color", 100, callbacks::imgcallback<5, 5>);
 
   std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
                                       .7, .8, .9, 1., 1.1, 1.2,
@@ -115,12 +117,16 @@ int main(void)
                                       3.1, 3.2, 3.3, 3.4, 3.5, 3.6} );
   std::array<float, 9> covariance2( {.1, .2, 3., .4, .5, .6, .7, .8, .9} );
 
+  std::array<std::uint8_t, 25> data{1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                                    11, 12, 13, 14, 15, 16, 17,
+                                    18, 19, 20, 21, 22, 23, 24, 25};
+
   std::vector<float> axes{.1, .2, .3, .4, .5, .6, .7, .8, .9};
   std::vector<int32_t> buttons{1, 2, 3, 4, 5, 6, 7, 8, 9};
 
   while (messages++ < 10)
   {
-    std::this_thread::sleep_for(pause);
+    std::this_thread::sleep_for(pause*2);
 
     std_msgs::Header h("a frame");
     header_pub->publish(h);
@@ -273,18 +279,33 @@ int main(void)
     joy.axes = axes;
     joy.buttons = buttons;
     joy_pub->publish(joy);
+
+    sensor_msgs::Image<5, 5> img;
+    img.header = std_msgs::Header("a frame");
+    img.height = 10;
+    img.width = 10;
+    img.encoding = "utf-8";
+    img.is_bigendian = 1;
+    img.step = 8;
+    img.data = data;
+    img_pub->publish(img);
   }
 
   std::this_thread::sleep_for(std::chrono::seconds(1)); // for last incoming messages
 
-  if (callbacks::messages_received != callbacks::num_publishers*10)
+  try
+  {
+    if (callbacks::messages_received != callbacks::num_publishers * 10)
+    {
+      throw test::TestException();
+    } else
+    {
+      std::cout << "Success: all messages received\n";
+    }
+  }
+  catch(test::TestException &e)
   {
     callbacks::results();
-    throw test::TestException();
-  }
-  else
-  {
-    std::cout << "Success: all messages received\n";
   }
 
   return 0;

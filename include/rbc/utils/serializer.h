@@ -136,9 +136,9 @@ public:
   template <std::uint32_t HEIGTH, std::uint32_t WIDTH>
   web::json::value &serialize(const msgs::sensor_msgs::Image<HEIGTH, WIDTH> &image, bool sub_json = false);
 
-private:
   template <typename T, unsigned int N>
   std::vector<web::json::value> &serializeSingles(const std::array<T, N> &data);
+private:
 
   template <typename T>
   std::vector<web::json::value> &serialize(const std::vector<T> &vec);

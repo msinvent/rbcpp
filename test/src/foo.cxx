@@ -15,10 +15,11 @@ int main(void)
 {
   using namespace rbc::msgs;
 
-  geometry_msgs::Point32 p(.1, .2, .3);
-  geometry_msgs::PolygonStamped poly;
-  poly.add(p);
-  poly.add(p);
+  rbc::utils::Serializer s;
+  std::array<std::uint8_t, 25> data{1,2,3,4,5,6,6,6,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7};
+  web::json::value json = web::json::value::array(s.serializeSingles<std::uint8_t, 25>(data));
+  std::array<std::uint8_t, 25> data2;
 
-  std::cout << poly;
+  rbc::utils::Deserializer::toArray<std::uint8_t, 25>(data2, json);
+  assert((data2 == data));
 }

@@ -74,7 +74,7 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | Range | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
 |                 | RegionOfInterest | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
 |                 | RelativeHumidity | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
-|                 | Temperature | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | Temperature | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |
 |                 | TimeReference | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
 |                 | SetCameraInfo | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
 |**std_msgs**     | String  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |

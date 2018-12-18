@@ -28,6 +28,7 @@
 
 #include <rbc/msgs/sensor_msgs/imu.h>
 #include <rbc/msgs/sensor_msgs/joy.h>
+#include <rbc/msgs/sensor_msgs/image.h>
 
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/point.h>
@@ -1193,6 +1194,32 @@ struct JoyTest : public Test
   inline std::string getMessage(const sensor_msgs::Joy &joy) const
   {
     return messageToString(joy);
+  }
+};
+
+
+struct ImageTest : public Test
+{
+  explicit ImageTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("ImageTest")[0]),
+        test2(dataframe.data.at("ImageTest")[1])
+  {}
+
+  ~ImageTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(std::string frame_id = "world") const
+  {
+    sensor_msgs::Image<2, 2> msg(frame_id);
+    return messageToString(msg);
+  }
+
+  template <std::uint32_t H, std::uint32_t W>
+  inline std::string getMessage(const sensor_msgs::Image<H, W> &img) const
+  {
+    return messageToString(img);
   }
 };
 

@@ -57,6 +57,7 @@ test::OdometryTest odometry_test(dataframe);
 
 test::ImuTest imu_test(dataframe);
 test::JoyTest joy_test(dataframe);
+test::ImageTest image_test(dataframe);
 
 TEST_CASE("Header test", "[header]")
 {
@@ -952,4 +953,23 @@ TEST_CASE("Joy test", "[joy_test]")
   joy.axes = axes;
   joy.buttons = buttons;
   REQUIRE(joy_test.getMessage(joy) == joy_test.test2);
+}
+
+TEST_CASE("Image test", "[image_test]")
+{
+  std::array<std::uint8_t, 25> data{1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+                                    11, 12, 13, 14, 15, 16, 17,
+                                    18, 19, 20, 21, 22, 23, 24, 25};
+
+  REQUIRE(image_test.getMessage("a frame") == image_test.test1);
+
+  sensor_msgs::Image<5, 5> img;
+  img.header = std_msgs::Header("a frame");
+  img.height = 10;
+  img.width = 10;
+  img.encoding = "utf-8";
+  img.is_bigendian = 1;
+  img.step = 8;
+  img.data = data;
+  REQUIRE(image_test.getMessage(img) == image_test.test2);
 }

@@ -16,6 +16,7 @@
 
 #include <rbc/msgs/sensor_msgs/imu.h>
 #include <rbc/msgs/sensor_msgs/joy.h>
+#include <rbc/msgs/sensor_msgs/image.h>
 
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/accel.h>
@@ -132,15 +133,18 @@ public:
   template<typename T>
   web::json::value &serialize(const msgs::XYZMessage<T> &xyz, bool sub_json = false);
 
+  template <std::uint32_t HEIGTH, std::uint32_t WIDTH>
+  web::json::value &serialize(const msgs::sensor_msgs::Image<HEIGTH, WIDTH> &image, bool sub_json = false);
+
 private:
   template <typename T, unsigned int N>
-  std::vector<web::json::value> &serializeArray(const std::array<T, N> &data);
+  std::vector<web::json::value> &serializeSingles(const std::array<T, N> &data);
 
   template <typename T>
   std::vector<web::json::value> &serialize(const std::vector<T> &vec);
 
   template <typename T>
-  std::vector<web::json::value> &serialize_singles(const std::vector<T> &vec);
+  std::vector<web::json::value> &serializeSingles(const std::vector<T> &vec);
 };
 
 template<typename T>
@@ -165,7 +169,7 @@ web::json::value &Serializer::serialize(const msgs::std_msgs::StdMsg<T> &msg, bo
 }
 
 template<typename T, unsigned int N>
-std::vector<web::json::value> &Serializer::serializeArray(const std::array<T, N> &data)
+std::vector<web::json::value> &Serializer::serializeSingles(const std::array<T, N> &data)
 {
   static std::vector<web::json::value> array;
   array.clear();
@@ -195,7 +199,7 @@ std::vector<web::json::value> &Serializer::serialize(const std::vector<T> &vec)
 }
 
 template <typename T>
-std::vector<web::json::value> &Serializer::serialize_singles(const std::vector<T> &vec)
+std::vector<web::json::value> &Serializer::serializeSingles(const std::vector<T> &vec)
 {
   static std::vector<web::json::value> array;
   array.clear();
@@ -207,6 +211,22 @@ std::vector<web::json::value> &Serializer::serialize_singles(const std::vector<T
   }
 
   return array;
+}
+
+template<uint32_t HEIGHT, uint32_t WIDTH>
+web::json::value &Serializer::serialize(const Image<HEIGHT, WIDTH> &image, bool sub_json)
+{
+  static web::json::value image_json;
+
+  image_json[U("header")] = serialize(image.header, true);
+  image_json[U("height")] = web::json::value(image.height);
+  image_json[U("width")] = web::json::value(image.width);
+  image_json[U("encoding")] = web::json::value::string(image.encoding);
+  image_json[U("is_bigendian")] = web::json::value(image.is_bigendian);
+  image_json[U("step")] = web::json::value(image.step);
+  image_json[U("data")] = web::json::value::array(serializeSingles<std::uint8_t, HEIGHT*WIDTH>(image.data));
+
+  return not sub_json ? completeJson(image, image_json) : image_json;
 }
 
 } // namespace namespace rbc::util

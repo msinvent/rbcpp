@@ -17,9 +17,7 @@ namespace rbc::msgs::sensor_msgs
 template <std::uint32_t HEIGHT, std::uint32_t WIDTH>
 struct Image : public ROSTypeBase
 {
-  Image();
-
-  explicit Image(std::string frame_id);
+  explicit Image(std::string frame_id = "world");
 
   explicit Image(const web::json::value &response);
 

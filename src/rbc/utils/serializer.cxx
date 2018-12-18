@@ -238,7 +238,7 @@ web::json::value &Serializer::serialize(const geometry_msgs::TwistWithCovariance
   static web::json::value json_twist_cov;
 
   json_twist_cov[U("twist")] = serialize(twist_cov.twist, true);
-  json_twist_cov[U("covariance")] = web::json::value::array(serializeArray<double, 36>(twist_cov.covariance));
+  json_twist_cov[U("covariance")] = web::json::value::array(serializeSingles<double, 36>(twist_cov.covariance));
 
   return not sub_json ? completeJson(twist_cov, json_twist_cov) : json_twist_cov;
 }
@@ -258,7 +258,7 @@ web::json::value &Serializer::serialize(const geometry_msgs::PoseWithCovariance 
   static web::json::value json_pose_cov;
 
   json_pose_cov[U("pose")] = serialize(pose_cov.pose, true);
-  json_pose_cov[U("covariance")] = web::json::value::array(serializeArray<double, 36>(pose_cov.covariance));
+  json_pose_cov[U("covariance")] = web::json::value::array(serializeSingles<double, 36>(pose_cov.covariance));
 
   return not sub_json ? completeJson(pose_cov, json_pose_cov) : json_pose_cov;
 }
@@ -278,7 +278,7 @@ web::json::value &Serializer::serialize(const geometry_msgs::AccelWithCovariance
   static web::json::value json_accel_cov;
 
   json_accel_cov[U("accel")] = serialize(accel_cov.accel, true);
-  json_accel_cov[U("covariance")] = web::json::value::array(serializeArray<double, 36>(accel_cov.covariance));
+  json_accel_cov[U("covariance")] = web::json::value::array(serializeSingles<double, 36>(accel_cov.covariance));
 
   return not sub_json ? completeJson(accel_cov, json_accel_cov) : json_accel_cov;
 }
@@ -342,10 +342,10 @@ web::json::value &Serializer::serialize(const sensor_msgs::Imu &imu, bool sub_js
   imu_json[U("angular_velocity")] = serialize(imu.angular_velocity, true);
   imu_json[U("linear_acceleration")] = serialize(imu.linear_acceleration, true);
   imu_json[U("linear_acceleration_covariance")] = web::json::value::array(
-      serializeArray<float, 9>(imu.linear_acceleration_covariance));
+      serializeSingles<float, 9>(imu.linear_acceleration_covariance));
   imu_json[U("angular_velocity_covariance")] = web::json::value::array(
-      serializeArray<float, 9>(imu.angular_velocity_covariance));
-  imu_json[U("orientation_covariance")] = web::json::value::array(serializeArray<float, 9>(imu.orientation_covariance));
+      serializeSingles<float, 9>(imu.angular_velocity_covariance));
+  imu_json[U("orientation_covariance")] = web::json::value::array(serializeSingles<float, 9>(imu.orientation_covariance));
 
   return not sub_json ? completeJson(imu, imu_json) : imu_json;
 }
@@ -355,8 +355,8 @@ web::json::value &Serializer::serialize(const sensor_msgs::Joy &joy, bool sub_js
   static web::json::value joy_json;
 
   joy_json[U("header")] = serialize(joy.header, true);
-  joy_json[U("axes")] = web::json::value::array(serialize_singles(joy.axes));
-  joy_json[U("buttons")] = web::json::value::array(serialize_singles(joy.buttons));
+  joy_json[U("axes")] = web::json::value::array(serializeSingles(joy.axes));
+  joy_json[U("buttons")] = web::json::value::array(serializeSingles(joy.buttons));
 
   return not sub_json ? completeJson(joy, joy_json) : joy_json;
 }

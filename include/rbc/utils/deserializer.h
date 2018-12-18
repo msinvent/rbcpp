@@ -68,6 +68,9 @@ struct Deserializer
   static void deserialize_singles(std::vector<T> &vec, const web::json::value &response, std::string key);
 
   static void deserialize(msgs::geometry_msgs::Pose &pose, const web::json::value &response, bool is_sub_json);
+
+  template <typename T>
+  void deserializeSingle(T &t, const web::json::value &response);
 };
 
 template<typename T>
@@ -153,6 +156,12 @@ void Deserializer::deserialize_singles(std::vector<T> &vec, const web::json::val
     vec.push_back(static_cast<T>(it->as_double()));
     it++;
   }
+}
+
+template<typename T>
+void Deserializer::deserializeSingle(T &t, const web::json::value &response)
+{
+  t = static_cast<T>(response.as_double());
 }
 
 } // namespace rbc::util

@@ -8,6 +8,7 @@ target_sources(librbc
         #        sensor_msgs
         "${CMAKE_CURRENT_LIST_DIR}/msgs/sensor_msgs/imu.cxx"
         "${CMAKE_CURRENT_LIST_DIR}/msgs/sensor_msgs/joy.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/sensor_msgs/temperature.cxx"
 
         #        geometry_msgs
         "${CMAKE_CURRENT_LIST_DIR}/msgs/geometry_msgs/pose.cxx"

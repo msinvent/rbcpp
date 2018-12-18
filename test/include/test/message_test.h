@@ -29,6 +29,7 @@
 #include <rbc/msgs/sensor_msgs/imu.h>
 #include <rbc/msgs/sensor_msgs/joy.h>
 #include <rbc/msgs/sensor_msgs/image.h>
+#include <rbc/msgs/sensor_msgs/temperature.h>
 
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/point.h>
@@ -1220,6 +1221,31 @@ struct ImageTest : public Test
   inline std::string getMessage(const sensor_msgs::Image<H, W> &img) const
   {
     return messageToString(img);
+  }
+};
+
+struct TemperatureTest : public Test
+{
+  explicit TemperatureTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("TemperatureTest")[0]),
+        test2(dataframe.data.at("TemperatureTest")[1])
+  {}
+
+  ~TemperatureTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(const std_msgs::Header &header, double temperature, double variance) const
+  {
+    sensor_msgs::Temperature msg(header, temperature, variance);
+    return messageToString(msg);
+  }
+
+  inline std::string getMessage(std::string frame_id, double temperature, double variance) const
+  {
+    sensor_msgs::Temperature msg(frame_id, temperature, variance);
+    return messageToString(msg);
   }
 };
 

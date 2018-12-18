@@ -20,6 +20,7 @@
 #include <rbc/msgs/sensor_msgs/imu.h>
 #include <rbc/msgs/sensor_msgs/joy.h>
 #include <rbc/msgs/sensor_msgs/image.h>
+#include <rbc/msgs/sensor_msgs/temperature.h>
 
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/point.h>
@@ -129,7 +130,8 @@ const std::vector<std::string> messages = {"header",
                                            "odometry",
                                            "imu",
                                            "joy",
-                                           "image"};
+                                           "image",
+                                           "temperature"};
 
 static void init()
 {
@@ -731,6 +733,17 @@ static inline void imgcallback(const std::shared_ptr<sensor_msgs::Image<H,W>> ms
 //  //assert((msg->data == data));
 
   update("image");
+}
+
+static inline void tempcallback(const std::shared_ptr<sensor_msgs::Temperature> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[Temperature]\n";
+
+  assert((msg->header.frame_id == "a frame"));
+  assert((msg->temperature == 5.55));
+  assert((msg->variance == 2.22));
+
+  update("temperature");
 }
 
 } // namespace callbacks

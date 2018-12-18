@@ -61,6 +61,7 @@ int main(void)
   auto imu_pub = rbc->addPublisher<sensor_msgs::Imu>("/rosbridge/imu");
   auto joy_pub = rbc->addPublisher<sensor_msgs::Joy>("/rosbridge/joy");
   auto img_pub = rbc->addPublisher<sensor_msgs::Image<5, 5>>("/rosbridge/image");
+  auto temp_pub = rbc->addPublisher<sensor_msgs::Temperature>("/rosbridge/temperature");
 
   auto header_sub = rbc->addSubscriber<std_msgs::Header>("/rosbridge/header/", 100, callbacks::hcallback);
   auto string_sub = rbc->addSubscriber<std_msgs::String>("/rosbridge/string/", 100, callbacks::scallback);
@@ -108,6 +109,7 @@ int main(void)
   auto imu_sub = rbc->addSubscriber<sensor_msgs::Imu>("/rosbridge/imu", 100, callbacks::imucallback);
   auto joy_sub = rbc->addSubscriber<sensor_msgs::Joy>("/rosbridge/joy", 100, callbacks::joycallback);
   //auto img_sub = rbc->addSubscriber<sensor_msgs::Image<5,5>>("/camera/rgb/image_rect_color", 100, callbacks::imgcallback<5, 5>);
+  auto temp_sub = rbc->addSubscriber<sensor_msgs::Temperature>("/rosbridge/temperature", 100, callbacks::tempcallback);
 
   std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
                                       .7, .8, .9, 1., 1.1, 1.2,
@@ -289,6 +291,12 @@ int main(void)
     img.step = 8;
     img.data = data;
     img_pub->publish(img);
+
+    sensor_msgs::Temperature temp;
+    temp.header = h;
+    temp.temperature = 5.55;
+    temp.variance = 2.22;
+    temp_pub->publish(temp);
   }
 
   std::this_thread::sleep_for(std::chrono::seconds(1)); // for last incoming messages

@@ -58,6 +58,7 @@ test::OdometryTest odometry_test(dataframe);
 test::ImuTest imu_test(dataframe);
 test::JoyTest joy_test(dataframe);
 test::ImageTest image_test(dataframe);
+test::TemperatureTest temperature_test(dataframe);
 
 TEST_CASE("Header test", "[header]")
 {
@@ -227,12 +228,12 @@ TEST_CASE("PoseArray test", "[pose_array_test]")
 
 TEST_CASE("Pose With Covariance test", "[pose_with_cov_test]")
 {
-  std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
-                                      .7, .8, .9, 1., 1.1, 1.2,
-                                      1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
-                                      1.9, 2., 2.1, 2.2, 2.3, 2.4,
-                                      2.5, 2.6, 2.7, 2.8, 2.9, 3.,
-                                      3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
+  std::array<double, 36> covariance({.1, .2, 3., .4, .5, .6,
+                                     .7, .8, .9, 1., 1.1, 1.2,
+                                     1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                     1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                     2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                     3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
   {
     REQUIRE(pose_with_cov_test.getMessage(0.1, 0.2, 0.3, 0.1, 0., 0., 1.0, covariance) == pose_with_cov_test.test1);
 
@@ -246,7 +247,7 @@ TEST_CASE("Pose With Covariance test", "[pose_with_cov_test]")
     q.z = 0.;
     q.w = 1.0;
     REQUIRE(pose_with_cov_test.getMessage(p, q, covariance) == pose_with_cov_test.test1);
-    
+
     geometry_msgs::Pose pose(p, q);
     REQUIRE(pose_with_cov_test.getMessage(pose, covariance) == pose_with_cov_test.test1);
   }
@@ -271,12 +272,12 @@ TEST_CASE("Pose With Covariance test", "[pose_with_cov_test]")
 
 TEST_CASE("Pose With Covariance Stamped test", "[pose_with_cov_test]")
 {
-  std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
-                                      .7, .8, .9, 1., 1.1, 1.2,
-                                      1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
-                                      1.9, 2., 2.1, 2.2, 2.3, 2.4,
-                                      2.5, 2.6, 2.7, 2.8, 2.9, 3.,
-                                      3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
+  std::array<double, 36> covariance({.1, .2, 3., .4, .5, .6,
+                                     .7, .8, .9, 1., 1.1, 1.2,
+                                     1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                     1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                     2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                     3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
   {
     geometry_msgs::Point p;
     p.x = 0.1;
@@ -422,11 +423,12 @@ TEST_CASE("Accel With Covariance Stamped test", "[accel_with_covariance_stamped_
     angular.x = 0.1;
     angular.y = 0.2;
     angular.z = 0.3;
-    REQUIRE(accel_with_cov_stamped_test.getMessage(linear, angular, covariance, "a frame") == accel_with_cov_stamped_test.test1);
+    REQUIRE(accel_with_cov_stamped_test.getMessage(linear, angular, covariance, "a frame") ==
+            accel_with_cov_stamped_test.test1);
 
     geometry_msgs::Accel accell(linear, angular);
     REQUIRE(accel_with_cov_stamped_test.getMessage(accell, covariance, "a frame") == accel_with_cov_stamped_test.test1);
-    
+
     geometry_msgs::AccelWithCovariance accel(linear, angular, covariance);
     REQUIRE(accel_with_cov_stamped_test.getMessage(accel, "a frame") == accel_with_cov_stamped_test.test1);
   }
@@ -439,7 +441,8 @@ TEST_CASE("Accel With Covariance Stamped test", "[accel_with_covariance_stamped_
     angular.x = 0.1;
     angular.y = 0.9;
     angular.z = 1.0;
-    REQUIRE(accel_with_cov_stamped_test.getMessage(linear, angular, covariance, "a frame") == accel_with_cov_stamped_test.test2);
+    REQUIRE(accel_with_cov_stamped_test.getMessage(linear, angular, covariance, "a frame") ==
+            accel_with_cov_stamped_test.test2);
 
     geometry_msgs::Accel accel(linear, angular);
     REQUIRE(accel_with_cov_stamped_test.getMessage(accel, covariance, "a frame") == accel_with_cov_stamped_test.test2);
@@ -575,12 +578,12 @@ TEST_CASE("Twist With Covariance test", "[twist_with_covariance_test]")
     geometry_msgs::Twist twist;
     twist.angular = vec3;
     twist.linear = vec3;
-    std::array<double, 36> covariance( {.1, .9, 3., .4, .5, .6,
-                                        .7, .8, .9, 1., 1.1, 1.2,
-                                        1.3, 1., 1.5, 1.6, 1., 1.8,
-                                        1.9, 2., 2.1, .2, 2.3, 2.4,
-                                        2.5, .6, 2.7, 2.8, .9, 3.,
-                                        3.1, 3.2, 3.3, .4, 3.5, 3.6});
+    std::array<double, 36> covariance({.1, .9, 3., .4, .5, .6,
+                                       .7, .8, .9, 1., 1.1, 1.2,
+                                       1.3, 1., 1.5, 1.6, 1., 1.8,
+                                       1.9, 2., 2.1, .2, 2.3, 2.4,
+                                       2.5, .6, 2.7, 2.8, .9, 3.,
+                                       3.1, 3.2, 3.3, .4, 3.5, 3.6});
     geometry_msgs::TwistWithCovariance twist_with_cov;
     twist_with_cov.twist = twist;
     twist_with_cov.covariance = covariance;
@@ -598,12 +601,12 @@ TEST_CASE("Twist With Covariance Stamped test", "[twist_with_covariance_stamped_
     geometry_msgs::Twist twist;
     twist.angular = vec3;
     twist.linear = vec3;
-    std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
-                                        .7, .8, .9, 1., 1.1, 1.2,
-                                        1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
-                                        1.9, 2., 2.1, 2.2, 2.3, 2.4,
-                                        2.5, 2.6, 2.7, 2.8, 2.9, 3.,
-                                        3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
+    std::array<double, 36> covariance({.1, .2, 3., .4, .5, .6,
+                                       .7, .8, .9, 1., 1.1, 1.2,
+                                       1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                       1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                       2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                       3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
     geometry_msgs::TwistWithCovariance twist_with_cov;
     twist_with_cov.twist = twist;
     twist_with_cov.covariance = covariance;
@@ -894,12 +897,12 @@ TEST_CASE("Inertia Stamped test", "[inertia_stamped_test]")
 
 TEST_CASE("Odometry test", "[odometry_test]")
 {
-  std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
-                                      .7, .8, .9, 1., 1.1, 1.2,
-                                      1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
-                                      1.9, 2., 2.1, 2.2, 2.3, 2.4,
-                                      2.5, 2.6, 2.7, 2.8, 2.9, 3.,
-                                      3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
+  std::array<double, 36> covariance({.1, .2, 3., .4, .5, .6,
+                                     .7, .8, .9, 1., 1.1, 1.2,
+                                     1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
+                                     1.9, 2., 2.1, 2.2, 2.3, 2.4,
+                                     2.5, 2.6, 2.7, 2.8, 2.9, 3.,
+                                     3.1, 3.2, 3.3, 3.4, 3.5, 3.6});
   {
     nav_msgs::Odometry o;
     o.header.frame_id = "a frame";
@@ -972,4 +975,20 @@ TEST_CASE("Image test", "[image_test]")
   img.step = 8;
   img.data = data;
   REQUIRE(image_test.getMessage(img) == image_test.test2);
+}
+
+TEST_CASE("Temperature test", "[temperature_test]")
+{
+  {
+    REQUIRE(temperature_test.getMessage("a frame", 30.0, 2.0) == temperature_test.test1);
+
+    std_msgs::Header h("a frame");
+    REQUIRE(temperature_test.getMessage(h, 30.0, 2.0) == temperature_test.test1);
+  }
+  {
+    REQUIRE(temperature_test.getMessage("another frame", 55.55, 2.22) == temperature_test.test2);
+
+    std_msgs::Header h("another frame");
+    REQUIRE(temperature_test.getMessage(h, 55.55, 2.22) == temperature_test.test2);
+  }
 }

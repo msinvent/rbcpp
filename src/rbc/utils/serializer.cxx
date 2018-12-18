@@ -360,3 +360,14 @@ web::json::value &Serializer::serialize(const sensor_msgs::Joy &joy, bool sub_js
 
   return not sub_json ? completeJson(joy, joy_json) : joy_json;
 }
+
+web::json::value &Serializer::serialize(const sensor_msgs::Temperature &temp, bool sub_json)
+{
+  static web::json::value temp_json;
+
+  temp_json[U("header")] = serialize(temp.header, true);
+  temp_json[U("temperature")] = web::json::value(temp.temperature);
+  temp_json[U("variance")] = web::json::value(temp.variance);
+
+  return not sub_json ? completeJson(temp, temp_json) : temp_json;
+}

@@ -17,6 +17,7 @@
 #include <rbc/msgs/sensor_msgs/imu.h>
 #include <rbc/msgs/sensor_msgs/joy.h>
 #include <rbc/msgs/sensor_msgs/image.h>
+#include <rbc/msgs/sensor_msgs/temperature.h>
 
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/accel.h>
@@ -74,6 +75,8 @@ public:
   web::json::value &serialize(const msgs::sensor_msgs::Imu &imu, bool sub_json = false);
 
   web::json::value &serialize(const msgs::sensor_msgs::Joy &joy, bool sub_json = false);
+
+  web::json::value &serialize(const msgs::sensor_msgs::Temperature &temp, bool sub_json = false);
 
   web::json::value &serialize(const msgs::geometry_msgs::Pose2D &pose2d, bool sub_json = false);
   

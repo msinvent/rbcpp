@@ -59,6 +59,7 @@ int main(void)
   auto quaternion_stamped_pub = rbc->addPublisher<geometry_msgs::QuaternionStamped>("/rosbridge/quaternion_stamped/");
   auto odom_pub = rbc->addPublisher<nav_msgs::Odometry>("/rosbridge/odometry");
   auto imu_pub = rbc->addPublisher<sensor_msgs::Imu>("/rosbridge/imu");
+  auto joy_pub = rbc->addPublisher<sensor_msgs::Joy>("/rosbridge/joy");
 
   auto header_sub = rbc->addSubscriber<std_msgs::Header>("/rosbridge/header/", 100, callbacks::hcallback);
   auto string_sub = rbc->addSubscriber<std_msgs::String>("/rosbridge/string/", 100, callbacks::scallback);
@@ -104,6 +105,7 @@ int main(void)
   auto quaternion_stamped_sub = rbc->addSubscriber<geometry_msgs::QuaternionStamped>("/rosbridge/quaternion_stamped/", 100, callbacks::qscallback);
   auto odom_sub = rbc->addSubscriber<nav_msgs::Odometry>("/rosbridge/odometry", 100, callbacks::odomcallback);
   auto imu_sub = rbc->addSubscriber<sensor_msgs::Imu>("/rosbridge/imu", 100, callbacks::imucallback);
+  auto joy_sub = rbc->addSubscriber<sensor_msgs::Joy>("/rosbridge/joy", 100, callbacks::joycallback);
 
   std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
                                       .7, .8, .9, 1., 1.1, 1.2,
@@ -112,6 +114,9 @@ int main(void)
                                       2.5, 2.6, 2.7, 2.8, 2.9, 3.,
                                       3.1, 3.2, 3.3, 3.4, 3.5, 3.6} );
   std::array<float, 9> covariance2( {.1, .2, 3., .4, .5, .6, .7, .8, .9} );
+
+  std::vector<float> axes{.1, .2, .3, .4, .5, .6, .7, .8, .9};
+  std::vector<int32_t> buttons{1, 2, 3, 4, 5, 6, 7, 8, 9};
 
   while (messages++ < 10)
   {
@@ -166,7 +171,7 @@ int main(void)
 
     geometry_msgs::Accel a(0.1, 0.2, 0.3, 0.3, 0.2, 0.1);
     accel_pub->publish(a);
-    
+
     geometry_msgs::AccelWithCovariance acov(a, covariance);
     accelwc_pub->publish(acov);
 
@@ -192,7 +197,7 @@ int main(void)
 
     geometry_msgs::PoseWithCovarianceStamped pocovs(pocov, "a frame");
     pose_cov_stamp_pub->publish(pocovs);
-    
+
     geometry_msgs::Wrench w(0.1, 0.2, 0.3, 0.3, 0.2, 0.1);
     wrench_pub->publish(w);
 
@@ -204,23 +209,23 @@ int main(void)
 
     geometry_msgs::Point p(0.1, 0.2, 0.3);
     point_pub->publish(p);
-    
+
     geometry_msgs::Pose2D p2d(0.1, 0.2, 0.3);
     pose2d_pub->publish(p2d);
 
     geometry_msgs::Point32 p32(0.1f, 0.2f, 0.3f);
     point32_pub->publish(p32);
-    
+
     geometry_msgs::Polygon poly;
     poly.add(p32);
     poly.add(p32);
     polygon_pub->publish(poly);
-    
+
     geometry_msgs::PolygonStamped polys("a frame");
     polys.add(p32);
     polys.add(p32);
     polygon_stamped_pub->publish(polys);
-    
+
     geometry_msgs::PointStamped ps(0.1, 0.2, 0.3, "a frame");
     point_stamped_pub->publish(ps);
 
@@ -244,7 +249,7 @@ int main(void)
 
     geometry_msgs::AccelStamped as(0.1, 0.2, 0.3, 0.3, 0.2, 0.1, "a frame");
     accel_stamped_pub->publish(as);
-    
+
     geometry_msgs::Inertia i(0.1, geometry_msgs::Vector3(.1, .2, .3), 0.2, 0.3, 0.4, 0.5, 0.6, 0.7);
     inertia_pub->publish(i);
 
@@ -262,6 +267,12 @@ int main(void)
     imu.linear_acceleration = v;
     imu.angular_velocity = v;
     imu_pub->publish(imu);
+
+    sensor_msgs::Joy joy;
+    joy.header = h;
+    joy.axes = axes;
+    joy.buttons = buttons;
+    joy_pub->publish(joy);
   }
 
   std::this_thread::sleep_for(std::chrono::seconds(1)); // for last incoming messages

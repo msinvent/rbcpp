@@ -64,6 +64,9 @@ struct Deserializer
   template <typename T>
   static void deserialize(std::vector<T> &vec, const web::json::value &response, std::string key);
 
+  template <typename T>
+  static void deserialize_singles(std::vector<T> &vec, const web::json::value &response, std::string key);
+
   static void deserialize(msgs::geometry_msgs::Pose &pose, const web::json::value &response, bool is_sub_json);
 };
 
@@ -134,6 +137,21 @@ void Deserializer::deserialize(std::vector<T> &vector, const web::json::array &j
     T t;
     Deserializer::deserialize(t, *it++, true);
     vector.push_back(t);
+  }
+}
+
+template <typename T>
+void Deserializer::deserialize_singles(std::vector<T> &vec, const web::json::value &response, std::string key)
+{
+  const auto &json_arr = response.at(U(key)).as_array();
+  auto arr_size = std::distance(json_arr.cbegin(), json_arr.cend());
+  vec.reserve(arr_size);
+
+  auto it = json_arr.cbegin();
+  while (it != json_arr.cend())
+  {
+    vec.push_back(static_cast<T>(it->as_double()));
+    it++;
   }
 }
 

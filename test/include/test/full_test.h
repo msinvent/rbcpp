@@ -18,6 +18,7 @@
 #include <rbc/msgs/nav_msgs/odometry.h>
 
 #include <rbc/msgs/sensor_msgs/imu.h>
+#include <rbc/msgs/sensor_msgs/joy.h>
 
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/point.h>
@@ -125,7 +126,8 @@ const std::vector<std::string> messages = {"header",
                                            "inertia",
                                            "inertia_stamp",
                                            "odometry",
-                                           "imu"};
+                                           "imu",
+                                           "joy"};
 
 static void init()
 {
@@ -695,6 +697,18 @@ static inline void imucallback(const std::shared_ptr<sensor_msgs::Imu> msg)
   assert((msg->orientation.w == 0.4));
 
   update("imu");
+}
+
+static inline void joycallback(const std::shared_ptr<sensor_msgs::Joy> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[Joy]\n";
+  std::vector<float> axes{.1, .2, .3, .4, .5, .6, .7, .8, .9};
+  std::vector<int32_t> buttons{1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+  assert((msg->header.frame_id == "a frame"));
+  assert((msg->axes == axes));
+  assert((msg->buttons == buttons));
+  update("joy");
 }
 
 } // namespace callbacks

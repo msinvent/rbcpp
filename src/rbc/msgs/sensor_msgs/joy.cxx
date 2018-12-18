@@ -3,6 +3,7 @@
 //
 
 #include <rbc/msgs/sensor_msgs/joy.h>
+#include <rbc/utils/deserializer.h>
 
 using namespace rbc::msgs::sensor_msgs;
 
@@ -18,7 +19,16 @@ Joy::Joy(const web::json::value &response)
       header(),
       axes(),
       buttons()
-{}
+{
+  const auto &msg = response.at(U("msg"));
+  const auto &header_msg = msg.at(U("header"));
+
+  utils::Deserializer::deserialize(header, header_msg, true);
+
+  utils::Deserializer::deserialize_singles(axes, msg, "axes");
+
+  utils::Deserializer::deserialize_singles(buttons, msg, "buttons");
+}
 
 std::ostream &operator<<(std::ostream &os, const rbc::msgs::sensor_msgs::Joy &joy)
 {

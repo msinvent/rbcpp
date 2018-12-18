@@ -5,6 +5,7 @@
 #ifndef ROSBRIDGECLIENT_STD_MSG_H
 #define ROSBRIDGECLIENT_STD_MSG_H
 
+#include <cstdint>
 #include <rbc/msgs/ros_type_base.h>
 #include <iostream>
 #include <memory>

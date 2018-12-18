@@ -58,7 +58,7 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | Image | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
 |                 | Imu | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |
 |                 | JointState | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
-|                 | Joy | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
+|                 | Joy | <ul><li>- [x] </li></ul> | <ul><li>- [x] </li></ul> |
 |                 | JoyFeedback | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
 |                 | JoyFeedbackArray | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |
 |                 | LaserEcho | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |

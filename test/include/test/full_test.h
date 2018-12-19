@@ -21,6 +21,7 @@
 #include <rbc/msgs/sensor_msgs/joy.h>
 #include <rbc/msgs/sensor_msgs/image.h>
 #include <rbc/msgs/sensor_msgs/temperature.h>
+#include <rbc/msgs/sensor_msgs/joint_state.h>
 
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/point.h>
@@ -131,7 +132,8 @@ const std::vector<std::string> messages = {"header",
                                            "imu",
                                            "joy",
                                            "image",
-                                           "temperature"};
+                                           "temperature",
+                                           "joint_state"};
 
 static void init()
 {
@@ -744,6 +746,21 @@ static inline void tempcallback(const std::shared_ptr<sensor_msgs::Temperature> 
   assert((msg->variance == 2.22));
 
   update("temperature");
+}
+
+static inline void jscallback(const std::shared_ptr<sensor_msgs::JointState> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[JointState]\n";
+  std::vector<double> vec{.1, .2, .3, .4, .5, .6, .7, .8, .9};
+  std::vector<std::string> name{"a joint", "another joint"};
+
+  assert((msg->header.frame_id == "a frame"));
+  assert((msg->name == name));
+  assert((msg->position == vec));
+  assert((msg->velocity == vec));
+  assert((msg->effort == vec));
+
+  update("joint_state");
 }
 
 } // namespace callbacks

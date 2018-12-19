@@ -371,3 +371,30 @@ web::json::value &Serializer::serialize(const sensor_msgs::Temperature &temp, bo
 
   return not sub_json ? completeJson(temp, temp_json) : temp_json;
 }
+
+web::json::value &Serializer::serialize(const JointState &joint_state, bool sub_json)
+{
+  static web::json::value joint_state_json;
+
+  joint_state_json[U("header")] = serialize(joint_state.header, true);
+  joint_state_json[U("name")] = web::json::value::array(serializeSinglesStr(joint_state.name));
+  joint_state_json[U("position")] = web::json::value::array(serializeSingles(joint_state.position));
+  joint_state_json[U("velocity")] = web::json::value::array(serializeSingles(joint_state.velocity));
+  joint_state_json[U("effort")] = web::json::value::array(serializeSingles(joint_state.effort));
+
+  return not sub_json ? completeJson(joint_state, joint_state_json) : joint_state_json;
+}
+
+std::vector<web::json::value> &Serializer::serializeSinglesStr(const std::vector<std::string> &vec)
+{
+  static std::vector<web::json::value> array;
+  array.clear();
+  array.reserve(vec.size());
+
+  for (const auto& str: vec)
+  {
+    array.push_back(web::json::value::string(str));
+  }
+
+  return array;
+}

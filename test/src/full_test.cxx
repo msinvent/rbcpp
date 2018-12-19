@@ -62,6 +62,7 @@ int main(void)
   auto joy_pub = rbc->addPublisher<sensor_msgs::Joy>("/rosbridge/joy");
   auto img_pub = rbc->addPublisher<sensor_msgs::Image<5, 5>>("/rosbridge/image");
   auto temp_pub = rbc->addPublisher<sensor_msgs::Temperature>("/rosbridge/temperature");
+  auto joint_state_pub = rbc->addPublisher<sensor_msgs::JointState>("/rosbridge/joint_state");
 
   auto header_sub = rbc->addSubscriber<std_msgs::Header>("/rosbridge/header/", 100, callbacks::hcallback);
   auto string_sub = rbc->addSubscriber<std_msgs::String>("/rosbridge/string/", 100, callbacks::scallback);
@@ -110,6 +111,7 @@ int main(void)
   auto joy_sub = rbc->addSubscriber<sensor_msgs::Joy>("/rosbridge/joy", 100, callbacks::joycallback);
   //auto img_sub = rbc->addSubscriber<sensor_msgs::Image<5,5>>("/camera/rgb/image_rect_color", 100, callbacks::imgcallback<5, 5>);
   auto temp_sub = rbc->addSubscriber<sensor_msgs::Temperature>("/rosbridge/temperature", 100, callbacks::tempcallback);
+  auto joint_state_sub = rbc->addSubscriber<sensor_msgs::JointState>("/rosbridge/joint_state", 100, callbacks::jscallback);
 
   std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
                                       .7, .8, .9, 1., 1.1, 1.2,
@@ -118,13 +120,16 @@ int main(void)
                                       2.5, 2.6, 2.7, 2.8, 2.9, 3.,
                                       3.1, 3.2, 3.3, 3.4, 3.5, 3.6} );
   std::array<float, 9> covariance2( {.1, .2, 3., .4, .5, .6, .7, .8, .9} );
-
   std::array<std::uint8_t, 25> data{1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
                                     11, 12, 13, 14, 15, 16, 17,
                                     18, 19, 20, 21, 22, 23, 24, 25};
 
   std::vector<float> axes{.1, .2, .3, .4, .5, .6, .7, .8, .9};
   std::vector<int32_t> buttons{1, 2, 3, 4, 5, 6, 7, 8, 9};
+  std::vector<double> vec{.1, .2, .3, .4, .5, .6, .7, .8, .9};
+
+  std::vector<std::string> name{"a joint", "another joint"};
+
 
   while (messages++ < 10)
   {
@@ -290,13 +295,21 @@ int main(void)
     img.is_bigendian = 1;
     img.step = 8;
     img.data = data;
-    img_pub->publish(img);
+//    img_pub->publish(img);
 
     sensor_msgs::Temperature temp;
     temp.header = h;
     temp.temperature = 5.55;
     temp.variance = 2.22;
     temp_pub->publish(temp);
+
+    sensor_msgs::JointState js;
+    js.header = h;
+    js.name = name;
+    js.position = vec;
+    js.velocity = vec;
+    js.effort = vec;
+    joint_state_pub->publish(js);
   }
 
   std::this_thread::sleep_for(std::chrono::seconds(1)); // for last incoming messages

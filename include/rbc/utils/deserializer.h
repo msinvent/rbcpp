@@ -44,6 +44,8 @@ struct Deserializer
 
   static void deserialize(std::string &str, const web::json::value &response, bool is_sub_json = false);
 
+  static void deserializeStrings(std::vector<std::string> &vec, const web::json::value &response);
+
   static void deserialize(msgs::geometry_msgs::Polygon &polygon, const web::json::value &response, bool is_sub_json = false);
 
   static void deserialize(msgs::std_msgs::ColorRGBA &color, const web::json::value &response, bool is_sub_json = false);
@@ -94,6 +96,7 @@ void Deserializer::deserialize(std::vector<T> &vec, const web::json::value &resp
 {
   const auto &msg = response.at(U("arr")).as_array();
   std::vector<web::json::value> json_vec(msg.cbegin(), msg.cend());
+  vec.reserve(json_vec.size());
   for (const auto &val: json_vec)
   {
     vec.push_back(static_cast<T>(val.as_double()));

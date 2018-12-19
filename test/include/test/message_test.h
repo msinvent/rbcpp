@@ -30,6 +30,7 @@
 #include <rbc/msgs/sensor_msgs/joy.h>
 #include <rbc/msgs/sensor_msgs/image.h>
 #include <rbc/msgs/sensor_msgs/temperature.h>
+#include <rbc/msgs/sensor_msgs/joint_state.h>
 
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/point.h>
@@ -1245,6 +1246,33 @@ struct TemperatureTest : public Test
   inline std::string getMessage(std::string frame_id, double temperature, double variance) const
   {
     sensor_msgs::Temperature msg(frame_id, temperature, variance);
+    return messageToString(msg);
+  }
+};
+
+struct JointStateTest : public Test
+{
+  explicit JointStateTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("JointStateTest")[0]),
+        test2(dataframe.data.at("JointStateTest")[1])
+  {}
+
+  ~JointStateTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(const std::vector<std::string> &name, const std_msgs::Header &header, const std::vector<double> &position,
+                                const std::vector<double> &velocity, const std::vector<double> &effort) const
+  {
+    sensor_msgs::JointState msg(name, header, position, velocity, effort);
+    return messageToString(msg);
+  }
+
+  inline std::string getMessage(const std::vector<std::string> &name, std::string frame_id, const std::vector<double> &position,
+                                const std::vector<double> &velocity, const std::vector<double> &effort) const
+  {
+    sensor_msgs::JointState msg(name, frame_id, position, velocity, effort);
     return messageToString(msg);
   }
 };

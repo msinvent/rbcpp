@@ -88,3 +88,14 @@ void Deserializer::deserialize(geometry_msgs::Pose &pose, const web::json::value
   deserialize(pose.point, response.at("position"), true);
   deserialize(pose.orientation, response.at("orientation"), true);
 }
+
+void Deserializer::deserializeStrings(std::vector<std::string> &vec, const web::json::value &response)
+{
+  const auto &msg = response.as_array();
+  std::vector<web::json::value> json_vec(msg.cbegin(), msg.cend());
+  vec.reserve(json_vec.size());
+  for (const auto &val: json_vec)
+  {
+    vec.push_back(val.as_string());
+  }
+}

@@ -59,6 +59,7 @@ test::ImuTest imu_test(dataframe);
 test::JoyTest joy_test(dataframe);
 test::ImageTest image_test(dataframe);
 test::TemperatureTest temperature_test(dataframe);
+test::JointStateTest joint_state_test(dataframe);
 
 TEST_CASE("Header test", "[header]")
 {
@@ -991,4 +992,23 @@ TEST_CASE("Temperature test", "[temperature_test]")
     std_msgs::Header h("another frame");
     REQUIRE(temperature_test.getMessage(h, 55.55, 2.22) == temperature_test.test2);
   }
+}
+
+TEST_CASE("JointState test", "[JointState_test]")
+{
+  std::vector<double> vec{.1, .2, .3, .4, .5, .6, .7, .8, .9};
+  std::vector<double> vec2{1., 2., 3., 4., 5., 6., 7., 8., 9.};
+  std::vector<std::string> name{"a joint", "another joint"};
+  std::string frame_id = "a frame";
+
+  std_msgs::Header h(frame_id);
+
+  REQUIRE(joint_state_test.getMessage(name, "a frame", vec, vec, vec) == joint_state_test.test1);
+  REQUIRE(joint_state_test.getMessage(name, h, vec, vec, vec) == joint_state_test.test1);
+
+  name.push_back("another another joint");
+  h.frame_id = "another frame";
+
+  REQUIRE(joint_state_test.getMessage(name, h.frame_id, vec2, vec2, vec2) == joint_state_test.test2);
+  REQUIRE(joint_state_test.getMessage(name, h, vec2, vec2, vec2) == joint_state_test.test2);
 }

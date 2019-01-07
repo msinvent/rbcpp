@@ -63,6 +63,7 @@ int main(void)
   auto img_pub = rbc->addPublisher<sensor_msgs::Image<5, 5>>("/rosbridge/image");
   auto temp_pub = rbc->addPublisher<sensor_msgs::Temperature>("/rosbridge/temperature");
   auto joint_state_pub = rbc->addPublisher<sensor_msgs::JointState>("/rosbridge/joint_state");
+  auto fluid_pressure_pub = rbc->addPublisher<sensor_msgs::FluidPressure>("/rosbridge/fluid_pressure");
 
   auto header_sub = rbc->addSubscriber<std_msgs::Header>("/rosbridge/header/", 100, callbacks::hcallback);
   auto string_sub = rbc->addSubscriber<std_msgs::String>("/rosbridge/string/", 100, callbacks::scallback);
@@ -310,6 +311,9 @@ int main(void)
     js.velocity = vec;
     js.effort = vec;
     joint_state_pub->publish(js);
+
+    sensor_msgs::FluidPressure fp("a frame", 10, 0.2);
+    fluid_pressure_pub->publish(fp);
   }
 
   std::this_thread::sleep_for(std::chrono::seconds(1)); // for last incoming messages

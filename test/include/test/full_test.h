@@ -22,6 +22,7 @@
 #include <rbc/msgs/sensor_msgs/image.h>
 #include <rbc/msgs/sensor_msgs/temperature.h>
 #include <rbc/msgs/sensor_msgs/joint_state.h>
+#include <rbc/msgs/sensor_msgs/fluid_pressure.h>
 
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/point.h>
@@ -761,6 +762,11 @@ static inline void jscallback(const std::shared_ptr<sensor_msgs::JointState> msg
   assert((msg->effort == vec));
 
   update("joint_state");
+}
+
+static inline void fpcallback(const std::shared_ptr<sensor_msgs::FluidPressure> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[FluidPressure]\n";
 }
 
 } // namespace callbacks

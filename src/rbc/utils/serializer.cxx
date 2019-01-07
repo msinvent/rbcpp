@@ -407,5 +407,5 @@ web::json::value &Serializer::serialize(const sensor_msgs::FluidPressure &fp, bo
   fluid_json[U("fluid_pressure")] = web::json::value(fp.fluid_pressure);
   fluid_json[U("variance")] = web::json::value(fp.variance);
 
-  return fluid_json;
+  return not sub_json ? completeJson(fp, fluid_json) : fluid_json;
 }

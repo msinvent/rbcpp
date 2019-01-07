@@ -19,6 +19,7 @@
 #include <rbc/msgs/sensor_msgs/image.h>
 #include <rbc/msgs/sensor_msgs/temperature.h>
 #include <rbc/msgs/sensor_msgs/joint_state.h>
+#include <rbc/msgs/sensor_msgs/fluid_pressure.h>
 
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/accel.h>
@@ -80,6 +81,8 @@ public:
   web::json::value &serialize(const msgs::sensor_msgs::Temperature &temp, bool sub_json = false);
 
   web::json::value &serialize(const msgs::sensor_msgs::JointState &js, bool sub_json = false);
+
+  web::json::value &serialize(const msgs::sensor_msgs::FluidPressure &fp, bool sub_json = false);
 
   web::json::value &serialize(const msgs::geometry_msgs::Pose2D &pose2d, bool sub_json = false);
   

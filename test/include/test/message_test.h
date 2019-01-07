@@ -31,6 +31,7 @@
 #include <rbc/msgs/sensor_msgs/image.h>
 #include <rbc/msgs/sensor_msgs/temperature.h>
 #include <rbc/msgs/sensor_msgs/joint_state.h>
+#include <rbc/msgs/sensor_msgs/fluid_pressure.h>
 
 #include <rbc/msgs/geometry_msgs/pose.h>
 #include <rbc/msgs/geometry_msgs/point.h>
@@ -1273,6 +1274,25 @@ struct JointStateTest : public Test
                                 const std::vector<double> &velocity, const std::vector<double> &effort) const
   {
     sensor_msgs::JointState msg(name, frame_id, position, velocity, effort);
+    return messageToString(msg);
+  }
+};
+
+struct FluidPressureTest : public Test
+{
+  explicit FluidPressureTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("FluidPressureTest")[0]),
+        test2(dataframe.data.at("FluidPressureTest")[1])
+  {}
+
+  ~FluidPressureTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(std::string frame_id, double fluid_pressure, double variance) const
+  {
+    sensor_msgs::FluidPressure msg(frame_id, fluid_pressure, variance);
     return messageToString(msg);
   }
 };

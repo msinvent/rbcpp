@@ -398,3 +398,14 @@ std::vector<web::json::value> &Serializer::serializeSinglesStr(const std::vector
 
   return array;
 }
+
+web::json::value &Serializer::serialize(const sensor_msgs::FluidPressure &fp, bool sub_json)
+{
+  static web::json::value fluid_json;
+
+  fluid_json[U("header")] = serialize(fp.header, true);
+  fluid_json[U("fluid_pressure")] = web::json::value(fp.fluid_pressure);
+  fluid_json[U("variance")] = web::json::value(fp.variance);
+
+  return fluid_json;
+}

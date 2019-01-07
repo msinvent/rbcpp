@@ -60,6 +60,7 @@ test::JoyTest joy_test(dataframe);
 test::ImageTest image_test(dataframe);
 test::TemperatureTest temperature_test(dataframe);
 test::JointStateTest joint_state_test(dataframe);
+test::FluidPressureTest fluid_pressure_test(dataframe);
 
 TEST_CASE("Header test", "[header]")
 {
@@ -1012,3 +1013,10 @@ TEST_CASE("JointState test", "[JointState_test]")
   REQUIRE(joint_state_test.getMessage(name, h.frame_id, vec2, vec2, vec2) == joint_state_test.test2);
   REQUIRE(joint_state_test.getMessage(name, h, vec2, vec2, vec2) == joint_state_test.test2);
 }
+
+TEST_CASE("FluidPressure test", "[fluid_pressure_test]")
+{
+  REQUIRE(fluid_pressure_test.getMessage("world", 0.1, 0.4) == fluid_pressure_test.test1);
+  REQUIRE(fluid_pressure_test.getMessage("a frame", 10, 0.1) == fluid_pressure_test.test2);
+}
+

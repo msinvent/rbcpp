@@ -4,6 +4,7 @@ target_sources(librbc
 
         #        nav_msgs
         "${CMAKE_CURRENT_LIST_DIR}/msgs/nav_msgs/odometry.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/msgs/nav_msgs/path.cxx"
 
         #        sensor_msgs
         "${CMAKE_CURRENT_LIST_DIR}/msgs/sensor_msgs/imu.cxx"

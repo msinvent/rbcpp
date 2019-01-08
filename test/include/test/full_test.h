@@ -134,7 +134,8 @@ const std::vector<std::string> messages = {"header",
                                            "joy",
                                            "image",
                                            "temperature",
-                                           "joint_state"};
+                                           "joint_state",
+                                           "fluid_pressure"};
 
 static void init()
 {
@@ -767,6 +768,12 @@ static inline void jscallback(const std::shared_ptr<sensor_msgs::JointState> msg
 static inline void fpcallback(const std::shared_ptr<sensor_msgs::FluidPressure> msg)
 {
   std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[FluidPressure]\n";
+
+  assert((msg->header.frame_id == "a frame"));
+  assert((msg->fluid_pressure == 10.0));
+  assert((msg->variance == 0.2));
+
+  update("fluid_pressure");
 }
 
 } // namespace callbacks

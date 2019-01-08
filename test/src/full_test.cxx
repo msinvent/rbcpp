@@ -113,6 +113,7 @@ int main(void)
   //auto img_sub = rbc->addSubscriber<sensor_msgs::Image<5,5>>("/camera/rgb/image_rect_color", 100, callbacks::imgcallback<5, 5>);
   auto temp_sub = rbc->addSubscriber<sensor_msgs::Temperature>("/rosbridge/temperature", 100, callbacks::tempcallback);
   auto joint_state_sub = rbc->addSubscriber<sensor_msgs::JointState>("/rosbridge/joint_state", 100, callbacks::jscallback);
+  auto fluid_pressure_sub = rbc->addSubscriber<sensor_msgs::FluidPressure>("/rosbridge/fluid_pressure", 100, callbacks::fpcallback);
 
   std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
                                       .7, .8, .9, 1., 1.1, 1.2,

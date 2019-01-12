@@ -58,6 +58,7 @@ int main(void)
   auto quaternion_pub = rbc->addPublisher<geometry_msgs::Quaternion>("/rosbridge/orientation/");
   auto quaternion_stamped_pub = rbc->addPublisher<geometry_msgs::QuaternionStamped>("/rosbridge/quaternion_stamped/");
   auto odom_pub = rbc->addPublisher<nav_msgs::Odometry>("/rosbridge/odometry");
+  auto path_pub = rbc->addPublisher<nav_msgs::Path>("/rosbridge/path");
   auto imu_pub = rbc->addPublisher<sensor_msgs::Imu>("/rosbridge/imu");
   auto joy_pub = rbc->addPublisher<sensor_msgs::Joy>("/rosbridge/joy");
   auto img_pub = rbc->addPublisher<sensor_msgs::Image<5, 5>>("/rosbridge/image");
@@ -273,6 +274,10 @@ int main(void)
 
     nav_msgs::Odometry o("a child frame", h, pocov, twc);
     odom_pub->publish(o);
+
+    nav_msgs::Path path;
+//    path.add(pos);
+    path_pub->publish(path);
 
     sensor_msgs::Imu imu;
     imu.angular_velocity_covariance = covariance2;

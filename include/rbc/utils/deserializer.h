@@ -128,7 +128,7 @@ template <typename T>
 void Deserializer::deserialize(std::vector<T> &vec, const web::json::value &response, std::string key)
 {
   const auto &json_arr = response.at(U(key)).as_array();
-  auto arr_size = std::distance(json_arr.cbegin(), json_arr.cend());
+  auto arr_size = static_cast<size_t>(std::distance(json_arr.cbegin(), json_arr.cend()));
   vec.reserve(arr_size);
 
   deserialize<T>(vec, json_arr);
@@ -150,7 +150,7 @@ template <typename T>
 void Deserializer::deserialize_singles(std::vector<T> &vec, const web::json::value &response, std::string key)
 {
   const auto &json_arr = response.at(U(key)).as_array();
-  auto arr_size = std::distance(json_arr.cbegin(), json_arr.cend());
+  auto arr_size = static_cast<size_t>(std::distance(json_arr.cbegin(), json_arr.cend()));
   vec.reserve(arr_size);
 
   auto it = json_arr.cbegin();

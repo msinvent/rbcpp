@@ -16,6 +16,7 @@
 #include <rbc/publisher/rbc_publisher.h>
 
 #include <rbc/msgs/nav_msgs/odometry.h>
+#include <rbc/msgs/nav_msgs/path.h>
 
 #include <rbc/msgs/sensor_msgs/imu.h>
 #include <rbc/msgs/sensor_msgs/joy.h>

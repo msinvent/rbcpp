@@ -105,3 +105,5 @@ JointStateTest;{"msg":{"effort":[0.10000000000000001,0.20000000000000001,0.29999
 JointStateTest;{"msg":{"effort":[1,2,3,4,5,6,7,8,9],"header":{"frame_id":"another frame","seq":0,"stamp":{"nsec":0,"sec":0}},"name":["a joint","another joint","another another joint"],"position":[1,2,3,4,5,6,7,8,9],"velocity":[1,2,3,4,5,6,7,8,9]},"op":"publish","topic":"/rosbridge/message","type":"sensor_msgs/JointState"}
 FluidPressureTest;{"fluid_pressure":0.10000000000000001,"header":{"frame_id":"world","seq":0,"stamp":{"nsec":0,"sec":0}},"variance":0.40000000000000002}
 FluidPressureTest;{"fluid_pressure":10,"header":{"frame_id":"a frame","seq":0,"stamp":{"nsec":0,"sec":0}},"variance":0.10000000000000001}
+PathTest;""
+PathTest;""

@@ -106,9 +106,9 @@ int ConfigParser::pause() const
   return pause;
 }
 
-size_t ConfigParser::publishers() const
+int ConfigParser::publishers() const
 {
-  size_t publishers = json.at(U("config")).at(U("publishers")).as_integer();
+  int publishers = json.at(U("config")).at(U("publishers")).as_integer();
   return publishers;
 }
 

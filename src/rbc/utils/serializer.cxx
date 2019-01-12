@@ -409,3 +409,13 @@ web::json::value &Serializer::serialize(const sensor_msgs::FluidPressure &fp, bo
 
   return not sub_json ? completeJson(fp, fluid_json) : fluid_json;
 }
+
+web::json::value &Serializer::serialize(const nav_msgs::Path &p, bool sub_json)
+{
+  static web::json::value path_json;
+
+  path_json[U("header")] = serialize(p.header, true);
+  path_json[U("poses")] = web::json::value::array(serialize<geometry_msgs::PoseStamped>(p.poses));
+
+  return not sub_json ? completeJson(p, path_json) : path_json;
+}

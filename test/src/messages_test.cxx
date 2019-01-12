@@ -54,6 +54,7 @@ test::TwistTest twist_test(dataframe);
 test::TwistStampedTest twist_stamped_test(dataframe);
 
 test::OdometryTest odometry_test(dataframe);
+test::PathTest path_test(dataframe);
 
 test::ImuTest imu_test(dataframe);
 test::JoyTest joy_test(dataframe);
@@ -922,6 +923,18 @@ TEST_CASE("Odometry test", "[odometry_test]")
     o.twist.covariance = covariance;
     REQUIRE(odometry_test.getMessage(o) == odometry_test.test2);
   }
+}
+
+TEST_CASE("Path test", "[path_test]")
+{
+  REQUIRE(path_test.getMessage("world") == path_test.test1);
+
+  geometry_msgs::PoseStamped ps(.1, .2, .3, .1, .2, .3, .4, "another frame");
+  nav_msgs::Path p("a frame");
+  p.add(ps);
+  p.add(ps);
+
+  REQUIRE(path_test.getMessage(p) == path_test.test2);
 }
 
 TEST_CASE("Imu test", "[imu_test]")

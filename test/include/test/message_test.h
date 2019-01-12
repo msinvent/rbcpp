@@ -25,6 +25,7 @@
 #include <rbc/msgs/std_msgs/color_rgba.h>
 
 #include <rbc/msgs/nav_msgs/odometry.h>
+#include <rbc/msgs/nav_msgs/path.h>
 
 #include <rbc/msgs/sensor_msgs/imu.h>
 #include <rbc/msgs/sensor_msgs/joy.h>
@@ -1148,6 +1149,32 @@ struct OdometryTest : public Test
   inline std::string getMessage(const nav_msgs::Odometry &o) const
   {
     return messageToString(o);
+  }
+};
+
+struct PathTest : public Test
+{
+  explicit PathTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("PathTest")[0]),
+        test2(dataframe.data.at("PathTest")[1])
+  {}
+
+  ~PathTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  inline std::string getMessage(std::string frame_id = "world") const
+  {
+    nav_msgs::Path msg(frame_id);
+    std::cout << messageToString(msg) << "\n";
+    return messageToString(msg);
+  }
+
+  inline std::string getMessage(const nav_msgs::Path &path) const
+  {
+    std::cout << messageToString(path) << "\n";
+    return messageToString(path);
   }
 };
 

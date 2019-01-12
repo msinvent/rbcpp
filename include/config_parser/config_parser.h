@@ -24,7 +24,7 @@ public:
 
   int pause() const;
 
-  size_t publishers() const;
+  int publishers() const;
 
   std::string host() const;
 

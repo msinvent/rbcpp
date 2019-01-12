@@ -16,11 +16,11 @@ namespace rbc::msgs::std_msgs
 template <typename T>
 struct StdMsg : public ROSTypeBase
 {
-  explicit StdMsg(const T& data, std::string ros_msg_type);
   ~StdMsg() override = default;
   T data;
-
+  
 protected:
+  explicit StdMsg(const T& data, std::string ros_msg_type);
   explicit StdMsg(std::string ros_msg_type);
 };
 

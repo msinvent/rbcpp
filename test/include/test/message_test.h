@@ -1167,13 +1167,11 @@ struct PathTest : public Test
   inline std::string getMessage(std::string frame_id = "world") const
   {
     nav_msgs::Path msg(frame_id);
-    std::cout << messageToString(msg) << "\n";
     return messageToString(msg);
   }
 
   inline std::string getMessage(const nav_msgs::Path &path) const
   {
-    std::cout << messageToString(path) << "\n";
     return messageToString(path);
   }
 };

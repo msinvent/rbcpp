@@ -10,7 +10,7 @@ using namespace web;
 
 template<typename T>
 Message<T>::Message(const T &data)
-  : json_creator_({}),
+  : json_creator_(),
     data_(data),
     json_msg_(json_creator_.serialize(data, false))
 {}

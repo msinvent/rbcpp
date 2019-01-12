@@ -109,6 +109,7 @@ int main(void)
   auto quaternion_sub = rbc->addSubscriber<geometry_msgs::Quaternion>("/rosbridge/orientation/", 100, callbacks::qcallback);
   auto quaternion_stamped_sub = rbc->addSubscriber<geometry_msgs::QuaternionStamped>("/rosbridge/quaternion_stamped/", 100, callbacks::qscallback);
   auto odom_sub = rbc->addSubscriber<nav_msgs::Odometry>("/rosbridge/odometry", 100, callbacks::odomcallback);
+  auto path_sub = rbc->addSubscriber<nav_msgs::Path>("/rosbridge/path", 100, callbacks::pathcallback);
   auto imu_sub = rbc->addSubscriber<sensor_msgs::Imu>("/rosbridge/imu", 100, callbacks::imucallback);
   auto joy_sub = rbc->addSubscriber<sensor_msgs::Joy>("/rosbridge/joy", 100, callbacks::joycallback);
   //auto img_sub = rbc->addSubscriber<sensor_msgs::Image<5,5>>("/camera/rgb/image_rect_color", 100, callbacks::imgcallback<5, 5>);
@@ -276,7 +277,7 @@ int main(void)
     odom_pub->publish(o);
 
     nav_msgs::Path path;
-//    path.add(pos);
+    path.add(pos);
     path_pub->publish(path);
 
     sensor_msgs::Imu imu;

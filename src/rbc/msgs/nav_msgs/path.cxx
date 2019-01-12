@@ -3,6 +3,7 @@
 //
 
 #include <rbc/msgs/nav_msgs/path.h>
+#include <rbc/utils/deserializer.h>
 
 using namespace rbc::msgs::nav_msgs;
 
@@ -20,6 +21,11 @@ Path::Path(const web::json::value &response)
       poses()
 {
   poses.reserve(200);
+
+  const auto &msg = response.at(U("msg"));
+  const auto &header_msg = msg.at(U("header"));
+  utils::Deserializer::deserialize(header, header_msg, true);
+  utils::Deserializer::deserialize<geometry_msgs::PoseStamped>(poses, msg, "poses");
 
   poses.shrink_to_fit();
 }

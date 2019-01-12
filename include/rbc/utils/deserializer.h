@@ -14,6 +14,7 @@
 #include <rbc/msgs/std_msgs/color_rgba.h>
 #include <rbc/msgs/geometry_msgs/point.h>
 #include <rbc/msgs/geometry_msgs/pose.h>
+#include <rbc/msgs/geometry_msgs/pose_stamped.h>
 #include <rbc/msgs/geometry_msgs/pose2d.h>
 #include <rbc/msgs/xyzmessage.h>
 #include <rbc/msgs/geometry_msgs/vector3.h>
@@ -52,6 +53,7 @@ struct Deserializer
 
   static void deserialize(msgs::geometry_msgs::Pose2D &pose, const web::json::value &response, bool is_sub_json = false);
 
+  static void deserialize(msgs::geometry_msgs::PoseStamped &pose, const web::json::value &response, bool is_sub_json = false);
   static void
   deserialize(msgs::geometry_msgs::Inertia &inertia, const web::json::value &response, bool is_sub_json = false);
 

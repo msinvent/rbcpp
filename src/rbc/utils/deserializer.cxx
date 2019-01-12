@@ -99,3 +99,11 @@ void Deserializer::deserializeStrings(std::vector<std::string> &vec, const web::
     vec.push_back(val.as_string());
   }
 }
+
+void Deserializer::deserialize(geometry_msgs::PoseStamped &pose, const web::json::value &response, bool is_sub_json)
+{
+  const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
+
+  deserialize(pose.header, msg.at(U("header")), true);
+  deserialize(pose.pose, msg.at(U("pose")), true);
+}

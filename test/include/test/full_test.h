@@ -131,6 +131,7 @@ const std::vector<std::string> messages = {"header",
                                            "inertia",
                                            "inertia_stamp",
                                            "odometry",
+                                           "path",
                                            "imu",
                                            "joy",
                                            "image",
@@ -684,6 +685,22 @@ static inline void odomcallback(const std::shared_ptr<nav_msgs::Odometry> msg)
                                                     2.5, 2.6, 2.7, 2.8, 2.9, 3.,
                                                     3.1, 3.2, 3.3, 3.4, 3.5, 3.6}));
   update("odometry");
+}
+
+static inline void pathcallback(const std::shared_ptr<nav_msgs::Path> msg)
+{
+  std::cout << "Received " << ++messages_received << " / " << (num_publishers * 10) << " messages \t[Path]\n";
+
+  assert((msg->header.frame_id == "world"));
+  assert((msg->poses[0].pose.point.x == .1));
+  assert((msg->poses[0].pose.point.y == .2));
+  assert((msg->poses[0].pose.point.z == .3));
+  assert((msg->poses[0].pose.orientation.x == .1));
+  assert((msg->poses[0].pose.orientation.y == .2));
+  assert((msg->poses[0].pose.orientation.z == .3));
+  assert((msg->poses[0].pose.orientation.w == .4));
+
+  update("path");
 }
 
 static inline void imucallback(const std::shared_ptr<sensor_msgs::Imu> msg)

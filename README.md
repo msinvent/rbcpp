@@ -46,7 +46,7 @@ All messages that are checked below can be used already. Examples can be found [
 |                 | twist with covariance stamped  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |**nav_msgs**     | GridCells  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | Odometry  | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
-|                 | Path      | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
+|                 | Path      | <ul><li>- [x]  </li></ul> | <ul><li>- [x]  </li></ul> |
 |                 | OccupancyGrid | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |                 | MapMetaData  | <ul><li>- [ ]  </li></ul> | <ul><li>- [ ]  </li></ul> |
 |**sensor_msgs**  | BatteryState | <ul><li>- [ ] </li></ul> | <ul><li>- [ ] </li></ul> |

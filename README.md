@@ -1,5 +1,7 @@
 # ROS Bridge Client
 
+A C++ library for interaction with ROS from non-ROS machines using the [rosbridge_suite](http://wiki.ros.org/rosbridge_suite) protocol.
+
 *Important Note*: as of now, tornado >= 4.5.3 breaks the websocket connection with rosbridge. See [issue](https://github.com/RobotWebTools/rosbridge_suite/issues/371). 
 If your connection is dropped at the fist send attempt, check your tornado version with `pip show tornado`.
 

@@ -11,16 +11,15 @@ If your connection is dropped at the fist send attempt, check your tornado versi
 2. [Usage](#usage) 
 
 <a name="status"></a>
-
-## Status: very early development
-All messages that are checked below can be used already. Examples can be found [here](test/full_test.cpp)
-
-### ROS Service
+### ROS Services
 - [x] Support for basic ROS services
 
 Implement your own serializer (class to json) and deserializer (json to class) for more complex use cases
 
 ### Publisher, Subscriber
+## Status: very early development
+All messages that are checked below can be used already. Examples can be found [here](test/full_test.cpp)
+
 | Type           | Messages | Subscriber Status | Publisher Status |
 |----------------|----------------|----------------|----------------|
 |**geometry_msgs**| orientation  | <ul><li>-[x]  </li></ul> | <ul><li>- [x]  </li></ul> |

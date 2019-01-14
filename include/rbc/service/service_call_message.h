@@ -22,7 +22,10 @@ struct ServiceCallMessage
   ~ServiceCallMessage() = default;
 
   std::string toString() const;
-  
+
+  const web::json::value& json() const;
+
+private:
   web::json::value json_msg_;
   utils::Serializer serializer;
 };
@@ -41,6 +44,12 @@ std::string ServiceCallMessage<T>::toString() const
   utility::stringstream_t stream;
   json_msg_.serialize(stream);
   return stream.str();
+}
+
+template <typename T>
+const web::json::value& ServiceCallMessage<T>::json() const
+{
+  return json_msg_;
 }
 
 } // rbc::srv

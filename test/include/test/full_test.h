@@ -12,8 +12,10 @@
 #include <thread>
 #include <memory>
 #include <chrono>
+
 #include <rbc/ros_bridge_client.h>
 #include <rbc/publisher/rbc_publisher.h>
+#include <rbc/service/service_call_message.h>
 
 #include <rbc/msgs/nav_msgs/odometry.h>
 #include <rbc/msgs/nav_msgs/path.h>

@@ -117,6 +117,9 @@ int main(void)
   auto joint_state_sub = rbc->addSubscriber<sensor_msgs::JointState>("/rosbridge/joint_state", 100, callbacks::jscallback);
   auto fluid_pressure_sub = rbc->addSubscriber<sensor_msgs::FluidPressure>("/rosbridge/fluid_pressure", 100, callbacks::fpcallback);
 
+
+  rbc->registerService("add_two_ints", "sum");
+
   std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
                                       .7, .8, .9, 1., 1.1, 1.2,
                                       1.3, 1.4, 1.5, 1.6, 1.7, 1.8,
@@ -323,7 +326,10 @@ int main(void)
     fluid_pressure_pub->publish(fp);
   }
 
-  std::this_thread::sleep_for(std::chrono::seconds(1)); // for last incoming messages
+  srv::ServiceCall<int> srv_call("add_two_ints", std::vector{1, 2});
+  rbc->callService<int>(srv_call);
+
+  std::this_thread::sleep_for(std::chrono::seconds(5)); // for last incoming messages
 
   try
   {

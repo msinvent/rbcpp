@@ -19,6 +19,8 @@ struct ServiceCall
 
   ServiceCall(std::string name, const std::vector<T> &args);
 
+  ServiceCall(const web::json::value &response, std::string response_name);
+
   ~ServiceCall() = default;
 
   std::string name;
@@ -29,6 +31,11 @@ template<typename T>
 ServiceCall<T>::ServiceCall(std::string name, const std::vector<T> &args)
   : name(name), args(args)
 {}
+
+template<typename T>
+ServiceCall<T>::ServiceCall(const web::json::value &response, std::string response_name)
+{
+}
 
 } // namespace rbc::srv
 

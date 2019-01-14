@@ -13,7 +13,9 @@ using namespace web::web_sockets::client;
 using namespace rbc;
 
 ROSBridgeClient::ROSBridgeClient(const std::string addr)
+  : log(), ws_client(), subscribers(), services()
 {
+  subscribers.reserve(100); // TODO make variable
   connect(addr);
   receive();
 }
@@ -47,15 +49,16 @@ ROSBridgeClient::addSubscriber(std::string topic, size_t buffer_size, std::funct
 {
   auto sub = std::make_shared<subscriber::RBCSubscriber<T>>(shared_from_this(), topic, T().rosMsgType(),
                                                             buffer_size, cb);
-  subscribers[topic] = sub;
+  subscribers[topic] = sub; // TODO check for duplicates
   return sub;
 }
 
 ROSBridgeClient::~ROSBridgeClient()
 {
-  ws_client.close().then([]() {
-    std::cout << "Closing Connection\n";
-  }).wait();
+  ws_client.close().then([]()
+                         {
+                           std::cout << "Closing Connection\n";
+                         }).wait();
 
   std::cout << "Closed Connection\n";
 }
@@ -64,9 +67,10 @@ void ROSBridgeClient::connect(const std::string addr)
 {
   try
   {
-    ws_client.connect(U(addr)).then([&]() {
-      std::cout << "Attempting to connect to " << addr << "\n";
-    }).wait();
+    ws_client.connect(U(addr)).then([&]()
+                                    {
+                                      std::cout << "Attempting to connect to " << addr << "\n";
+                                    }).wait();
   }
   catch (const std::exception &e)
   {
@@ -112,7 +116,7 @@ void ROSBridgeClient::send(const std::string msg)
   {
     ws_client.send(m).wait();
   }
-  catch(const std::exception &e)
+  catch (const std::exception &e)
   {
     std::cerr << "Failed to send: " << msg << ": " << e.what() << std::endl;
   }
@@ -120,21 +124,25 @@ void ROSBridgeClient::send(const std::string msg)
 
 void ROSBridgeClient::receive()
 {
-  ws_client.set_message_handler([&](websocket_incoming_message msg) {
-    if (subscribers.empty())
-      return;
+  ws_client.set_message_handler([&](websocket_incoming_message msg)
+                                {
+                                  auto msg_str = msg.extract_string().get();
+                                  web::json::value response = web::json::value::parse(U(msg_str));
 
-    auto msg_str = msg.extract_string().get();
-    web::json::value response = web::json::value::parse(U(msg_str));
+                                  log.log("Received ", msg_str);
 
-    log.log("Received ", msg_str);
-
-    callSubscriber(response);
-  });
+                                  callHandler(response);
+                                });
 }
 
-void ROSBridgeClient::callSubscriber(const web::json::value &response)
+void ROSBridgeClient::callSubscriberHandler(const web::json::value &response)
 {
+  if (subscribers.empty())
+  {
+    std::cerr << "Can't subscribe. No Subscribers.\n";
+    return;
+  }
+
   std::string topic_received;
 
   try
@@ -160,6 +168,68 @@ void ROSBridgeClient::callSubscriber(const web::json::value &response)
   }
   else
   {
-    std::cout << "Topic '" << topic_received <<  "' doesn't seems to be subscribed to!\n";
+    std::cout << "Topic '" << topic_received << "' doesn't seems to be subscribed to!\n";
   }
+}
+
+void ROSBridgeClient::callServiceResponseHandler(const web::json::value &response)
+{
+  std::string service_name = response.at(U("service")).as_string();
+  std::string response_name = services.at(U(service_name));
+
+  std::cout << "Received message from " << service_name << ", the result is field " << response_name << "\n";
+}
+
+void ROSBridgeClient::callHandler(const web::json::value &response)
+{
+  std::string resp_type;
+
+  try
+  {
+    resp_type = response.at(U("op")).as_string();
+  }
+  catch (std::exception &e)
+  {
+    std::cerr << "Not a known message: neither publisher on rosbridge side or returning service call\n";
+    std::cerr << e.what() << "\n";
+    std::cerr << "Full response: " << response << "\n";
+    return;
+  }
+
+  if (resp_type == "publish")
+  {
+    callSubscriberHandler(response);
+  }
+  else if (resp_type == "service_response")
+  {
+    callServiceResponseHandler(response);
+  }
+  else
+  {
+    std::cerr << "Received unknown response of type " << resp_type << "\n";
+  }
+}
+
+void ROSBridgeClient::registerService(std::string name, std::string response_name)
+{
+    if (services.find(name) != std::end(services))
+    {
+      std::cerr << "Error registering service: already registered\n";
+      return;
+    }
+
+    services[name] = response_name;
+}
+
+template<typename T>
+void ROSBridgeClient::callService(const srv::ServiceCall<T> &srv_call)
+{
+  if (services.find(srv_call.name) == std::end(services))
+  {
+    std::cerr << "Service not registered. Call rbc->registerService(<name>, <response_name>)\n";
+    return;
+  }
+
+  srv::ServiceCallMessage msg(srv_call);
+  send(msg.json());
 }

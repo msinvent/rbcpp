@@ -15,6 +15,12 @@ If your connection is dropped at the fist send attempt, check your tornado versi
 ## Status: very early development
 All messages that are checked below can be used already. Examples can be found [here](test/full_test.cpp)
 
+### ROS Service
+- [x] Support for basic ROS services
+
+Implement your own serializer (class to json) and deserializer (json to class) for more complex use cases
+
+### Publisher, Subscriber
 | Type           | Messages | Subscriber Status | Publisher Status |
 |----------------|----------------|----------------|----------------|
 |**geometry_msgs**| orientation  | <ul><li>-[x]  </li></ul> | <ul><li>- [x]  </li></ul> |
@@ -120,9 +126,9 @@ All messages that are checked below can be used already. Examples can be found [
 
 ### TODO
 
-- [ ] Actionlib
 - [ ] make web value json call safer
 - [ ] test all wrench stamped constructors
 - [ ] overload operators for Int/Float std_msgs
 - [ ] check incoming received_message for validity
 - [ ] Global toString serializer?
+- [ ] Instructions for custom service

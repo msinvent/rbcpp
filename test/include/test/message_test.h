@@ -9,6 +9,7 @@
 #include <cpprest/ws_client.h>
 #include <rbc/ros_bridge_client.h>
 #include <rbc/msgs/message.h>
+#include <rbc/service/service_call_message.h>
 
 #include <rbc/msgs/std_msgs/int8.h>
 #include <rbc/msgs/std_msgs/int16.h>
@@ -94,6 +95,33 @@ struct Test
   {
     Message<T> msg(t);
     return msg.toString();
+  }
+
+  template <typename T>
+  inline std::string serviceToString(const srv::ServiceCall<T> &s) const
+  {
+    srv::ServiceCallMessage sc(s);
+    return sc.toString();
+  }
+};
+
+struct ServiceTest : public Test
+{
+  explicit ServiceTest(const DataFrame &dataframe)
+      : test1(dataframe.data.at("ServiceTest")[0]),
+        test2(dataframe.data.at("ServiceTest")[1])
+  {}
+
+  ~ServiceTest() final = default;
+
+  const std::string test1;
+  const std::string test2;
+
+  template <typename T>
+  inline std::string getMessage(std::string name, const std::vector<T> &args) const
+  {
+    srv::ServiceCall<T> msg(name, args);
+    return serviceToString(msg);
   }
 };
 

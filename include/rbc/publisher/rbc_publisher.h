@@ -9,6 +9,7 @@
 #include <cpprest/json.h>
 #include <rbc/ros_bridge_client.h>
 #include <rbc/publisher/publisher.h>
+#include <rbc/service/service_call_message.h>
 
 namespace rbc::publisher
 {
@@ -24,6 +25,13 @@ public:
   ~RBCPublisher();
 
   void publish(T &msg) const;
+
+  template <typename S>
+  void publish(const srv::ServiceCall<S> &srv_call)
+  {
+    srv::ServiceCallMessage s(srv_call);
+    rbc->send(s.toString());
+  }
 
 private:
   void reset();

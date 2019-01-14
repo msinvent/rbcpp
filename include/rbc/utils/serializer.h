@@ -152,13 +152,13 @@ public:
 
   template <typename T, unsigned int N>
   std::vector<web::json::value> &serializeSingles(const std::array<T, N> &data);
+
+  template <typename T>
+  std::vector<web::json::value> &serializeSingles(const std::vector<T> &vec);
 private:
 
   template <typename T>
   std::vector<web::json::value> &serialize(const std::vector<T> &vec);
-
-  template <typename T>
-  std::vector<web::json::value> &serializeSingles(const std::vector<T> &vec);
 };
 
 template<typename T>

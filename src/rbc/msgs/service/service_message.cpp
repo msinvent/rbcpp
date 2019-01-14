@@ -19,7 +19,7 @@ ServiceMessage::ServiceMessage(const std::vector<std::string> &args)
 
 void ServiceMessage::setServiceName(const std::string &service_name)
 {
-  json[U("service")] = json::value::string(service_name);
+  json[U("srv")] = json::value::string(service_name);
 }
 
 void ServiceMessage::setArgs(const std::vector<std::string> &args)

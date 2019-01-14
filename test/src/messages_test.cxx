@@ -9,6 +9,8 @@
 test::CSVReader reader("../../test/test_messages.csv", ";");
 test::DataFrame dataframe(reader);
 
+test::ServiceTest service_test(dataframe);
+
 test::HeaderTest header_test(dataframe);
 test::StringTest string_test(dataframe);
 test::Float32Test float32_test(dataframe);
@@ -62,6 +64,12 @@ test::ImageTest image_test(dataframe);
 test::TemperatureTest temperature_test(dataframe);
 test::JointStateTest joint_state_test(dataframe);
 test::FluidPressureTest fluid_pressure_test(dataframe);
+
+TEST_CASE("Service test", "[service]")
+{
+  REQUIRE(service_test.getMessage("a_service", std::vector{1.2f, 2.5f}) == service_test.test1);
+  REQUIRE(service_test.getMessage("test_service", std::vector{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}) == service_test.test2);
+}
 
 TEST_CASE("Header test", "[header]")
 {

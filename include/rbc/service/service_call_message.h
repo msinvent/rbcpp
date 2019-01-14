@@ -31,7 +31,7 @@ template<typename T>
 ServiceCallMessage<T>::ServiceCallMessage(const ServiceCall<T> &srv_call)
 {
   json_msg_[U("op")] = web::json::value::string("call_service");
-  json_msg_[U("srv")] = web::json::value::string(srv_call.name);
+  json_msg_[U("service")] = web::json::value::string(srv_call.name);
   json_msg_[U("args")] = web::json::value::array(serializer.serializeSingles<T>(srv_call.args));
 }
 

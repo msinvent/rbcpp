@@ -15,9 +15,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 if (CMAKE_COMPILER_IS_GNUCXX AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7.0)
     message(FATAL_ERROR "Invalid Compiler: gcc >= 7.0 is needed")
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "AppleClang" AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 10.0)
+    message(FATAL_ERROR "Invalid Compilter: apple clang >= 10.0 is needed")
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.0)
+    message(FATAL_ERROR "Invalid Compiler: clang >= 5.0 is needed")
 endif ()
-
-message(STATUS "${COMPILER}++ Version: " ${CMAKE_CXX_COMPILER_VERSION})
 
 ### Require out-of-source builds
 file(TO_CMAKE_PATH "${PROJECT_BINARY_DIR}/CMakeLists.txt" LOC_PATH)

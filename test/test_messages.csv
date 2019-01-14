@@ -1,6 +1,6 @@
 class_type;message
-ServiceTest;{"args":[1.2000000476837158,2.5],"op":"call_service","srv":"a_service"}
-ServiceTest;{"args":[0,1,2,3,4,5,6,7,8,9],"op":"call_service","srv":"test_service"}
+ServiceTest;{"args":[1.2000000476837158,2.5],"op":"call_service","service":"a_service"}
+ServiceTest;{"args":[0,1,2,3,4,5,6,7,8,9],"op":"call_service","service":"test_service"}
 HeaderTest;{"msg":{"frame_id":"world","seq":0,"stamp":{"nsec":0,"sec":0}},"op":"publish","topic":"/rosbridge/message","type":"std_msgs/Header"}
 HeaderTest;{"msg":{"frame_id":"test_frame","seq":0,"stamp":{"nsec":0,"sec":0}},"op":"publish","topic":"/rosbridge/message","type":"std_msgs/Header"}
 StringTest;{"msg":{"data":"A Test"},"op":"publish","topic":"/rosbridge/message","type":"std_msgs/String"}

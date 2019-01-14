@@ -47,13 +47,17 @@ struct Deserializer
 
   static void deserializeStrings(std::vector<std::string> &vec, const web::json::value &response);
 
-  static void deserialize(msgs::geometry_msgs::Polygon &polygon, const web::json::value &response, bool is_sub_json = false);
+  static void
+  deserialize(msgs::geometry_msgs::Polygon &polygon, const web::json::value &response, bool is_sub_json = false);
 
   static void deserialize(msgs::std_msgs::ColorRGBA &color, const web::json::value &response, bool is_sub_json = false);
 
-  static void deserialize(msgs::geometry_msgs::Pose2D &pose, const web::json::value &response, bool is_sub_json = false);
+  static void
+  deserialize(msgs::geometry_msgs::Pose2D &pose, const web::json::value &response, bool is_sub_json = false);
 
-  static void deserialize(msgs::geometry_msgs::PoseStamped &pose, const web::json::value &response, bool is_sub_json = false);
+  static void
+  deserialize(msgs::geometry_msgs::PoseStamped &pose, const web::json::value &response, bool is_sub_json = false);
+
   static void
   deserialize(msgs::geometry_msgs::Inertia &inertia, const web::json::value &response, bool is_sub_json = false);
 
@@ -62,18 +66,18 @@ struct Deserializer
 
   static void deserialize(msgs::std_msgs::Header &header, const web::json::value &response, bool is_sub_json = false);
 
-  template <typename T>
+  template<typename T>
   static void deserialize(std::vector<T> &vector, const web::json::array &value);
 
-  template <typename T>
+  template<typename T>
   static void deserialize(std::vector<T> &vec, const web::json::value &response, std::string key);
 
-  template <typename T>
+  template<typename T>
   static void deserialize_singles(std::vector<T> &vec, const web::json::value &response, std::string key);
 
   static void deserialize(msgs::geometry_msgs::Pose &pose, const web::json::value &response, bool is_sub_json);
 
-  template <typename T>
+  template<typename T>
   static void deserializeSingle(T &t, const web::json::value &response);
 };
 
@@ -126,7 +130,7 @@ void Deserializer::toArray(std::array<T, N> &arr, const web::json::value &respon
   });
 }
 
-template <typename T>
+template<typename T>
 void Deserializer::deserialize(std::vector<T> &vec, const web::json::value &response, std::string key)
 {
   const auto &json_arr = response.at(U(key)).as_array();
@@ -148,7 +152,7 @@ void Deserializer::deserialize(std::vector<T> &vector, const web::json::array &j
   }
 }
 
-template <typename T>
+template<typename T>
 void Deserializer::deserialize_singles(std::vector<T> &vec, const web::json::value &response, std::string key)
 {
   const auto &json_arr = response.at(U(key)).as_array();

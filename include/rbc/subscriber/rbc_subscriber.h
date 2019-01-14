@@ -22,9 +22,9 @@ class RBCSubscriber : public SubscriberBase
 {
 public:
   RBCSubscriber() = delete;
-
-  RBCSubscriber(std::shared_ptr<ROSBridgeClient> rbc, std::string topic, std::string msg_type, size_t buffer_size = 100,
-                std::function<void(std::shared_ptr<T>)> cb = nullptr);
+  // TODO asser no nullptr function pointer
+  RBCSubscriber(std::shared_ptr<ROSBridgeClient> rbc, std::string topic, std::string msg_type, size_t buffer_size,
+                std::function<void(std::shared_ptr<T>)> cb);
 
   ~RBCSubscriber() final;
 

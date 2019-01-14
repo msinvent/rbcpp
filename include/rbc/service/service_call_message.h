@@ -17,7 +17,7 @@ struct ServiceCallMessage
 {
   ServiceCallMessage() = delete;
 
-  explicit ServiceCallMessage(const ServiceCall<T> &srv_call);
+  explicit ServiceCallMessage(const T &srv_call);
 
   ~ServiceCallMessage() = default;
 
@@ -30,28 +30,8 @@ private:
   utils::Serializer serializer;
 };
 
-template<typename T>
-ServiceCallMessage<T>::ServiceCallMessage(const ServiceCall<T> &srv_call)
-{
-  json_msg_[U("op")] = web::json::value::string("call_service");
-  json_msg_[U("service")] = web::json::value::string(srv_call.name);
-  json_msg_[U("args")] = web::json::value::array(serializer.serializeSingles<T>(srv_call.args));
-}
-
-template<typename T>
-std::string ServiceCallMessage<T>::toString() const
-{
-  utility::stringstream_t stream;
-  json_msg_.serialize(stream);
-  return stream.str();
-}
-
-template <typename T>
-const web::json::value& ServiceCallMessage<T>::json() const
-{
-  return json_msg_;
-}
-
 } // rbc::srv
+
+#include <rbc/service/service_call_message_impl.h>
 
 #endif //ROSBRIDGECLIENT_SERVICE_CALL_MESSAGE_H

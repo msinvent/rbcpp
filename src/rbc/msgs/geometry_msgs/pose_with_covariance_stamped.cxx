@@ -57,7 +57,7 @@ PoseWithCovarianceStamped::PoseWithCovarianceStamped(const web::json::value &res
   }
   catch (const std::exception &e)
   {
-    std::cerr << "Can't deserialize response (PoseWithCovarianceStamped). May be malformed. \n" << e.what() << "\n";
+    std::cerr << "Can't deserialize received_message (PoseWithCovarianceStamped). May be malformed. \n" << e.what() << "\n";
   }
 }
 

@@ -13,7 +13,9 @@
 #include <cpprest/ws_client.h>
 #include <rbc/logging/logger.h>
 #include <rbc/subscriber/rbc_subscriber_base.h>
-#include <rbc/service/service_call_message.h>
+
+#include <rbc/service/service_handler_base.h>
+#include <rbc/service/service_call.h>
 
 namespace rbc
 {
@@ -28,6 +30,12 @@ namespace subscriber
 {
 template<typename T>
 class RBCSubscriber;
+}
+
+namespace srv
+{
+template <typename T>
+struct ServiceHandler;
 }
 
 using WSClient = web::websockets::client::websocket_callback_client;
@@ -54,10 +62,9 @@ public:
   template<typename T>
   std::shared_ptr<publisher::RBCPublisher<T>> addPublisher(std::string topic);
 
-  void registerService(std::string name, std::string response_name);
-
   template <typename T>
-  void callService(const srv::ServiceCall<T> &srv_call);
+  std::shared_ptr<srv::ServiceHandler<T>> addServiceHandler(std::string name, std::string response_name,
+                                                            std::function<void(std::shared_ptr<T>)> cb);
 
   logging::Logger log;
 
@@ -75,7 +82,7 @@ private:
   WSClient ws_client;
 
   std::unordered_map<std::string, std::weak_ptr<subscriber::SubscriberBase>> subscribers;
-  std::unordered_map<std::string, std::string> services;
+  std::unordered_map<std::string, std::weak_ptr<srv::ServiceHandlerBase>> services;
 };
 } // namespace rbc
 

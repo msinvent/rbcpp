@@ -25,18 +25,11 @@ struct ServiceCall
 
   std::string name;
   std::vector<T> args;
+  T response;
 };
 
-template<typename T>
-ServiceCall<T>::ServiceCall(std::string name, const std::vector<T> &args)
-  : name(name), args(args)
-{}
-
-template<typename T>
-ServiceCall<T>::ServiceCall(const web::json::value &response, std::string response_name)
-{
-}
-
 } // namespace rbc::srv
+
+#include <rbc/service/service_call_impl.h>
 
 #endif //ROSBRIDGECLIENT_SERVICE_CALL_H

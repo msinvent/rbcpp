@@ -118,7 +118,7 @@ int main(void)
   auto fluid_pressure_sub = rbc->addSubscriber<sensor_msgs::FluidPressure>("/rosbridge/fluid_pressure", 100, callbacks::fpcallback);
 
 
-  rbc->registerService("add_two_ints", "sum");
+  auto srv_handler = rbc->addServiceHandler<srv::ServiceCall<int>>("add_two_ints", "sum", callbacks::srvcallback);
 
   std::array<double, 36> covariance( {.1, .2, 3., .4, .5, .6,
                                       .7, .8, .9, 1., 1.1, 1.2,
@@ -327,7 +327,7 @@ int main(void)
   }
 
   srv::ServiceCall<int> srv_call("add_two_ints", std::vector{1, 2});
-  rbc->callService<int>(srv_call);
+  srv_handler->callService(srv_call);
 
   std::this_thread::sleep_for(std::chrono::seconds(5)); // for last incoming messages
 

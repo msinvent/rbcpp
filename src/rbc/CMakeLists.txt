@@ -1,6 +1,7 @@
 target_sources(librbc
         PRIVATE
         "${CMAKE_CURRENT_LIST_DIR}/msgs/ros_type_base.cxx"
+        "${CMAKE_CURRENT_LIST_DIR}/service/service_handler_base.cxx"
 
         #        nav_msgs
         "${CMAKE_CURRENT_LIST_DIR}/msgs/nav_msgs/odometry.cxx"

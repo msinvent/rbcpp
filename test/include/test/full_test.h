@@ -15,7 +15,7 @@
 
 #include <rbc/ros_bridge_client.h>
 #include <rbc/publisher/rbc_publisher.h>
-#include <rbc/service/service_call_message.h>
+#include <rbc/service/service_call.h>
 
 #include <rbc/msgs/nav_msgs/odometry.h>
 #include <rbc/msgs/nav_msgs/path.h>
@@ -168,6 +168,13 @@ static void results()
     if (v != 10)
       std::cerr << "\nmissing type: " << k << ": " << v << " of 10";
   }
+}
+
+static inline void srvcallback(const std::shared_ptr<srv::ServiceCall<int>> msg)
+{
+  std::cout << "Received: " << msg->response << "\n";
+  assert((msg->response == 3));
+  assert((msg->name == "add_two_ints"));
 }
 
 static inline void hcallback(const std::shared_ptr<std_msgs::Header> msg)

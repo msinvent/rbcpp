@@ -14,8 +14,15 @@ template<typename T>
 ServiceHandler<T>::ServiceHandler(std::shared_ptr<ROSBridgeClient> rbc, std::string service_name,
                                   std::string response_name,
                                   std::function<void(std::shared_ptr<T>)> cb)
-    : rbc(rbc), received_msg(nullptr), service_name(service_name), response_name(response_name), callback(cb)
+    : ServiceHandlerBase(),
+      rbc(rbc),
+      received_msg(nullptr),
+      service_name(service_name),
+      response_name(response_name),
+      callback(cb)
 {
+  assert(cb != nullptr && "Callback pointer can't be nullptr!");
+
   rbc->log.log("Listening to Service ", service_name);
 }
 

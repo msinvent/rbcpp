@@ -17,6 +17,8 @@ RBCSubscriber<T>::RBCSubscriber(std::shared_ptr<ROSBridgeClient> rbc, std::strin
     received_msg(nullptr),
     callback(cb)
 {
+  assert(cb != nullptr && "Callback pointer can't be nullptr!");
+
   subscribe();
 }
 

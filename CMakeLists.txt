@@ -27,19 +27,8 @@ if (EXISTS "${LOC_PATH}")
     message(FATAL_ERROR "You cannot build in a source directory (or any directory with a CMakeLists.txt file). Please make a build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
 endif ()
 
-find_package(Catch2 REQUIRED)
 find_package(cpprestsdk REQUIRED)
 find_package(Boost COMPONENTS system thread chrono REQUIRED)
-
-add_library(config_parser "")
-add_subdirectory(src/config_parser)
-target_include_directories(config_parser PUBLIC include)
-target_compile_options(config_parser PRIVATE -Wall -Wextra -Weffc++ -Wconversion -Wredundant-decls -Wunreachable-code -pedantic -Wcomment -Wcast-qual)
-target_link_libraries(config_parser
-        cpprestsdk::cpprest
-        ${Boost_SYSTEM_LIBRARY}
-        ${Boost_THREAD_LIBRARY}
-        ${Boost_CHRONO_LIBRARY})
 
 add_library(librbc "")
 add_subdirectory(src/rbc)
@@ -51,4 +40,18 @@ target_link_libraries(librbc
         ${Boost_THREAD_LIBRARY}
         ${Boost_CHRONO_LIBRARY})
 
-add_subdirectory(test)
+option(COMPILE_TEST "Compile all Tests" OFF)
+if (COMPILE_TEST)
+    message(STATUS "Compiling Tests as well")
+
+    add_library(config_parser "")
+    add_subdirectory(src/config_parser)
+    target_include_directories(config_parser PUBLIC include)
+    target_compile_options(config_parser PRIVATE -Wall -Wextra -Weffc++ -Wconversion -Wredundant-decls -Wunreachable-code -pedantic -Wcomment -Wcast-qual)
+    target_link_libraries(config_parser
+            cpprestsdk::cpprest
+            ${Boost_SYSTEM_LIBRARY}
+            ${Boost_THREAD_LIBRARY}
+            ${Boost_CHRONO_LIBRARY})
+    add_subdirectory(test)
+endif ()

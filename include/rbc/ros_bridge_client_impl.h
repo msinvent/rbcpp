@@ -45,13 +45,17 @@ std::shared_ptr<publisher::RBCPublisher<T>> ROSBridgeClient::addPublisher(std::s
 }
 
 template<typename T>
-std::shared_ptr<subscriber::RBCSubscriber<T>>
-ROSBridgeClient::addSubscriber(std::string topic, size_t buffer_size, std::function<void(std::shared_ptr<T>)> cb)
+void ROSBridgeClient::addSubscriber(std::string topic, size_t buffer_size, std::function<void(std::shared_ptr<T>)> cb)
 {
+  if (subscribers.find(topic) != std::end(subscribers))
+  {
+    std::cout << "Not adding subscriber: subscriber with topic '" << topic << "' already exists\n";
+    return;
+  }
+
   auto sub = std::make_shared<subscriber::RBCSubscriber<T>>(shared_from_this(), topic, T().rosMsgType(),
                                                             buffer_size, cb);
-  subscribers[topic] = sub; // TODO check for duplicates
-  return sub;
+  subscribers[topic] = sub;
 }
 
 template<typename T>

@@ -56,8 +56,8 @@ public:
   void receive();
 
   template<typename T>
-  std::shared_ptr<subscriber::RBCSubscriber<T>> addSubscriber(std::string topic, size_t buffer_size,
-                                                              std::function<void(std::shared_ptr<T>)> cb);
+  void addSubscriber(std::string topic, size_t buffer_size,
+                     std::function<void(std::shared_ptr<T>)> cb);
 
   template<typename T>
   std::shared_ptr<publisher::RBCPublisher<T>> addPublisher(std::string topic);

@@ -1,14 +1,34 @@
-# ROS Bridge Client
+# librbc - ROS Bridge Client
 
 A C++ library for interaction with ROS from non-ROS machines using the [rosbridge_suite](http://wiki.ros.org/rosbridge_suite) protocol.
+
+**DO NOT USE THIS YET**
 
 *Important Note*: as of now, tornado >= 4.5.3 breaks the websocket connection with rosbridge. See [issue](https://github.com/RobotWebTools/rosbridge_suite/issues/371). 
 If your connection is dropped at the fist send attempt, check your tornado version with `pip show tornado`.
 
 ### TOC
 
-1. [Status](#status)
-2. [Usage](#usage) 
+1. [Build](#build)
+2. [Status](#status)
+3. [Usage](#usage) 
+
+<a name="build"></a>
+
+## Build
+Build only the client api
+```bash
+mkdir build && cd build
+cmake ..
+make
+```
+
+Build all tests, as well
+```bash
+mkdir build && cd build
+cmake -DCOMPILE_TEST=ON ..
+make 
+```
 
 <a name="status"></a>
 
@@ -126,6 +146,7 @@ All messages that are checked below can be used already. Examples can be found [
 
 ### TODO
 
+- [ ] cmake install
 - [ ] make web value json call safer
 - [ ] test all wrench stamped constructors
 - [ ] overload operators for Int/Float std_msgs

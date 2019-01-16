@@ -16,7 +16,7 @@ Int32::Int32(int32_t data)
 {}
 
 Int32::Int32(const web::json::value &response)
-    : StdMsg(data, "std_msgs/Int32")
+    : StdMsg("std_msgs/Int32")
 {
   utils::Deserializer::deserialize<int32_t>(*this, response);
 }

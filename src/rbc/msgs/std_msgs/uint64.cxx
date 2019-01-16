@@ -16,7 +16,7 @@ UInt64::UInt64(uint64_t data)
 {}
 
 UInt64::UInt64(const web::json::value &response)
-    : StdMsg(data, "std_msgs/UInt64")
+    : StdMsg("std_msgs/UInt64")
 {
   utils::Deserializer::deserialize<uint64_t>(*this, response);
 }

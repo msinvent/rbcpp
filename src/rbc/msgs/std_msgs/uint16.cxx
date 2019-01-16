@@ -16,7 +16,7 @@ UInt16::UInt16(uint16_t data)
 {}
 
 UInt16::UInt16(const web::json::value &response)
-    : StdMsg(data, "std_msgs/UInt16")
+    : StdMsg("std_msgs/UInt16")
 {
   utils::Deserializer::deserialize<uint16_t>(*this, response);
 }

@@ -6,6 +6,7 @@
 #define ROSBRIDGECLIENT_SERVICE_CALL_IMPL_H
 
 #include <rbc/service/service_call.h>
+#include <rbc/utils/deserializer.h>
 
 using namespace rbc::srv;
 
@@ -21,15 +22,25 @@ ServiceCall<T>::ServiceCall(const web::json::value &response_json, std::string r
   const auto &msg = response_json.at(U("values"));
   name = response_json.at(U("service")).as_string();
 
-  try
+  const auto &resp_str = msg.as_string();
+
+  if (resp_str.find("does not exist") != resp_str.npos)
   {
-    response = static_cast<T>(msg.at(U(response_name)).as_double());
+    std::cerr << "Your service server is not online! returning\n";
+    return;
   }
-  catch (std::exception &e)
+  else
   {
-    std::cerr << "Can't get service response: " << e.what() << "\n";
-    std::cerr << "Are you calling service too often? ros_bridge doesn't like that\n";
-    response = -1000;
+    try
+    {
+      response = static_cast<T>(msg.at(U(response_name)).as_double());
+    }
+    catch (std::exception &e)
+    {
+      std::cerr << "Can't get service response: " << e.what() << "\n";
+      std::cerr << "Are you calling service too often? ros_bridge doesn't like that\n";
+      response = -1000;
+    }
   }
 }
 

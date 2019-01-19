@@ -22,15 +22,20 @@ ServiceCall<T>::ServiceCall(const web::json::value &response_json, std::string r
   const auto &msg = response_json.at(U("values"));
   name = response_json.at(U("service")).as_string();
 
-  const auto &resp_str = msg.as_string();
-
-  if (resp_str.find("does not exist") != resp_str.npos)
+  // checks if response is from service not being online
+  try
   {
-    std::cerr << "Your service server is not online! returning\n";
-    return;
+    const auto &resp_str = msg.as_string();
+    if (resp_str.find("does not exist") != resp_str.npos)
+    {
+      std::cerr << "Your service server is not online! returning\n";
+      return;
+    }
   }
-  else
+  catch (const std::exception &e) // just as an example: because msg.as_string() can fail when receiving a double
+  // we now know it must be from service and the desired value
   {
+    // tries to get value from service response
     try
     {
       response = static_cast<T>(msg.at(U(response_name)).as_double());
@@ -42,6 +47,7 @@ ServiceCall<T>::ServiceCall(const web::json::value &response_json, std::string r
       response = -1000;
     }
   }
+
 }
 
 #endif //ROSBRIDGECLIENT_SERVICE_CALL_IMPL_H

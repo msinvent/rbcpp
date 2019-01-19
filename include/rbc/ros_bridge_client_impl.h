@@ -212,7 +212,8 @@ void ROSBridgeClient::callServiceResponseHandler(const web::json::value &respons
       std::cout << "Srv nullptr. Y?!\n";
       return;
     }
-
+    
+    log.log("Received service response: ", utils::Deserializer::toString(response));
     srv->addResponse(response);
   }
   else

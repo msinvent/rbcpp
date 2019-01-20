@@ -15,7 +15,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 if (CMAKE_COMPILER_IS_GNUCXX AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7.0)
     message(FATAL_ERROR "Invalid Compiler: gcc >= 7.0 is needed")
-elseif (CMAKE_CXX_COMPILER_ID MATCHES "AppleClang" AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 10.0)
+elseif (CMAKE_CXX_COMPILER_ID MATCHES "AppleClang" AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 9.1)
     message(FATAL_ERROR "Invalid Compilter: apple clang >= 9.1 is needed")
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.0)
     message(FATAL_ERROR "Invalid Compiler: clang >= 5.0 is needed")
@@ -27,8 +27,16 @@ if (EXISTS "${LOC_PATH}")
     message(FATAL_ERROR "You cannot build in a source directory (or any directory with a CMakeLists.txt file). Please make a build subdirectory. Feel free to remove CMakeCache.txt and CMakeFiles.")
 endif ()
 
+# openssl is not found on mac osx
+if (CMAKE_CXX_COMPILER_ID MATCHES "AppleClang")
+    set(OPENSSL_ROOT_DIR /usr/local/opt/openssl)
+    set(OPENSSL_INCLUDE_DIR /usr/local/opt/openssl/include)
+endif()
+
 find_package(cpprestsdk REQUIRED)
 find_package(Boost COMPONENTS system thread chrono REQUIRED)
+
+
 
 add_library(librbc "")
 add_subdirectory(src/rbc)

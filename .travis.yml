@@ -67,7 +67,7 @@ matrix:
       compiler: clang 
       
 before_install:
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc@8 openssl boost ninja; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc@8 openssl ninja; fi
     - eval "${MATRIX_EVAL}"
     
 # Build steps

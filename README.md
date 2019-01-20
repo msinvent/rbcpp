@@ -1,4 +1,4 @@
-# librbc - ROS Bridge Client
+# librbc - ROS Bridge Client [![Build Status](https://travis-ci.com/juliangaal/ROSBridgeClient.svg?branch=master)](https://travis-ci.com/juliangaal/ROSBridgeClient)
 
 A C++ library for interaction with ROS from non-ROS machines using the [rosbridge_suite](http://wiki.ros.org/rosbridge_suite) protocol.
 
@@ -9,24 +9,36 @@ If your connection is dropped at the fist send attempt, check your tornado versi
 
 ### TOC
 
-1. [Build](#build)
+1. [install, Build](#build)
 2. [Status](#status)
 3. [Usage](#usage) 
 
 <a name="build"></a>
 
-## Build
+## Build, Install
+To use librbc, you need to install [cpprestsdk](https://github.com/Microsoft/cpprestsdk). If you want to run the tests, as well, you need to additionally install [Catch2](https://github.com/catchorg/Catch2)
+
+Set compiler, e.g g++-8, for entire session
+```
+export CXX=/usr/bin/g++-8
+```
+or do so in the `cmake` command: `cmake -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 ..`, see below
+
 Build only the client api
 ```bash
 mkdir build && cd build
-cmake ..
+cmake -DCMAKE_CXX_COMPILER=/path/to/compiler ..
 make
+```
+Install with 
+```
+sudo make install
 ```
 
 Build all tests, as well
 ```bash
 mkdir build && cd build
-cmake -DCOMPILE_TEST=ON ..
+cmake -DCMAKE_CXX_COMPILER=/path/to/compiler -DCOMPILE_TEST=ON ..
 make 
 ```
 
@@ -151,5 +163,4 @@ All messages that are checked below can be used already. Examples can be found [
 - [ ] test all wrench stamped constructors
 - [ ] overload operators for Int/Float std_msgs
 - [ ] check incoming received_message for validity
-- [ ] Global toString serializer?
 - [ ] Instructions for custom service

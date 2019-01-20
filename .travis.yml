@@ -1,0 +1,77 @@
+# DecisionTree
+# clang > 5 and gcc >= 7 is required
+# Ubuntu 14.04
+sudo: required
+dist: trusty
+
+# Enable C++ support
+language: cpp
+
+matrix:
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-8
+            - g++-8
+            - gcc-7
+            - g++-7
+      env: 
+        - COMPILER=g++-7
+        - MATRIX_EVAL="sudo apt-get update -qq && sudo apt-get install git libboost-all-dev && CC=gcc-7 && CXX=g++-7"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-8
+            - g++-8
+      env:
+        - COMPILER=g++-8
+        - MATRIX_EVAL="sudo apt-get update -qq && sudo apt-get install git libboost-all-dev && CC=gcc-8 && CXX=g++-8"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-6.0
+          packages:
+            - gcc-8
+            - g++-8
+            - clang-6.0
+            - libstdc++-7-dev
+      env:
+        - MATRIX_EVAL="sudo apt-get update -qq && sudo apt-get install git libboost-all-dev && CC=clang-6.0 && CXX=clang++-6.0"
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - llvm-toolchain-trusty-7
+            - ubuntu-toolchain-r-test
+          packages:
+            - gcc-8
+            - g++-8
+            - clang-7
+            - libstdc++-7-dev
+      env:
+        - MATRIX_EVAL="sudo apt-get update -qq && sudo apt-get install git libboost-all-dev && CC=clang-7 && CXX=clang++-7"
+      
+before_install:
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew install gcc@8; fi
+    - eval "${MATRIX_EVAL}"
+
+# Build steps
+script:
+    - mkdir install && cd install
+    - git clone https://github.com/catchorg/Catch2 && cd Catch2 && mkdir build && cd build
+    - cmake .. && make && sudo make install
+    - cd ../../
+    - git clone https://github.com/Microsoft/cpprestsdk && cd cpprestsdk && git submodule update --init && mkdir build && cd build
+    - cmake -DCMAKE_CXX_COMPILER=/usr/bin/g++ .. && make && sudo make install
+    - cd ../../../
+    - mkdir build && cd build
+    - cmake .. && make

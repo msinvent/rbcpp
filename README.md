@@ -18,10 +18,16 @@ If your connection is dropped at the fist send attempt, check your tornado versi
 ## Build, Install
 To use librbc, you need to install [cpprestsdk](https://github.com/Microsoft/cpprestsdk). If you want to run the tests, as well, you need to additionally install [Catch2](https://github.com/catchorg/Catch2)
 
+Set compiler, e.g g++-8, for entire session
+```
+export CXX=/usr/bin/g++-8
+```
+or do so in the `cmake` command: `cmake -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 ..`, see below
+
 Build only the client api
 ```bash
 mkdir build && cd build
-cmake ..
+cmake -DCMAKE_CXX_COMPILER=/path/to/compiler ..
 make
 ```
 Install with 
@@ -32,7 +38,7 @@ sudo make install
 Build all tests, as well
 ```bash
 mkdir build && cd build
-cmake -DCOMPILE_TEST=ON ..
+cmake -DCMAKE_CXX_COMPILER=/path/to/compiler -DCOMPILE_TEST=ON ..
 make 
 ```
 

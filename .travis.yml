@@ -69,7 +69,7 @@ script:
     - git clone https://github.com/catchorg/Catch2 && cd Catch2 && mkdir build && cd build
     - cmake .. && make && sudo make install
     - cd ../../
-    - git clone https://github.com/Microsoft/cpprestsdk && cd cpprestsdk && submodule update --init && mkdir build && cd build
+    - git clone https://github.com/Microsoft/cpprestsdk && cd cpprestsdk && git submodule update --init && mkdir build && cd build
     - cmake .. && make && sudo make install
     - cd ../../../
     - mkdir build && cd build

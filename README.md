@@ -151,5 +151,4 @@ All messages that are checked below can be used already. Examples can be found [
 - [ ] test all wrench stamped constructors
 - [ ] overload operators for Int/Float std_msgs
 - [ ] check incoming received_message for validity
-- [ ] Global toString serializer?
 - [ ] Instructions for custom service

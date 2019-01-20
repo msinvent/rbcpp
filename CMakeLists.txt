@@ -36,8 +36,6 @@ endif()
 find_package(cpprestsdk REQUIRED)
 find_package(Boost COMPONENTS system thread chrono REQUIRED)
 
-
-
 add_library(librbc "")
 add_subdirectory(src/rbc)
 target_include_directories(librbc PUBLIC include)

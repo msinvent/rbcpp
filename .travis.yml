@@ -15,6 +15,8 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
+            - gcc-8
+            - g++-8
             - gcc-7
             - g++-7
       env: 
@@ -38,6 +40,8 @@ matrix:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-6.0
           packages:
+            - gcc-8
+            - g++-8
             - clang-6.0
             - libstdc++-7-dev
       env:
@@ -49,6 +53,8 @@ matrix:
             - llvm-toolchain-trusty-7
             - ubuntu-toolchain-r-test
           packages:
+            - gcc-8
+            - g++-8
             - clang-7
             - libstdc++-7-dev
       env:
@@ -56,9 +62,15 @@ matrix:
     - os: osx
       osx_image: xcode9.4
       compiler: clang
+      addons:
+        homebrew:
+          packages: gcc@8
     - os: osx
       osx_image: xcode10
       compiler: clang 
+      addons:
+        homebrew:
+          packages: gcc@8
       
 before_install:
     - eval "${MATRIX_EVAL}"
@@ -70,7 +82,7 @@ script:
     - cmake .. && make && sudo make install
     - cd ../../
     - git clone https://github.com/Microsoft/cpprestsdk && cd cpprestsdk && git submodule update --init && mkdir build && cd build
-    - cmake .. && make && sudo make install
+    - export CC=/usr/bin/gcc-8 && export CXX=/usr/bin/g++-8 && cmake .. && make && sudo make install
     - cd ../../../
     - mkdir build && cd build
     - cmake .. && make

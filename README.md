@@ -1,4 +1,4 @@
-# librbc - ROS Bridge Client
+# librbc - ROS Bridge Client [![Build Status](https://travis-ci.com/juliangaal/ROSBridgeClient.svg?branch=master)](https://travis-ci.com/juliangaal/ROSBridgeClient)
 
 A C++ library for interaction with ROS from non-ROS machines using the [rosbridge_suite](http://wiki.ros.org/rosbridge_suite) protocol.
 
@@ -9,18 +9,24 @@ If your connection is dropped at the fist send attempt, check your tornado versi
 
 ### TOC
 
-1. [Build](#build)
+1. [install, Build](#build)
 2. [Status](#status)
 3. [Usage](#usage) 
 
 <a name="build"></a>
 
-## Build
+## Build, Install
+To use librbc, you need to install [cpprestsdk](https://github.com/Microsoft/cpprestsdk). If you want to run the tests, as well, you need to additionally install [Catch2](https://github.com/catchorg/Catch2)
+
 Build only the client api
 ```bash
 mkdir build && cd build
 cmake ..
 make
+```
+Install with 
+```
+sudo make install
 ```
 
 Build all tests, as well

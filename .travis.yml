@@ -82,7 +82,7 @@ script:
     - cmake .. && make && sudo make install
     - cd ../../
     - git clone https://github.com/Microsoft/cpprestsdk && cd cpprestsdk && git submodule update --init && mkdir build && cd build
-    - export CC=/usr/bin/gcc-8 && export CXX=/usr/bin/g++-8 && cmake .. && make && sudo make install
+    - cmake -DCMAKE_CXX_COMPILER=/usr/bin/g++-8 .. && make && sudo make install
     - cd ../../../
     - mkdir build && cd build
     - cmake .. && make

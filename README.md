@@ -30,6 +30,7 @@ mkdir build && cd build
 cmake -DCMAKE_CXX_COMPILER=/path/to/compiler ..
 make
 ```
+
 Install with 
 ```
 sudo make install
@@ -41,6 +42,8 @@ mkdir build && cd build
 cmake -DCMAKE_CXX_COMPILER=/path/to/compiler -DCOMPILE_TEST=ON ..
 make 
 ```
+
+**Note**: On Mac, you may need to adjust `OPENSSL_ROOT_DIR` and `OPENSSL_INCLUDE_DIR`, if your openssl installation is not located in `/usr/local/opt/openssl`
 
 <a name="status"></a>
 

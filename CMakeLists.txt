@@ -13,8 +13,8 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-if (CMAKE_COMPILER_IS_GNUCXX AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 7.0)
-    message(FATAL_ERROR "Invalid Compiler: gcc >= 7.0 is needed")
+if (CMAKE_COMPILER_IS_GNUCXX AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 6.0)
+    message(FATAL_ERROR "Invalid Compiler: gcc >= 6.0 is needed")
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "AppleClang" AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 9.1)
     message(FATAL_ERROR "Invalid Compilter: apple clang >= 9.1 is needed")
 elseif (CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 4.0)
@@ -29,8 +29,8 @@ endif ()
 
 # openssl is not found on mac osx
 if (CMAKE_CXX_COMPILER_ID MATCHES "AppleClang")
-    set(OPENSSL_ROOT_DIR /usr/local/opt/openssl)
-    set(OPENSSL_INCLUDE_DIR /usr/local/opt/openssl/include)
+    set(OPENSSL_ROOT_DIR /usr/local/opt/openssl CACHE PATH "Sets Mac Openssl root dir" FORCE)
+    set(OPENSSL_INCLUDE_DIR /usr/local/opt/openssl/include CACHE PATH "Sets Mac Openssl include dir" FORCE)
 endif()
 
 find_package(cpprestsdk REQUIRED)

@@ -16,6 +16,9 @@ If your connection is dropped at the fist send attempt, check your tornado versi
 <a name="build"></a>
 
 ## Build, Install
+
+**Minimum Requirements**: clang-6.0, g++-6 or xcode9.1
+
 To use librbc, you need to install [cpprestsdk](https://github.com/Microsoft/cpprestsdk). If you want to run the tests, as well, you need to additionally install [Catch2](https://github.com/catchorg/Catch2)
 
 Set compiler, e.g g++-8, for entire session

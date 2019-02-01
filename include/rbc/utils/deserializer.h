@@ -5,6 +5,8 @@
 #ifndef ROSBRIDGECLIENT_RESPONSE_CONVERTER_H
 #define ROSBRIDGECLIENT_RESPONSE_CONVERTER_H
 
+// TODO clean imports
+
 #include <cpprest/json.h>
 #include <tuple>
 #include <vector>
@@ -29,8 +31,21 @@ namespace rbc::utils
 
 struct Deserializer
 {
-  template<typename T>
-  static void deserialize(msgs::XYZMessage<T> &xyz, const web::json::value &response, bool is_sub_json = false);
+  static void
+  deserialize(msgs::geometry_msgs::Point &point, const web::json::value &response, bool is_sub_json = false);
+
+  static void
+  deserialize(msgs::geometry_msgs::Point32 &point, const web::json::value &response, bool is_sub_json = false);
+
+  static void
+  deserialize(msgs::geometry_msgs::Vector3 &vec3, const web::json::value &response, bool is_sub_json = false);
+
+  static void
+  deserialize(msgs::geometry_msgs::Quaternion &quaternion, const web::json::value &response, bool is_sub_json = false);
+
+  static void
+  deserialize(msgs::geometry_msgs::Pose2D &pose, const web::json::value &response, bool is_sub_json = false);
+
 
   template<typename T>
   static void deserialize(msgs::std_msgs::StdMsg<T> &std, const web::json::value &response, bool is_sub_json = false);
@@ -53,16 +68,10 @@ struct Deserializer
   static void deserialize(msgs::std_msgs::ColorRGBA &color, const web::json::value &response, bool is_sub_json = false);
 
   static void
-  deserialize(msgs::geometry_msgs::Pose2D &pose, const web::json::value &response, bool is_sub_json = false);
-
-  static void
   deserialize(msgs::geometry_msgs::PoseStamped &pose, const web::json::value &response, bool is_sub_json = false);
 
   static void
   deserialize(msgs::geometry_msgs::Inertia &inertia, const web::json::value &response, bool is_sub_json = false);
-
-  static void
-  deserialize(msgs::geometry_msgs::Quaternion &quaternion, const web::json::value &response, bool is_sub_json = false);
 
   static void deserialize(msgs::std_msgs::Header &header, const web::json::value &response, bool is_sub_json = false);
 
@@ -80,15 +89,6 @@ struct Deserializer
   template<typename T>
   static void deserializeSingle(T &t, const web::json::value &response);
 };
-
-template<typename T>
-void Deserializer::deserialize(msgs::XYZMessage<T> &xyz, const web::json::value &response, bool is_sub_json)
-{
-  const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  xyz.x = static_cast<T>(msg.at(U("x")).as_double());
-  xyz.y = static_cast<T>(msg.at(U("y")).as_double());
-  xyz.z = static_cast<T>(msg.at(U("z")).as_double());
-}
 
 template<typename T>
 void Deserializer::deserialize(msgs::std_msgs::StdMsg<T> &std, const web::json::value &response, bool is_sub_json)
@@ -174,6 +174,5 @@ void Deserializer::deserializeSingle(T &t, const web::json::value &response)
 }
 
 } // namespace rbc::util
-
 
 #endif //ROSBRIDGECLIENT_RESPONSE_CONVERTER_H

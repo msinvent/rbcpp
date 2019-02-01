@@ -45,7 +45,7 @@ InertiaStamped::InertiaStamped(const web::json::value &response)
 
   utils::Deserializer::deserialize(inertia, inertia_msg, true);
 
-  utils::Deserializer::deserialize<double>(inertia.com, inertia_msg.at(U("com")), true);
+  utils::Deserializer::deserialize(inertia.com, inertia_msg.at(U("com")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const rbc::msgs::geometry_msgs::InertiaStamped &is)

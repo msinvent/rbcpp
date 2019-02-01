@@ -21,7 +21,7 @@ PointStamped::PointStamped(const web::json::value &response)
 {
   utils::Deserializer::deserialize(header, response.at(U("msg")).at(U("header")), true);
 
-  utils::Deserializer::deserialize<double>(point, response.at(U("msg")).at(U("point")), true);
+  utils::Deserializer::deserialize(point, response.at(U("msg")).at(U("point")), true);
 }
 
 PointStamped::PointStamped()

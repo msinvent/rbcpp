@@ -43,9 +43,9 @@ AccelStamped::AccelStamped(const web::json::value &response, std::string ros_msg
 
   utils::Deserializer::deserialize(header, msg.at(U("header")), true);
 
-  utils::Deserializer::deserialize<double>(accel.linear, accel_msg.at(U("linear")), true);
+  utils::Deserializer::deserialize(accel.linear, accel_msg.at(U("linear")), true);
 
-  utils::Deserializer::deserialize<double>(accel.angular, accel_msg.at(U("angular")), true);
+  utils::Deserializer::deserialize(accel.angular, accel_msg.at(U("angular")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const AccelStamped &p)

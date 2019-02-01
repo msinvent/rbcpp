@@ -40,9 +40,9 @@ Imu::Imu(const web::json::value &response)
 {
   const auto &msg = response.at(U("msg"));
 
-  utils::Deserializer::deserialize<double>(linear_acceleration, msg.at(U("linear_acceleration")), true);
+  utils::Deserializer::deserialize(linear_acceleration, msg.at(U("linear_acceleration")), true);
 
-  utils::Deserializer::deserialize<double>(angular_velocity, msg.at(U("angular_velocity")), true);
+  utils::Deserializer::deserialize(angular_velocity, msg.at(U("angular_velocity")), true);
 
   utils::Deserializer::deserialize(orientation, msg.at(U("orientation")), true);
 

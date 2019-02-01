@@ -32,9 +32,9 @@ Accel::Accel(const web::json::value &response, std::string ros_msg_type)
 {
   const auto &msg = response.at(U("msg"));
 
-  utils::Deserializer::deserialize<double>(linear, msg.at(U("linear")), true);
+  utils::Deserializer::deserialize(linear, msg.at(U("linear")), true);
 
-  utils::Deserializer::deserialize<double>(angular, msg.at(U("angular")), true);
+  utils::Deserializer::deserialize(angular, msg.at(U("angular")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const rbc::msgs::geometry_msgs::Accel &p)

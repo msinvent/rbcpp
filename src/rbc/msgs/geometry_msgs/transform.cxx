@@ -26,7 +26,7 @@ Transform::Transform(const web::json::value &response)
 {
   const auto &msg = response.at(U("msg"));
 
-  utils::Deserializer::deserialize<double>(translation, msg.at(U("translation")), true);
+  utils::Deserializer::deserialize(translation, msg.at(U("translation")), true);
 
   utils::Deserializer::deserialize(rotation, msg.at(U("rotation")), true);
 }

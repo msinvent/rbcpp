@@ -11,13 +11,69 @@
 using namespace rbc::utils;
 using namespace rbc::msgs;
 
+void Deserializer::deserialize(msgs::geometry_msgs::Point &point, const web::json::value &response, bool is_sub_json)
+{
+  try
+  {
+    const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
+    point.x = msg.at(U("x")).as_double();
+    point.y = msg.at(U("y")).as_double();
+    point.z = msg.at(U("z")).as_double();
+  }
+  catch (const web::json::json_exception &e)
+  {
+    std::cout << "For Point response: " << response;
+    std::cout << "\nException: " << e.what();
+  }
+}
+
+void Deserializer::deserialize(geometry_msgs::Point32 &point, const web::json::value &response, bool is_sub_json)
+{
+  try
+  {
+    const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
+    point.x = static_cast<float>(msg.at(U("x")).as_double());
+    point.y = static_cast<float>(msg.at(U("y")).as_double());
+    point.z = static_cast<float>(msg.at(U("z")).as_double());
+  }
+  catch (const web::json::json_exception &e)
+  {
+    std::cout << "For Point32 response: " << response;
+    std::cout << "\nException: " << e.what();
+  }
+}
+
+void Deserializer::deserialize(geometry_msgs::Vector3 &vec3, const web::json::value &response, bool is_sub_json)
+{
+  try
+  {
+    const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
+    vec3.x = msg.at(U("x")).as_double();
+    vec3.y = msg.at(U("y")).as_double();
+    vec3.z = msg.at(U("z")).as_double();
+  }
+  catch (const web::json::json_exception &e)
+  {
+    std::cout << "For Vector3 response: " << response;
+    std::cout << "\nException: " << e.what();
+  }
+}
+
 void Deserializer::deserialize(rbc::msgs::geometry_msgs::Pose2D &pose, const web::json::value &response,
                                bool is_sub_json)
 {
-  const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  pose.x = msg.at(U("x")).as_double();
-  pose.y = msg.at(U("y")).as_double();
-  pose.theta = msg.at(U("theta")).as_double();
+  try
+  {
+    const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
+    pose.x = msg.at(U("x")).as_double();
+    pose.y = msg.at(U("y")).as_double();
+    pose.theta = msg.at(U("theta")).as_double();
+  }
+  catch (const web::json::json_exception &e)
+  {
+    std::cout << "For Pose2D response: " << response;
+    std::cout << "\nException: " << e.what();
+  }
 }
 
 void Deserializer::deserialize(rbc::msgs::std_msgs::Header &header, const web::json::value &response,
@@ -33,11 +89,19 @@ void Deserializer::deserialize(rbc::msgs::std_msgs::Header &header, const web::j
 void Deserializer::deserialize(msgs::geometry_msgs::Quaternion &quaternion, const web::json::value &response,
                                bool is_sub_json)
 {
-  const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  quaternion.x = msg.at(U("x")).as_double();
-  quaternion.y = msg.at(U("y")).as_double();
-  quaternion.z = msg.at(U("z")).as_double();
-  quaternion.w = msg.at(U("w")).as_double();
+  try
+  {
+    const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
+    quaternion.x = msg.at(U("x")).as_double();
+    quaternion.y = msg.at(U("y")).as_double();
+    quaternion.z = msg.at(U("z")).as_double();
+    quaternion.w = msg.at(U("w")).as_double();
+  }
+  catch (const web::json::json_exception &e)
+  {
+    std::cout << "For Quaternion response: " << response;
+    std::cout << "\nException: " << e.what();
+  }
 }
 
 void Deserializer::deserialize(msgs::geometry_msgs::Inertia &inertia, const web::json::value &response,

@@ -44,7 +44,7 @@ Inertia::Inertia(const web::json::value &response)
 
   utils::Deserializer::deserialize(*this, msg, true);
 
-  utils::Deserializer::deserialize<double>(com, msg.at(U("com")), true);
+  utils::Deserializer::deserialize(com, msg.at(U("com")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const rbc::msgs::geometry_msgs::Inertia &i)

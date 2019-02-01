@@ -21,7 +21,7 @@ Vector3Stamped::Vector3Stamped(const web::json::value &response)
 {
   utils::Deserializer::deserialize(header, response.at(U("msg")).at(U("header")), true);
 
-  utils::Deserializer::deserialize<double>(vector, response.at(U("msg")).at(U("vector")), true);
+  utils::Deserializer::deserialize(vector, response.at(U("msg")).at(U("vector")), true);
 }
 
 Vector3Stamped::Vector3Stamped()

@@ -23,7 +23,7 @@ TransformStamped::TransformStamped(const web::json::value &response)
 
   utils::Deserializer::deserialize(header, msg.at(U("header")), true);
 
-  utils::Deserializer::deserialize<double>(transform.translation, transform_msg.at(U("translation")), true);
+  utils::Deserializer::deserialize(transform.translation, transform_msg.at(U("translation")), true);
 
   utils::Deserializer::deserialize(transform.rotation, transform_msg.at(U("rotation")), true);
 }

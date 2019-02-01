@@ -35,7 +35,7 @@ PoseStamped::PoseStamped(const web::json::value &response)
 
   utils::Deserializer::deserialize(header, msg.at(U("header")), true);
 
-  utils::Deserializer::deserialize<double>(pose.point, pose_msg.at(U("position")), true);
+  utils::Deserializer::deserialize(pose.point, pose_msg.at(U("position")), true);
 
   utils::Deserializer::deserialize(pose.orientation, pose_msg.at(U("orientation")), true);
 }

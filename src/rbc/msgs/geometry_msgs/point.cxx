@@ -18,7 +18,7 @@ Point::Point(double x, double y, double z)
 Point::Point(const web::json::value &response)
   : XYZMessage<double>("geometry_msgs/Point")
 {
-  utils::Deserializer::deserialize<double>(*this, response, false);
+  utils::Deserializer::deserialize(*this, response);
 }
 
 bool Point::operator==(const Point &point)

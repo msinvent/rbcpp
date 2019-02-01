@@ -53,12 +53,12 @@ Odometry::Odometry(const web::json::value &response)
 
   utils::Deserializer::deserialize(header, header_msg, true);
 
-  utils::Deserializer::deserialize<double>(pose.pose.point, pose_pose_msg.at(U("position")), true);
+  utils::Deserializer::deserialize(pose.pose.point, pose_pose_msg.at(U("position")), true);
   utils::Deserializer::deserialize(pose.pose.orientation, pose_pose_msg.at(U("orientation")), true);
   utils::Deserializer::toArray<double, 36>(pose.covariance, pose_msg.at(U("covariance")));
 
-  utils::Deserializer::deserialize<double>(twist.twist.linear, twist_twist_msg.at(U("linear")), true);
-  utils::Deserializer::deserialize<double>(twist.twist.angular, twist_twist_msg.at(U("angular")), true);
+  utils::Deserializer::deserialize(twist.twist.linear, twist_twist_msg.at(U("linear")), true);
+  utils::Deserializer::deserialize(twist.twist.angular, twist_twist_msg.at(U("angular")), true);
   utils::Deserializer::toArray<double, 36>(twist.covariance, twist_msg.at(U("covariance")));
 }
 

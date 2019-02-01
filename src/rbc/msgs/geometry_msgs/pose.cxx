@@ -30,7 +30,7 @@ Pose::Pose(const web::json::value &response)
     point(),
     orientation()
 {
-  utils::Deserializer::deserialize<double>(point, response.at(U("msg")).at(U("position")), true);
+  utils::Deserializer::deserialize(point, response.at(U("msg")).at(U("position")), true);
 
   utils::Deserializer::deserialize(orientation, response.at(U("msg")).at(U("orientation")), true);
 }

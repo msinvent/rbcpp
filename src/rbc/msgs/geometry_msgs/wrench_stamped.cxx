@@ -41,9 +41,9 @@ WrenchStamped::WrenchStamped(const web::json::value &response)
 
   utils::Deserializer::deserialize(header, msg.at(U("header")), true);
 
-  utils::Deserializer::deserialize<double>(wrench.force, wrench_msg.at(U("force")), true);
+  utils::Deserializer::deserialize(wrench.force, wrench_msg.at(U("force")), true);
 
-  utils::Deserializer::deserialize<double>(wrench.torque, wrench_msg.at(U("torque")), true);
+  utils::Deserializer::deserialize(wrench.torque, wrench_msg.at(U("torque")), true);
 }
 
 std::ostream &operator<<(std::ostream &os, const WrenchStamped &ws)

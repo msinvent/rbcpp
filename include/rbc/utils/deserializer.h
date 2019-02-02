@@ -46,7 +46,6 @@ struct Deserializer
   static void
   deserialize(msgs::geometry_msgs::Pose2D &pose, const web::json::value &response, bool is_sub_json = false);
 
-
   template<typename T>
   static void deserialize(msgs::std_msgs::StdMsg<T> &std, const web::json::value &response, bool is_sub_json = false);
 
@@ -93,8 +92,16 @@ struct Deserializer
 template<typename T>
 void Deserializer::deserialize(msgs::std_msgs::StdMsg<T> &std, const web::json::value &response, bool is_sub_json)
 {
-  const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
-  std.data = static_cast<T>(msg.at("data").as_double());
+  try
+  {
+    const auto &msg = not is_sub_json ? response.at(U("msg")) : response;
+    std.data = static_cast<T>(msg.at("data").as_double());
+  }
+  catch (const web::json::json_exception &e)
+  {
+    std::cout << "For StdMesg response: " << response;
+    std::cout << "\nException: " << e.what();
+  }
 }
 
 template<typename T>

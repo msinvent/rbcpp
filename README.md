@@ -1,6 +1,11 @@
-# librbc - ROS Bridge Client [![Build Status](https://travis-ci.com/juliangaal/ROSBridgeClient.svg?branch=master)](https://travis-ci.com/juliangaal/ROSBridgeClient)
+# rbcpp [![Build Status](https://travis-ci.com/juliangaal/ROSBridgeClient.svg?branch=master)](https://travis-ci.com/juliangaal/ROSBridgeClient)
 
-A C++ library for interaction with ROS from non-ROS machines using the [rosbridge_suite](http://wiki.ros.org/rosbridge_suite) protocol.
+**r**os**b**ridge**c**lient + **cpp** = **rbcpp**
+
+A [rosbridge v2.0](http://wiki.ros.org/rosbridge_suite) client.
+> rosbridge provides a JSON interface to [ROS](http://www.ros.org/), allowing any client to send JSON to publish or subscribe to ROS topics, call ROS services, and more. 
+
+It allows you to work with ROS on not officially supported hardware or operating systems.
 
 **DO NOT USE THIS YET**
 
